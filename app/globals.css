@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #03060D;
+  --text: #DCEAF7;
+}
+
+@font-face {
+  font-family: 'Chakra Petch';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: local('Chakra Petch'), url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;700&display=swap');
+}
+
+html, body {
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  font-family: 'Chakra Petch', system-ui, sans-serif;
+}
+
+body {
+  margin: 0;
+  overscroll-behavior-y: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: rgba(78, 205, 255, 0.3);
+  color: #DCEAF7;
+}
+
+button {
+  font-family: inherit;
+  color: inherit;
+}
+
+/* Animations utilitaires */
+@keyframes lt-pulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50%       { opacity: 1;   transform: scale(1.15); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
