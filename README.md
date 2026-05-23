@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # LATRACTION — App V1
 
 Centre de commandement personnel · Next.js 14 + Supabase + Tailwind + Framer Motion.
@@ -107,3 +108,6 @@ Le site nettoyage à la racine n'est **pas touché**.
 
 > Source de vérité produit : `../LATRACTION_SYSTEM_MASTER.md`.
 > Lire ce doc avant toute modification structurelle.
+=======
+# testing-app
+>>>>>>> 8e40b0e7a5534f7320d2fccd2fa5e457817e4fc7
