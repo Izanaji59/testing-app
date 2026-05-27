@@ -1,0 +1,26 @@
+[build]
+  command = "npm run build"
+  publish = "out"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Racine → app (pas de contenu à /)
+[[redirects]]
+  from = "/"
+  to = "/game/"
+  status = 302
+
+# SPA fallback : toutes les routes sous /game/* servent /game/index.html
+[[redirects]]
+  from = "/game/*"
+  to = "/game/index.html"
+  status = 200
+
+# Sécurité
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
