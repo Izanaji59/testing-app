@@ -11,7 +11,7 @@
  * automatiquement dans les cookies du navigateur.
  *
  * URL (avec basePath /game) : http://localhost:3000/game/auth/callback
- * Params attendus : ?code=XXXX&next=/game
+ * Params attendus : ?code=XXXX&next=/cmd
  */
 
 import { useEffect, useState, Suspense } from 'react';

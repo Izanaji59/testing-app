@@ -5,16 +5,11 @@
 [build.environment]
   NODE_VERSION = "20"
 
-# Racine → app (pas de contenu à /)
+# SPA fallback : sert index.html pour toutes les routes non-statiques
+# Netlify sert d'abord le fichier exact s'il existe (ex: /login/ → out/login/index.html)
 [[redirects]]
-  from = "/"
-  to = "/game/"
-  status = 302
-
-# SPA fallback : toutes les routes sous /game/* servent /game/index.html
-[[redirects]]
-  from = "/game/*"
-  to = "/game/index.html"
+  from = "/*"
+  to = "/index.html"
   status = 200
 
 # Sécurité

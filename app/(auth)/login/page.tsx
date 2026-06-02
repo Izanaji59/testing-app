@@ -97,7 +97,7 @@ function LoginContent() {
       const sb = supabase();
       const { error } = await sb.auth.signInWithPassword({ email, password });
       if (error) throw error;
-      router.replace('/game');
+      router.replace('/cmd');
     } catch (err) {
       setStatus('error');
       setErrorMsg(err instanceof Error ? err.message : 'Erreur inconnue');
@@ -115,12 +115,12 @@ function LoginContent() {
         password,
         options: {
           data: { display_name: pseudo },
-          emailRedirectTo: `${window.location.origin}/game/auth/callback?next=/game`,
+          emailRedirectTo: `${window.location.origin}/auth/callback?next=/cmd`,
         },
       });
       if (error) throw error;
       if (data.session) {
-        router.replace('/game');
+        router.replace('/cmd');
       } else {
         setStatus('sent');
       }
@@ -139,7 +139,7 @@ function LoginContent() {
       const { error } = await sb.auth.signInWithOtp({
         email,
         options: {
-          emailRedirectTo: `${window.location.origin}/game/auth/callback?next=/game`,
+          emailRedirectTo: `${window.location.origin}/auth/callback?next=/cmd`,
         },
       });
       if (error) throw error;

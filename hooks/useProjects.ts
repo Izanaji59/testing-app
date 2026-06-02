@@ -2,6 +2,7 @@
 
 import useSWR, { mutate } from 'swr';
 import { useEffect } from 'react';
+import type { RealtimeChannel } from '@supabase/supabase-js';
 import { supabase } from '@/lib/supabase/client';
 import type { Project } from '@/lib/types';
 
@@ -24,17 +25,22 @@ export function useProjects() {
 
   useEffect(() => {
     let mounted = true;
+    let channel: RealtimeChannel | null = null;
+
     supabase().auth.getUser().then(({ data: auth }) => {
       if (!mounted || !auth.user) return;
       const sb = supabase();
-      const channel = sb
+      channel = sb
         .channel(`projects_${auth.user.id}`)
         .on('postgres_changes', { event: '*', schema: 'public', table: 'projects', filter: `user_id=eq.${auth.user.id}` },
           () => mutate('projects'))
         .subscribe();
-      return () => { sb.removeChannel(channel); };
     });
-    return () => { mounted = false; };
+
+    return () => {
+      mounted = false;
+      if (channel) supabase().removeChannel(channel);
+    };
   }, []);
 
   return {
