@@ -38,18 +38,63 @@ export function useProfile() {
     supabase().auth.getUser().then(({ data }) => setUserId(data.user?.id ?? null));
   }, []);
 
-  useEffect(() => {
-    if (!userId) return;
-    const sb = supabase();
-    const channel = sb
-      .channel(`profile_${userId}`)
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'profiles', filter: `user_id=eq.${userId}` },
-        () => mutate('profile-bundle'))
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'stats', filter: `user_id=eq.${userId}` },
-        () => mutate('profile-bundle'))
-      .subscribe();
-    return () => { sb.removeChannel(channel); };
-  }, [userId]);
+ useEffect(() => {
+  if (!userId) return;
+
+  const sb = supabase();
+
+  const channelName = `profile_${userId}_${Date.now()}_${Math.random()
+    .toString(36)
+    .slice(2)}`;
+
+  const channel = sb
+    .channel(channelName)
+    .on(
+      'postgres_changes',
+      {
+        event: '*',
+        schema: 'public',
+        table: 'profiles',
+        filter: `user_id=eq.${userId}`,
+      },
+      () => mutate('profile-bundle')
+    )
+    .on(
+      'postgres_changes',
+      {
+        event: '*',
+        schema: 'public',
+        table: 'stats',
+        filter: `user_id=eq.${userId}`,
+      },
+      () => mutate('profile-bundle')
+    )
+    .on(
+      'postgres_changes',
+      {
+        event: '*',
+        schema: 'public',
+        table: 'specializations',
+        filter: `user_id=eq.${userId}`,
+      },
+      () => mutate('profile-bundle')
+    )
+    .on(
+      'postgres_changes',
+      {
+        event: '*',
+        schema: 'public',
+        table: 'skills',
+        filter: `user_id=eq.${userId}`,
+      },
+      () => mutate('profile-bundle')
+    )
+    .subscribe();
+
+  return () => {
+    sb.removeChannel(channel);
+  };
+}, [userId]);
 
   return {
     profile: data?.profile ?? null,
