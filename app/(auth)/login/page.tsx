@@ -9,7 +9,7 @@ import { HudPanel } from '@/components/hud/HudPanel';
 import { DataReadout } from '@/components/hud/DataReadout';
 import { MobileChrome } from '@/components/hud/MobileChrome';
 
-type Mode = 'login' | 'register' | 'magic';
+type Mode = 'login' | 'register';
 type Status = 'idle' | 'sending' | 'sent' | 'error';
 
 const inputStyle = {
@@ -143,26 +143,6 @@ function LoginContent() {
     }
   }
 
-  async function handleMagicLink(e: React.FormEvent) {
-    e.preventDefault();
-    setStatus('sending');
-    setErrorMsg(null);
-    try {
-      const sb = supabase();
-      const { error } = await sb.auth.signInWithOtp({
-        email,
-        options: {
-          emailRedirectTo: `${window.location.origin}/auth/callback?next=/cmd`,
-        },
-      });
-      if (error) throw error;
-      setStatus('sent');
-    } catch (err) {
-      setStatus('error');
-      setErrorMsg(err instanceof Error ? err.message : 'Erreur inconnue');
-    }
-  }
-
   return (
     <main style={{ minHeight: '100vh', position: 'relative', display: 'grid', placeItems: 'center', padding: 20 }}>
       <MobileChrome />
@@ -196,7 +176,6 @@ function LoginContent() {
             <div style={{ display: 'flex', gap: 4 }}>
               <button style={tabBtn(mode === 'login')} onClick={() => switchMode('login')}>Connexion</button>
               <button style={tabBtn(mode === 'register')} onClick={() => switchMode('register')}>Inscription</button>
-              <button style={tabBtn(mode === 'magic')} onClick={() => switchMode('magic')}>Lien mail</button>
             </div>
           </div>
 
@@ -277,35 +256,6 @@ function LoginContent() {
               {status === 'sent' && (
                 <div style={{ fontFamily: T.mono, fontSize: 10, color: T.green, letterSpacing: '0.18em' }}>
                   → vérifie ta boîte mail pour confirmer ton compte.
-                </div>
-              )}
-              {status === 'error' && errorMsg && (
-                <div style={{ fontFamily: T.mono, fontSize: 10, color: T.danger, letterSpacing: '0.12em' }}>
-                  erreur : {errorMsg}
-                </div>
-              )}
-            </form>
-          )}
-
-          {mode === 'magic' && (
-            <form onSubmit={handleMagicLink} style={{ padding: 24, display: 'flex', flexDirection: 'column', gap: 14 }}>
-              <label style={labelStyle}>EMAIL</label>
-              <input
-                type="email" required autoFocus autoComplete="email"
-                value={email} onChange={e => setEmail(e.target.value)}
-                style={inputStyle} placeholder="operator@domain.com"
-                disabled={status === 'sending' || status === 'sent'}
-              />
-              <button
-                type="submit"
-                disabled={status === 'sending' || status === 'sent' || !email}
-                style={submitBtn(status === 'sending' || status === 'sent' || !email)}
-              >
-                {status === 'sending' ? 'Envoi…' : status === 'sent' ? 'Lien envoyé ✓' : 'Envoyer le lien'}
-              </button>
-              {status === 'sent' && (
-                <div style={{ fontFamily: T.mono, fontSize: 10, color: T.green, letterSpacing: '0.18em' }}>
-                  → vérifie ta boîte mail. clique le lien pour entrer.
                 </div>
               )}
               {status === 'error' && errorMsg && (
