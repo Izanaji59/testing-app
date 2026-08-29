@@ -77,16 +77,20 @@ function LoginContent() {
   const [pseudo, setPseudo] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [status, setStatus] = useState<Status>('idle');
   const [errorMsg, setErrorMsg] = useState<string | null>(
     callbackError === 'callback_failed' ? 'Lien expiré ou déjà utilisé. Demande un nouveau lien.' : null,
   );
+
+  const passwordsMismatch = confirmPassword.length > 0 && password !== confirmPassword;
 
   function switchMode(m: Mode) {
     setMode(m);
     setStatus('idle');
     setErrorMsg(null);
     setPassword('');
+    setConfirmPassword('');
   }
 
   async function handleLogin(e: React.FormEvent) {
@@ -104,8 +108,17 @@ function LoginContent() {
     }
   }
 
+  // AVANT PROD : réactiver "Confirm email" dans Supabase Dashboard
+  // (Authentication → Sign In / Providers → Email) — désactivé pour le proto.
+  // Ajouter aussi un flow resetPasswordForEmail à ce moment-là, sinon les comptes
+  // à email jamais vérifié seront injoignables pour un reset.
   async function handleRegister(e: React.FormEvent) {
     e.preventDefault();
+    if (password !== confirmPassword) {
+      setStatus('error');
+      setErrorMsg('Les deux mots de passe ne correspondent pas.');
+      return;
+    }
     setStatus('sending');
     setErrorMsg(null);
     try {
@@ -241,10 +254,23 @@ function LoginContent() {
                 style={inputStyle} placeholder="••••••••  (min. 6 car.)"
                 disabled={status === 'sending' || status === 'sent'}
               />
+              <label style={labelStyle}>CONFIRMER LE MOT DE PASSE</label>
+              <input
+                type="password" required autoComplete="new-password" minLength={6}
+                value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)}
+                style={{ ...inputStyle, border: `1px solid ${passwordsMismatch ? T.danger : T.lineMid}` }}
+                placeholder="••••••••"
+                disabled={status === 'sending' || status === 'sent'}
+              />
+              {passwordsMismatch && (
+                <div style={{ fontFamily: T.mono, fontSize: 10, color: T.danger, letterSpacing: '0.12em', marginTop: -8 }}>
+                  les mots de passe ne correspondent pas
+                </div>
+              )}
               <button
                 type="submit"
-                disabled={status === 'sending' || status === 'sent' || !email || !password || !pseudo}
-                style={submitBtn(status === 'sending' || status === 'sent' || !email || !password || !pseudo)}
+                disabled={status === 'sending' || status === 'sent' || !email || !password || !pseudo || !confirmPassword || passwordsMismatch}
+                style={submitBtn(status === 'sending' || status === 'sent' || !email || !password || !pseudo || !confirmPassword || passwordsMismatch)}
               >
                 {status === 'sending' ? 'Création…' : status === 'sent' ? 'Compte créé ✓' : 'Créer mon compte'}
               </button>
