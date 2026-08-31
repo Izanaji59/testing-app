@@ -11,6 +11,7 @@ import { RankEmblem } from '@/components/hud/RankEmblem';
 import { T } from '@/lib/tokens';
 import { supabase } from '@/lib/supabase/client';
 import { SPECS } from '@/lib/engine/specs';
+import { getMbtiClass } from '@/lib/engine/mbtiClasses';
 import { fmtRank } from '@/lib/utils';
 
 export default function ProfilePage() {
@@ -21,6 +22,7 @@ export default function ProfilePage() {
   if (!profile) return <ProfileState kind={loading ? 'loading' : 'missing'} />;
 
   const primarySpec = specializations.find(s => s.is_primary);
+  const mbtiClass = getMbtiClass(profile.mbti);
   const rank = fmtRank(profile.rank_letter, profile.rank_tier);
   const letter = rank.replace(/[+\-−]/g, '');
   const tier = rank.endsWith('+') ? '+' : rank.endsWith('−') ? '-' : '';
@@ -67,10 +69,15 @@ export default function ProfilePage() {
           </div>
         </HudPanel>
 
-        {/* MBTI */}
-        <HudPanel label="MBTI · OPTIONNEL">
+        {/* MBTI → classe */}
+        <HudPanel label={`CLASSE · ${mbtiClass.label}`} glow={0.3}>
           <div style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 10 }}>
-            <DataReadout>4 LETTRES — EX: INTJ</DataReadout>
+            <div style={{ fontFamily: T.display, fontSize: 18, color: T.cyan, letterSpacing: '0.08em' }}>
+              {mbtiClass.label}
+            </div>
+            <DataReadout style={{ display: 'block' }}>{mbtiClass.identity}</DataReadout>
+
+            <DataReadout style={{ display: 'block', marginTop: 6 }}>MBTI · 4 LETTRES — EX: INTJ</DataReadout>
             <input
               defaultValue={profile.mbti ?? ''}
               maxLength={4}

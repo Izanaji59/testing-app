@@ -4,6 +4,7 @@ import { T } from '@/lib/tokens';
 import { DataReadout } from '@/components/hud/DataReadout';
 import { RankEmblem } from '@/components/hud/RankEmblem';
 import { fmtRank } from '@/lib/utils';
+import { getMbtiClass } from '@/lib/engine/mbtiClasses';
 import type { Profile } from '@/lib/types';
 
 type Props = {
@@ -21,7 +22,7 @@ function useNowClock() {
 export function Header({ profile, title }: Props) {
   const clock = useNowClock();
   const code = profile?.display_name || profile?.operator_code || 'OPERATOR_____';
-  const mbti = profile?.mbti ? `· ${profile.mbti}` : '';
+  const mbti = `· ${getMbtiClass(profile?.mbti).label}`;
   const rank = profile ? fmtRank(profile.rank_letter, profile.rank_tier) : 'E';
   const level = profile?.level ?? 1;
   const letter = rank.replace(/[+\-]/g, '');
