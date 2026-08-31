@@ -16,5 +16,11 @@ export async function ensureProfile(sb: SupabaseClient, userId: string) {
     .eq('user_id', userId)
     .maybeSingle();
   if (data) return;
-  await sb.from('profiles').insert({ user_id: userId });
+
+  // Le pseudo saisi à l'inscription est passé via signUp({ options: { data } })
+  // et atterrit dans user_metadata — jamais copié dans profiles jusqu'ici.
+  const { data: auth } = await sb.auth.getUser();
+  const displayName = (auth.user?.user_metadata?.display_name as string | undefined) || null;
+
+  await sb.from('profiles').insert({ user_id: userId, display_name: displayName });
 }

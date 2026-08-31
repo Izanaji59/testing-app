@@ -20,7 +20,7 @@ function useNowClock() {
 
 export function Header({ profile, title }: Props) {
   const clock = useNowClock();
-  const code = profile?.operator_code ?? 'OPERATOR_____';
+  const code = profile?.display_name || profile?.operator_code || 'OPERATOR_____';
   const mbti = profile?.mbti ? `· ${profile.mbti}` : '';
   const rank = profile ? fmtRank(profile.rank_letter, profile.rank_tier) : 'E';
   const level = profile?.level ?? 1;

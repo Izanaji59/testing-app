@@ -51,7 +51,12 @@ export default function ProfilePage() {
           <div style={{ padding: 18, display: 'flex', alignItems: 'center', gap: 16 }}>
             <RankEmblem letter={letter} tier={tier as '+' | '-' | ''} size={64} color={T.cyan} glow={1.2} />
             <div style={{ flex: 1 }}>
-              <DataReadout>{profile.operator_code}</DataReadout>
+              <DataReadout>{profile.display_name || profile.operator_code}</DataReadout>
+              {profile.display_name && (
+                <DataReadout size={8} color={T.textMute} style={{ display: 'block', marginTop: 2 }}>
+                  {profile.operator_code}
+                </DataReadout>
+              )}
               <div style={{ fontFamily: T.display, fontSize: 22, color: T.text, marginTop: 4 }}>
                 Rang {rank}
               </div>
