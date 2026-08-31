@@ -4,6 +4,7 @@ import { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { supabase } from '@/lib/supabase/client';
+import { ensureProfile } from '@/lib/supabase/ensureProfile';
 import { T, EASE } from '@/lib/tokens';
 import { HudPanel } from '@/components/hud/HudPanel';
 import { DataReadout } from '@/components/hud/DataReadout';
@@ -99,8 +100,9 @@ function LoginContent() {
     setErrorMsg(null);
     try {
       const sb = supabase();
-      const { error } = await sb.auth.signInWithPassword({ email, password });
+      const { data, error } = await sb.auth.signInWithPassword({ email, password });
       if (error) throw error;
+      await ensureProfile(sb, data.user.id);
       router.replace('/cmd');
     } catch (err) {
       setStatus('error');
@@ -133,6 +135,7 @@ function LoginContent() {
       });
       if (error) throw error;
       if (data.session) {
+        await ensureProfile(sb, data.session.user.id);
         router.replace('/cmd');
       } else {
         setStatus('sent');

@@ -5,6 +5,7 @@ import { useProfile } from '@/hooks/useProfile';
 import { useQuests, createQuestFlash } from '@/hooks/useQuests';
 import { useProjects } from '@/hooks/useProjects';
 import { Header } from '@/components/shell/Header';
+import { ProfileState } from '@/components/shell/ProfileState';
 import { QuestCard } from '@/components/core/QuestCard';
 import { HudPanel } from '@/components/hud/HudPanel';
 import { DataReadout } from '@/components/hud/DataReadout';
@@ -15,13 +16,13 @@ import { DIFFICULTY_META } from '@/lib/engine/difficulty';
 import { STAT_META, STAT_KINDS } from '@/lib/engine/stats';
 
 export default function QuestsPage() {
-  const { profile } = useProfile();
+  const { profile, loading } = useProfile();
   const { quests, refresh } = useQuests();
   const { projects } = useProjects();
   const [filter, setFilter] = useState<QuestStatus | 'ALL'>('ALL');
   const [showCreate, setShowCreate] = useState(false);
 
-  if (!profile) return null;
+  if (!profile) return <ProfileState kind={loading ? 'loading' : 'missing'} />;
 
   const filtered = filter === 'ALL'
     ? quests.filter(q => q.status !== 'COMPLETED' && q.status !== 'SKIPPED')

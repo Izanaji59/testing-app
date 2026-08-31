@@ -5,6 +5,7 @@ import { useTodayBriefing } from '@/hooks/useTodayBriefing';
 import { useActiveProjects } from '@/hooks/useProjects';
 import { useTodayQuests } from '@/hooks/useQuests';
 import { Header } from '@/components/shell/Header';
+import { ProfileState } from '@/components/shell/ProfileState';
 import { BriefingCard } from '@/components/core/BriefingCard';
 import { QuestCard } from '@/components/core/QuestCard';
 import { HudPanel } from '@/components/hud/HudPanel';
@@ -14,12 +15,12 @@ import { T } from '@/lib/tokens';
 import { xpForLevel, currentLevelXp } from '@/lib/engine/xp';
 
 export default function CmdPage() {
-  const { profile, stats } = useProfile();
+  const { profile, stats, loading } = useProfile();
   const briefing = useTodayBriefing();
   const projects = useActiveProjects();
   const quests = useTodayQuests();
 
-  if (!profile) return null;
+  if (!profile) return <ProfileState kind={loading ? 'loading' : 'missing'} />;
 
   const { xpInLevel, xpForNext } = currentLevelXp(profile.total_xp, profile.level);
 

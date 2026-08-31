@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useProfile } from '@/hooks/useProfile';
 import { useProjects } from '@/hooks/useProjects';
 import { Header } from '@/components/shell/Header';
+import { ProfileState } from '@/components/shell/ProfileState';
 import { ProjectCard } from '@/components/core/ProjectCard';
 import { HudPanel } from '@/components/hud/HudPanel';
 import { DataReadout } from '@/components/hud/DataReadout';
@@ -22,11 +23,11 @@ const PROJECT_TYPES: { value: ProjectType; label: string; desc: string }[] = [
 ];
 
 export default function DonjonPage() {
-  const { profile } = useProfile();
+  const { profile, loading } = useProfile();
   const { projects, refresh } = useProjects();
   const [showCreate, setShowCreate] = useState(false);
 
-  if (!profile) return null;
+  if (!profile) return <ProfileState kind={loading ? 'loading' : 'missing'} />;
 
   const active   = projects.filter(p => p.status === 'ACTIVE');
   const planned  = projects.filter(p => p.status === 'PLANNED');

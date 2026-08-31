@@ -17,6 +17,7 @@
 import { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { supabase } from '@/lib/supabase/client';
+import { ensureProfile } from '@/lib/supabase/ensureProfile';
 import { T } from '@/lib/tokens';
 import { MobileChrome } from '@/components/hud/MobileChrome';
 
@@ -112,14 +113,4 @@ export default function AuthCallbackPage() {
       <CallbackContent />
     </Suspense>
   );
-}
-
-async function ensureProfile(sb: ReturnType<typeof supabase>, userId: string) {
-  const { data } = await sb
-    .from('profiles')
-    .select('user_id')
-    .eq('user_id', userId)
-    .maybeSingle();
-  if (data) return;
-  await sb.from('profiles').insert({ user_id: userId });
 }

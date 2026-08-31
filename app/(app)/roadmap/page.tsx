@@ -3,6 +3,7 @@
 import { useProfile } from '@/hooks/useProfile';
 import { useProjects } from '@/hooks/useProjects';
 import { Header } from '@/components/shell/Header';
+import { ProfileState } from '@/components/shell/ProfileState';
 import { HudPanel } from '@/components/hud/HudPanel';
 import { DataReadout } from '@/components/hud/DataReadout';
 import { T } from '@/lib/tokens';
@@ -10,10 +11,10 @@ import { RANK_GATES } from '@/lib/engine/rank';
 import { xpForLevel } from '@/lib/engine/xp';
 
 export default function RoadmapPage() {
-  const { profile } = useProfile();
+  const { profile, loading } = useProfile();
   const { projects } = useProjects();
 
-  if (!profile) return null;
+  if (!profile) return <ProfileState kind={loading ? 'loading' : 'missing'} />;
 
   return (
     <div style={{ color: T.text }}>

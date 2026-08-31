@@ -101,6 +101,7 @@ export function useProfile() {
     stats: data?.stats ?? [],
     specializations: data?.specializations ?? [],
     skills: data?.skills ?? [],
+    loading: data === undefined,
     refresh: () => mutate('profile-bundle'),
   };
 }

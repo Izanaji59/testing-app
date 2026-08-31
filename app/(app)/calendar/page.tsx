@@ -4,12 +4,13 @@ import { useMemo, useState } from 'react';
 import { useProfile } from '@/hooks/useProfile';
 import { useQuests } from '@/hooks/useQuests';
 import { Header } from '@/components/shell/Header';
+import { ProfileState } from '@/components/shell/ProfileState';
 import { HudPanel } from '@/components/hud/HudPanel';
 import { DataReadout } from '@/components/hud/DataReadout';
 import { T } from '@/lib/tokens';
 
 export default function CalendarPage() {
-  const { profile } = useProfile();
+  const { profile, loading } = useProfile();
   const { quests } = useQuests();
   const [cursor, setCursor] = useState(() => startOfMonth(new Date()));
 
@@ -25,7 +26,7 @@ export default function CalendarPage() {
     return map;
   }, [quests]);
 
-  if (!profile) return null;
+  if (!profile) return <ProfileState kind={loading ? 'loading' : 'missing'} />;
 
   const month = cursor.getMonth();
   const year = cursor.getFullYear();

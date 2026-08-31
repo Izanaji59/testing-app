@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useProfile } from '@/hooks/useProfile';
 import { Header } from '@/components/shell/Header';
+import { ProfileState } from '@/components/shell/ProfileState';
 import { HudPanel } from '@/components/hud/HudPanel';
 import { DataReadout } from '@/components/hud/DataReadout';
 import { RankEmblem } from '@/components/hud/RankEmblem';
@@ -14,10 +15,10 @@ import { fmtRank } from '@/lib/utils';
 
 export default function ProfilePage() {
   const router = useRouter();
-  const { profile, specializations, refresh } = useProfile();
+  const { profile, specializations, refresh, loading } = useProfile();
   const [savingMbti, setSavingMbti] = useState(false);
 
-  if (!profile) return null;
+  if (!profile) return <ProfileState kind={loading ? 'loading' : 'missing'} />;
 
   const primarySpec = specializations.find(s => s.is_primary);
   const rank = fmtRank(profile.rank_letter, profile.rank_tier);

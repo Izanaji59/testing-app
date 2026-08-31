@@ -2,6 +2,7 @@
 
 import { useProfile } from '@/hooks/useProfile';
 import { Header } from '@/components/shell/Header';
+import { ProfileState } from '@/components/shell/ProfileState';
 import { HudPanel } from '@/components/hud/HudPanel';
 import { StatRadar } from '@/components/hud/StatRadar';
 import { DataReadout } from '@/components/hud/DataReadout';
@@ -11,8 +12,8 @@ import { statXpForLevel } from '@/lib/engine/xp';
 import { STAT_META } from '@/lib/engine/stats';
 
 export default function StatsPage() {
-  const { profile, stats } = useProfile();
-  if (!profile) return null;
+  const { profile, stats, loading } = useProfile();
+  if (!profile) return <ProfileState kind={loading ? 'loading' : 'missing'} />;
 
   return (
     <div style={{ color: T.text }}>
