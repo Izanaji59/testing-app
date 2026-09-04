@@ -29,6 +29,7 @@ export interface Profile {
   operator_code: string;
   display_name: string | null;
   mbti: string | null;
+  mbti_class: string;
   level: number;
   total_xp: number;
   rank_letter: RankLetter;
@@ -178,6 +179,26 @@ export interface Briefing {
   kind: 'MORNING' | 'EVENING' | 'WEEKLY';
   payload: BriefingPayload;
   generated_at: string;
+}
+
+export interface ChatMessage {
+  id: string;
+  user_id: string;
+  sender_name: string;
+  body: string;
+  created_at: string;
+}
+
+/** Sous-ensemble public d'un profil, renvoyé par get_public_profile(). */
+export interface PublicProfile {
+  user_id: string;
+  display_name: string | null;
+  operator_code: string;
+  level: number;
+  rank_letter: RankLetter;
+  rank_tier: RankTier;
+  total_xp: number;
+  mbti_class: string;
 }
 
 export interface BriefingPayload {

@@ -4,12 +4,13 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { T } from '@/lib/tokens';
 
-type TabId = 'cmd' | 'quests' | 'donjon' | 'stats' | 'profile';
+type TabId = 'cmd' | 'quests' | 'donjon' | 'chat' | 'stats' | 'profile';
 
-const TABS: Array<{ id: TabId; label: string; href: string; icon: 'square' | 'diamond' | 'tower' | 'radar' | 'circle' }> = [
+const TABS: Array<{ id: TabId; label: string; href: string; icon: 'square' | 'diamond' | 'tower' | 'chat' | 'radar' | 'circle' }> = [
   { id: 'cmd',     label: 'CMD',     href: '/cmd',     icon: 'square'  },
   { id: 'quests',  label: 'QUÊTES',  href: '/quests',  icon: 'diamond' },
   { id: 'donjon',  label: 'DONJON',  href: '/donjon',  icon: 'tower'   },
+  { id: 'chat',    label: 'CHAT',    href: '/chat',    icon: 'chat'    },
   { id: 'stats',   label: 'STATS',   href: '/stats',   icon: 'radar'   },
   { id: 'profile', label: 'PROFIL',  href: '/profile', icon: 'circle'  },
 ];
@@ -82,7 +83,7 @@ export function TabBar() {
   );
 }
 
-function TabIcon({ kind, active }: { kind: 'square' | 'diamond' | 'tower' | 'radar' | 'circle'; active: boolean }) {
+function TabIcon({ kind, active }: { kind: 'square' | 'diamond' | 'tower' | 'chat' | 'radar' | 'circle'; active: boolean }) {
   const stroke = active ? T.cyan : T.textDim;
   const fill = active ? 'rgba(78, 205, 255, 0.2)' : 'none';
   const glow = active ? { filter: `drop-shadow(0 0 4px ${T.cyan})` } : {};
@@ -108,6 +109,18 @@ function TabIcon({ kind, active }: { kind: 'square' | 'diamond' | 'tower' | 'rad
           <rect x={6} y={2} width={8} height={3} stroke={stroke} strokeWidth={1.2} fill={fill} />
           <rect x={5} y={7} width={10} height={3} stroke={stroke} strokeWidth={1.2} fill={active ? 'rgba(78, 205, 255, 0.4)' : 'none'} />
           <rect x={4} y={12} width={12} height={3} stroke={stroke} strokeWidth={1.2} fill={fill} />
+        </svg>
+      );
+    case 'chat':
+      return (
+        <svg {...props}>
+          <path
+            d="M3 5 h14 v8 h-8 l-4 3.5 v-3.5 h-2 z"
+            stroke={stroke} strokeWidth={1.4} strokeLinejoin="round" fill={fill}
+          />
+          <circle cx={7} cy={9} r={0.9} fill={active ? T.cyan : stroke} />
+          <circle cx={10} cy={9} r={0.9} fill={active ? T.cyan : stroke} />
+          <circle cx={13} cy={9} r={0.9} fill={active ? T.cyan : stroke} />
         </svg>
       );
     case 'radar':

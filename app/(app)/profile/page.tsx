@@ -35,7 +35,11 @@ export default function ProfilePage() {
   async function updateMbti(value: string) {
     setSavingMbti(true);
     try {
-      await supabase().from('profiles').update({ mbti: value || null }).eq('user_id', profile!.user_id);
+      const mbti = value || null;
+      await supabase()
+        .from('profiles')
+        .update({ mbti, mbti_class: getMbtiClass(mbti).label })
+        .eq('user_id', profile!.user_id);
       refresh();
     } finally {
       setSavingMbti(false);
