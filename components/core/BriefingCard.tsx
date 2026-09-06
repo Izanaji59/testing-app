@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import { HudPanel } from '@/components/hud/HudPanel';
 import { ChargeDial } from '@/components/hud/ChargeDial';
 import { DataReadout } from '@/components/hud/DataReadout';
@@ -16,7 +17,9 @@ export function BriefingCard({ briefing }: Props) {
         <div style={{ padding: 18, fontFamily: T.mono, fontSize: 10, color: T.textDim, letterSpacing: '0.22em' }}>
           AUCUNE MISSION ACTIVE.
           <br />
-          <span style={{ color: T.cyan }}>RENDS-TOI EN ZONE DONJON POUR EN DÉMARRER UNE.</span>
+          <Link href="/donjon" style={{ color: T.cyan, textDecoration: 'underline', textUnderlineOffset: 3 }}>
+            → RENDS-TOI EN ZONE DONJON POUR EN DÉMARRER UNE.
+          </Link>
         </div>
       </HudPanel>
     );
