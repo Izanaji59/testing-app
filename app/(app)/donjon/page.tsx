@@ -3,16 +3,41 @@
 import { useState } from 'react';
 import { useProfile } from '@/hooks/useProfile';
 import { useProjects } from '@/hooks/useProjects';
+import { useMissions, createMission } from '@/hooks/useMissions';
 import { Header } from '@/components/shell/Header';
 import { ProfileState } from '@/components/shell/ProfileState';
 import { ProjectCard } from '@/components/core/ProjectCard';
+import { MissionCard } from '@/components/core/MissionCard';
 import { HudPanel } from '@/components/hud/HudPanel';
 import { DataReadout } from '@/components/hud/DataReadout';
 import { T } from '@/lib/tokens';
 import { supabase } from '@/lib/supabase/client';
-import type { ProjectType, DifficultyTier, StatKind } from '@/lib/types';
+import type { ProjectType, DifficultyTier, StatKind, Mission } from '@/lib/types';
 import { DIFFICULTY_META } from '@/lib/engine/difficulty';
 import { STAT_META, STAT_KINDS } from '@/lib/engine/stats';
+
+const HORIZON_OPTIONS: { value: Mission['horizon']; label: string }[] = [
+  { value: 'QUARTER', label: 'TRIMESTRE' },
+  { value: 'YEAR',    label: 'ANNÉE' },
+  { value: 'LIFE',    label: 'LONG TERME' },
+];
+
+function subTabBtn(active: boolean) {
+  return {
+    flex: 1,
+    padding: '10px 4px',
+    fontFamily: T.mono,
+    fontSize: 9,
+    fontWeight: 700,
+    letterSpacing: '0.2em',
+    textTransform: 'uppercase' as const,
+    border: `1px solid ${active ? T.cyan : T.lineMid}`,
+    background: active ? 'rgba(78, 205, 255, 0.1)' : 'transparent',
+    color: active ? T.cyan : T.textDim,
+    cursor: 'pointer',
+    transition: 'all 0.2s ease',
+  };
+}
 
 const PROJECT_TYPES: { value: ProjectType; label: string; desc: string }[] = [
   { value: 'OPERATION', label: 'OPÉRATION', desc: 'Tâche structurée, durée courte' },
@@ -25,6 +50,8 @@ const PROJECT_TYPES: { value: ProjectType; label: string; desc: string }[] = [
 export default function DonjonPage() {
   const { profile, loading } = useProfile();
   const { projects, refresh } = useProjects();
+  const { missions, refresh: refreshMissions } = useMissions();
+  const [tab, setTab] = useState<'projets' | 'roadmap'>('projets');
   const [showCreate, setShowCreate] = useState(false);
 
   if (!profile) return <ProfileState kind={loading ? 'loading' : 'missing'} />;
@@ -39,44 +66,95 @@ export default function DonjonPage() {
 
       <div style={{ padding: '14px 14px 0', display: 'flex', flexDirection: 'column', gap: 18 }}>
 
-        {/* Bouton création */}
-        <button
-          onClick={() => setShowCreate(s => !s)}
-          style={{
-            background: 'transparent',
-            color: T.cyan,
-            border: `1px dashed ${T.lineMid}`,
-            padding: '14px',
-            fontFamily: T.mono,
-            fontSize: 10,
-            letterSpacing: '0.28em',
-            cursor: 'pointer',
-          }}
-        >
-          {showCreate ? '✕ ANNULER' : '+ NOUVEAU PROJET'}
-        </button>
+        <div style={{ display: 'flex', gap: 4 }}>
+          <button style={subTabBtn(tab === 'projets')} onClick={() => { setTab('projets'); setShowCreate(false); }}>Projets</button>
+          <button style={subTabBtn(tab === 'roadmap')} onClick={() => { setTab('roadmap'); setShowCreate(false); }}>Roadmap</button>
+        </div>
 
-        {showCreate && (
-          <ProjectCreator
-            onCreated={() => { setShowCreate(false); refresh(); }}
-          />
+        {tab === 'projets' && (
+          <>
+            {/* Bouton création */}
+            <button
+              onClick={() => setShowCreate(s => !s)}
+              style={{
+                background: 'transparent',
+                color: T.cyan,
+                border: `1px dashed ${T.lineMid}`,
+                padding: '14px',
+                fontFamily: T.mono,
+                fontSize: 10,
+                letterSpacing: '0.28em',
+                cursor: 'pointer',
+              }}
+            >
+              {showCreate ? '✕ ANNULER' : '+ NOUVEAU PROJET'}
+            </button>
+
+            {showCreate && (
+              <ProjectCreator
+                missions={missions}
+                onCreated={() => { setShowCreate(false); refresh(); }}
+              />
+            )}
+
+            <Section title={`ACTIFS · ${active.length}`}   projects={active}  emptyMsg="AUCUN PROJET ACTIF." />
+            <Section title={`EN ATTENTE · ${planned.length}`} projects={planned} emptyMsg="—" />
+            <Section title={`EN SOMMEIL · ${paused.length}`}  projects={paused}  emptyMsg="—" />
+
+            {projects.length === 0 && !showCreate && (
+              <HudPanel thin>
+                <div style={{ padding: 28, textAlign: 'center' }}>
+                  <div style={{ fontFamily: T.mono, fontSize: 10, color: T.textDim, letterSpacing: '0.22em' }}>
+                    AUCUN PROJET POUR LE MOMENT.
+                  </div>
+                  <div style={{ fontFamily: T.mono, fontSize: 10, color: T.cyan, letterSpacing: '0.22em', marginTop: 8 }}>
+                    UTILISE LE BOUTON + CI-DESSUS.
+                  </div>
+                </div>
+              </HudPanel>
+            )}
+          </>
         )}
 
-        <Section title={`ACTIFS · ${active.length}`}   projects={active}  emptyMsg="AUCUN PROJET ACTIF." />
-        <Section title={`EN ATTENTE · ${planned.length}`} projects={planned} emptyMsg="—" />
-        <Section title={`EN SOMMEIL · ${paused.length}`}  projects={paused}  emptyMsg="—" />
+        {tab === 'roadmap' && (
+          <>
+            <button
+              onClick={() => setShowCreate(s => !s)}
+              style={{
+                background: 'transparent',
+                color: T.cyan,
+                border: `1px dashed ${T.lineMid}`,
+                padding: '14px',
+                fontFamily: T.mono,
+                fontSize: 10,
+                letterSpacing: '0.28em',
+                cursor: 'pointer',
+              }}
+            >
+              {showCreate ? '✕ ANNULER' : '+ NOUVEL OBJECTIF'}
+            </button>
 
-        {projects.length === 0 && !showCreate && (
-          <HudPanel thin>
-            <div style={{ padding: 28, textAlign: 'center' }}>
-              <div style={{ fontFamily: T.mono, fontSize: 10, color: T.textDim, letterSpacing: '0.22em' }}>
-                AUCUN PROJET POUR LE MOMENT.
+            {showCreate && (
+              <MissionCreator onCreated={() => { setShowCreate(false); refreshMissions(); }} />
+            )}
+
+            {missions.length === 0 && !showCreate ? (
+              <HudPanel thin>
+                <div style={{ padding: 28, textAlign: 'center' }}>
+                  <div style={{ fontFamily: T.mono, fontSize: 10, color: T.textDim, letterSpacing: '0.22em' }}>
+                    AUCUN OBJECTIF POUR LE MOMENT.
+                  </div>
+                  <div style={{ fontFamily: T.mono, fontSize: 10, color: T.cyan, letterSpacing: '0.22em', marginTop: 8 }}>
+                    UN OBJECTIF (TRIMESTRE/ANNÉE/LONG TERME) REGROUPE PLUSIEURS PROJETS.
+                  </div>
+                </div>
+              </HudPanel>
+            ) : (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                {missions.map(m => <MissionCard key={m.id} mission={m} projects={projects} />)}
               </div>
-              <div style={{ fontFamily: T.mono, fontSize: 10, color: T.cyan, letterSpacing: '0.22em', marginTop: 8 }}>
-                UTILISE LE BOUTON + CI-DESSUS.
-              </div>
-            </div>
-          </HudPanel>
+            )}
+          </>
         )}
       </div>
     </div>
@@ -85,11 +163,12 @@ export default function DonjonPage() {
 
 // ─────────────────────────── Project Creator ───────────────────────────
 
-function ProjectCreator({ onCreated }: { onCreated: () => void }) {
+function ProjectCreator({ missions, onCreated }: { missions: Mission[]; onCreated: () => void }) {
   const [title, setTitle]       = useState('');
   const [type, setType]         = useState<ProjectType>('OPERATION');
   const [difficulty, setDiff]   = useState<DifficultyTier>('NOTABLE');
   const [stat, setStat]         = useState<StatKind | ''>('');
+  const [missionId, setMissionId] = useState('');
   const [rewardEur, setRewardEur] = useState('');
   const [submitting, setSub]    = useState(false);
   const [error, setError]       = useState<string | null>(null);
@@ -110,6 +189,7 @@ function ProjectCreator({ onCreated }: { onCreated: () => void }) {
         status:       'ACTIVE',
         difficulty,
         primary_stat: stat || null,
+        mission_id:   missionId || null,
         reward_eur:   rewardEur ? parseFloat(rewardEur) : 0,
       });
 
@@ -171,6 +251,14 @@ function ProjectCreator({ onCreated }: { onCreated: () => void }) {
           </div>
         </div>
 
+        <DataReadout>OBJECTIF LIÉ · OPTIONNEL</DataReadout>
+        <select value={missionId} onChange={e => setMissionId(e.target.value)} style={selectStyle}>
+          <option value="">— Aucun —</option>
+          {missions.map(m => (
+            <option key={m.id} value={m.id}>{m.title}</option>
+          ))}
+        </select>
+
         <DataReadout>REVENU (€) · 0 SI ÇA NE RAPPORTE RIEN</DataReadout>
         <input
           type="number" min={0} step={0.01} inputMode="decimal"
@@ -198,6 +286,95 @@ function ProjectCreator({ onCreated }: { onCreated: () => void }) {
           }}
         >
           {submitting ? 'CRÉATION…' : 'CRÉER LE PROJET'}
+        </button>
+      </div>
+    </HudPanel>
+  );
+}
+
+// ─────────────────────────── Mission Creator ───────────────────────────
+
+function MissionCreator({ onCreated }: { onCreated: () => void }) {
+  const [title, setTitle]     = useState('');
+  const [horizon, setHorizon] = useState<Mission['horizon']>('QUARTER');
+  const [endsAt, setEndsAt]   = useState('');
+  const [submitting, setSub]  = useState(false);
+  const [error, setError]     = useState<string | null>(null);
+
+  async function submit() {
+    if (!title.trim()) return;
+    setSub(true);
+    setError(null);
+    try {
+      const { error: insertErr } = await createMission({
+        title: title.trim(),
+        horizon,
+        ends_at: endsAt || null,
+      });
+      if (insertErr) throw insertErr;
+      onCreated();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Erreur inconnue');
+    } finally {
+      setSub(false);
+    }
+  }
+
+  const selectStyle: React.CSSProperties = {
+    background: 'rgba(78, 205, 255, 0.04)',
+    border: `1px solid ${T.lineMid}`,
+    color: T.text, padding: '10px 12px',
+    fontFamily: T.mono, fontSize: 12,
+    outline: 'none', width: '100%',
+  };
+
+  return (
+    <HudPanel label="NOUVEL OBJECTIF" glow={0.4}>
+      <div style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 12 }}>
+
+        <DataReadout>TITRE DE L'OBJECTIF</DataReadout>
+        <input
+          value={title}
+          onChange={e => setTitle(e.target.value)}
+          onKeyDown={e => { if (e.key === 'Enter') submit(); }}
+          autoFocus
+          placeholder="Ex : Doubler le CA du pôle nettoyage"
+          style={{ ...selectStyle, letterSpacing: '0.03em' }}
+        />
+
+        <DataReadout>HORIZON</DataReadout>
+        <select value={horizon} onChange={e => setHorizon(e.target.value as Mission['horizon'])} style={selectStyle}>
+          {HORIZON_OPTIONS.map(h => (
+            <option key={h.value} value={h.value}>{h.label}</option>
+          ))}
+        </select>
+
+        <DataReadout>DATE DE FIN · OPTIONNELLE (SINON PAS DE COMPTE À REBOURS)</DataReadout>
+        <input
+          type="date"
+          value={endsAt}
+          onChange={e => setEndsAt(e.target.value)}
+          style={selectStyle}
+        />
+
+        {error && (
+          <div style={{ fontFamily: T.mono, fontSize: 10, color: T.danger, letterSpacing: '0.12em' }}>
+            ERREUR : {error}
+          </div>
+        )}
+
+        <button
+          onClick={submit}
+          disabled={submitting || !title.trim()}
+          style={{
+            background: T.cyan, color: T.bg, border: 'none', padding: '12px',
+            fontFamily: T.mono, fontWeight: 700, fontSize: 11, letterSpacing: '0.28em',
+            cursor: submitting ? 'wait' : 'pointer',
+            opacity: !title.trim() ? 0.5 : 1,
+            boxShadow: `0 0 10px ${T.cyanGlow}`,
+          }}
+        >
+          {submitting ? 'CRÉATION…' : "CRÉER L'OBJECTIF"}
         </button>
       </div>
     </HudPanel>
