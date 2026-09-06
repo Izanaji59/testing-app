@@ -87,6 +87,9 @@ export function QuestCard({ quest, onChange }: Props) {
               {meta.symbol}
             </span>
             <DataReadout size={8} color={meta.color}>{meta.label}</DataReadout>
+            {quest.reward_eur > 0 && (
+              <DataReadout size={8} color={T.green}>{quest.reward_eur.toLocaleString('fr-FR')} €</DataReadout>
+            )}
             {quest.estimated_minutes && (
               <DataReadout size={8} style={{ marginLeft: 'auto' }}>
                 {fmtDuration(quest.estimated_minutes * 60)}

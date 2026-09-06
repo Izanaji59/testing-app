@@ -30,7 +30,12 @@ export function ProjectCard({ project }: { project: Project }) {
             <span style={{ color, marginRight: 8 }}>{TYPE_GLYPH[project.type]}</span>
             {project.title}
           </div>
-          <DataReadout size={9}>{project.status}</DataReadout>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            {project.reward_eur > 0 && (
+              <DataReadout size={9} color={T.green}>{project.reward_eur.toLocaleString('fr-FR')} €</DataReadout>
+            )}
+            <DataReadout size={9}>{project.status}</DataReadout>
+          </div>
         </div>
 
         {/* Vue spécifique au type */}

@@ -101,6 +101,7 @@ export interface Project {
   primary_stat: StatKind | null;
   secondary_stat: StatKind | null;
   is_locked: boolean;
+  reward_eur: number;
   created_at: string;
 }
 
@@ -120,6 +121,7 @@ export interface Quest {
   completed_at: string | null;
   reward_xp_base: number | null;
   reward_stats: StatKind[] | null;
+  reward_eur: number;
   is_flash: boolean;
   created_at: string;
 }

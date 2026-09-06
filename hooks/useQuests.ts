@@ -74,6 +74,7 @@ export async function createQuestFlash(input: {
   estimated_minutes?: number;
   difficulty_tier?: import('@/lib/types').DifficultyTier;
   reward_stats?: import('@/lib/types').StatKind[];
+  reward_eur?: number;
 }) {
   const sb = supabase();
   const { data: auth } = await sb.auth.getUser();
@@ -115,6 +116,7 @@ export async function createQuestFlash(input: {
     estimated_minutes: input.estimated_minutes ?? 30,
     difficulty_tier: input.difficulty_tier ?? 'ROUTINE',
     reward_stats: input.reward_stats?.length ? input.reward_stats : null,
+    reward_eur: input.reward_eur ?? 0,
     is_flash: input.project_id === null,
   });
 }

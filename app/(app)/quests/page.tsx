@@ -111,6 +111,7 @@ function QuestCreator({
   const [estimated, setEstimated] = useState(30);
   const [difficulty, setDifficulty] = useState<DifficultyTier>('ROUTINE');
   const [stat, setStat] = useState<StatKind | ''>('');
+  const [rewardEur, setRewardEur] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
   async function submit() {
@@ -123,6 +124,7 @@ function QuestCreator({
         estimated_minutes: estimated,
         difficulty_tier: difficulty,
         reward_stats: stat ? [stat as StatKind] : [],
+        reward_eur: rewardEur ? parseFloat(rewardEur) : 0,
       });
       onCreated();
     } finally {
@@ -183,6 +185,15 @@ function QuestCreator({
           type="range" min={5} max={120} step={5} value={estimated}
           onChange={e => setEstimated(parseInt(e.target.value, 10))}
           style={{ accentColor: T.cyan }}
+        />
+
+        <DataReadout>REVENU (€) · 0 SI ÇA NE RAPPORTE RIEN</DataReadout>
+        <input
+          type="number" min={0} step={0.01} inputMode="decimal"
+          value={rewardEur}
+          onChange={e => setRewardEur(e.target.value)}
+          placeholder="0"
+          style={{ ...selectStyle, letterSpacing: '0.03em' }}
         />
 
         <button
