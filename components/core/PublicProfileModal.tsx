@@ -9,7 +9,7 @@ import { DataReadout } from '@/components/hud/DataReadout';
 import { RankEmblem } from '@/components/hud/RankEmblem';
 import { StatRadar } from '@/components/hud/StatRadar';
 import { fmtRank } from '@/lib/utils';
-import type { PublicProfile, Stat } from '@/lib/types';
+import type { PublicProfile, PublicStat } from '@/lib/types';
 
 type Props = {
   userId: string;
@@ -24,7 +24,7 @@ type Props = {
  */
 export function PublicProfileModal({ userId, onClose }: Props) {
   const [profile, setProfile] = useState<PublicProfile | null>(null);
-  const [stats, setStats] = useState<Stat[]>([]);
+  const [stats, setStats] = useState<PublicStat[]>([]);
   const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading');
 
   useEffect(() => {
@@ -43,7 +43,7 @@ export function PublicProfileModal({ userId, onClose }: Props) {
         return;
       }
       setProfile(row);
-      setStats((statsRes.data ?? []) as Stat[]);
+      setStats((statsRes.data ?? []) as PublicStat[]);
       setStatus('ready');
     });
 

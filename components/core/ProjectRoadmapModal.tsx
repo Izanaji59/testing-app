@@ -73,6 +73,17 @@ export function ProjectRoadmapModal({ project, onClose }: Props) {
   const today = isoDay(new Date());
   const weekEnd = addDays(weekStart, 6);
 
+  const weekRevenue = useMemo(() => {
+    let total = 0;
+    for (let i = 0; i < 7; i++) {
+      const key = isoDay(addDays(weekStart, i));
+      for (const q of byDay.get(key) ?? []) {
+        if (q.status === 'COMPLETED') total += q.reward_eur;
+      }
+    }
+    return total;
+  }, [byDay, weekStart]);
+
   return (
     <AnimatePresence>
       <motion.div
@@ -105,6 +116,12 @@ export function ProjectRoadmapModal({ project, onClose }: Props) {
                 </DataReadout>
                 <button onClick={() => setWeekStart(w => addDays(w, 7))} style={navBtn} aria-label="Semaine suivante">›</button>
               </div>
+
+              {loaded && weekRevenue > 0 && (
+                <DataReadout size={9} color={T.green} style={{ display: 'block', marginBottom: 12 }}>
+                  GAIN CETTE SEMAINE · {weekRevenue.toLocaleString('fr-FR')} €
+                </DataReadout>
+              )}
 
               {!loaded ? (
                 <DataReadout color={T.cyan}>CHARGEMENT…</DataReadout>

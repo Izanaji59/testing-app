@@ -46,6 +46,10 @@ export const STAT_META: Record<StatKind, {
     label: 'SOCIAL', short: 'SOC', symbol: '◐', color: T.amber,
     description: 'Conversations qualitatives, networking, liens entretenus.',
   },
+  REVENU: {
+    label: 'REVENU', short: 'REV', symbol: '€', color: T.green,
+    description: 'Gains générés par les quêtes et projets terminés.',
+  },
 };
 
 export const STAT_KINDS: StatKind[] = Object.keys(STAT_META) as StatKind[];

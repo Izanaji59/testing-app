@@ -6,31 +6,33 @@ import type { Stat, StatKind } from '@/lib/types';
 
 const STAT_ORDER: StatKind[] = [
   'DISCIPLINE','FOCUS','INTELLIGENCE','CREATIVITY','LEADERSHIP',
-  'ENERGY','MENTAL_RESISTANCE','TECHNIQUE','SOCIAL',
+  'ENERGY','MENTAL_RESISTANCE','TECHNIQUE','SOCIAL','REVENU',
 ];
 
 const STAT_LABEL: Record<StatKind, string> = {
   DISCIPLINE: 'DISC', FOCUS: 'FOC', INTELLIGENCE: 'INT', CREATIVITY: 'CRE',
   LEADERSHIP: 'LEAD', ENERGY: 'ENE', MENTAL_RESISTANCE: 'RES',
-  TECHNIQUE: 'TECH', SOCIAL: 'SOC',
+  TECHNIQUE: 'TECH', SOCIAL: 'SOC', REVENU: 'REV',
 };
 
+type RadarStat = Pick<Stat, 'kind' | 'level'>;
+
 type Props = {
-  stats: Stat[];
+  stats: RadarStat[];
   size?: number;
   max?: number; // niveau max pour normalisation, défaut 100
 };
 
 /**
- * Radar des 9 stats. Hexagonal (9 axes).
+ * Radar des 10 stats (9 + REVENU).
  */
 export function StatRadar({ stats, size = 240, max = 100 }: Props) {
   const cx = size / 2;
   const cy = size / 2;
   const r = size * 0.42;
-  const n = 9;
+  const n = STAT_ORDER.length;
 
-  const byKind = new Map<StatKind, Stat>();
+  const byKind = new Map<StatKind, RadarStat>();
   stats.forEach(s => byKind.set(s.kind, s));
 
   const points = STAT_ORDER.map((kind, i) => {

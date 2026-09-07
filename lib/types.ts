@@ -5,7 +5,8 @@ export type RankTier   = 'MINUS' | 'NEUTRAL' | 'PLUS';
 
 export type StatKind =
   | 'DISCIPLINE' | 'FOCUS' | 'INTELLIGENCE' | 'CREATIVITY'
-  | 'LEADERSHIP' | 'ENERGY' | 'MENTAL_RESISTANCE' | 'TECHNIQUE' | 'SOCIAL';
+  | 'LEADERSHIP' | 'ENERGY' | 'MENTAL_RESISTANCE' | 'TECHNIQUE' | 'SOCIAL'
+  | 'REVENU';
 
 export type ProjectType   = 'OPERATION' | 'CAMPAIGN' | 'RAID' | 'DUNGEON' | 'BOSS';
 export type ProjectStatus = 'PLANNED' | 'ACTIVE' | 'PAUSED' | 'COMPLETED' | 'ABANDONED';
@@ -189,6 +190,12 @@ export interface ChatMessage {
   sender_name: string;
   body: string;
   created_at: string;
+}
+
+/** Stat publique, renvoyée par get_public_stats() — niveau uniquement, jamais l'XP brute. */
+export interface PublicStat {
+  kind: StatKind;
+  level: number;
 }
 
 /** Sous-ensemble public d'un profil, renvoyé par get_public_profile(). */

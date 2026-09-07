@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useProfile } from '@/hooks/useProfile';
+import { useRevenue } from '@/hooks/useRevenue';
 import { Header } from '@/components/shell/Header';
 import { ProfileState } from '@/components/shell/ProfileState';
 import { HudPanel } from '@/components/hud/HudPanel';
@@ -17,6 +18,7 @@ import { fmtRank } from '@/lib/utils';
 export default function ProfilePage() {
   const router = useRouter();
   const { profile, specializations, refresh, loading } = useProfile();
+  const totalRevenue = useRevenue();
   const [savingMbti, setSavingMbti] = useState(false);
 
   if (!profile) return <ProfileState kind={loading ? 'loading' : 'missing'} />;
@@ -131,6 +133,18 @@ export default function ProfilePage() {
           <div style={{ padding: 16, display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 14 }}>
             <Stat label="CONSTANCE" value={`${Math.round(profile.constance)}%`} />
             <Stat label="MASTERY PTS" value={profile.mastery_points.toString()} />
+          </div>
+        </HudPanel>
+
+        {/* Revenu total — exact, jamais visible des autres joueurs */}
+        <HudPanel label="REVENU TOTAL GÉNÉRÉ" glow={0.3}>
+          <div style={{ padding: 16 }}>
+            <div style={{ fontFamily: T.rank, fontSize: 28, color: T.green, fontVariantNumeric: 'tabular-nums' }}>
+              {totalRevenue.toLocaleString('fr-FR')} €
+            </div>
+            <DataReadout size={9} style={{ display: 'block', marginTop: 6 }}>
+              QUÊTES + PROJETS TERMINÉS · VISIBLE UNIQUEMENT PAR TOI
+            </DataReadout>
           </div>
         </HudPanel>
 
