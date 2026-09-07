@@ -5,7 +5,7 @@ export type RankTier   = 'MINUS' | 'NEUTRAL' | 'PLUS';
 
 export type StatKind =
   | 'DISCIPLINE' | 'FOCUS' | 'INTELLIGENCE' | 'CREATIVITY'
-  | 'LEADERSHIP' | 'ENERGY' | 'MENTAL_RESISTANCE' | 'TECHNIQUE' | 'SOCIAL'
+  | 'LEADERSHIP' | 'FORCE' | 'MENTAL_RESISTANCE' | 'TECHNIQUE' | 'SOCIAL'
   | 'REVENU';
 
 export type ProjectType   = 'OPERATION' | 'CAMPAIGN' | 'RAID' | 'DUNGEON' | 'BOSS';
@@ -102,7 +102,7 @@ export interface Project {
   primary_stat: StatKind | null;
   secondary_stat: StatKind | null;
   is_locked: boolean;
-  reward_eur: number;
+  weekly_target_eur: number;
   created_at: string;
 }
 

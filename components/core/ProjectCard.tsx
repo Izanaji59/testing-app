@@ -5,6 +5,7 @@ import { HudPanel } from '@/components/hud/HudPanel';
 import { DataReadout } from '@/components/hud/DataReadout';
 import { XpBar } from '@/components/hud/XpBar';
 import { T } from '@/lib/tokens';
+import { supabase } from '@/lib/supabase/client';
 import type { Project } from '@/lib/types';
 import { ProjectTimeline } from './project-types/ProjectTimeline';
 import { CampaignPath } from './project-types/CampaignPath';
@@ -24,6 +25,17 @@ const TYPE_COLOR: Record<string, string> = {
 export function ProjectCard({ project }: { project: Project }) {
   const color = TYPE_COLOR[project.type] ?? T.cyan;
   const [showRoadmap, setShowRoadmap] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+
+  async function remove() {
+    setDeleting(true);
+    try {
+      await supabase().from('projects').delete().eq('id', project.id);
+    } finally {
+      setDeleting(false);
+    }
+  }
 
   return (
     <HudPanel label={`${project.type}`} glow={project.status === 'ACTIVE' ? 0.35 : 0.1}>
@@ -34,8 +46,8 @@ export function ProjectCard({ project }: { project: Project }) {
             {project.title}
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            {project.reward_eur > 0 && (
-              <DataReadout size={9} color={T.green}>{project.reward_eur.toLocaleString('fr-FR')} €</DataReadout>
+            {project.weekly_target_eur > 0 && (
+              <DataReadout size={9} color={T.textDim}>🎯 {project.weekly_target_eur.toLocaleString('fr-FR')} €/sem</DataReadout>
             )}
             <DataReadout size={9}>{project.status}</DataReadout>
           </div>
@@ -77,6 +89,63 @@ export function ProjectCard({ project }: { project: Project }) {
         >
           ◉ ROADMAP DÉTAILLÉE
         </button>
+
+        {!confirmDelete ? (
+          <button
+            onClick={() => setConfirmDelete(true)}
+            style={{
+              marginTop: 8,
+              background: 'transparent',
+              color: T.textMute,
+              border: 'none',
+              padding: '4px',
+              fontFamily: T.mono,
+              fontSize: 8,
+              letterSpacing: '0.18em',
+              cursor: 'pointer',
+              width: '100%',
+            }}
+          >
+            SUPPRIMER LE PROJET
+          </button>
+        ) : (
+          <div style={{ marginTop: 8 }}>
+            <DataReadout size={8} color={T.danger} style={{ display: 'block', marginBottom: 6 }}>
+              SES QUÊTES SERONT AUSSI SUPPRIMÉES. IRRÉVERSIBLE.
+            </DataReadout>
+          <div style={{ display: 'flex', gap: 6 }}>
+            <button
+              onClick={remove}
+              disabled={deleting}
+              style={{
+                flex: 1,
+                background: 'transparent',
+                color: T.danger,
+                border: `1px solid ${T.danger}55`,
+                padding: '8px',
+                fontFamily: T.mono, fontSize: 9, letterSpacing: '0.14em',
+                cursor: 'pointer',
+              }}
+            >
+              {deleting ? '…' : 'CONFIRMER LA SUPPRESSION'}
+            </button>
+            <button
+              onClick={() => setConfirmDelete(false)}
+              disabled={deleting}
+              style={{
+                background: 'transparent',
+                color: T.textDim,
+                border: `1px solid ${T.line}`,
+                padding: '8px 12px',
+                fontFamily: T.mono, fontSize: 9, letterSpacing: '0.14em',
+                cursor: 'pointer',
+              }}
+            >
+              ANNULER
+            </button>
+          </div>
+          </div>
+        )}
       </div>
 
       {showRoadmap && (

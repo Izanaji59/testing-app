@@ -117,9 +117,10 @@ export function ProjectRoadmapModal({ project, onClose }: Props) {
                 <button onClick={() => setWeekStart(w => addDays(w, 7))} style={navBtn} aria-label="Semaine suivante">›</button>
               </div>
 
-              {loaded && weekRevenue > 0 && (
+              {loaded && (weekRevenue > 0 || project.weekly_target_eur > 0) && (
                 <DataReadout size={9} color={T.green} style={{ display: 'block', marginBottom: 12 }}>
                   GAIN CETTE SEMAINE · {weekRevenue.toLocaleString('fr-FR')} €
+                  {project.weekly_target_eur > 0 && ` / OBJECTIF ${project.weekly_target_eur.toLocaleString('fr-FR')} €`}
                 </DataReadout>
               )}
 

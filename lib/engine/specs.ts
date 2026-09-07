@@ -33,7 +33,7 @@ export const SPECS: Record<SpecKind, {
   WARRIOR: {
     label: 'GUERRIER',
     identity: 'Force et constance.',
-    dominantStats: ['ENERGY', 'DISCIPLINE', 'MENTAL_RESISTANCE'],
+    dominantStats: ['FORCE', 'DISCIPLINE', 'MENTAL_RESISTANCE'],
     bonus: '+20% XP sur entraînement physique',
     unlockRank: 'C',
   },

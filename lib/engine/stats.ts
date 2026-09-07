@@ -30,9 +30,9 @@ export const STAT_META: Record<StatKind, {
     label: 'LEADERSHIP', short: 'LEAD', symbol: '▲', color: T.amber,
     description: 'Influence, communication, gestion, prise de décision.',
   },
-  ENERGY: {
-    label: 'ÉNERGIE', short: 'ENE', symbol: '⚡', color: T.green,
-    description: 'Sport, sommeil, nutrition, marche, récupération.',
+  FORCE: {
+    label: 'FORCE', short: 'FOR', symbol: '⚡', color: T.green,
+    description: 'Sport, sommeil, nutrition, santé physique, récupération.',
   },
   MENTAL_RESISTANCE: {
     label: 'RÉSISTANCE', short: 'RES', symbol: '❖', color: T.purple,
@@ -44,7 +44,7 @@ export const STAT_META: Record<StatKind, {
   },
   SOCIAL: {
     label: 'SOCIAL', short: 'SOC', symbol: '◐', color: T.amber,
-    description: 'Conversations qualitatives, networking, liens entretenus.',
+    description: 'Conversations qualitatives, networking, liens entretenus, intelligence émotionnelle.',
   },
   REVENU: {
     label: 'REVENU', short: 'REV', symbol: '€', color: T.green,

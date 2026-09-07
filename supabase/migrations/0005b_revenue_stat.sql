@@ -1,7 +1,7 @@
 -- =====================================================================
--- LATRACTION — Migration 0005 · Stat REVENU (10e axe) + confidentialité stats
+-- LATRACTION — Migration 0005b · Stat REVENU (10e axe) + confidentialité stats
 -- =====================================================================
--- À exécuter APRÈS 0001, 0002, 0003, 0004 dans le SQL Editor Supabase.
+-- ÉTAPE 2/2. Exécute d'abord 0005a (dans sa propre query), PUIS celle-ci.
 -- Idempotent : safe à re-exécuter.
 --
 -- Le montant exact en € reste privé (visible uniquement par le joueur sur
@@ -13,12 +13,7 @@
 -- =====================================================================
 
 -- ----------------------------------------------------------------------
--- 1. Nouveau stat_kind.
--- ----------------------------------------------------------------------
-alter type stat_kind add value if not exists 'REVENU';
-
--- ----------------------------------------------------------------------
--- 2. Rétro-création de la ligne REVENU pour les comptes déjà existants
+-- 1. Rétro-création de la ligne REVENU pour les comptes déjà existants
 --    (le trigger de bootstrap ne s'exécute qu'à la création du profil).
 -- ----------------------------------------------------------------------
 insert into public.stats (user_id, kind)
@@ -26,7 +21,7 @@ select user_id, 'REVENU' from public.profiles
 on conflict do nothing;
 
 -- ----------------------------------------------------------------------
--- 3. Trigger quête terminée : ajoute l'attribution XP → REVENU si
+-- 2. Trigger quête terminée : ajoute l'attribution XP → REVENU si
 --    reward_eur > 0. 1€ = 1 XP, même courbe de palier que les autres stats.
 -- ----------------------------------------------------------------------
 create or replace function trg_on_quest_completed()
@@ -76,7 +71,7 @@ end;
 $$;
 
 -- ----------------------------------------------------------------------
--- 4. Trigger projet terminé : même ajout.
+-- 3. Trigger projet terminé : même ajout.
 -- ----------------------------------------------------------------------
 create or replace function trg_on_project_completed()
 returns trigger language plpgsql as $$
@@ -94,7 +89,7 @@ end;
 $$;
 
 -- ----------------------------------------------------------------------
--- 5. get_public_stats resserrée : uniquement (kind, level), plus jamais
+-- 4. get_public_stats resserrée : uniquement (kind, level), plus jamais
 --    l'XP brute — s'applique aux 10 stats, pas seulement REVENU.
 -- ----------------------------------------------------------------------
 drop function if exists public.get_public_stats(uuid);

@@ -91,7 +91,7 @@ function ProjectCreator({ onCreated }: { onCreated: () => void }) {
   const [difficulty, setDiff]   = useState<DifficultyTier>('NOTABLE');
   const [stat, setStat]         = useState<StatKind | ''>('');
   const [endsAt, setEndsAt]     = useState('');
-  const [rewardEur, setRewardEur] = useState('');
+  const [weeklyTarget, setWeeklyTarget] = useState('');
   const [submitting, setSub]    = useState(false);
   const [error, setError]       = useState<string | null>(null);
 
@@ -113,7 +113,7 @@ function ProjectCreator({ onCreated }: { onCreated: () => void }) {
         primary_stat: stat || null,
         starts_at:    new Date().toISOString(),
         ends_at:      endsAt || null,
-        reward_eur:   rewardEur ? parseFloat(rewardEur) : 0,
+        weekly_target_eur: weeklyTarget ? parseFloat(weeklyTarget) : 0,
       });
 
       if (insertErr) throw insertErr;
@@ -182,11 +182,11 @@ function ProjectCreator({ onCreated }: { onCreated: () => void }) {
           style={selectStyle}
         />
 
-        <DataReadout>REVENU (€) · 0 SI ÇA NE RAPPORTE RIEN</DataReadout>
+        <DataReadout>OBJECTIF HEBDO (€) · OPTIONNEL — LES QUÊTES RAPPORTENT, PAS LE PROJET</DataReadout>
         <input
           type="number" min={0} step={0.01} inputMode="decimal"
-          value={rewardEur}
-          onChange={e => setRewardEur(e.target.value)}
+          value={weeklyTarget}
+          onChange={e => setWeeklyTarget(e.target.value)}
           placeholder="0"
           style={{ ...selectStyle, letterSpacing: '0.03em' }}
         />

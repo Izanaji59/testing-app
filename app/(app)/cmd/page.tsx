@@ -102,6 +102,28 @@ export default function CmdPage() {
           </div>
         </HudPanel>
 
+        {/* Bandeau pub — lien externe, ouvre dans un nouvel onglet */}
+        <a
+          href="https://slumbywise.com/allflix"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            display: 'block',
+            padding: '14px 16px',
+            border: `1px dashed ${T.lineMid}`,
+            background: 'rgba(78, 205, 255, 0.03)',
+            textDecoration: 'none',
+            marginBottom: 8,
+          }}
+        >
+          <DataReadout size={8} color={T.textMute} style={{ display: 'block', marginBottom: 4 }}>
+            PUB
+          </DataReadout>
+          <div style={{ fontFamily: T.mono, fontSize: 11, color: T.cyan, letterSpacing: '0.1em' }}>
+            SLUMBYWISE · ALLFLIX →
+          </div>
+        </a>
+
       </div>
     </div>
   );
