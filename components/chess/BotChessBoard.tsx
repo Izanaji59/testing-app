@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Chess } from 'chess.js';
 import { T } from '@/lib/tokens';
 import { DataReadout } from '@/components/hud/DataReadout';
@@ -8,20 +8,40 @@ import { Board } from './Board';
 import { MoveHistory } from './MoveHistory';
 import { gameStatus } from './gameStatus';
 import { useChessInteraction } from './useChessInteraction';
+import { pickBotMove } from '@/lib/chess/bot';
 
-/** Plateau local (pass-and-play, 1 seul écran, les 2 couleurs à tour de rôle). */
-export function ChessBoard() {
+const HUMAN_COLOR = 'w' as const;
+
+/** Contre le bot — l'humain joue toujours les blancs pour cette première version. */
+export function BotChessBoard() {
   const gameRef = useRef(new Chess());
   const [, setTick] = useState(0);
   const rerender = () => setTick(n => n + 1);
+  const [thinking, setThinking] = useState(false);
   const game = gameRef.current;
 
   const { selected, legalTargets, lastMove, pendingPromotion, onSquareClick, promote, clearSelection } =
-    useChessInteraction({ game, playableColor: 'both', onMove: rerender });
+    useChessInteraction({ game, playableColor: HUMAN_COLOR, disabled: thinking, onMove: rerender });
+
+  useEffect(() => {
+    if (game.isGameOver() || game.turn() === HUMAN_COLOR) return;
+
+    setThinking(true);
+    const timer = setTimeout(() => {
+      const move = pickBotMove(game, game.turn());
+      if (move) game.move(move);
+      setThinking(false);
+      rerender();
+    }, 450);
+
+    return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [game.fen()]);
 
   function reset() {
     gameRef.current = new Chess();
     clearSelection();
+    setThinking(false);
     rerender();
   }
 
@@ -30,7 +50,9 @@ export function ChessBoard() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 14, alignItems: 'center', width: '100%' }}>
-      <DataReadout size={11} color={status.color} style={{ letterSpacing: '0.2em' }}>{status.text}</DataReadout>
+      <DataReadout size={11} color={status.color} style={{ letterSpacing: '0.2em' }}>
+        {thinking ? 'LE BOT RÉFLÉCHIT…' : status.text}
+      </DataReadout>
 
       <Board
         game={game}
@@ -40,6 +62,7 @@ export function ChessBoard() {
         onSquareClick={onSquareClick}
         pendingPromotionColor={pendingPromotion ? game.turn() : null}
         onPromote={promote}
+        disabled={thinking}
       />
 
       <button
