@@ -21,7 +21,7 @@ export default function StatsPage() {
 
       <div style={{ padding: '14px 14px 0', display: 'flex', flexDirection: 'column', gap: 14 }}>
 
-        <HudPanel label="RADAR · 9 AXES" glow={0.4}>
+        <HudPanel label="RADAR · 10 AXES" glow={0.4}>
           <div style={{ padding: 18, display: 'grid', placeItems: 'center' }}>
             <StatRadar stats={stats} size={280} />
           </div>
@@ -50,6 +50,9 @@ export default function StatsPage() {
                     {s.decay_pct > 0 && (
                       <span style={{ color: T.danger, marginLeft: 8 }}>· DECAY {s.decay_pct}%</span>
                     )}
+                  </DataReadout>
+                  <DataReadout size={9} color={T.textDim} style={{ marginTop: 8, display: 'block', lineHeight: 1.5 }}>
+                    {meta.description}
                   </DataReadout>
                 </div>
               </HudPanel>

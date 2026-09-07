@@ -5,7 +5,7 @@ export type RankTier   = 'MINUS' | 'NEUTRAL' | 'PLUS';
 
 export type StatKind =
   | 'DISCIPLINE' | 'FOCUS' | 'INTELLIGENCE' | 'CREATIVITY'
-  | 'LEADERSHIP' | 'FORCE' | 'MENTAL_RESISTANCE' | 'TECHNIQUE' | 'SOCIAL'
+  | 'LEADERSHIP' | 'FORCE' | 'MENTALITE' | 'TECHNIQUE' | 'SOCIAL'
   | 'REVENU';
 
 export type ProjectType   = 'OPERATION' | 'CAMPAIGN' | 'RAID' | 'DUNGEON' | 'BOSS';

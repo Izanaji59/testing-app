@@ -34,9 +34,9 @@ export const STAT_META: Record<StatKind, {
     label: 'FORCE', short: 'FOR', symbol: '⚡', color: T.green,
     description: 'Sport, sommeil, nutrition, santé physique, récupération.',
   },
-  MENTAL_RESISTANCE: {
-    label: 'RÉSISTANCE', short: 'RES', symbol: '❖', color: T.purple,
-    description: 'Surmonter échec, persister, sortir de zone de confort.',
+  MENTALITE: {
+    label: 'MENTALITÉ', short: 'MEN', symbol: '❖', color: T.purple,
+    description: 'État d\'esprit, résilience : surmonter l\'échec, persister, sortir de zone de confort.',
   },
   TECHNIQUE: {
     label: 'TECHNIQUE', short: 'TECH', symbol: '⬡', color: T.cyan,

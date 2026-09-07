@@ -19,7 +19,7 @@ export const SPECS: Record<SpecKind, {
   STRATEGIST: {
     label: 'STRATÈGE',
     identity: 'Maître du plan.',
-    dominantStats: ['LEADERSHIP', 'INTELLIGENCE', 'MENTAL_RESISTANCE'],
+    dominantStats: ['LEADERSHIP', 'INTELLIGENCE', 'MENTALITE'],
     bonus: '+20% XP sur décisions documentées',
     unlockRank: 'C',
   },
@@ -33,7 +33,7 @@ export const SPECS: Record<SpecKind, {
   WARRIOR: {
     label: 'GUERRIER',
     identity: 'Force et constance.',
-    dominantStats: ['FORCE', 'DISCIPLINE', 'MENTAL_RESISTANCE'],
+    dominantStats: ['FORCE', 'DISCIPLINE', 'MENTALITE'],
     bonus: '+20% XP sur entraînement physique',
     unlockRank: 'C',
   },
