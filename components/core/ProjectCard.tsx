@@ -53,14 +53,24 @@ export function ProjectCard({ project }: { project: Project }) {
           </div>
         </div>
 
-        {/* Vue spécifique au type */}
-        <div style={{ margin: '12px 0' }}>
+        {/* Vue spécifique au type — cliquable, ouvre la roadmap détaillée */}
+        <button
+          onClick={() => setShowRoadmap(true)}
+          style={{
+            display: 'block', width: '100%', margin: '12px 0',
+            background: 'none', border: 'none', padding: 0,
+            textAlign: 'left', cursor: 'pointer',
+          }}
+        >
           {project.type === 'OPERATION' && <ProjectTimeline project={project} />}
           {project.type === 'CAMPAIGN' && <CampaignPath project={project} />}
           {project.type === 'RAID' && <RaidCountdown project={project} />}
           {project.type === 'DUNGEON' && <DungeonMap project={project} />}
           {project.type === 'BOSS' && <BossHpBar project={project} />}
-        </div>
+          <DataReadout size={8} color={T.textMute} style={{ display: 'block', marginTop: 8, textAlign: 'center' }}>
+            ◉ VOIR LA ROADMAP DÉTAILLÉE
+          </DataReadout>
+        </button>
 
         {/* Progression générique en fallback */}
         {project.type !== 'BOSS' && (
@@ -71,24 +81,6 @@ export function ProjectCard({ project }: { project: Project }) {
             </DataReadout>
           </>
         )}
-
-        <button
-          onClick={() => setShowRoadmap(true)}
-          style={{
-            marginTop: 12,
-            background: 'transparent',
-            color: T.textDim,
-            border: `1px solid ${T.line}`,
-            padding: '8px 12px',
-            fontFamily: T.mono,
-            fontSize: 9,
-            letterSpacing: '0.18em',
-            cursor: 'pointer',
-            width: '100%',
-          }}
-        >
-          ◉ ROADMAP DÉTAILLÉE
-        </button>
 
         {!confirmDelete ? (
           <button
