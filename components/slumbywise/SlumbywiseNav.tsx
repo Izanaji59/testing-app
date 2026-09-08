@@ -1,11 +1,33 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { WHATSAPP_ORDER_URL } from './SlumbywiseStyles';
 
 export function SlumbywiseNav() {
   const [gameOpen, setGameOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Clic en dehors du dropdown (ou touche Échap) → on le referme.
+  useEffect(() => {
+    if (!gameOpen) return;
+
+    function onPointerDown(e: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setGameOpen(false);
+      }
+    }
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') setGameOpen(false);
+    }
+
+    document.addEventListener('mousedown', onPointerDown);
+    document.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.removeEventListener('mousedown', onPointerDown);
+      document.removeEventListener('keydown', onKeyDown);
+    };
+  }, [gameOpen]);
 
   return (
     <nav>
@@ -19,17 +41,12 @@ export function SlumbywiseNav() {
         <Link href="/#livre">Le livre</Link>
         <Link href="/carnet">Le carnet</Link>
         <Link href="/#letter">La lettre</Link>
-        <div
-          className="sw-nav-dropdown"
-          onMouseEnter={() => setGameOpen(true)}
-          onMouseLeave={() => setGameOpen(false)}
-        >
+        <div className="sw-nav-dropdown" ref={dropdownRef}>
           <button
             type="button"
             className="sw-nav-dropdown-trigger"
             aria-expanded={gameOpen}
-            onFocus={() => setGameOpen(true)}
-            onClick={() => setGameOpen(true)}
+            onClick={() => setGameOpen(o => !o)}
           >
             Jeu <span className="sw-nav-dropdown-caret">▾</span>
           </button>
