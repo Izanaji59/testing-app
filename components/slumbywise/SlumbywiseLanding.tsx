@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { SlumbywiseStyles, useSlumbywiseBody, WHATSAPP_ORDER_URL } from './SlumbywiseStyles';
 import { SlumbywiseNav } from './SlumbywiseNav';
 import { SlumbywiseFooter } from './SlumbywiseFooter';
+import { BracketCorners } from '@/components/hud/BracketCorners';
 
 const MESSAGES: Record<string, string[]> = {
   deep_night: [
@@ -84,15 +85,16 @@ export function SlumbywiseLanding() {
 
         <section className="sw-hero">
           <div className="sw-time-block">
+            <BracketCorners size={8} color="var(--gl-cyan)" thickness={1} opacity={0.6} inset={-8} />
             <span className="sw-time-label">Il est actuellement</span>
             <span className="sw-time-clock">{h}<span className="sw-time-blink">:</span>{m}</span>
           </div>
           <div className="sw-hero-message">{message}</div>
           <h1 className="sw-hero-headline">
-            Un site pour ceux qui <em>vivent la nuit.</em>
+            Le sommeil n&apos;est pas un luxe. <em>C&apos;est ton terrain de jeu.</em>
           </h1>
           <p className="sw-hero-sub">
-            Le livre, le carnet, la lettre. Une bibliothèque associative pour les veilleurs — travailleurs postés, soignants, boulangers, insomniaques, créatifs noctambules. Portée par l&apos;association Denshiku, entièrement au bénéfice de l&apos;éducation des enfants orphelins.
+            Le livre, le carnet, la lettre. Une bibliothèque associative pour apprendre à dompter ta nuit — que tu sois travailleur posté, soignant, boulanger, insomniaque ou créatif noctambule. Portée par l&apos;association Denshiku, entièrement au bénéfice de l&apos;éducation des enfants orphelins.
           </p>
           <div className="sw-hero-actions">
             <a href={WHATSAPP_ORDER_URL} target="_blank" rel="noopener noreferrer" className="sw-btn-primary">Découvrir le livre</a>
@@ -102,18 +104,11 @@ export function SlumbywiseLanding() {
 
         <section className="sw-book" id="livre">
           <div className="sw-section-inner sw-book-inner">
-            <div className="sw-book-cover">
-              <div className="sw-cover-eyebrow">Édition 2026 · Denshiku</div>
-              <div>
-                <div className="sw-cover-title">Le Carnet<br />du <em>concierge</em></div>
-              </div>
-              <div>
-                <div className="sw-cover-sub">
-                  Quarante-trois lectiones sur l&apos;art de vivre la nuit, de concentrer son attention et de trouver sa force dans le silence.
-                </div>
-              </div>
-              <div className="sw-cover-author">Élias Morel</div>
-            </div>
+            <img
+              src="/images/slumbywise/carnet-du-concierge-cover.jpg"
+              alt="Couverture du Carnet du Concierge — photo thermique d'une piscine, Denshiku"
+              className="sw-book-cover"
+            />
             <div className="sw-book-content">
               <div className="sw-eyebrow">Le livre</div>
               <h2 className="sw-section-title">Le carnet d&apos;un homme <em>immobile</em>, écrit pour ceux qui veillent debout.</h2>

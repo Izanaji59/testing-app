@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import { SlumbywiseLanding } from '@/components/slumbywise/SlumbywiseLanding';
 
 export const metadata: Metadata = {
-  title: 'Slumbywise — Vivre la nuit',
-  description: "Un site pour ceux qui vivent la nuit. Le livre, le carnet, la lettre. Porté par l'association Denshiku.",
+  title: 'Slumbywise — Le sommeil, ton terrain de jeu',
+  description: "Le sommeil n'est pas un luxe. C'est ton terrain de jeu. Le livre, le carnet, la lettre. Porté par l'association Denshiku.",
 };
 
 /**

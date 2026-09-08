@@ -31,13 +31,20 @@ export function SlumbywiseStyles() {
           --amber: #e8a54a;
           --amber-soft: #c88a3a;
           --pool-teal: #4a9b8e;
+          --gl-cyan: #4ECDFF;
+          --gl-cyan-glow: rgba(78, 205, 255, 0.45);
           --slate: #6b7a8c;
           --hairline: rgba(242, 233, 216, 0.08);
           --hairline-strong: rgba(242, 233, 216, 0.16);
         }
 
         body.slumbywise-body {
-          background: var(--night-deep);
+          background-color: var(--night-deep);
+          background-image:
+            linear-gradient(rgba(78, 205, 255, 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(78, 205, 255, 0.05) 1px, transparent 1px);
+          background-size: 32px 32px;
+          background-attachment: fixed;
           color: var(--warm-white);
           font-family: 'Inter', -apple-system, sans-serif;
           font-weight: 300;
@@ -101,8 +108,16 @@ export function SlumbywiseStyles() {
         .sw-nav-cta { padding: 9px 18px; border: 1px solid var(--hairline-strong); border-radius: 2px; color: var(--warm-white) !important; font-size: 12px !important; letter-spacing: 0.06em !important; text-transform: uppercase; transition: all 0.2s !important; }
         .sw-nav-cta:hover { background: var(--amber); color: var(--night-deep) !important; border-color: var(--amber); }
 
+        .sw-nav-dropdown { position: relative; }
+        .sw-nav-dropdown-trigger { display: flex; align-items: center; gap: 6px; background: none; border: none; padding: 0; cursor: pointer; color: var(--warm-white-dim); font-family: 'Inter', sans-serif; font-size: 13px; letter-spacing: 0.02em; transition: color 0.2s; }
+        .sw-nav-dropdown-trigger:hover, .sw-nav-dropdown-trigger[aria-expanded="true"] { color: var(--amber); }
+        .sw-nav-dropdown-caret { font-size: 9px; }
+        .sw-nav-dropdown-menu { position: absolute; top: calc(100% + 14px); left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; min-width: 160px; background: var(--night-mid); border: 1px solid var(--hairline-strong); border-radius: 4px; padding: 8px; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45); }
+        .sw-nav-dropdown-menu a { padding: 9px 12px; border-radius: 2px; font-size: 13px !important; }
+        .sw-nav-dropdown-menu a:hover { background: rgba(242, 233, 216, 0.06); }
+
         .sw-hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 140px 48px 100px; max-width: 1400px; margin: 0 auto; position: relative; z-index: 1; }
-        .sw-time-block { display: flex; align-items: baseline; gap: 24px; margin-bottom: 60px; opacity: 0; animation: sw-fade-up 1.2s ease 0.2s forwards; }
+        .sw-time-block { position: relative; display: flex; align-items: baseline; gap: 24px; width: fit-content; margin: 0 0 60px -14px; padding: 6px 14px; opacity: 0; animation: sw-fade-up 1.2s ease 0.2s forwards; }
         .sw-time-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.2em; color: var(--slate); }
         .sw-time-clock { font-family: 'JetBrains Mono', monospace; font-size: 15px; color: var(--amber); letter-spacing: 0.04em; }
         .sw-time-blink { display: inline-block; animation: sw-blink 1s infinite; }
@@ -110,7 +125,8 @@ export function SlumbywiseStyles() {
 
         .sw-hero-message { font-family: 'Instrument Serif', serif; font-size: 15px; font-style: italic; color: var(--pool-teal); margin-bottom: 12px; opacity: 0; animation: sw-fade-up 1.2s ease 0.4s forwards; }
         .sw-hero-headline { font-family: 'Instrument Serif', serif; font-size: clamp(48px, 8vw, 108px); font-weight: 400; line-height: 1.02; letter-spacing: -0.03em; margin-bottom: 48px; max-width: 1100px; opacity: 0; animation: sw-fade-up 1.2s ease 0.6s forwards; }
-        .sw-hero-headline em { font-style: italic; color: var(--amber); }
+        .sw-hero-headline em { font-style: italic; color: var(--gl-cyan); text-shadow: 0 0 28px var(--gl-cyan-glow); }
+
         .sw-hero-sub { font-size: 18px; line-height: 1.6; color: var(--warm-white-dim); max-width: 560px; margin-bottom: 56px; opacity: 0; animation: sw-fade-up 1.2s ease 0.8s forwards; }
         .sw-hero-actions { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; opacity: 0; animation: sw-fade-up 1.2s ease 1s forwards; }
 
@@ -131,14 +147,8 @@ export function SlumbywiseStyles() {
 
         .sw-book { border-top: 1px solid var(--hairline); }
         .sw-book-inner { display: grid; grid-template-columns: 5fr 6fr; gap: 80px; align-items: center; }
-        .sw-book-cover { aspect-ratio: 2/3; background: linear-gradient(135deg, var(--night-mid) 0%, var(--night-light) 100%); border: 1px solid var(--hairline-strong); position: relative; padding: 50px 40px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 0 1px var(--hairline); transition: transform 0.4s; }
+        .sw-book-cover { width: 100%; aspect-ratio: 2/3; object-fit: cover; display: block; border: 1px solid var(--hairline-strong); box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 0 1px var(--hairline); transition: transform 0.4s; }
         .sw-book-cover:hover { transform: translateY(-4px) rotate(-0.5deg); }
-        .sw-book-cover::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--amber), transparent); opacity: 0.5; }
-        .sw-cover-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.2em; color: var(--pool-teal); }
-        .sw-cover-title { font-family: 'Instrument Serif', serif; font-size: 40px; line-height: 1.05; color: var(--warm-white); letter-spacing: -0.02em; }
-        .sw-cover-title em { font-style: italic; color: var(--amber); }
-        .sw-cover-sub { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 15px; color: var(--warm-white-dim); line-height: 1.4; }
-        .sw-cover-author { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--slate); }
         .sw-book-content .sw-eyebrow { margin-bottom: 24px; }
         .sw-book-quote { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 26px; line-height: 1.4; color: var(--warm-white); margin: 32px 0; padding-left: 24px; border-left: 2px solid var(--amber); }
         .sw-book-desc { font-size: 16px; line-height: 1.75; color: var(--warm-white-dim); margin-bottom: 40px; }
@@ -217,6 +227,7 @@ export function SlumbywiseStyles() {
           .sw-root nav { padding: 18px 24px; }
           .sw-nav-links { gap: 22px; }
           .sw-nav-links a:not(.sw-nav-cta) { display: none; }
+          .sw-nav-dropdown { display: none; }
           .sw-hero { padding: 120px 24px 80px; }
           .sw-page-hero { padding: 120px 24px 40px; }
           .sw-section-inner, .sw-letter-inner { padding: 80px 24px; }

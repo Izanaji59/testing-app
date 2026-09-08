@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useProfile } from '@/hooks/useProfile';
 import { useRevenue } from '@/hooks/useRevenue';
@@ -20,6 +20,16 @@ export default function ProfilePage() {
   const { profile, specializations, refresh, loading } = useProfile();
   const totalRevenue = useRevenue();
   const [savingMbti, setSavingMbti] = useState(false);
+  const [mbtiSubmissions, setMbtiSubmissions] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (!profile) return;
+    supabase()
+      .from('mbti_submissions')
+      .select('mbti')
+      .eq('user_id', profile.user_id)
+      .then(({ data }) => setMbtiSubmissions((data ?? []).map(r => r.mbti as string)));
+  }, [profile?.user_id]);
 
   if (!profile) return <ProfileState kind={loading ? 'loading' : 'missing'} />;
 
@@ -34,19 +44,40 @@ export default function ProfilePage() {
     router.replace('/login');
   }
 
-  async function updateMbti(value: string) {
+  async function updateMbti(rawValue: string) {
+    const mbti = rawValue.toUpperCase().trim();
     setSavingMbti(true);
     try {
-      const mbti = value || null;
-      await supabase()
-        .from('profiles')
-        .update({ mbti, mbti_class: getMbtiClass(mbti).label })
-        .eq('user_id', profile!.user_id);
+      const sb = supabase();
+
+      if (mbti === '') {
+        await sb.from('profiles').update({ mbti: null, mbti_class: getMbtiClass(null).label }).eq('user_id', profile!.user_id);
+        refresh();
+        return;
+      }
+      if (!/^[EI][NS][TF][JP]$/.test(mbti)) return; // format invalide (4 lettres attendues) — ignoré
+
+      await sb.from('mbti_submissions').insert({ user_id: profile!.user_id, mbti });
+      const { data: subs } = await sb.from('mbti_submissions').select('mbti').eq('user_id', profile!.user_id);
+      const types = (subs ?? []).map(r => r.mbti as string);
+
+      const tally: Record<string, number> = {};
+      for (const t of types) tally[t] = (tally[t] ?? 0) + 1;
+      const [dominant] = Object.entries(tally).sort((a, b) => b[1] - a[1])[0] ?? [mbti];
+
+      await sb.from('profiles').update({ mbti: dominant, mbti_class: getMbtiClass(dominant).label }).eq('user_id', profile!.user_id);
+      setMbtiSubmissions(types);
       refresh();
     } finally {
       setSavingMbti(false);
     }
   }
+
+  const mbtiTally: Record<string, number> = {};
+  for (const t of mbtiSubmissions) mbtiTally[t] = (mbtiTally[t] ?? 0) + 1;
+  const mbtiRanking = Object.entries(mbtiTally).sort((a, b) => b[1] - a[1]);
+  const [dominantType, dominantCount] = mbtiRanking[0] ?? [null, 0];
+  const mbtiConfidence = mbtiSubmissions.length > 0 ? Math.round((dominantCount / mbtiSubmissions.length) * 100) : 0;
 
   return (
     <div style={{ color: T.text }}>
@@ -98,6 +129,29 @@ export default function ProfilePage() {
               }}
             />
             {savingMbti && <DataReadout color={T.cyan}>SAUVEGARDE…</DataReadout>}
+
+            <a
+              href="https://www.16personalities.com/fr/test-de-personnalite"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                fontFamily: T.mono, fontSize: 10, letterSpacing: '0.14em',
+                color: T.cyan, textDecoration: 'none', marginTop: 2,
+              }}
+            >
+              → PASSER LE TEST SUR 16PERSONALITIES.COM
+            </a>
+
+            {mbtiSubmissions.length > 0 && (
+              <div style={{ marginTop: 4, paddingTop: 10, borderTop: `1px solid ${T.line}` }}>
+                <DataReadout size={9} style={{ display: 'block', marginBottom: 4 }}>
+                  {mbtiRanking.map(([type, count]) => `${count}× ${type}`).join(' · ')}
+                </DataReadout>
+                <DataReadout color={T.cyan} size={10} letterSpacing="0.1em">
+                  {dominantType} ASSURÉ À {mbtiConfidence}% · SUR {mbtiSubmissions.length} TEST{mbtiSubmissions.length > 1 ? 'S' : ''}
+                </DataReadout>
+              </div>
+            )}
           </div>
         </HudPanel>
 
