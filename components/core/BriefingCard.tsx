@@ -1,16 +1,22 @@
 'use client';
 
+import { useState } from 'react';
+import { mutate } from 'swr';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { HudPanel } from '@/components/hud/HudPanel';
 import { ChargeDial } from '@/components/hud/ChargeDial';
 import { DataReadout } from '@/components/hud/DataReadout';
 import { T, EASE } from '@/lib/tokens';
+import { STAT_META } from '@/lib/engine/stats';
+import { createQuestFlash } from '@/hooks/useQuests';
 import type { Briefing } from '@/lib/types';
 
 type Props = { briefing: Briefing | null };
 
 export function BriefingCard({ briefing }: Props) {
+  const [addedTitles, setAddedTitles] = useState<string[]>([]);
+
   if (!briefing) {
     return (
       <HudPanel label="BRIEFING · MATIN" glow={0.3}>
@@ -25,9 +31,21 @@ export function BriefingCard({ briefing }: Props) {
     );
   }
 
-  const { mission, charge_mentale_pct, focus_suggested, time_window, recommendation, warning } = briefing.payload;
+  const { mission, charge_mentale_pct, focus_suggested, time_window, recommendation, warning, suggested_missions } = briefing.payload;
   const charge = charge_mentale_pct ?? 50;
   const warnColor = warning ? T.danger : T.cyan;
+
+  async function addSuggestion(m: NonNullable<typeof suggested_missions>[number]) {
+    await createQuestFlash({
+      title: m.title,
+      project_id: null,
+      estimated_minutes: m.estimated_minutes,
+      difficulty_tier: m.difficulty_tier,
+      reward_stats: [m.stat_kind],
+    });
+    setAddedTitles(t => [...t, m.title]);
+    mutate('quests');
+  }
 
   return (
     <HudPanel label={`BRIEFING · ${briefing.kind === 'MORNING' ? 'MATIN' : briefing.kind === 'EVENING' ? 'SOIR' : 'HEBDO'}`} glow={0.5}>
@@ -74,6 +92,46 @@ export function BriefingCard({ briefing }: Props) {
             }}
           >
             → {recommendation}
+          </div>
+        )}
+
+        {suggested_missions && suggested_missions.length > 0 && (
+          <div style={{ marginTop: 14, display: 'flex', flexDirection: 'column', gap: 8 }}>
+            <DataReadout size={9}>MISSIONS SUGGÉRÉES</DataReadout>
+            {suggested_missions.map(m => {
+              const added = addedTitles.includes(m.title);
+              return (
+                <div
+                  key={m.title}
+                  style={{
+                    display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10,
+                    padding: '10px 12px', border: `1px solid ${T.line}`, background: T.surf2,
+                  }}
+                >
+                  <div>
+                    <div style={{ fontFamily: T.mono, fontSize: 12, color: T.text }}>{m.title}</div>
+                    <DataReadout size={8} color={T.textMute} style={{ display: 'block', marginTop: 2 }}>
+                      {STAT_META[m.stat_kind].short} · {m.estimated_minutes} MIN
+                    </DataReadout>
+                  </div>
+                  <button
+                    onClick={() => addSuggestion(m)}
+                    disabled={added}
+                    style={{
+                      background: added ? 'transparent' : T.cyan,
+                      color: added ? T.textMute : T.bg,
+                      border: added ? `1px solid ${T.line}` : 'none',
+                      padding: '6px 10px',
+                      fontFamily: T.mono, fontSize: 9, letterSpacing: '0.16em',
+                      cursor: added ? 'default' : 'pointer',
+                      whiteSpace: 'nowrap',
+                    }}
+                  >
+                    {added ? 'AJOUTÉE' : '+ AJOUTER'}
+                  </button>
+                </div>
+              );
+            })}
           </div>
         )}
       </div>

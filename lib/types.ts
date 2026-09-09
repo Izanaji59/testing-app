@@ -218,4 +218,17 @@ export interface BriefingPayload {
   recommendation?: string;
   warning?: 'DISPERSION' | 'OVERLOAD' | 'INACTIVITY' | null;
   quests_proposed?: string[]; // ids
+  focus_stat_kind?: StatKind | null;
+  suggested_missions?: Array<{ title: string; stat_kind: StatKind; difficulty_tier: DifficultyTier; estimated_minutes: number }>;
+}
+
+export interface MissionTemplate {
+  id: string;
+  user_id: string;
+  title: string;
+  description: string | null;
+  stat_kind: StatKind;
+  difficulty_tier: DifficultyTier;
+  estimated_minutes: number;
+  created_at: string;
 }

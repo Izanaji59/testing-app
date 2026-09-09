@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useProfile } from '@/hooks/useProfile';
 import { useQuests, createQuestFlash } from '@/hooks/useQuests';
 import { useProjects } from '@/hooks/useProjects';
+import { useMissionTemplates, createMissionTemplate, deleteMissionTemplate } from '@/hooks/useMissionTemplates';
 import { Header } from '@/components/shell/Header';
 import { ProfileState } from '@/components/shell/ProfileState';
 import { QuestCard } from '@/components/core/QuestCard';
@@ -11,7 +12,7 @@ import { HudPanel } from '@/components/hud/HudPanel';
 import { DataReadout } from '@/components/hud/DataReadout';
 import { T } from '@/lib/tokens';
 import { supabase } from '@/lib/supabase/client';
-import type { QuestStatus, DifficultyTier, StatKind } from '@/lib/types';
+import type { QuestStatus, DifficultyTier, StatKind, MissionTemplate } from '@/lib/types';
 import { DIFFICULTY_META } from '@/lib/engine/difficulty';
 import { STAT_META, STAT_KINDS } from '@/lib/engine/stats';
 
@@ -19,8 +20,10 @@ export default function QuestsPage() {
   const { profile, loading } = useProfile();
   const { quests, refresh } = useQuests();
   const { projects } = useProjects();
+  const { templates, refresh: refreshTemplates } = useMissionTemplates();
   const [filter, setFilter] = useState<QuestStatus | 'ALL'>('ALL');
   const [showCreate, setShowCreate] = useState(false);
+  const [showTemplates, setShowTemplates] = useState(false);
 
   if (!profile) return <ProfileState kind={loading ? 'loading' : 'missing'} />;
 
@@ -76,8 +79,29 @@ export default function QuestsPage() {
         {showCreate && (
           <QuestCreator
             projects={projects}
+            templates={templates}
             onCreated={() => { setShowCreate(false); refresh(); }}
           />
+        )}
+
+        {/* Modèles de mission */}
+        <button
+          onClick={() => setShowTemplates(s => !s)}
+          style={{
+            background: 'transparent',
+            color: T.textDim,
+            border: `1px dashed ${T.line}`,
+            padding: '10px',
+            fontFamily: T.mono,
+            fontSize: 9,
+            letterSpacing: '0.22em',
+            cursor: 'pointer',
+          }}
+        >
+          MES MODÈLES DE MISSION ({templates.length})
+        </button>
+        {showTemplates && (
+          <MissionTemplateManager templates={templates} onChange={refreshTemplates} />
         )}
 
         {/* Liste */}
@@ -101,9 +125,11 @@ export default function QuestsPage() {
 
 function QuestCreator({
   projects,
+  templates,
   onCreated,
 }: {
   projects: ReturnType<typeof useProjects>['projects'];
+  templates: MissionTemplate[];
   onCreated: () => void;
 }) {
   const [title, setTitle] = useState('');
@@ -113,6 +139,17 @@ function QuestCreator({
   const [stat, setStat] = useState<StatKind | ''>('');
   const [rewardEur, setRewardEur] = useState('');
   const [submitting, setSubmitting] = useState(false);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+
+  const suggestions = stat ? templates.filter(t => t.stat_kind === stat) : templates;
+
+  function applySuggestion(t: MissionTemplate) {
+    setTitle(t.title);
+    setDifficulty(t.difficulty_tier);
+    setStat(t.stat_kind);
+    setEstimated(t.estimated_minutes);
+    setShowSuggestions(false);
+  }
 
   async function submit() {
     if (!title.trim()) return;
@@ -143,6 +180,43 @@ function QuestCreator({
   return (
     <HudPanel label="CRÉATION" glow={0.3}>
       <div style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 12 }}>
+        {templates.length > 0 && (
+          <div>
+            <button
+              type="button"
+              onClick={() => setShowSuggestions(s => !s)}
+              style={{
+                background: 'transparent', color: T.cyan, border: `1px solid ${T.lineMid}`,
+                padding: '8px 12px', fontFamily: T.mono, fontSize: 9, letterSpacing: '0.2em',
+                cursor: 'pointer', width: '100%',
+              }}
+            >
+              {showSuggestions ? '✕ FERMER LES SUGGESTIONS' : '💡 SUGGÈRE-MOI UNE MISSION'}
+            </button>
+            {showSuggestions && (
+              <div style={{ marginTop: 8, display: 'flex', flexDirection: 'column', gap: 6 }}>
+                {suggestions.length === 0 ? (
+                  <DataReadout size={9} color={T.textMute}>AUCUN MODÈLE POUR CETTE STAT.</DataReadout>
+                ) : suggestions.map(t => (
+                  <button
+                    key={t.id}
+                    type="button"
+                    onClick={() => applySuggestion(t)}
+                    style={{
+                      display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                      background: T.surf2, border: `1px solid ${T.line}`, padding: '8px 10px',
+                      cursor: 'pointer', textAlign: 'left',
+                    }}
+                  >
+                    <span style={{ fontFamily: T.mono, fontSize: 11, color: T.text }}>{t.title}</span>
+                    <span style={{ fontFamily: T.mono, fontSize: 9, color: T.textMute }}>{STAT_META[t.stat_kind].short}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
         <DataReadout>TITRE</DataReadout>
         <input
           value={title}
@@ -209,6 +283,131 @@ function QuestCreator({
         >
           {submitting ? 'CRÉATION…' : 'ENREGISTRER'}
         </button>
+      </div>
+    </HudPanel>
+  );
+}
+
+// ─────────────────────── Modèles de mission (personnalisables) ───────────────────────
+
+function MissionTemplateManager({
+  templates,
+  onChange,
+}: {
+  templates: MissionTemplate[];
+  onChange: () => void;
+}) {
+  const [title, setTitle] = useState('');
+  const [stat, setStat] = useState<StatKind>('DISCIPLINE');
+  const [difficulty, setDifficulty] = useState<DifficultyTier>('ROUTINE');
+  const [estimated, setEstimated] = useState(30);
+  const [submitting, setSubmitting] = useState(false);
+
+  const selectStyle: React.CSSProperties = {
+    background: 'rgba(78, 205, 255, 0.04)',
+    border: `1px solid ${T.lineMid}`,
+    color: T.text, padding: '10px 12px',
+    fontFamily: T.mono, fontSize: 12,
+    outline: 'none', width: '100%',
+  };
+
+  async function submit() {
+    if (!title.trim()) return;
+    setSubmitting(true);
+    try {
+      await createMissionTemplate({
+        title: title.trim(),
+        stat_kind: stat,
+        difficulty_tier: difficulty,
+        estimated_minutes: estimated,
+      });
+      setTitle('');
+      onChange();
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  return (
+    <HudPanel label="MES MODÈLES DE MISSION" glow={0.3}>
+      <div style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 12 }}>
+        {templates.length === 0 ? (
+          <DataReadout size={9} color={T.textMute}>AUCUN MODÈLE POUR L&apos;INSTANT.</DataReadout>
+        ) : (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+            {templates.map(t => (
+              <div
+                key={t.id}
+                style={{
+                  display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                  background: T.surf2, border: `1px solid ${T.line}`, padding: '8px 10px',
+                }}
+              >
+                <div>
+                  <div style={{ fontFamily: T.mono, fontSize: 11, color: T.text }}>{t.title}</div>
+                  <DataReadout size={8} color={T.textMute} style={{ display: 'block', marginTop: 2 }}>
+                    {STAT_META[t.stat_kind].short} · {DIFFICULTY_META[t.difficulty_tier].label} · {t.estimated_minutes} MIN
+                  </DataReadout>
+                </div>
+                <button
+                  onClick={() => deleteMissionTemplate(t.id).then(onChange)}
+                  style={{
+                    background: 'transparent', color: T.danger, border: `1px solid ${T.danger}55`,
+                    padding: '6px 10px', fontFamily: T.mono, fontSize: 9, cursor: 'pointer',
+                  }}
+                >
+                  SUPPRIMER
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+
+        <div style={{ borderTop: `1px solid ${T.line}`, paddingTop: 12, display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <DataReadout>NOUVEAU MODÈLE</DataReadout>
+          <input
+            value={title}
+            onChange={e => setTitle(e.target.value)}
+            placeholder="Ex : Faire 100 pompes"
+            style={{ ...selectStyle, letterSpacing: '0.03em' }}
+          />
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+            <div>
+              <DataReadout style={{ display: 'block', marginBottom: 6 }}>STAT</DataReadout>
+              <select value={stat} onChange={e => setStat(e.target.value as StatKind)} style={selectStyle}>
+                {STAT_KINDS.map(s => (
+                  <option key={s} value={s}>{STAT_META[s].short}</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <DataReadout style={{ display: 'block', marginBottom: 6 }}>DIFFICULTÉ</DataReadout>
+              <select value={difficulty} onChange={e => setDifficulty(e.target.value as DifficultyTier)} style={selectStyle}>
+                {(Object.keys(DIFFICULTY_META) as DifficultyTier[]).map(d => (
+                  <option key={d} value={d}>{DIFFICULTY_META[d].label}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <DataReadout>DURÉE ESTIMÉE · {estimated} MIN</DataReadout>
+          <input
+            type="range" min={5} max={120} step={5} value={estimated}
+            onChange={e => setEstimated(parseInt(e.target.value, 10))}
+            style={{ accentColor: T.cyan }}
+          />
+          <button
+            onClick={submit}
+            disabled={submitting || !title.trim()}
+            style={{
+              background: T.cyan, color: T.bg, border: 'none', padding: '12px',
+              fontFamily: T.mono, fontWeight: 700, fontSize: 11, letterSpacing: '0.28em',
+              cursor: submitting ? 'wait' : 'pointer',
+              opacity: !title.trim() ? 0.5 : 1,
+            }}
+          >
+            {submitting ? 'AJOUT…' : '+ AJOUTER LE MODÈLE'}
+          </button>
+        </div>
       </div>
     </HudPanel>
   );
