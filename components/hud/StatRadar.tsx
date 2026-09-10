@@ -6,13 +6,13 @@ import type { Stat, StatKind } from '@/lib/types';
 
 const STAT_ORDER: StatKind[] = [
   'DISCIPLINE','FOCUS','INTELLIGENCE','CREATIVITY','LEADERSHIP',
-  'FORCE','MENTALITE','TECHNIQUE','SOCIAL','REVENU',
+  'FORCE','MENTALITE','TECHNIQUE','SOCIAL','REVENU','RESIGNATION',
 ];
 
 const STAT_LABEL: Record<StatKind, string> = {
   DISCIPLINE: 'DISC', FOCUS: 'FOC', INTELLIGENCE: 'INT', CREATIVITY: 'CRE',
-  LEADERSHIP: 'LEAD', FORCE: 'FOR', MENTALITE: 'RES',
-  TECHNIQUE: 'TECH', SOCIAL: 'SOC', REVENU: 'REV',
+  LEADERSHIP: 'LEAD', FORCE: 'FOR', MENTALITE: 'MEN',
+  TECHNIQUE: 'TECH', SOCIAL: 'SOC', REVENU: 'REV', RESIGNATION: 'RÉS',
 };
 
 type RadarStat = Pick<Stat, 'kind' | 'level'>;
@@ -24,7 +24,7 @@ type Props = {
 };
 
 /**
- * Radar des 10 stats (9 + REVENU).
+ * Radar des 11 stats (9 + REVENU + RÉSIGNATION).
  */
 export function StatRadar({ stats, size = 240, max = 100 }: Props) {
   const cx = size / 2;

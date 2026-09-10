@@ -10,6 +10,11 @@ async function fetchAllQuests(): Promise<Quest[]> {
   const sb = supabase();
   const { data: auth } = await sb.auth.getUser();
   if (!auth.user) return [];
+
+  // Bascule les quêtes en retard en EXPIRED avant de lire — pas de cron
+  // planifié côté serveur, donc on le fait à chaque rafraîchissement.
+  await sb.rpc('cron_expire_overdue_quests');
+
   const { data } = await sb
     .from('quests')
     .select('*')

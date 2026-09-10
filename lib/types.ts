@@ -6,7 +6,7 @@ export type RankTier   = 'MINUS' | 'NEUTRAL' | 'PLUS';
 export type StatKind =
   | 'DISCIPLINE' | 'FOCUS' | 'INTELLIGENCE' | 'CREATIVITY'
   | 'LEADERSHIP' | 'FORCE' | 'MENTALITE' | 'TECHNIQUE' | 'SOCIAL'
-  | 'REVENU';
+  | 'REVENU' | 'RESIGNATION';
 
 export type ProjectType   = 'OPERATION' | 'CAMPAIGN' | 'RAID' | 'DUNGEON' | 'BOSS';
 export type ProjectStatus = 'PLANNED' | 'ACTIVE' | 'PAUSED' | 'COMPLETED' | 'ABANDONED';

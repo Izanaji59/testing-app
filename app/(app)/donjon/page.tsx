@@ -12,7 +12,7 @@ import { T } from '@/lib/tokens';
 import { supabase } from '@/lib/supabase/client';
 import type { ProjectType, DifficultyTier, StatKind } from '@/lib/types';
 import { DIFFICULTY_META } from '@/lib/engine/difficulty';
-import { STAT_META, STAT_KINDS } from '@/lib/engine/stats';
+import { STAT_META, REWARDABLE_STAT_KINDS } from '@/lib/engine/stats';
 
 const PROJECT_TYPES: { value: ProjectType; label: string; desc: string }[] = [
   { value: 'OPERATION', label: 'OPÉRATION', desc: 'Tâche structurée, durée courte' },
@@ -167,7 +167,7 @@ function ProjectCreator({ onCreated }: { onCreated: () => void }) {
             <DataReadout style={{ display: 'block', marginBottom: 6 }}>STAT PRINCIPALE</DataReadout>
             <select value={stat} onChange={e => setStat(e.target.value as StatKind | '')} style={selectStyle}>
               <option value="">— Aucune —</option>
-              {STAT_KINDS.map(s => (
+              {REWARDABLE_STAT_KINDS.map(s => (
                 <option key={s} value={s}>{STAT_META[s].short} — {STAT_META[s].label}</option>
               ))}
             </select>

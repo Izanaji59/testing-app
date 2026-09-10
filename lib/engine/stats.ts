@@ -50,6 +50,13 @@ export const STAT_META: Record<StatKind, {
     label: 'REVENU', short: 'REV', symbol: '€', color: T.green,
     description: 'Gains générés par les quêtes et projets terminés.',
   },
+  RESIGNATION: {
+    label: 'RÉSIGNATION', short: 'RÉS', symbol: '✕', color: T.danger,
+    description: 'Fuite, facilité, abandon de l\'effort — choisir le confort immédiat au détriment de sa progression.',
+  },
 };
 
 export const STAT_KINDS: StatKind[] = Object.keys(STAT_META) as StatKind[];
+
+/** Stats "positives" attribuables comme récompense (quêtes, projets, modèles) — exclut RÉSIGNATION, qui n'est jamais choisie, seulement subie. */
+export const REWARDABLE_STAT_KINDS: StatKind[] = STAT_KINDS.filter(k => k !== 'RESIGNATION');
