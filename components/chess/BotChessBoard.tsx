@@ -8,7 +8,7 @@ import { Board } from './Board';
 import { MoveHistory } from './MoveHistory';
 import { gameStatus } from './gameStatus';
 import { useChessInteraction } from './useChessInteraction';
-import { pickBotMove } from '@/lib/chess/bot';
+import { pickBotMove, BOT_DIFFICULTIES, type BotDifficulty } from '@/lib/chess/bot';
 
 const HUMAN_COLOR = 'w' as const;
 
@@ -18,6 +18,7 @@ export function BotChessBoard() {
   const [, setTick] = useState(0);
   const rerender = () => setTick(n => n + 1);
   const [thinking, setThinking] = useState(false);
+  const [difficulty, setDifficulty] = useState<BotDifficulty>('MOYEN');
   const game = gameRef.current;
 
   const { selected, legalTargets, lastMove, pendingPromotion, onSquareClick, promote, clearSelection } =
@@ -28,7 +29,7 @@ export function BotChessBoard() {
 
     setThinking(true);
     const timer = setTimeout(() => {
-      const move = pickBotMove(game, game.turn());
+      const move = pickBotMove(game, game.turn(), BOT_DIFFICULTIES[difficulty].depth);
       if (move) game.move(move);
       setThinking(false);
       rerender();
@@ -36,7 +37,7 @@ export function BotChessBoard() {
 
     return () => clearTimeout(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [game.fen()]);
+  }, [game.fen(), difficulty]);
 
   function reset() {
     gameRef.current = new Chess();
@@ -53,6 +54,26 @@ export function BotChessBoard() {
       <DataReadout size={11} color={status.color} style={{ letterSpacing: '0.2em' }}>
         {thinking ? 'LE BOT RÉFLÉCHIT…' : status.text}
       </DataReadout>
+
+      <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', justifyContent: 'center' }}>
+        {(Object.keys(BOT_DIFFICULTIES) as BotDifficulty[]).map(d => (
+          <button
+            key={d}
+            onClick={() => setDifficulty(d)}
+            style={{
+              background: difficulty === d ? T.cyan : 'transparent',
+              color: difficulty === d ? T.bg : T.textDim,
+              border: `1px solid ${difficulty === d ? T.cyan : T.line}`,
+              padding: '6px 10px',
+              fontFamily: T.mono, fontSize: 9, letterSpacing: '0.12em',
+              cursor: 'pointer',
+            }}
+            title={`Elo estimé ${BOT_DIFFICULTIES[d].eloEstimate}`}
+          >
+            {BOT_DIFFICULTIES[d].label.toUpperCase()} · {BOT_DIFFICULTIES[d].eloEstimate}
+          </button>
+        ))}
+      </div>
 
       <Board
         game={game}

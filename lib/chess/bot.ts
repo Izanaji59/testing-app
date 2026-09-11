@@ -46,11 +46,27 @@ function minimax(game: Chess, depth: number, alpha: number, beta: number, maximi
   return best;
 }
 
+export type BotDifficulty = 'FACILE' | 'MOYEN' | 'DIFFICILE';
+
 /**
- * Bot "facile" : minimax + élagage alpha-bêta, profondeur ~2 (le coup du bot
- * + la meilleure réponse adverse), matériel + léger bonus de centre. Assez
- * pour ne pas jouer n'importe quoi, battable sans difficulté — un premier
- * niveau, pas un moteur compétitif (ça, ce serait Stockfish/WASM, hors scope).
+ * Profondeur de recherche par niveau + estimation grossière d'Elo — basée
+ * sur la profondeur/l'intelligence du moteur (matériel + centre, pas de
+ * livre d'ouvertures, pas de quiescence), pas mesurée en tournoi réel.
+ * DIFFICILE prend déjà ~2-5s de calcul dans le navigateur ; profondeur 4
+ * a été testée et mesurée à 40-60s (minimax plein sans tri des coups ni
+ * table de transposition) — inutilisable telle quelle, donc pas de palier
+ * au-dessus sans réécrire le moteur (recherche itérative + Web Worker).
+ */
+export const BOT_DIFFICULTIES: Record<BotDifficulty, { depth: number; label: string; eloEstimate: string }> = {
+  FACILE:    { depth: 1, label: 'Facile',    eloEstimate: '~300-450' },
+  MOYEN:     { depth: 2, label: 'Moyen',     eloEstimate: '~500-700' },
+  DIFFICILE: { depth: 3, label: 'Difficile', eloEstimate: '~900-1100' },
+};
+
+/**
+ * Bot : minimax + élagage alpha-bêta, matériel + léger bonus de centre.
+ * Pas un moteur compétitif (ça, ce serait Stockfish/WASM, hors scope) —
+ * la profondeur pilote uniquement à quel point il anticipe.
  */
 export function pickBotMove(game: Chess, botColor: Color, depth = 2): Move | null {
   const moves = game.moves({ verbose: true });
