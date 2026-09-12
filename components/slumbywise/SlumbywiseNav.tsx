@@ -53,6 +53,7 @@ export function SlumbywiseNav() {
             <div className="sw-nav-dropdown-menu">
               <Link href="/chess" onClick={() => setGameOpen(false)}>Chess</Link>
               <Link href="/grindleveling" onClick={() => setGameOpen(false)}>Grindleveling</Link>
+              <a href="/game/memoire/" onClick={() => setGameOpen(false)}>Empreinte</a>
             </div>
           )}
         </div>

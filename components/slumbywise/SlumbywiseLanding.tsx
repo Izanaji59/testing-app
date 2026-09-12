@@ -218,6 +218,33 @@ export function SlumbywiseLanding() {
           </div>
         </section>
 
+        {/* ─── EMPREINTE ──────────────────────────────────────────────── */}
+        <section className="sw-book" id="empreinte">
+          <div className="sw-section-inner sw-promise-inner">
+            <div>
+              <div className="sw-eyebrow">Empreinte</div>
+              <h2 className="sw-section-title">Ta mémoire, <em>ton arme dans la nuit.</em></h2>
+              <p className="sw-book-desc">Une arène tactique où chaque type MBTI incarne une classe de champion. Observe le plateau, mémorise les zones qui vont s&apos;embraser, place tes champions à ton rythme, puis traverse au bon moment.</p>
+              <p className="sw-book-desc" style={{ color: 'var(--pool-teal)', fontStyle: 'italic', fontFamily: "'Instrument Serif', serif", fontSize: 20, marginTop: 24 }}>Aucun chrono pendant la préparation. Juste toi, ton plan, et ce que tu es capable de retenir.</p>
+              <a href="/game/memoire/" className="sw-btn-primary" style={{ marginTop: 8 }}>Entrer dans l&apos;arène</a>
+            </div>
+            <div className="sw-promise-flow">
+              <div className="sw-flow-step">
+                <div className="sw-flow-num">→</div>
+                <div className="sw-flow-text">Deux champions autonomes, un stratège <em>piloté par toi</em>.</div>
+              </div>
+              <div className="sw-flow-step">
+                <div className="sw-flow-num">→</div>
+                <div className="sw-flow-text">Deux empreintes cachées à retenir, avant qu&apos;elles n&apos;explosent.</div>
+              </div>
+              <div className="sw-flow-step">
+                <div className="sw-flow-num">→</div>
+                <div className="sw-flow-text">Vue du dessus ou plateau 3D — à toi de choisir.</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <SlumbywiseFooter />
       </div>
     </>

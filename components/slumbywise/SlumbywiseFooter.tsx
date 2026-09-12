@@ -26,6 +26,7 @@ export function SlumbywiseFooter() {
             <ul>
               <li><Link href="/grindleveling">Grindleveling</Link></li>
               <li><Link href="/chess">Chess</Link></li>
+              <li><a href="/game/memoire/">Empreinte</a></li>
             </ul>
           </div>
           <div className="sw-footer-col">
