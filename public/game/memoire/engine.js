@@ -1,30 +1,35 @@
-// Simulation uses action time only. Observation never reveals an old hidden trap.
+// Moteur à tours séquentiels : chaque unité (2 champions + stratège par camp)
+// joue son tour l'une après l'autre — déplacement (PM) puis 1 action — sans
+// temps réel ni clavier. Ordre d'un round : champ1 allié, champ1 adverse,
+// champ2 allié, champ2 adverse, NT allié, NT adverse.
 const profiles={
- INTJ:['Vision · protéger une position','A : matrice 4 × 4 devant le NT, un bouclier de 40 par allié pendant 6 s.'],
- INTP:['Détail · +10 G tous les deux last-hits','A : fissure devant le NT. Le premier sbire ennemi qui la traverse est achevé.'],
- ENTJ:['Commande · +50 G à la première porte détruite','A : accélère les sbires alliés pendant 6 s.'],
- ENTP:['Propagation · un last-hit blesse un sbire voisin','A : le prochain last-hit propage 25 dégâts autour de sa cible.']
+ INTJ:['Vision · protéger une position','Carte : bouclier de 40 à tous les alliés dans une zone 4×4 devant le NT.'],
+ INTP:['Détail · +10 G tous les deux last-hits','Carte : achève le sbire ennemi le plus proche devant le NT.'],
+ ENTJ:['Commande · +50 G à la première porte détruite','Carte : accélère les sbires alliés pendant 3 tours.'],
+ ENTP:['Propagation · un last-hit blesse un sbire voisin','Carte : le prochain last-hit propage 25 dégâts autour de sa cible.']
 };
 const LANES=[4,11];
 const FORMATION_SIZE=8,LANE_CAP=16;
-const ACTION_SECONDS=12,OBSERVE_SECONDS=3.2,BEAT_SECONDS=2;
-let g,started=false,paused=false,last=0,keys=new Set();
+const MINION_STEP_DT=.5; // un "pas" de sbires simulé à chaque tour qui passe
+let g,started=false,paused=false,last=0;
 const dist=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
 const laneOf=y=>LANES.find(lane=>Math.abs(y-lane)<=1.45);
 function message(s){$('notice').textContent=s;}
 function champion(team,type,x,y,id){
  const spec=roster[type];
- return {id,team,type,...spec,x,y,max:spec.hp,fx:team?-1:1,fy:0,cd:0,skill:0,mobility:0,hurt:0,flash:0,slow:0,silence:0,shield:0,respawnWave:null,order:'lane',lane:y<7.5?4:11,gankLane:y<7.5?11:4,targetId:team?0:2,manual:false,suggestion:null,accepted:false,guardCd:0,path:[],plan:null,mp:0,stepClock:0,castCycle:0,aimAfter:null};
+ return {id,team,type,...spec,x,y,max:spec.hp,fx:team?-1:1,fy:0,cd:0,skill:0,mobility:0,hurt:0,flash:0,slow:0,silence:0,shield:0,respawnWave:null,order:'lane',lane:y<7.5?4:11,gankLane:y<7.5?11:4,targetId:team?0:2,manual:false,suggestion:null,accepted:false,guardCd:0,path:[],plan:null,mp:0,aimAfter:null};
 }
-function strategist(team,type){return {id:4+team,team,type,kind:'NT',hp:400,max:400,speed:2.6,dash:2,reach:2,x:team?13:2,y:7.5,fx:team?-1:1,fy:0,cd:0,skill:0,mobility:0,hurt:0,flash:0,slow:0,silence:0,shield:0,guardCd:0,respawnWave:null,path:[]};}
+function strategist(team,type){return {id:4+team,team,type,kind:'NT',hp:400,max:400,reach:3,mp:0,x:team?13:2,y:7.5,fx:team?-1:1,fy:0,cd:0,skill:0,mobility:0,hurt:0,flash:0,slow:0,silence:0,shield:0,guardCd:0,respawnWave:null,path:[]};}
 function units(){return [...g.heroes,...g.nts,...g.minions];}
 function makeGates(){const result=[];for(const team of [0,1])for(const y of LANES)for(const tier of [0,1])result.push({team,y,tier,x:team?(tier?14:12):(tier?1:3),hp:tier?400:300,max:tier?400:300,flash:0});return result;}
 function gateOpen(b){return b.tier===0||g.gates.some(a=>a.team===b.team&&a.y===b.y&&a.tier===0&&a.hp===0);}
 function breached(team,lane){return lane!==undefined&&g.gates.filter(b=>b.team===team&&b.y===lane).every(b=>b.hp===0);}
+function buildTurnOrder(){return [g.heroes[0],g.heroes[2],g.heroes[1],g.heroes[3],g.nts[0],g.nts[1]];}
+function currentTurnUnit(){return g.turnPos>=0&&g.turnPos<g.turnOrder.length?g.turnOrder[g.turnPos]:null;}
 function reset(){
- g={teams:[teamState(),teamState()],get gold(){return this.teams[0].gold;},set gold(v){this.teams[0].gold=v;},get hits(){return this.teams[0].hits;},set hits(v){this.teams[0].hits=v;},get effect(){return this.teams[0].effect;},set effect(v){this.teams[0].effect=v;},phase:'observe',left:1.5,cycle:1,waveIndex:0,time:0,active:0,kills:0,nt:$('nt').value,minions:[],traps:[],fx:[],floats:[],heroes:[champion(0,$('class0').value,5,4,0),champion(0,$('class1').value,5,11,1),champion(1,'ISTP',10,4,2),champion(1,'ENFJ',10,11,3)],nts:[strategist(0,$('nt').value),strategist(1,'ENTJ')],gates:makeGates(),winner:null};
- Object.assign(g,{committed:false,actionElapsed:0,pulseNext:1,minionBeat:0,pending:[],memoryStats:{avoided:0,hit:0,uninvolved:0}});
- started=false;paused=false;keys.clear();$('order').value='lane';$('intro').style.display='flex';
+ g={teams:[teamState(),teamState()],get gold(){return this.teams[0].gold;},set gold(v){this.teams[0].gold=v;},get hits(){return this.teams[0].hits;},set hits(v){this.teams[0].hits=v;},get effect(){return this.teams[0].effect;},set effect(v){this.teams[0].effect=v;},phase:'strategy',cycle:1,waveIndex:0,active:0,kills:0,time:0,nt:$('nt').value,minions:[],traps:[],fx:[],floats:[],heroes:[champion(0,$('class0').value,5,4,0),champion(0,$('class1').value,5,11,1),champion(1,'ISTP',10,4,2),champion(1,'ENFJ',10,11,3)],nts:[strategist(0,$('nt').value),strategist(1,'ENTJ')],gates:makeGates(),winner:null};
+ Object.assign(g,{committed:false,turnOrder:[],turnPos:-1,turnStep:null,pending:[],memoryStats:{avoided:0,hit:0,uninvolved:0}});
+ started=false;paused=false;$('order').value='lane';$('intro').style.display='flex';
  for(const id of ['nt','class0','class1'])$(id).disabled=false;
  syncOrderControls();message('Prépare ton équipe à ton rythme. Tu décides quand lancer le combat.');ui();draw();
 }
@@ -57,17 +62,6 @@ function blocked(x,y,team){
  if((team===0&&x>13.55||team===1&&x<1.45)&&!breached(enemy,laneOf(y)))return true;
  return g.gates.some(b=>b.team!==team&&b.hp>0&&Math.abs(x-b.x)<.6&&Math.abs(y-b.y)<1.5);
 }
-function move(h,dx,dy,dt){
- const n=Math.hypot(dx,dy);if(!n)return;
- h.fx=dx/n;h.fy=dy/n;const length=Math.min(n,h.speed*(h.slow>0?.5:1)*dt);
- const x=h.x+h.fx*length,y=h.y+h.fy*length;
- if(!blocked(x,h.y,h.team))h.x=x;if(!blocked(h.x,y,h.team))h.y=y;
-}
-function dash(h){
- if(h.mobility>0||h.hp<=0||h.silence>0)return;
- for(let d=0;d<h.dash*(h.slow>0?.5:1);d+=.1){const x=h.x+h.fx*.1,y=h.y+h.fy*.1;if(blocked(x,y,h.team))break;h.x=x;h.y=y;}
- h.mobility=4;
-}
 function reachable(h){
  const start={x:Math.round(h.x),y:Math.round(h.y)},queue=[{...start,path:[]}],seen=new Set([start.x+','+start.y]);
  for(let i=0;i<queue.length;i++){
@@ -82,7 +76,13 @@ function reachable(h){
 }
 function pathTo(h,x,y){return reachable(h).find(n=>n.x===Math.round(x)&&n.y===Math.round(y))?.path??null;}
 function cardinal(h){return Math.abs(h.fx)>=Math.abs(h.fy)?{x:h.fx<0?-1:1,y:0}:{x:0,y:h.fy<0?-1:1};}
+function lineCells(h,length){
+ const d=cardinal(h),x=Math.round(h.x),y=Math.round(h.y),cells=[];
+ for(let i=1;i<=length;i++){const cx=x+d.x*i,cy=y+d.y*i;if(cx<0||cx>=16||cy<0||cy>=16)break;cells.push([cx,cy]);}
+ return cells;
+}
 function attackCells(h){
+ if(h.kind==='NT')return lineCells(h,h.reach);
  const d=cardinal(h),x=Math.round(h.x),y=Math.round(h.y);
  return (familyOffsets[h.kind]||[]).map(([f,side])=>[x+d.x*f-d.y*side,y+d.y*f+d.x*side]).filter(([cx,cy])=>cx>=0&&cx<16&&cy>=0&&cy<16);
 }
@@ -138,22 +138,11 @@ function lineClear(h,t){
  }
  return true;
 }
-function attack(h,telegraph=false){
- if(h.hp<=0||h.cd>0)return;
- const targets=[...units(),...g.gates].filter(t=>t.team!==h.team&&t.hp>0&&(!g.gates.includes(t)||gateOpen(t))&&(h.order!=='lane'||h.kind==='NT'||laneOf(t.y)===h.lane)&&(h.kind==='NT'?targetDistance(h,t)<=1.65&&lineClear(h,t):inField(h,t)));
- if(!targets.length)return;
- if(h.kind!=='NT'&&h.order==='stack'&&!targets.some(t=>t.kind||!g.gates.includes(t)&&t.hp<=33))return;
- h.cd=h.kind==='NT'?.95:1.6;
- if(h.kind==='NT'){
-  targets.sort((a,b)=>Number(!(g.minions.includes(a)&&a.hp<=33))-Number(!(g.minions.includes(b)&&b.hp<=33))||targetDistance(h,a)-targetDistance(h,b));
-  targets.splice(1);
- }
- if(telegraph){
-  const cells=h.kind==='NT'?[[Math.round(targets[0].x),Math.round(targets[0].y)]]:attackCells(h);
-  g.pending.push({owner:h,origin:{...h},team:h.team,cells,fireAt:g.pulseNext+1});return;
- }
- // A field attack hits every enemy in the family footprint exactly once.
- for(const t of targets){hit(t,33,h.team);g.fx.push({x:h.x,y:h.y,tx:t.x,ty:t.y,left:.16,team:h.team});}
+/** Résout l'action du tour courant : touche tout ennemi présent dans le champ. */
+function resolveAction(h){
+ const targets=[...units(),...g.gates].filter(t=>t.team!==h.team&&t.hp>0&&(!g.gates.includes(t)||gateOpen(t))&&inField(h,t));
+ for(const t of targets){hit(t,33,h.team);g.fx.push({x:h.x,y:h.y,tx:t.x,ty:t.y,left:.6,team:h.team});}
+ return targets.length>0;
 }
 function explode(t){
  for(const h of units())if(h.hp>0&&t.cells.some(([x,y])=>Math.abs(h.x-x)<.65&&Math.abs(h.y-y)<.65)){
@@ -162,35 +151,19 @@ function explode(t){
    if(t.kind==='NF')h.silence=2;if(t.kind==='ST')h.slow=2;
   }}else if(t.kind==='ST')h.shield=40;
  }
- for(const [x,y]of t.cells)g.fx.push({x,y,left:.35,team:t.team});
-}
-function beginObservation(){
- spawnWave();g.phase='observe';g.left=OBSERVE_SECONDS;keys.clear();
- for(const h of g.heroes){h.plan=null;h.path=[];h.suggestion=null;if(h.aimAfter){h.fx=h.aimAfter.x;h.fy=h.aimAfter.y;}}
- prepareMemory();
- message('Mémorise I puis II. Ces cases fixes frapperont à 4 s et 8 s du combat.');
+ for(const [x,y]of t.cells)g.fx.push({x,y,left:.7,team:t.team});
 }
 function ready(){
  if(!started||paused||g.phase!=='strategy'||g.committed||g.winner!==null)return;
  for(const h of g.heroes.filter(h=>h.team===0&&h.hp>0&&!h.manual&&!h.accepted))acceptSuggestion(h);
- g.committed=true;keys.clear();
- if(!g.heroes.some(h=>h.hp>0&&h.path.length))beginObservation();
- else message('Les champions terminent leurs déplacements, puis observe les empreintes.');
+ g.committed=true;
+ beginCombat();
  focusBoard();
 }
-function beginAction(){
- g.phase='action';g.left=ACTION_SECONDS;g.actionElapsed=0;g.pulseNext=1;g.minionBeat=0;g.pending=[];keys.clear();
- for(const side of g.teams){side.charges=1+(side.extraCharge?1:0);side.extraCharge=false;side.cooldown=0;}
- for(const h of g.heroes)if(h.hp>0&&h.kind==='ST'&&h.order==='guard'&&dist(h,g.nts[h.team])<2.5)g.nts[h.team].shield=Math.max(g.nts[h.team].shield,30);
- message('12 s : ZQSD / Espace. Impacts ordinaires toutes les 2 s. Mémoire I à 4 s, II à 8 s.');focusBoard();
-}
-function card(){if(activateCard(0))focusBoard();}
+function card(){if(activateCard(0))advanceTurn();}
 function frontTarget(h){
  const lane=h.order==='gank'?h.gankLane:h.lane||(h.y<7.5?4:11),gate=g.gates.find(b=>b.team!==h.team&&b.y===lane&&b.hp>0&&gateOpen(b));
  return gate?{x:gate.x+(h.team?1:-1),y:lane}:{x:h.team?0:15,y:lane};
-}
-function autoChampion(h,dt){
- // All automatic attacks are announced on the shared two-second beat.
 }
 function positionValue(h,pose){
  const enemies=units().filter(t=>t.team!==h.team&&t.hp>0),wounded=h.hp/h.max;
@@ -205,93 +178,95 @@ function positionValue(h,pose){
  for(const gate of g.gates)if(gate.team!==h.team&&gate.hp>0&&gateOpen(gate)&&inField(pose,gate))score+=9+(1-gate.hp/gate.max)*5;
  const allies=g.minions.filter(m=>m.team===h.team&&m.hp>0);
  if(allies.some(m=>dist(m,pose)<2))score+=2.5;
- // Help intercept invaders close to our last line instead of blindly pushing.
  for(const t of enemies)if(h.team===1?t.x>11:t.x<4)score+=Math.max(0,6-dist(t,pose))*2;
  for(const other of g.heroes)if(other!==h&&other.team===h.team&&other.hp>0){const p=other.path.at(-1)||other;if(dist(p,pose)<1)score-=8;}
  if(wounded<.3)score-=Math.max(0,5-Math.min(...enemies.map(t=>dist(t,pose)),16))*3;
  return score;
 }
 function beginStrategy(){
- g.phase='strategy';g.left=0;g.committed=false;g.pending=[];g.traps=[];keys.clear();
- for(const h of g.heroes){h.mp=Math.ceil(h.dash+2);h.stepClock=0;h.path=[];h.plan=null;h.aimAfter=null;h.manual=false;h.accepted=false;h.suggestion=null;}
+ g.phase='strategy';g.committed=false;g.traps=[];g.turnOrder=[];g.turnPos=-1;g.turnStep=null;
+ for(const h of g.heroes){h.mp=PM_BY_KIND[h.kind];h.path=[];h.plan=null;h.aimAfter=null;h.manual=false;h.accepted=false;h.suggestion=null;}
  const next=g.waveIndex+1;
  for(const h of g.heroes.filter(h=>h.team===1&&h.hp>0)){
-  chooseBotOrder(h,next);const saved=h.mp;if(next<=2)h.mp=Math.min(h.mp,3);const plan=suggestOrder(h);h.mp=saved;h.path=plan?.path||[];h.aimAfter=plan?.facing||cardinal(h);h.accepted=true;if(!h.path.length){h.fx=h.aimAfter.x;h.fy=h.aimAfter.y;}
+  chooseBotOrder(h,next);const saved=h.mp;if(next<=2)h.mp=Math.min(h.mp,3);const plan=suggestOrder(h);h.mp=saved;h.path=plan?.path||[];h.aimAfter=plan?.facing||cardinal(h);h.accepted=true;if(!h.path.length){h.fx=h.aimAfter.x;h.fy=h.aimAfter.y;}else{const dest=h.path.at(-1);h.x=dest.x;h.y=dest.y;h.fx=h.aimAfter.x;h.fy=h.aimAfter.y;h.path=[];}
  }
  for(const h of g.heroes.filter(h=>h.team===0&&h.hp>0))h.suggestion=suggestOrder(h);
  botShopping();
  message('Prends ton temps. Ajuste les ordres et les achats, puis clique sur Lancer le combat.');
 }
-function autoStrategist(h,dt){
- const opponents=units().filter(t=>t.team!==h.team&&t.hp>0),allies=g.heroes.filter(t=>t.team===h.team&&t.hp>0);
- const prey=opponents.filter(t=>!t.kind&&t.hp<=33).sort((a,b)=>dist(a,h)-dist(b,h))[0];
- const weak=opponents.find(t=>t.kind==='NT'&&t.hp<t.max*.4&&dist(t,h)<4);
- const escort=allies.sort((a,b)=>a.x-b.x)[0];
- const goal=h.hp<h.max*.3?{x:12,y:7.5}:weak||prey||(escort?{x:Math.min(13,escort.x+1.5),y:escort.y}:{x:10,y:7.5});
- let best={dx:0,dy:0,score:-Infinity};
- for(const [dx,dy]of [[0,0],[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]]){
-  const n=Math.hypot(dx,dy)||1,p={x:h.x+dx/n*.6,y:h.y+dy/n*.6};if(blocked(p.x,p.y,h.team))continue;
-  let score=-dist(p,goal);
-  for(const t of opponents)if(t.kind&&t.kind!=='NT'&&inField(t,p))score-=h.hp<h.max*.4?12:5;
-  if(score>best.score)best={dx,dy,score};
+/** Simule un pas de poussée des sbires — appelé une fois par tour qui passe. */
+function stepMinions(){
+ const strikes=[];
+ for(const m of g.minions){
+  if(m.hp<=0)continue;
+  const foes=[...units(),...g.gates].filter(t=>t.team!==m.team&&t.hp>0&&targetDistance(m,t)<1.05&&(!g.gates.includes(t)||gateOpen(t)));
+  if(foes.length)strikes.push(foes[0]);else advanceMinion(m,MINION_STEP_DT);
  }
- move(h,best.dx,best.dy,dt*.8);
- if(h.silence===0&&g.minions.some(m=>m.team===1&&m.hp>0&&m.x<11))activateCard(1);
-}
-function stepChampions(dt){
- for(const h of g.heroes){
-  if(h.hp<=0||!h.path.length)continue;h.stepClock+=dt;
-  const duration=h.team===1?.5:.28;
-  while(h.stepClock>=duration&&h.path.length&&h.mp>0){
-   h.stepClock-=duration;const next=h.path.shift();
-   if(blocked(next.x,next.y,h.team)||occupied(next.x,next.y,h,h.path.length>0)){h.path=[];h.plan=null;break;}
-   const dx=next.x-h.x,dy=next.y-h.y,n=Math.hypot(dx,dy)||1;h.fx=dx/n;h.fy=dy/n;
-   h.x=next.x;h.y=next.y;h.mp--;
-   if(!h.path.length&&h.aimAfter){h.fx=h.aimAfter.x;h.fy=h.aimAfter.y;}
-  }
- }
+ for(const t of strikes)damage(t,t.kind?12:25);
+ g.minions=g.minions.filter(m=>m.hp>0);
+ updateCardEffects();
 }
 function checkVictory(){
  const teams=new Set(units().filter(h=>h.hp>0&&(h.team===0?h.x>14.55:h.x<.45)&&breached(1-h.team,laneOf(h.y))).map(h=>h.team));
  if(!teams.size)return;
- g.winner=teams.size===2?2:[...teams][0];keys.clear();
+ g.winner=teams.size===2?2:[...teams][0];
  message(g.winner===2?'Égalité : les deux dernières lignes ont été franchies !':g.winner===0?'Victoire ! Une unité alliée a franchi la dernière ligne.':'Défaite : une unité ennemie a franchi ta dernière ligne.');
 }
-function tick(dt){
- if(!started||paused||g.winner!==null)return;
- if(g.phase==='strategy'){stepChampions(dt);checkVictory();if(g.committed&&g.winner===null&&!g.heroes.some(h=>h.hp>0&&h.path.length))beginObservation();return;}
- if(g.phase==='observe'){
-  g.left=Math.max(0,g.left-dt);
-  if(g.left<=.000001)beginAction();
-  return;
+// ─────────────────────────── Tours de combat ───────────────────────────
+function beginCombat(){
+ spawnWave();g.phase='combat';g.pending=[];
+ for(const side of g.teams){side.charges=1+(side.extraCharge?1:0);side.extraCharge=false;side.cooldown=0;}
+ for(const h of g.heroes){h.plan=null;h.path=[];h.suggestion=null;if(h.aimAfter){h.fx=h.aimAfter.x;h.fy=h.aimAfter.y;}}
+ prepareTraps();
+ g.turnOrder=buildTurnOrder();g.turnPos=-1;
+ message('Mémorise les 2 empreintes — elles se déclenchent au tour 3 et en fin de manche.');
+ advanceTurn();
+}
+function advanceTurn(){
+ checkVictory();if(g.winner!==null)return;
+ g.turnPos++;
+ resolveTrapsAt(g.turnPos);
+ checkVictory();if(g.winner!==null)return;
+ stepMinions();
+ checkVictory();if(g.winner!==null)return;
+ if(g.turnPos>=g.turnOrder.length){g.cycle++;beginStrategy();return;}
+ const u=g.turnOrder[g.turnPos];
+ if(u.hp<=0){advanceTurn();return;}
+ for(const k of ['slow','silence','guardCd'])u[k]=Math.max(0,u[k]-1);
+ u.mp=u.kind==='NT'?PM_BY_KIND.NT:PM_BY_KIND[u.kind];
+ g.turnStep='move';
+ message((u.team?'Tour adverse · ':'Ton tour · ')+u.type+(u.team?'.':' — clique sa destination.'));
+ if(u.team===1)resolveBotTurn(u);
+}
+function turnMoveTo(x,y){
+ if(g.phase!=='combat'||g.turnStep!=='move'||g.winner!==null)return false;
+ const u=currentTurnUnit();if(!u||u.team!==0||u.hp<=0)return false;
+ if(occupied(Math.round(x),Math.round(y),u))return false;
+ const path=pathTo(u,x,y);if(path===null)return false;
+ if(path.length){const dest=path.at(-1),dx=dest.x-u.x,dy=dest.y-u.y,n=Math.hypot(dx,dy)||1;u.fx=dx/n;u.fy=dy/n;u.x=dest.x;u.y=dest.y;u.mp-=path.length;}
+ g.turnStep='action';
+ message(u.type+' : clique une case de son champ pour attaquer, ou passe.');
+ return true;
+}
+function skipMove(){if(g.phase==='combat'&&g.turnStep==='move'&&currentTurnUnit()?.team===0)g.turnStep='action';}
+function turnActAt(x,y){
+ if(g.phase!=='combat'||g.turnStep!=='action'||g.winner!==null)return false;
+ const u=currentTurnUnit();if(!u||u.team!==0)return false;
+ const inShape=attackCells(u).some(([cx,cy])=>cx===Math.round(x)&&cy===Math.round(y));
+ if(!inShape)return false;
+ resolveAction(u);advanceTurn();return true;
+}
+function skipAction(){if(g.phase==='combat'&&g.turnStep==='action'&&currentTurnUnit()?.team===0)advanceTurn();}
+/** Tour d'une unité ennemie : se rapproche de sa meilleure position, agit, passe la main. */
+function resolveBotTurn(u){
+ let best={x:Math.round(u.x),y:Math.round(u.y),score:-Infinity};
+ for(const node of reachable(u)){
+  if(occupied(node.x,node.y,u))continue;
+  const pose={...u,x:node.x,y:node.y};
+  const score=(u.kind==='NT'?positionValue(u,pose):orderValue(u,pose))-node.path.length*.1;
+  if(score>best.score)best={...node,score};
  }
- dt=Math.min(dt,g.left);g.left=Math.max(0,g.left-dt);g.time+=dt;g.actionElapsed=ACTION_SECONDS-g.left;
- for(const h of [...g.heroes,...g.nts]){
-  if(h.hp<=0)continue;
-  for(const k of ['cd','skill','slow','silence','mobility','hurt','flash','guardCd'])h[k]=Math.max(0,h[k]-dt);
-  // HP persists between phases. Only a scheduled respawn restores health.
-  if(h===g.nts[0]){
-   const input=movementInput();move(h,input.x,input.y,dt);
-   if(keys.has(' '))attack(h);if(keys.has('shift'))dash(h);if(keys.has('a'))card();
-  }else if(h.kind==='NT'){
-   autoStrategist(h,dt);
-  }else autoChampion(h,dt);
- }
- updateCards(dt);
- updateRhythm();
- const beat=Math.floor((g.actionElapsed+.000001)/BEAT_SECONDS),minionsStrike=beat>g.minionBeat;g.minionBeat=beat;
- const strikes=[];
- for(const m of g.minions){
-  if(m.hp<=0)continue;m.cd=Math.max(0,m.cd-dt);m.flash=Math.max(0,m.flash-dt);
-  const foes=[...units(),...g.gates].filter(t=>t.team!==m.team&&t.hp>0&&targetDistance(m,t)<1.05&&(!g.gates.includes(t)||gateOpen(t)));
-  if(foes.length){if(minionsStrike)strikes.push(foes[0]);}
-  else advanceMinion(m,dt);
- }
- for(const t of strikes)damage(t,t.kind?12:25);
- updateMemory();
- g.traps=g.traps.filter(t=>!t.done);g.minions=g.minions.filter(m=>m.hp>0);
- for(const f of [...g.fx,...g.floats])f.left-=dt;g.fx=g.fx.filter(f=>f.left>0);g.floats=g.floats.filter(f=>f.left>0);
- for(const b of g.gates)b.flash=Math.max(0,b.flash-dt);
- checkVictory();
- if(g.winner===null&&g.left<.000001){g.cycle++;beginStrategy();}
+ if(best.path?.length){const dx=best.x-u.x,dy=best.y-u.y,n=Math.hypot(dx,dy)||1;u.fx=dx/n;u.fy=dy/n;u.x=best.x;u.y=best.y;}
+ resolveAction(u);
+ advanceTurn();
 }

@@ -1,16 +1,18 @@
 function ui(){
  const strategy=g.phase==='strategy'&&!g.committed,nt=g.nts[0],h=g.heroes[g.active],side=g.teams[0],lane=Number($('shopLane').value)||4,editable=(!started||strategy)&&!paused&&g.winner===null;
- $('phase').textContent=!started?'PRÊT À JOUER':g.winner!==null?['VICTOIRE','DÉFAITE','ÉGALITÉ'][g.winner]:paused?'PAUSE':strategy?'PLACEMENT · CLIC':g.phase==='observe'?'MÉMORISE':'ACTION · NT';
- $('timer').textContent=g.phase==='strategy'?(g.committed?'EN PLACE…':'À TON RYTHME'):g.left.toFixed(1)+' s';
+ const turnUnit=currentTurnUnit(),yourTurn=g.phase==='combat'&&turnUnit&&turnUnit.team===0&&g.winner===null&&!paused;
+ $('phase').textContent=!started?'PRÊT À JOUER':g.winner!==null?['VICTOIRE','DÉFAITE','ÉGALITÉ'][g.winner]:paused?'PAUSE':strategy?'PLACEMENT · CLIC':g.phase==='combat'?(yourTurn?(g.turnStep==='move'?'TON TOUR · DÉPLACE':'TON TOUR · AGIS'):'TOUR ADVERSE'):'';
+ $('timer').textContent=g.phase==='strategy'?(g.committed?'EN PLACE…':'À TON RYTHME'):g.phase==='combat'&&turnUnit?turnUnit.type+(turnUnit.team?' (adv.)':'')+' · '+turnUnit.mp+' PM':'—';
  $('round').textContent='VAGUE '+g.waveIndex+' / CYCLE '+g.cycle;
  $('gold').textContent=g.gold+' G';
  for(const team of [0,1])$('base'+team).textContent=g.gates.filter(b=>b.team===team&&b.hp>0).length+' PORTES';
  $('stats').textContent=g.hits+' last-hits · '+g.kills+' éliminations';
  $('pause').textContent=paused?'Reprendre':'Pause';
  $('identity').textContent=profiles[g.nt][0];$('cardText').textContent=profiles[g.nt][1];
- $('card').disabled=!started||paused||g.phase!=='action'||side.charges<=0||side.cooldown>0||!!side.effect||nt.hp<=0||nt.silence>0||g.winner!==null;
- $('card').textContent=side.effect?'Carte active · '+side.effect.left.toFixed(1)+' s':'A · Carte NT · '+side.charges+' disponible(s)';
- $('ready').disabled=!started||paused||!strategy||g.winner!==null;
+ $('card').disabled=!started||paused||g.phase!=='combat'||g.turnStep!=='action'||turnUnit!==nt||side.charges<=0||side.cooldown>0||nt.hp<=0||nt.silence>0||g.winner!==null;
+ $('card').textContent='A · Carte NT · '+side.charges+' disponible(s)';
+ $('ready').hidden=g.phase!=='strategy';$('ready').disabled=!started||paused||!strategy||g.winner!==null;
+ $('skipStep').hidden=!yourTurn;$('skipStep').textContent=g.turnStep==='move'?'Passer le déplacement':'Passer l\'action';
  $('reinforce').disabled=!shopAllowed(0,'reinforce',lane);$('fortify').disabled=!shopAllowed(0,'fortify',lane);$('extraCard').disabled=!shopAllowed(0,'charge');
  $('purchaseStatus').textContent=(side.reinforce[lane]?side.reinforce[lane]+' sbire(s) attendent leur bouclier. ':'')+(side.fortify[lane]?'Porte protégée à la reprise. ':'')+(side.extraCharge?'Seconde activation réservée.':'');
  $('enemyEconomy').textContent='Or adverse : '+g.teams[1].gold+' G · dépensé : '+g.teams[1].spent+' G';
@@ -32,15 +34,12 @@ function ui(){
  $('manual').disabled=!started||!strategy||paused||g.winner!==null;
 
  $('heroDetail').textContent=h.type+' · '+names[h.kind]+' · Motif '+h.shape+' · '+h.mp+' points de déplacement restants';
- $('cooldowns').textContent=nt.hp>0?nt.type+' · '+Math.ceil(nt.hp)+' / '+nt.max+' PV · Élan '+(nt.mobility>0?nt.mobility.toFixed(1)+' s':'prêt'):nt.type+' : retour dans '+(nt.respawnWave-g.waveIndex)+' vagues. Tes champions continuent !';
- $('nextWave').textContent=g.phase==='strategy'?(g.committed?'Déplacements en cours, puis mémorisation.':'Aucun départ automatique · 1 / 2, clic et ordres · Entrée pour valider'):g.phase==='observe'?'I rouge → 4 s · II violet → 8 s · retiens les cases.':'ZQSD + Espace · Maj : esquive · traits orange : impact annoncé';
- $('phaseHint').textContent=g.phase==='strategy'?'PRÉPARE · SANS CHRONO':g.phase==='observe'?(g.left>2?'MÉMORISE I · IMPACT À 4 S':g.left>.8?'MÉMORISE II · IMPACT À 8 S':'LES CASES SONT CACHÉES · PRÊT ?'):'BOUGE · ESQUIVE · RIPOSTE';
- $('phaseTrack').dataset.phase=g.phase;
+ $('cooldowns').textContent=nt.hp>0?nt.type+' · '+Math.ceil(nt.hp)+' / '+nt.max+' PV':nt.type+' : retour dans '+(nt.respawnWave-g.waveIndex)+' vagues. Tes champions continuent !';
+ $('nextWave').textContent=g.phase==='strategy'?(g.committed?'Déplacements en cours, puis mémorisation.':'Aucun départ automatique · 1 / 2, clic et ordres · Entrée pour valider'):g.phase==='combat'?(yourTurn?(g.turnStep==='move'?'Clique une case atteignable, ou passe.':'Clique une case de ton champ pour toucher, ou passe.'):'L\'adversaire joue son tour…'):'';
+ $('phaseHint').textContent=g.phase==='strategy'?'PRÉPARE · SANS CHRONO':g.phase==='combat'?(g.turnPos<=1?'MÉMORISE LES EMPREINTES':'TOUR PAR TOUR · PM + 1 ACTION'):'';
+ $('phaseTrack').dataset.phase=g.phase==='strategy'?'strategy':g.turnPos<=1?'observe':'action';
  $('ready').textContent=g.committed?'Ordres validés':'Lancer le combat ↵';
  $('memoryScore').textContent='Dernier combat : '+g.memoryStats.avoided+' empreinte(s) quittée(s), '+g.memoryStats.hit+' subie(s).';
- $('beatTrack').hidden=g.phase!=='action';
- $('touchControls').hidden=!(started&&g.phase==='action'&&!paused&&g.winner===null);
- $('beatTrack').innerHTML=Array.from({length:6},(_,i)=>{const second=(i+1)*2;return '<span class="'+(g.actionElapsed>=second?'passed':g.actionElapsed>=second-2?'next':'')+'">'+second+' s'+(second===4?' · I':second===8?' · II':'')+'</span>';}).join('');
  const d=cardinal(h);
  $('attackRule').textContent=h.kind==='SF'?'Quatre cases : les côtés et leurs diagonales avant.':h.kind==='NF'?'Deux diagonales avant, deux cases chacune.':'Quatre cases adjacentes : devant, derrière et côtés.';
  for(const [id,x,y]of facingControls){$(id).disabled=!started||!strategy||paused||h.hp<=0||g.winner!==null;$(id).className=d.x===x&&d.y===y?'selected':'';}
@@ -69,14 +68,9 @@ function draw(){
   ctx.fillStyle=breached(team,laneOf(y))?'#FFB23D':colors[team];
   ctx.fillRect((team?15:1)*C-2,y*C,4,C-1);
  }
- if(g.effect&&['INTJ','INTP'].includes(g.effect.type)){
-  ctx.fillStyle='#e4ca6544';const size=g.effect.type==='INTJ'?4:1;
-  ctx.fillRect((g.effect.x-(size===4?1.5:0))*C,(g.effect.y-(size===4?1.5:0))*C,size*C,size*C);
- }
  if(started&&g.phase==='strategy'&&g.winner===null){
   const h=g.heroes[g.active];
   if(h.hp>0){
-   // Reachability depends only on terrain, never on remembered threats.
    ctx.fillStyle='#4ECDFF0d';const range=h.mp;
    for(let y=0;y<16;y++)for(let x=0;x<16;x++)if(Math.abs(x-Math.round(h.x))+Math.abs(y-Math.round(h.y))<=range&&!blocked(x,y,h.team))ctx.fillRect(x*C+2,y*C+2,46,46);
   }
@@ -86,13 +80,25 @@ function draw(){
    const end=displayPath(c).at(-1);ctx.strokeRect(end.x*C+5,end.y*C+5,40,40);
    ctx.fillStyle='#FFB23D';ctx.font='bold 11px "JetBrains Mono",monospace';ctx.textAlign='center';boardText(c.type,(end.x+.5)*C,(end.y+.5)*C);
   }
+  if(g.heroes[g.active].hp>0){ctx.strokeStyle='#ffcf7f';ctx.fillStyle='#ffcf7f20';ctx.lineWidth=2;for(const [x,y]of attackCells(g.heroes[g.active])){ctx.fillRect(x*C+3,y*C+3,44,44);ctx.strokeRect(x*C+5,y*C+5,40,40);}}
  }
- if(started&&g.phase==='strategy'&&g.heroes[g.active].hp>0){ctx.strokeStyle='#ffcf7f';ctx.fillStyle='#ffcf7f20';ctx.lineWidth=2;for(const [x,y]of attackCells(g.heroes[g.active])){ctx.fillRect(x*C+3,y*C+3,44,44);ctx.strokeRect(x*C+5,y*C+5,40,40);}}
+ // Tour de combat en cours : la case atteignable (déplacement) ou le champ (action) de l'unité active.
+ if(g.phase==='combat'&&g.winner===null){
+  const u=currentTurnUnit();
+  if(u&&u.hp>0&&u.team===0){
+   if(g.turnStep==='move'){
+    ctx.fillStyle='#4ECDFF22';const range=u.mp;
+    for(let y=0;y<16;y++)for(let x=0;x<16;x++)if(Math.abs(x-Math.round(u.x))+Math.abs(y-Math.round(u.y))<=range&&!blocked(x,y,u.team)&&!occupied(x,y,u))ctx.fillRect(x*C+2,y*C+2,46,46);
+   }else if(g.turnStep==='action'){
+    ctx.strokeStyle='#FF5577';ctx.fillStyle='#FF557733';ctx.lineWidth=2;
+    for(const [x,y]of attackCells(u)){ctx.fillRect(x*C+3,y*C+3,44,44);ctx.strokeRect(x*C+5,y*C+5,40,40);}
+   }
+  }
+ }
  for(const t of g.traps)if(visibleTrap(t)){
   ctx.fillStyle=memoryColor(t)+'99';ctx.strokeStyle=memoryColor(t);ctx.lineWidth=2;
   for(const [x,y]of t.cells){ctx.fillRect(x*C+2,y*C+2,C-4,C-4);ctx.strokeRect(x*C+4,y*C+4,C-8,C-8);ctx.font='bold 18px "JetBrains Mono",monospace';ctx.textAlign='center';boardText(t.slot===1?'I':'II',(x+.5)*C,(y+.5)*C);}
  }
- for(const strike of g.pending){ctx.strokeStyle=strike.team?'#ffc66c':'#78e4df';ctx.lineWidth=3;for(const [x,y]of strike.cells)ctx.strokeRect(x*C+6,y*C+6,38,38);}
  for(const b of g.gates){
   if(b.hp<=0){ctx.strokeStyle='#526576';ctx.strokeRect(b.x*C+7,(b.y-1)*C+4,36,142);continue;}
   ctx.fillStyle=b.flash>0?'#fff':colors[b.team];ctx.globalAlpha=gateOpen(b)?1:.5;
@@ -109,7 +115,7 @@ function draw(){
   ctx.fillStyle=h.flash>0?'#fff':h.kind==='NT'?'#4A3410':h.team?'#3D1620':'#0E2E42';
   ctx.strokeStyle=h.kind==='NT'?'#FFB23D':colors[h.team];ctx.lineWidth=2;
   ctx.beginPath();ctx.arc(x,y,h.kind==='ST'?21:18,0,Math.PI*2);ctx.fill();ctx.stroke();
-  if(g.phase==='action'?h===g.nts[0]:h.id===g.active){ctx.strokeStyle='#fff';ctx.beginPath();ctx.arc(x,y,25,0,Math.PI*2);ctx.stroke();}
+  if(g.phase==='combat'?h===currentTurnUnit():h.id===g.active){ctx.strokeStyle='#fff';ctx.beginPath();ctx.arc(x,y,25,0,Math.PI*2);ctx.stroke();}
   ctx.fillStyle='#fff';ctx.font='bold 11px "JetBrains Mono",monospace';ctx.textAlign='center';boardText(h.type,x,y+4);bar(h,38);
   ctx.font='10px "JetBrains Mono",monospace';boardText(h.silence>0?'SILENCE':h.slow>0?'RALENTI':h.shield>0?'BOUCLIER':h.kind==='NT'?'NT':'',x,y-30);
  }
@@ -129,8 +135,9 @@ function draw(){
 function syncOrderControls(){const h=g.heroes[g.active];$('order').value=h.order;$('orderTarget').value=String(h.targetId);$('orderLane').value=String(orderLane(h));}
 function select(i){if(!started||g.phase==='strategy'){g.active=i;syncOrderControls();}focusBoard();}
 $('start').onclick=()=>{started=true;$('intro').style.display='none';for(const id of ['nt','class0','class1'])$(id).disabled=true;beginStrategy();focusBoard();};
-$('restart').onclick=reset;$('pause').onclick=()=>{paused=!paused;keys.clear();focusBoard();};
+$('restart').onclick=reset;$('pause').onclick=()=>{paused=!paused;focusBoard();};
 $('c0').onclick=()=>select(0);$('c1').onclick=()=>select(1);$('ready').onclick=ready;$('card').onclick=card;
+$('skipStep').onclick=()=>{if(g.turnStep==='move')skipMove();else skipAction();focusBoard();};
 $('order').onchange=()=>{setOrder($('order').value);syncOrderControls();focusBoard();};
  $('orderTarget').onchange=()=>{const h=g.heroes[g.active];h.targetId=Number($('orderTarget').value);setOrder(h.order);focusBoard();};
  $('orderLane').onchange=()=>{const h=g.heroes[g.active];if(h.order==='gank')h.gankLane=Number($('orderLane').value);else h.lane=Number($('orderLane').value);setOrder(h.order);focusBoard();};
@@ -140,33 +147,41 @@ $('order').onchange=()=>{setOrder($('order').value);syncOrderControls();focusBoa
 for(const [id,item]of [['reinforce','reinforce'],['fortify','fortify'],['extraCard','charge']])$(id).onclick=()=>{purchase(0,item,Number($('shopLane').value));focusBoard();};
 for(const id of ['nt','class0','class1'])$(id).onchange=reset;
 function focusBoard(){if(window.board3d?.enabled)window.board3d.focus();else canvas.focus();}
- canvas.onclick=e=>{focusBoard();if(g.phase!=='strategy')return;const r=canvas.getBoundingClientRect();const {x,y}=boardPick(Math.floor((e.clientX-r.left)/r.width*16),Math.floor((e.clientY-r.top)/r.height*16));const hero=g.heroes.find(h=>h.team===0&&h.hp>0&&Math.round(h.x)===x&&Math.round(h.y)===y);if(hero)select(hero.id);else planMove(x,y);};
+canvas.onclick=e=>{
+ focusBoard();
+ const r=canvas.getBoundingClientRect();
+ const {x,y}=boardPick(Math.floor((e.clientX-r.left)/r.width*16),Math.floor((e.clientY-r.top)/r.height*16));
+ if(g.phase==='strategy'){
+  const hero=g.heroes.find(h=>h.team===0&&h.hp>0&&Math.round(h.x)===x&&Math.round(h.y)===y);
+  if(hero)select(hero.id);else planMove(x,y);
+  return;
+ }
+ if(g.phase==='combat'){
+  if(g.turnStep==='move')turnMoveTo(x,y);
+  else if(g.turnStep==='action')turnActAt(x,y);
+ }
+};
 window.addEventListener('keydown',e=>{
  if(['SELECT','INPUT','BUTTON'].includes(document.activeElement?.tagName))return;const k=e.key.toLowerCase();
- if(['z','q','s','d','a',' ','1','2','escape','shift','enter','r','arrowup','arrowright','arrowdown','arrowleft'].includes(k))e.preventDefault();
- if(k==='escape'&&!e.repeat){paused=!paused;keys.clear();return;}
- if(!e.repeat){if(k==='r')rotateFacing();if(k==='arrowup')face(1,0);if(k==='arrowright')face(0,1);if(k==='arrowdown')face(-1,0);if(k==='arrowleft')face(0,-1);}
+ if(['1','2','escape','enter','r','arrowup','arrowright','arrowdown','arrowleft'].includes(k))e.preventDefault();
+ if(k==='escape'&&!e.repeat){paused=!paused;return;}
+ if(g.phase==='strategy'&&!e.repeat){if(k==='r')rotateFacing();if(k==='arrowup')face(1,0);if(k==='arrowright')face(0,1);if(k==='arrowdown')face(-1,0);if(k==='arrowleft')face(0,-1);}
  if(k==='enter'&&!e.repeat)ready();if(k==='1'||k==='2')select(Number(k)-1);
- if(!e.repeat&&started&&!paused&&g.phase==='action'&&g.winner===null){if(k==='a')card();if(k==='shift')dash(g.nts[0]);if(k===' ')attack(g.nts[0]);}keys.add(k);
 });
-window.addEventListener('keyup',e=>keys.delete(e.key.toLowerCase()));
-window.addEventListener('blur',()=>{if(started)paused=true;keys.clear();});
-document.addEventListener('visibilitychange',()=>{if(document.hidden&&started){paused=true;keys.clear();}});
+window.addEventListener('blur',()=>{if(started)paused=true;});
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&started){paused=true;}});
 for(const [id,x,y]of facingControls)$(id).onclick=()=>face(x,y);
  $('view3d').onclick=()=>window.board3d?.setMode(true);$('view2d').onclick=()=>window.board3d?.setMode(false);
  for(const id of ['class0','class1']){$(id).innerHTML=Object.entries(roster).map(([type,spec])=>'<option value="'+type+'">'+type+' · '+names[spec.kind]+' · '+spec.shape+'</option>').join('');$(id).value=id==='class0'?'ESFP':'ISTJ';}
-// Contrôles tactiles (phase d'action) : appuyer = tenir la touche clavier équivalente.
-function bindHold(id,key){
- const el=$(id);
- const start=e=>{e.preventDefault();keys.add(key);focusBoard();};
- const stop=()=>keys.delete(key);
- el.addEventListener('pointerdown',start);
- el.addEventListener('pointerup',stop);
- el.addEventListener('pointerleave',stop);
- el.addEventListener('pointercancel',stop);
-}
-bindHold('tZ','z');bindHold('tQ','q');bindHold('tS','s');bindHold('tD','d');
-bindHold('tAttack',' ');bindHold('tDash','shift');bindHold('tCard','a');
 
-function frame(now){const dt=Math.min((now-last)/1000,.05);last=now;tick(dt);ui();draw();requestAnimationFrame(frame);}
+/** Décroît les éléments purement visuels (flash, dégâts flottants) — jamais la logique de jeu, qui n'avance qu'au clic. */
+function visualTick(dt){
+ g.time+=dt;
+ for(const h of [...g.heroes,...g.nts])h.flash=Math.max(0,h.flash-dt);
+ for(const m of g.minions)m.flash=Math.max(0,m.flash-dt);
+ for(const b of g.gates)b.flash=Math.max(0,b.flash-dt);
+ for(const f of [...g.fx,...g.floats])f.left-=dt;
+ g.fx=g.fx.filter(f=>f.left>0);g.floats=g.floats.filter(f=>f.left>0);
+}
+function frame(now){const dt=Math.min((now-last)/1000,.05);last=now;visualTick(dt);ui();draw();requestAnimationFrame(frame);}
 reset();requestAnimationFrame(frame);

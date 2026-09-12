@@ -53,7 +53,13 @@ try {
  renderer.domElement.addEventListener('mousemove',e=>{hover=cellAt(e);});
  renderer.domElement.addEventListener('mouseleave',()=>{hover=null;});
  renderer.domElement.addEventListener('click',e=>{
-  renderer.domElement.focus();if(g.phase!=='strategy')return;
+  renderer.domElement.focus();
+  if(g.phase==='combat'){
+   const p=cellAt(e);if(!p)return;
+   if(g.turnStep==='move')turnMoveTo(p.x,p.y);else if(g.turnStep==='action')turnActAt(p.x,p.y);
+   return;
+  }
+  if(g.phase!=='strategy')return;
   // First test a figurine, then the ground, so clicking a head selects its owner.
   const r=renderer.domElement.getBoundingClientRect();pointer.set((e.clientX-r.left)/r.width*2-1,-(e.clientY-r.top)/r.height*2+1);raycaster.setFromCamera(pointer,camera);
   const hit=raycaster.intersectObjects([...actors.values()].map(a=>a.group),true).find(h=>{let o=h.object;while(o&&!o.userData.unit)o=o.parent;return o?.userData.unit?.team===0&&o.userData.unit.kind!=='NT';});
@@ -172,7 +178,7 @@ try {
    view.barrier.material.opacity=gateOpen(gate)?.48:.2;
    if(view.hp!==gate.hp||view.shield!==gate.shield){view.shield=gate.shield;view.text.material=label((gateOpen(gate)?'':'◆ ')+Math.ceil(gate.hp)+(gate.shield?' +'+Math.ceil(gate.shield):''),gate.team===0?'#B8ECFF':'#ffc2d1');view.hp=gate.hp;}
   }
-  const who=g.phase==='action'?g.nts[0]:selected;selection.visible=who.hp>0;selection.position.set(who.x-7.5,.12,who.y-7.5);
+  const who=g.phase==='combat'?(currentTurnUnit()||selected):selected;selection.visible=who.hp>0;selection.position.set(who.x-7.5,.12,who.y-7.5);
   updateTrail();
   for(const [f,s]of floatViews)if(!g.floats.includes(f)){effects.remove(s);floatViews.delete(f);}
   for(const f of g.floats){let s=floatViews.get(f);const text=f.gold?'+'+f.value+' G':'−'+Math.round(f.value);if(!s){s=sprite(effects,text,0,0,0,.95,.3,f.gold?'#ffdc7c':'#fff');floatViews.set(f,s);}s.material=label(text,f.gold?'#ffdc7c':'#fff');s.position.set(f.x-7.5,1.35+(1.1-f.left)*.8+(f.gold?.45:0),f.y-7.5);}

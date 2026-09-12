@@ -23,22 +23,27 @@ function purchase(team,item,lane){
  if(team===0)message(item==='charge'?'Seconde activation NT achetée pour le prochain cycle.':item==='reinforce'?'Les 8 prochains sbires de cette voie recevront chacun 25 de bouclier.':'La première porte vivante de cette voie recevra 150 de bouclier pour la prochaine action.');
  return true;
 }
+/** Jouer la carte du NT consomme l'action de son tour — INTJ/INTP résolvent
+ * immédiatement (bouclier de zone / exécution) ; ENTJ/ENTP posent un effet
+ * qui dure quelques tours (accélération, propagation en attente). */
 function activateCard(team){
  const side=g.teams[team],nt=g.nts[team];
- if(!started||paused||g.phase!=='action'||g.winner!==null||nt.hp<=0||nt.silence>0||side.charges<=0||side.cooldown>0||side.effect)return false;
+ if(!started||paused||g.phase!=='combat'||g.turnStep!=='action'||currentTurnUnit()!==nt||g.winner!==null||nt.hp<=0||nt.silence>0||side.charges<=0||side.cooldown>0)return false;
  const p=forward(nt);side.charges--;side.cooldown=1;
- side.effect={team,type:nt.type,x:Math.round(p.x),y:Math.round(p.y),left:6,affected:new Set()};
- message((team?'Adversaire · ':'')+nt.type+' : carte activée.');return true;
+ if(nt.type==='INTJ'){
+  for(const h of units())if(h.team===team&&h.hp>0&&Math.abs(h.x-p.x)<2&&Math.abs(h.y-p.y)<2)h.shield=Math.max(h.shield,40);
+ }else if(nt.type==='INTP'){
+  const m=g.minions.filter(m=>m.team!==team&&m.hp>0).sort((a,b)=>dist(a,p)-dist(b,p))[0];
+  if(m){damage(m,m.hp+(m.shield||0));reward(m,team,false);}
+ }else{
+  side.effect={team,type:nt.type,x:Math.round(p.x),y:Math.round(p.y),left:3};
+ }
+ message((team?'Adversaire · ':'')+nt.type+' : carte jouée.');return true;
 }
-function updateCards(dt){
+function updateCardEffects(){
  for(const team of [0,1]){
-  const side=g.teams[team];side.cooldown=Math.max(0,side.cooldown-dt);const effect=side.effect;if(!effect)continue;
-  effect.left-=dt;
-  if(effect.type==='INTJ')for(const h of units())if(h.team===team&&h.hp>0&&!effect.affected.has(h)&&Math.abs(h.x-effect.x)<2&&Math.abs(h.y-effect.y)<2){h.shield=Math.max(h.shield,40);effect.affected.add(h);}
-  if(effect.type==='INTP'){
-   const m=g.minions.find(m=>m.team!==team&&m.hp>0&&Math.round(m.x)===effect.x&&Math.round(m.y)===effect.y);
-   if(m){damage(m,m.hp+(m.shield||0));reward(m,team,false);effect.left=0;}
-  }
+  const side=g.teams[team];side.cooldown=Math.max(0,side.cooldown-1);const effect=side.effect;if(!effect)continue;
+  effect.left--;
   if(effect.left<=0)side.effect=null;
  }
 }
