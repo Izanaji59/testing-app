@@ -164,6 +164,9 @@ try {
   for(const [unit,a]of actors)if(!live.has(unit)){release(a.group);actors.delete(unit);}
   for(const unit of live){
    let a=actors.get(unit);if(!a){a=actor(unit);actors.set(unit,a);a.group.position.set(unit.x-7.5,0,unit.y-7.5);}
+   // Bataille navale : un champion/stratège adverse non repéré reste invisible en 3D aussi.
+   a.group.visible=unit.team!==1||isSpotted(unit);
+   if(!a.group.visible)continue;
    const target=new THREE.Vector3(unit.x-7.5,0,unit.y-7.5);a.group.position.lerp(target,.5);
    const status=unit.silence>0?'SILENCE':unit.slow>0?'RALENTI':unit.shield>0?'BOUCLIER':'';a.status.visible=!!status;if(status)a.status.material=label(status,'#ffdd89');
    a.body.position.y=unit.kind==='NF'?Math.sin(g.time*2+unit.id)*.025:0;

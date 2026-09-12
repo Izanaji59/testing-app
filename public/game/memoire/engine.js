@@ -11,15 +11,27 @@ const profiles={
 const LANES=[4,11];
 const FORMATION_SIZE=8,LANE_CAP=16;
 const MINION_STEP_DT=.5; // un "pas" de sbires simulé à chaque tour qui passe
+const DETECT_RADIUS=2.5; // repérage façon bataille navale : portée de détection par proximité
 let g,started=false,paused=false,last=0;
 const dist=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
 const laneOf=y=>LANES.find(lane=>Math.abs(y-lane)<=1.45);
 function message(s){$('notice').textContent=s;}
 function champion(team,type,x,y,id){
  const spec=roster[type];
- return {id,team,type,...spec,x,y,max:spec.hp,fx:team?-1:1,fy:0,cd:0,skill:0,mobility:0,hurt:0,flash:0,slow:0,silence:0,shield:0,respawnWave:null,order:'lane',lane:y<7.5?4:11,gankLane:y<7.5?11:4,targetId:team?0:2,manual:false,suggestion:null,accepted:false,guardCd:0,path:[],plan:null,mp:0,aimAfter:null};
+ return {id,team,type,...spec,x,y,max:spec.hp,fx:team?-1:1,fy:0,cd:0,skill:0,mobility:0,hurt:0,flash:0,slow:0,silence:0,shield:0,respawnWave:null,order:'lane',lane:y<7.5?4:11,gankLane:y<7.5?11:4,targetId:team?0:2,manual:false,suggestion:null,accepted:false,guardCd:0,path:[],plan:null,mp:0,aimAfter:null,lastSeen:null,actedThisRound:false};
 }
-function strategist(team,type){return {id:4+team,team,type,kind:'NT',hp:400,max:400,reach:3,mp:0,x:team?13:2,y:7.5,fx:team?-1:1,fy:0,cd:0,skill:0,mobility:0,hurt:0,flash:0,slow:0,silence:0,shield:0,guardCd:0,respawnWave:null,path:[]};}
+function strategist(team,type){return {id:4+team,team,type,kind:'NT',hp:400,max:400,reach:3,mp:0,x:team?13:2,y:7.5,fx:team?-1:1,fy:0,cd:0,skill:0,mobility:0,hurt:0,flash:0,slow:0,silence:0,shield:0,guardCd:0,respawnWave:null,path:[],lastSeen:null,actedThisRound:false};}
+/** Bataille navale : les champions/stratège adverses sont invisibles par
+ * défaut. Repérés s'ils ont tiré ce round-ci, ou si une de tes unités est
+ * assez proche. Sinon, seule leur dernière position connue (mémorisée) reste
+ * affichée en fantôme — jamais leur position réelle actuelle. */
+function isSpotted(u){
+ if(u.team!==1)return true;
+ return u.actedThisRound||units().some(a=>a.team===0&&a.hp>0&&dist(a,u)<=DETECT_RADIUS);
+}
+function updateSpotting(){
+ for(const u of [...g.heroes,...g.nts])if(u.team===1&&u.hp>0&&isSpotted(u))u.lastSeen={x:u.x,y:u.y};
+}
 function units(){return [...g.heroes,...g.nts,...g.minions];}
 function makeGates(){const result=[];for(const team of [0,1])for(const y of LANES)for(const tier of [0,1])result.push({team,y,tier,x:team?(tier?14:12):(tier?1:3),hp:tier?400:300,max:tier?400:300,flash:0});return result;}
 function gateOpen(b){return b.tier===0||g.gates.some(a=>a.team===b.team&&a.y===b.y&&a.tier===0&&a.hp===0);}
@@ -28,7 +40,7 @@ function buildTurnOrder(){return [g.heroes[0],g.heroes[2],g.heroes[1],g.heroes[3
 function currentTurnUnit(){return g.turnPos>=0&&g.turnPos<g.turnOrder.length?g.turnOrder[g.turnPos]:null;}
 function reset(){
  g={teams:[teamState(),teamState()],get gold(){return this.teams[0].gold;},set gold(v){this.teams[0].gold=v;},get hits(){return this.teams[0].hits;},set hits(v){this.teams[0].hits=v;},get effect(){return this.teams[0].effect;},set effect(v){this.teams[0].effect=v;},phase:'strategy',cycle:1,waveIndex:0,active:0,kills:0,time:0,nt:$('nt').value,minions:[],traps:[],fx:[],floats:[],heroes:[champion(0,$('class0').value,5,4,0),champion(0,$('class1').value,5,11,1),champion(1,'ISTP',10,4,2),champion(1,'ENFJ',10,11,3)],nts:[strategist(0,$('nt').value),strategist(1,'ENTJ')],gates:makeGates(),winner:null};
- Object.assign(g,{committed:false,turnOrder:[],turnPos:-1,turnStep:null,pending:[],memoryStats:{avoided:0,hit:0,uninvolved:0}});
+ Object.assign(g,{committed:false,turnOrder:[],turnPos:-1,turnStep:null,pending:[],lastResult:null,memoryStats:{avoided:0,hit:0,uninvolved:0}});
  started=false;paused=false;$('order').value='lane';$('intro').style.display='flex';
  for(const id of ['nt','class0','class1'])$(id).disabled=false;
  syncOrderControls();message('Prépare ton équipe à ton rythme. Tu décides quand lancer le combat.');ui();draw();
@@ -140,6 +152,7 @@ function lineClear(h,t){
 }
 /** Résout l'action du tour courant : touche tout ennemi présent dans le champ. */
 function resolveAction(h){
+ if(h.kind)h.actedThisRound=true; // tirer révèle sa position, comme un coup de canon
  const targets=[...units(),...g.gates].filter(t=>t.team!==h.team&&t.hp>0&&(!g.gates.includes(t)||gateOpen(t))&&inField(h,t));
  for(const t of targets){hit(t,33,h.team);g.fx.push({x:h.x,y:h.y,tx:t.x,ty:t.y,left:.6,team:h.team});}
  return targets.length>0;
@@ -217,8 +230,10 @@ function beginCombat(){
  spawnWave();g.phase='combat';g.pending=[];
  for(const side of g.teams){side.charges=1+(side.extraCharge?1:0);side.extraCharge=false;side.cooldown=0;}
  for(const h of g.heroes){h.plan=null;h.path=[];h.suggestion=null;if(h.aimAfter){h.fx=h.aimAfter.x;h.fy=h.aimAfter.y;}}
+ for(const u of [...g.heroes,...g.nts])u.actedThisRound=false;
  prepareTraps();
  g.turnOrder=buildTurnOrder();g.turnPos=-1;
+ updateSpotting();
  message('Mémorise les 2 empreintes — elles se déclenchent au tour 3 et en fin de manche.');
  advanceTurn();
 }
@@ -228,6 +243,7 @@ function advanceTurn(){
  resolveTrapsAt(g.turnPos);
  checkVictory();if(g.winner!==null)return;
  stepMinions();
+ updateSpotting();
  checkVictory();if(g.winner!==null)return;
  if(g.turnPos>=g.turnOrder.length){g.cycle++;beginStrategy();return;}
  const u=g.turnOrder[g.turnPos];
@@ -235,7 +251,8 @@ function advanceTurn(){
  for(const k of ['slow','silence','guardCd'])u[k]=Math.max(0,u[k]-1);
  u.mp=u.kind==='NT'?PM_BY_KIND.NT:PM_BY_KIND[u.kind];
  g.turnStep='move';
- message((u.team?'Tour adverse · ':'Ton tour · ')+u.type+(u.team?'.':' — clique sa destination.'));
+ const resultPrefix=g.lastResult?g.lastResult+' ':'';g.lastResult=null;
+ message(resultPrefix+(u.team?'Tour adverse · ':'Ton tour · ')+u.type+(u.team?'.':' — clique sa destination.'));
  if(u.team===1)resolveBotTurn(u);
 }
 function turnMoveTo(x,y){
@@ -254,7 +271,8 @@ function turnActAt(x,y){
  const u=currentTurnUnit();if(!u||u.team!==0)return false;
  const inShape=attackCells(u).some(([cx,cy])=>cx===Math.round(x)&&cy===Math.round(y));
  if(!inShape)return false;
- resolveAction(u);advanceTurn();return true;
+ g.lastResult=resolveAction(u)?'Touché !':'Dans le vide… rien à cet endroit.';
+ advanceTurn();return true;
 }
 function skipAction(){if(g.phase==='combat'&&g.turnStep==='action'&&currentTurnUnit()?.team===0)advanceTurn();}
 /** Tour d'une unité ennemie : se rapproche de sa meilleure position, agit, passe la main. */
@@ -267,6 +285,7 @@ function resolveBotTurn(u){
   if(score>best.score)best={...node,score};
  }
  if(best.path?.length){const dx=best.x-u.x,dy=best.y-u.y,n=Math.hypot(dx,dy)||1;u.fx=dx/n;u.fy=dy/n;u.x=best.x;u.y=best.y;}
- resolveAction(u);
+ const landed=resolveAction(u);
+ if(landed)g.lastResult='L\'adversaire te touche !';
  advanceTurn();
 }

@@ -38,7 +38,7 @@ function activateCard(team){
  }else{
   side.effect={team,type:nt.type,x:Math.round(p.x),y:Math.round(p.y),left:3};
  }
- message((team?'Adversaire · ':'')+nt.type+' : carte jouée.');return true;
+ g.lastResult=(team?'Adversaire · ':'')+nt.type+' : carte jouée.';return true;
 }
 function updateCardEffects(){
  for(const team of [0,1]){

@@ -111,7 +111,19 @@ function draw(){
   ctx.fillStyle=m.hp<=33?'#ffe292':'#fff';ctx.font='11px "JetBrains Mono",monospace';ctx.textAlign='center';boardText(Math.ceil(m.hp),(m.x+.5)*C,(m.y+.5)*C-17);
  }
  for(const h of [...g.heroes,...g.nts]){
-  if(h.hp<=0)continue;const x=(h.x+.5)*C,y=(h.y+.5)*C;
+  if(h.hp<=0)continue;
+  if(h.team===1&&!isSpotted(h)){
+   // Repéré nulle part : rien à montrer. Sinon, fantôme sur la dernière position mémorisée.
+   if(h.lastSeen){
+    const gx=(h.lastSeen.x+.5)*C,gy=(h.lastSeen.y+.5)*C;
+    ctx.globalAlpha=.35;ctx.strokeStyle=colors[1];ctx.lineWidth=2;ctx.setLineDash([4,4]);
+    ctx.beginPath();ctx.arc(gx,gy,18,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);
+    ctx.font='9px "JetBrains Mono",monospace';ctx.textAlign='center';ctx.fillStyle=colors[1];boardText('?',gx,gy+3);
+    ctx.globalAlpha=1;
+   }
+   continue;
+  }
+  const x=(h.x+.5)*C,y=(h.y+.5)*C;
   ctx.fillStyle=h.flash>0?'#fff':h.kind==='NT'?'#4A3410':h.team?'#3D1620':'#0E2E42';
   ctx.strokeStyle=h.kind==='NT'?'#FFB23D':colors[h.team];ctx.lineWidth=2;
   ctx.beginPath();ctx.arc(x,y,h.kind==='ST'?21:18,0,Math.PI*2);ctx.fill();ctx.stroke();
