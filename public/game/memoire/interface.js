@@ -39,6 +39,7 @@ function ui(){
  $('ready').textContent=g.committed?'Ordres validés':'Lancer le combat ↵';
  $('memoryScore').textContent='Dernier combat : '+g.memoryStats.avoided+' empreinte(s) quittée(s), '+g.memoryStats.hit+' subie(s).';
  $('beatTrack').hidden=g.phase!=='action';
+ $('touchControls').hidden=!(started&&g.phase==='action'&&!paused&&g.winner===null);
  $('beatTrack').innerHTML=Array.from({length:6},(_,i)=>{const second=(i+1)*2;return '<span class="'+(g.actionElapsed>=second?'passed':g.actionElapsed>=second-2?'next':'')+'">'+second+' s'+(second===4?' · I':second===8?' · II':'')+'</span>';}).join('');
  const d=cardinal(h);
  $('attackRule').textContent=h.kind==='SF'?'Quatre cases : les côtés et leurs diagonales avant.':h.kind==='NF'?'Deux diagonales avant, deux cases chacune.':'Quatre cases adjacentes : devant, derrière et côtés.';
@@ -154,5 +155,18 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden&&started){p
 for(const [id,x,y]of facingControls)$(id).onclick=()=>face(x,y);
  $('view3d').onclick=()=>window.board3d?.setMode(true);$('view2d').onclick=()=>window.board3d?.setMode(false);
  for(const id of ['class0','class1']){$(id).innerHTML=Object.entries(roster).map(([type,spec])=>'<option value="'+type+'">'+type+' · '+names[spec.kind]+' · '+spec.shape+'</option>').join('');$(id).value=id==='class0'?'ESFP':'ISTJ';}
+// Contrôles tactiles (phase d'action) : appuyer = tenir la touche clavier équivalente.
+function bindHold(id,key){
+ const el=$(id);
+ const start=e=>{e.preventDefault();keys.add(key);focusBoard();};
+ const stop=()=>keys.delete(key);
+ el.addEventListener('pointerdown',start);
+ el.addEventListener('pointerup',stop);
+ el.addEventListener('pointerleave',stop);
+ el.addEventListener('pointercancel',stop);
+}
+bindHold('tZ','z');bindHold('tQ','q');bindHold('tS','s');bindHold('tD','d');
+bindHold('tAttack',' ');bindHold('tDash','shift');bindHold('tCard','a');
+
 function frame(now){const dt=Math.min((now-last)/1000,.05);last=now;tick(dt);ui();draw();requestAnimationFrame(frame);}
 reset();requestAnimationFrame(frame);

@@ -10,3 +10,13 @@
 .attack-controls{border-top:1px solid rgba(120,200,255,.2);margin-top:12px;padding-top:6px}.attack-controls .attack-preview{max-width:112px;margin:8px auto}.attack-controls p{font-size:10px;line-height:1.4}.attack-controls .facing button{margin-top:0}
 
 .army-status{display:flex;justify-content:space-between;padding:12px 16px;border-top:1px solid rgba(120,200,255,.2);font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;color:#9db3c9;gap:12px}.army-status span:last-child{color:#FF9AAA}.shop #gold{margin-top:0}.shop button{font-size:12px}.mission #planStatus{color:#FFB23D}.panel details{font-size:12px;color:#9db3c9}.panel summary{cursor:pointer;margin:12px 0;color:#B8ECFF}.panel dl{margin-top:18px}.mission .attack-preview{max-width:100px}.row button{font-size:11px;line-height:1.5}.shop p{font-size:11px}.layout{grid-template-columns:230px minmax(400px,880px) 230px}.heading p:not(.eyebrow){margin:6px 0}main{padding-top:18px}@media(max-width:1100px){.layout{grid-template-columns:210px minmax(350px,1fr)}}
+
+/* Contrôles tactiles — phase d'action uniquement, écrans tactiles uniquement. */
+.touch-controls{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:space-between;padding:14px;pointer-events:none;z-index:6}
+.touch-btn{pointer-events:auto;-webkit-user-select:none;user-select:none;touch-action:none;display:flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:50%;background:rgba(10,19,32,.72);border:1px solid rgba(120,200,255,.4);color:#DCEAF7;font-size:18px;backdrop-filter:blur(2px)}
+.touch-btn:active{background:rgba(78,205,255,.28);border-color:#4ECDFF}
+.touch-dpad{display:grid;grid-template-columns:repeat(3,52px);grid-template-rows:repeat(3,52px);gap:4px}
+.dpad-up{grid-area:1/2}.dpad-left{grid-area:2/1}.dpad-down{grid-area:3/2}.dpad-right{grid-area:2/3}
+.touch-actions{display:grid;grid-template-columns:repeat(2,52px);gap:10px;align-items:end}
+.touch-attack{grid-column:1/-1;width:64px;height:64px;margin:0 auto;border-color:#FF5577;color:#FF5577;font-size:22px}
+@media not (pointer:coarse){.touch-controls{display:none!important}}
