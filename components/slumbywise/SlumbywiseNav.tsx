@@ -40,7 +40,6 @@ export function SlumbywiseNav() {
       <div className="sw-nav-links">
         <Link href="/#livre">Le livre</Link>
         <Link href="/carnet">Le carnet</Link>
-        <Link href="/#letter">La lettre</Link>
         <div className="sw-nav-dropdown" ref={dropdownRef}>
           <button
             type="button"

@@ -29,7 +29,7 @@ export function Chapter1Content() {
           </div>
 
           <p className="sw-letter-note" style={{ marginTop: 32 }}>
-            La suite ? <Link href="/#letter">Reçois la lettre du carnet chaque mois</Link> ou{' '}
+            La suite ? <Link href="/carnet#letter">Reçois la lettre du carnet chaque mois</Link> ou{' '}
             <Link href="/carnet">lis les autres entrées publiées</Link>.
           </p>
         </article>

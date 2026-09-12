@@ -19,7 +19,6 @@ export function SlumbywiseFooter() {
             <ul>
               <li><Link href="/#livre">Le livre</Link></li>
               <li><Link href="/carnet">Le carnet</Link></li>
-              <li><Link href="/#letter">La lettre</Link></li>
             </ul>
           </div>
           <div className="sw-footer-col">
