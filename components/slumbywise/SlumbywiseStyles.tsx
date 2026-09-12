@@ -224,6 +224,9 @@ export function SlumbywiseStyles() {
 
         .sw-page-hero { padding: 160px 48px 60px; max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
 
+        .sw-article-body { margin-top: 40px; padding-top: 40px; border-top: 1px solid var(--hairline); display: flex; flex-direction: column; gap: 22px; }
+        .sw-article-body p { font-size: 17px; line-height: 1.75; color: var(--warm-white-dim); font-family: 'Inter', sans-serif; font-weight: 300; }
+
         @media (max-width: 900px) {
           .sw-root nav { padding: 18px 24px; }
           .sw-nav-links { gap: 22px; }
