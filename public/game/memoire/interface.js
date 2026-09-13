@@ -2,6 +2,13 @@ function ui(){
  const strategy=g.phase==='strategy'&&!g.committed,nt=g.nts[0],h=g.heroes[g.active],side=g.teams[0],lane=Number($('shopLane').value)||4,editable=(!started||strategy)&&!paused&&g.winner===null;
  const turnUnit=currentTurnUnit(),yourTurn=g.phase==='combat'&&turnUnit&&turnUnit.team===0&&g.winner===null&&!paused;
  $('phase').textContent=!started?'PRÊT À JOUER':g.winner!==null?['VICTOIRE','DÉFAITE','ÉGALITÉ'][g.winner]:paused?'PAUSE':strategy?'PLACEMENT · CLIC':g.phase==='combat'?(yourTurn?(g.turnStep==='move'?'TON TOUR · DÉPLACE':'TON TOUR · AGIS'):'TOUR ADVERSE'):'';
+ const banner=$('turnBanner');
+ if(yourTurn){
+  banner.hidden=false;
+  const memNote=g.turnPos<=1?'MÉMORISE les 2 zones violettes/roses ci-dessous (tour 3 et fin de manche). ':'';
+  if(g.turnStep==='move'){banner.className='turn-banner move';banner.textContent=memNote+'CLIQUE UNE CASE BLEUE pour déplacer '+turnUnit.type+' ('+turnUnit.mp+' PM), ou Passer.';}
+  else{banner.className='turn-banner attack';banner.textContent=memNote+'CLIQUE UNE CASE ROUGE pour attaquer avec '+turnUnit.type+', ou Passer.';}
+ }else banner.hidden=true;
  $('timer').textContent=g.phase==='strategy'?(g.committed?'EN PLACE…':'À TON RYTHME'):g.phase==='combat'&&turnUnit?turnUnit.type+(turnUnit.team?' (adv.)':'')+' · '+turnUnit.mp+' PM':'—';
  $('round').textContent='VAGUE '+g.waveIndex+' / CYCLE '+g.cycle;
  $('gold').textContent=g.gold+' G';
@@ -96,8 +103,14 @@ function draw(){
   }
  }
  for(const t of g.traps)if(visibleTrap(t)){
-  ctx.fillStyle=memoryColor(t)+'99';ctx.strokeStyle=memoryColor(t);ctx.lineWidth=2;
-  for(const [x,y]of t.cells){ctx.fillRect(x*C+2,y*C+2,C-4,C-4);ctx.strokeRect(x*C+4,y*C+4,C-8,C-8);ctx.font='bold 18px "JetBrains Mono",monospace';ctx.textAlign='center';boardText(t.slot===1?'I':'II',(x+.5)*C,(y+.5)*C);}
+  const pulse=.7+Math.sin(g.time*6)*.3;
+  ctx.fillStyle=memoryColor(t)+'99';ctx.strokeStyle=memoryColor(t);ctx.lineWidth=2+pulse;ctx.globalAlpha=pulse;
+  for(const [x,y]of t.cells){ctx.fillRect(x*C+2,y*C+2,C-4,C-4);ctx.strokeRect(x*C+4,y*C+4,C-8,C-8);}
+  ctx.globalAlpha=1;
+  const [fx,fy]=t.cells[0]||[0,0];
+  ctx.fillStyle=memoryColor(t);ctx.font='bold 20px "JetBrains Mono",monospace';ctx.textAlign='center';
+  for(const [x,y]of t.cells)boardText(t.slot===1?'I':'II',(x+.5)*C,(y+.5)*C);
+  ctx.font='bold 10px "JetBrains Mono",monospace';boardText('MÉMORISE',(fx+.5)*C,(fy+.5)*C-30);
  }
  for(const b of g.gates){
   if(b.hp<=0){ctx.strokeStyle='#526576';ctx.strokeRect(b.x*C+7,(b.y-1)*C+4,36,142);continue;}

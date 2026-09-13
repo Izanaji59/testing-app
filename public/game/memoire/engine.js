@@ -258,19 +258,22 @@ function advanceTurn(){
 function turnMoveTo(x,y){
  if(g.phase!=='combat'||g.turnStep!=='move'||g.winner!==null)return false;
  const u=currentTurnUnit();if(!u||u.team!==0||u.hp<=0)return false;
- if(occupied(Math.round(x),Math.round(y),u))return false;
- const path=pathTo(u,x,y);if(path===null)return false;
+ x=Math.round(x);y=Math.round(y);
+ if(occupied(x,y,u)){message('Case déjà occupée — choisis une autre case dans la zone bleue.');return false;}
+ const path=pathTo(u,x,y);
+ if(path===null){message('Trop loin : '+u.type+' n\'a que '+u.mp+' PM ce tour-ci. Reste dans la zone bleue.');return false;}
  if(path.length){const dest=path.at(-1),dx=dest.x-u.x,dy=dest.y-u.y,n=Math.hypot(dx,dy)||1;u.fx=dx/n;u.fy=dy/n;u.x=dest.x;u.y=dest.y;u.mp-=path.length;}
  g.turnStep='action';
- message(u.type+' : clique une case de son champ pour attaquer, ou passe.');
+ message(u.type+' en place. Clique une case rouge (son champ d\'attaque) pour toucher, ou clique Passer.');
  return true;
 }
 function skipMove(){if(g.phase==='combat'&&g.turnStep==='move'&&currentTurnUnit()?.team===0)g.turnStep='action';}
 function turnActAt(x,y){
  if(g.phase!=='combat'||g.turnStep!=='action'||g.winner!==null)return false;
  const u=currentTurnUnit();if(!u||u.team!==0)return false;
- const inShape=attackCells(u).some(([cx,cy])=>cx===Math.round(x)&&cy===Math.round(y));
- if(!inShape)return false;
+ x=Math.round(x);y=Math.round(y);
+ const inShape=attackCells(u).some(([cx,cy])=>cx===x&&cy===y);
+ if(!inShape){message('Hors du champ de '+u.type+' — clique une case rouge surlignée, ou Passer.');return false;}
  g.lastResult=resolveAction(u)?'Touché !':'Dans le vide… rien à cet endroit.';
  advanceTurn();return true;
 }
