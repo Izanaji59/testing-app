@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10151c">
+  <title>Empreinte — les seize</title>
+  <link rel="stylesheet" href="tactique.css">
+  <script src="tactique-core.js" defer></script><script src="tactique.js" defer></script>
+</head>
+<body>
+  <header class="site-head"><a href="tactique.html">SLUMBYWISE <span>Empreinte</span></a><span>Solo sans compte</span></header>
+  <main>
+    <div class="heading"><div><p class="eyebrow">DUEL TACTIQUE</p><h1>Les seize.</h1><p>16 MBTI par camp. Trois actions. À toi de trouver l’ouverture.</p></div><button id="newMatch">Nouvelle partie</button></div>
+    <div class="game-layout">
+      <section class="arena" aria-label="Plateau de jeu">
+        <div class="turn-bar"><div><strong id="turnLabel">À toi de jouer</strong><span id="turnMeta">Tour 1</span></div><div id="actions" aria-label="Trois actions restantes"><i></i><i></i><i></i></div><button id="endTurn" class="primary">Fin du tour</button></div>
+        <div class="board-tools"><span><b class="ally-key">Toi</b> <span id="countAlly">16</span> <span class="versus">/</span> <b class="enemy-key">IA</b> <span id="countEnemy">16</span></span><div><button id="zoom" aria-pressed="false">Zoom ×2</button><span id="pan" hidden><button data-pan="left" aria-label="Voir à gauche">←</button><button data-pan="up" aria-label="Voir en haut">↑</button><button data-pan="down" aria-label="Voir en bas">↓</button><button data-pan="right" aria-label="Voir à droite">→</button></span></div></div>
+        <div class="board-wrap"><canvas id="tacticBoard" width="800" height="800" aria-label="Plateau 16 par 16. Les personnages peuvent aussi être sélectionnés dans les listes sous le plateau."></canvas><div id="result" hidden><h2 id="resultTitle"></h2><p id="resultText"></p><button id="again" class="primary">Rejouer</button></div></div>
+        <div class="commands" role="group" aria-label="Ordre du personnage sélectionné"><button data-mode="move" class="selected">Déplacer <small>1 action</small></button><button data-mode="attack">Frapper <small>1 action</small></button><button data-mode="skill">Capacité <small id="skillCost">2 actions</small></button></div>
+        <div class="confirmation"><p id="notice" role="status" aria-live="polite">Sélectionne un allié, puis une case.</p><button id="confirm" class="primary" disabled>Confirmer</button></div>
+        <details class="keyboard-target"><summary>Choisir une case au clavier</summary><div class="key-target"><label for="targetFile">Case</label><select id="targetFile" aria-label="Colonne de la case"></select><select id="targetRank" aria-label="Ligne de la case"></select><button id="previewTarget">Prévisualiser</button></div></details>
+      </section>
+      <aside>
+        <section class="identity" aria-label="Personnage sélectionné"><div class="identity-heading"><span id="family">ST / Tank</span><span id="camp">Ton équipe</span></div><h2><span id="unitName">ESTP</span><span id="unitRole">Percée</span></h2><div id="health"></div><p id="moveDescription"></p><hr><h3 id="skillName"></h3><p id="skillDescription"></p><p id="cooldown" class="subtle"></p><div id="passiveBox" hidden><h3>Son rythme</h3><p id="passiveDescription"></p><span id="passiveProgress"></span></div><p id="unitOrders" class="subtle"></p></section>
+        <details class="army" open><summary>Ton équipe <span id="ownAlive">16 en jeu</span></summary><div id="ownRoster" class="roster"></div></details>
+        <details class="army"><summary>L’adversaire <span id="botStyle"></span></summary><div id="enemyRoster" class="roster"></div></details>
+        <details class="rules"><summary>Comment jouer</summary><ol><li>Sélectionne un personnage. Déplace-le ou choisis une frappe.</li><li>Un premier toucher montre l’action. Un second sur la même case la confirme. Le bouton Confirmer fait la même chose.</li><li>Tu as trois actions pour toute l’équipe. Une capacité coûte deux actions. Chaque personnage reçoit deux ordres maximum.</li><li>Les attaques suivent le champ de sa famille. Les trajectoires et les effets spéciaux restent visibles.</li><li>Détruis une porte puis atteins la dernière rangée adverse. Éliminer toute l’équipe adverse gagne aussi la partie.</li></ol><p>Pas de chrono, de soin entre les tours ou de bonus de ressources pour l’IA. Chaque capacité se recharge pendant un tour allié complet.</p><p>Le déplacement en L saute les personnages, mais ne traverse pas les murs ni les lignes de défense fermées.</p><a href="precedent.html">Revenir à la version précédente</a></details>
+        <details class="history"><summary>Dernières actions</summary><ol id="history"></ol></details>
+      </aside>
+    </div>
+  </main>
+</body>
+</html>

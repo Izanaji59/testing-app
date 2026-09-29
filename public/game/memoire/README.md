@@ -1,6 +1,8 @@
 # Empreinte — prototype solo contre IA
 
-Ouvrir `/game/memoire/index.html` avec `npm run dev`. Le dossier peut aussi être servi statiquement. Aucun déploiement public n’est effectué.
+La nouvelle entrée `index.html` lance **Les seize** : seize MBTI par camp, trois actions par tour et commandes au clic ou au toucher. Sa conception est dans [TACTIQUE.md](TACTIQUE.md). La version précédente reste accessible dans `precedent.html` ; les sections ci-dessous en documentent les règles.
+
+Ouvrir `/game/memoire/index.html` avec `npm run dev`. Ce dossier est inclus dans le déploiement statique de Slumbywise.
 
 ## Boucle et mémoire
 
