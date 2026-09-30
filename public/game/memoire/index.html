@@ -1,31 +1,33 @@
 <!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#10151c">
-  <title>Empreinte — les seize</title>
-  <link rel="stylesheet" href="tactique.css">
-  <script src="tactique-core.js" defer></script><script src="tactique.js" defer></script>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#111b23"><meta name="description" content="Un duel de capture sur un plateau 9 par 9. Trois pouvoirs MBTI, une IA, aucun compte et aucun chrono.">
+  <title>Empreinte — Go MBTI</title>
+  <link rel="stylesheet" href="go.css"><script src="go-core.js" defer></script><script src="go.js" defer></script>
 </head>
 <body>
-  <header class="site-head"><a href="tactique.html">SLUMBYWISE <span>Empreinte</span></a><span>Solo sans compte</span></header>
+  <header class="site-header"><a href="/">SLUMBYWISE</a><span>Empreinte / Go MBTI</span><span>Solo sans compte</span></header>
   <main>
-    <div class="heading"><div><p class="eyebrow">DUEL TACTIQUE</p><h1>Les seize.</h1><p>16 MBTI par camp. Trois actions. À toi de trouver l’ouverture.</p></div><button id="newMatch">Nouvelle partie</button></div>
+    <div class="page-heading"><div><p class="eyebrow">UN DUEL DE CAPTURE</p><h1>Chaque pierre compte.</h1><p>Entoure les groupes adverses. La première équipe à capturer cinq pierres gagne.</p></div><button id="newGo">Nouvelle partie</button></div>
     <div class="game-layout">
-      <section class="arena" aria-label="Plateau de jeu">
-        <div class="turn-bar"><div><strong id="turnLabel">À toi de jouer</strong><span id="turnMeta">Tour 1</span></div><div id="actions" aria-label="Trois actions restantes"><i></i><i></i><i></i></div><button id="endTurn" class="primary">Fin du tour</button></div>
-        <div class="board-tools"><span><b class="ally-key">Toi</b> <span id="countAlly">16</span> <span class="versus">/</span> <b class="enemy-key">IA</b> <span id="countEnemy">16</span></span><div><button id="zoom" aria-pressed="false">Zoom ×2</button><span id="pan" hidden><button data-pan="left" aria-label="Voir à gauche">←</button><button data-pan="up" aria-label="Voir en haut">↑</button><button data-pan="down" aria-label="Voir en bas">↓</button><button data-pan="right" aria-label="Voir à droite">→</button></span></div></div>
-        <div class="board-wrap"><canvas id="tacticBoard" width="800" height="800" aria-label="Plateau 16 par 16. Les personnages peuvent aussi être sélectionnés dans les listes sous le plateau."></canvas><div id="result" hidden><h2 id="resultTitle"></h2><p id="resultText"></p><button id="again" class="primary">Rejouer</button></div></div>
-        <div class="commands" role="group" aria-label="Ordre du personnage sélectionné"><button data-mode="move" class="selected">Déplacer <small>1 action</small></button><button data-mode="attack">Frapper <small>1 action</small></button><button data-mode="skill">Capacité <small id="skillCost">2 actions</small></button></div>
-        <div class="confirmation"><p id="notice" role="status" aria-live="polite">Sélectionne un allié, puis une case.</p><button id="confirm" class="primary" disabled>Confirmer</button></div>
-        <details class="keyboard-target"><summary>Choisir une case au clavier</summary><div class="key-target"><label for="targetFile">Case</label><select id="targetFile" aria-label="Colonne de la case"></select><select id="targetRank" aria-label="Ligne de la case"></select><button id="previewTarget">Prévisualiser</button></div></details>
+      <section class="arena" aria-label="Partie de Go MBTI">
+        <div class="scoreboard"><div><span class="stone-key yours"></span><span>Toi</span><strong id="yourScore">0 <small>/ 5</small></strong></div><span class="versus">CAPTURES</span><div><strong id="theirScore">0 <small>/ 5</small></strong><span>IA</span><span class="stone-key theirs"></span></div></div>
+        <div class="turn-row"><strong id="goTurn">Choisis tes trois pouvoirs</strong><span id="goMove">Réflexion libre</span></div>
+        <div class="board-frame"><div class="columns" id="columnLabels" aria-hidden="true"></div><div class="rows" id="rowLabels" aria-hidden="true"></div><div class="goban" id="goban" aria-label="Plateau de neuf lignes et neuf colonnes"><svg class="grid-lines" viewBox="0 0 900 900" aria-hidden="true" id="gridLines"></svg><div class="intersections" id="intersections"></div></div></div>
+        <div class="board-legend"><span><i class="legend-ring"></i> Liberté</span><span><i class="legend-forecast">P</i> Prévision annoncée</span><span id="groupInfo">Les groupes se relient par les côtés.</span></div>
+        <div class="quick-powers" id="quickPowers" role="group" aria-label="Choisir une pose ou un pouvoir" hidden></div>
+        <div class="play-status"><p id="goNotice" role="status" aria-live="polite">Deux pierres par camp sont déjà au centre. À toi de construire la suite.</p><div><button id="cancelGo" hidden>Annuler</button><button id="confirmGo" class="primary" hidden>Confirmer</button></div></div>
+        <div class="board-actions"><button id="startGo" class="primary">Jouer contre l’IA</button><button id="passGo" hidden>Passer</button><label><input type="checkbox" id="confirmPlacements"> Confirmer chaque pose</label></div>
+        <section id="goResult" class="result" aria-live="polite" hidden><p class="eyebrow">FIN DU DUEL</p><h2 id="goResultTitle"></h2><p id="goResultDetail"></p><button id="againGo" class="primary">Rejouer</button></section>
       </section>
-      <aside>
-        <section class="identity" aria-label="Personnage sélectionné"><div class="identity-heading"><span id="family">ST / Tank</span><span id="camp">Ton équipe</span></div><h2><span id="unitName">ESTP</span><span id="unitRole">Percée</span></h2><div id="health"></div><p id="moveDescription"></p><hr><h3 id="skillName"></h3><p id="skillDescription"></p><p id="cooldown" class="subtle"></p><div id="passiveBox" hidden><h3>Son rythme</h3><p id="passiveDescription"></p><span id="passiveProgress"></span></div><p id="unitOrders" class="subtle"></p></section>
-        <details class="army" open><summary>Ton équipe <span id="ownAlive">16 en jeu</span></summary><div id="ownRoster" class="roster"></div></details>
-        <details class="army"><summary>L’adversaire <span id="botStyle"></span></summary><div id="enemyRoster" class="roster"></div></details>
-        <details class="rules"><summary>Comment jouer</summary><ol><li>Sélectionne un personnage. Déplace-le ou choisis une frappe.</li><li>Un premier toucher montre l’action. Un second sur la même case la confirme. Le bouton Confirmer fait la même chose.</li><li>Tu as trois actions pour toute l’équipe. Une capacité coûte deux actions. Chaque personnage reçoit deux ordres maximum.</li><li>Les attaques suivent le champ de sa famille. Les trajectoires et les effets spéciaux restent visibles.</li><li>Détruis une porte puis atteins la dernière rangée adverse. Éliminer toute l’équipe adverse gagne aussi la partie.</li></ol><p>Pas de chrono, de soin entre les tours ou de bonus de ressources pour l’IA. Chaque capacité se recharge pendant un tour allié complet.</p><p>Le déplacement en L saute les personnages, mais ne traverse pas les murs ni les lignes de défense fermées.</p><a href="precedent.html">Revenir à la version précédente</a></details>
-        <details class="history"><summary>Dernières actions</summary><ol id="history"></ol></details>
+      <aside class="control-panel">
+        <section class="reserve"><div><h2>Ta réserve</h2><strong id="yourEnergy">0 / 6</strong></div><div class="reserve-track" id="reserveTrack" aria-hidden="true"></div><p>Une pose normale rapporte 1 point. Un pouvoir consomme ton coup et sa réserve.</p></section>
+        <section class="powers"><div class="section-title"><h2 id="powersTitle">Choisis trois pouvoirs</h2><span id="deckCount">3 / 3</span></div><div id="powerCards"></div><p id="powerHelp" class="subtle">Désélectionne un pouvoir pour en essayer un autre.</p></section>
+        <section class="opponent"><div class="section-title"><h2>L’adversaire</h2><span id="theirEnergy">0 / 6</span></div><p id="goBotStyle"></p><div id="enemyPowers"></div><p id="forecastInfo" class="subtle"></p></section>
+        <details class="help" open><summary>Un groupe respire par ses libertés</summary><p>Une liberté est une intersection vide juste au-dessus, en dessous, à gauche ou à droite d’un groupe. Sans liberté, le groupe est capturé.</p><p>Touche une pierre pour voir son groupe et ses libertés. Les diagonales ne relient pas les pierres.</p><p id="powerInstructions">Une pose normale se joue d’un clic. Les pouvoirs se prévisualisent avant confirmation.</p><p>Deux passes de suite ou 80 coups terminent aussi la partie : les captures départagent les camps, puis leurs pierres et l’espace entouré en cas d’égalité. Aucun chrono.</p></details>
+        <details class="history"><summary>Derniers coups</summary><ol id="goHistory"></ol></details>
+        <a class="previous" href="tactique.html">Retrouver le duel à seize personnages</a>
       </aside>
     </div>
   </main>

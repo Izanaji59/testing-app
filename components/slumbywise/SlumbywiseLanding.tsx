@@ -223,23 +223,23 @@ export function SlumbywiseLanding() {
           <div className="sw-section-inner sw-promise-inner">
             <div>
               <div className="sw-eyebrow">Empreinte</div>
-              <h2 className="sw-section-title">Seize personnages. <em>À toi de trouver l&apos;ouverture.</em></h2>
-              <p className="sw-book-desc">Les seize MBTI sont réunis dans chaque camp. Chacun possède ses déplacements et sa capacité. Observe l&apos;adversaire, choisis tes trois actions, puis laisse-le jouer.</p>
+              <h2 className="sw-section-title">Chaque pierre compte. <em>À toi de trouver l&apos;ouverture.</em></h2>
+              <p className="sw-book-desc">Pose tes pierres, relie tes groupes et encercle ceux de l&apos;adversaire. Trois pouvoirs MBTI t&apos;aident à préparer une capture ou à ouvrir un passage.</p>
               <p className="sw-book-desc" style={{ color: 'var(--pool-teal)', fontStyle: 'italic', fontFamily: "'Instrument Serif', serif", fontSize: 20, marginTop: 24 }}>Un duel contre l&apos;IA, sans compte ni chrono de réflexion.</p>
               <a href="/game/memoire/" className="sw-btn-primary" style={{ marginTop: 8 }}>Entrer dans l&apos;arène</a>
             </div>
             <div className="sw-promise-flow">
               <div className="sw-flow-step">
                 <div className="sw-flow-num">→</div>
-                <div className="sw-flow-text">Trente-deux personnages sur le plateau, <em>seize de chaque côté</em>.</div>
+                <div className="sw-flow-text">Un plateau 9 × 9. <em>Cinq pierres capturées pour gagner.</em></div>
               </div>
               <div className="sw-flow-step">
                 <div className="sw-flow-num">→</div>
-                <div className="sw-flow-text">Trois actions par tour pour déplacer, frapper ou jouer une capacité.</div>
+                <div className="sw-flow-text">Trois pouvoirs parmi INTJ, INTP, ENTJ et ENTP. Une réserve gagnée à chaque pose normale.</div>
               </div>
               <div className="sw-flow-step">
                 <div className="sw-flow-num">→</div>
-                <div className="sw-flow-text">Au clic ou au toucher, avec un aperçu avant chaque action.</div>
+                <div className="sw-flow-text">Au clic ou au toucher, avec un aperçu avant de confirmer un pouvoir.</div>
               </div>
             </div>
           </div>

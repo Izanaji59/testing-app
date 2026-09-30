@@ -1,6 +1,8 @@
 # Empreinte — prototype solo contre IA
 
-La nouvelle entrée `index.html` lance **Les seize** : seize MBTI par camp, trois actions par tour et commandes au clic ou au toucher. Sa conception est dans [TACTIQUE.md](TACTIQUE.md). La version précédente reste accessible dans `precedent.html` ; les sections ci-dessous en documentent les règles.
+L’entrée `index.html` lance **Go MBTI** : un plateau 9 × 9, cinq captures pour gagner et trois pouvoirs choisis parmi quatre NT. Sa conception et ses vérifications sont dans [GO.md](GO.md).
+
+Le duel à seize MBTI par camp reste accessible dans `tactique.html`, avec sa conception dans [TACTIQUE.md](TACTIQUE.md). Le premier prototype reste accessible dans `precedent.html` ; les sections ci-dessous en documentent les règles.
 
 Ouvrir `/game/memoire/index.html` avec `npm run dev`. Ce dossier est inclus dans le déploiement statique de Slumbywise.
 

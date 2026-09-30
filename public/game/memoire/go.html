@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#111b23"><meta name="description" content="Un duel de capture sur un plateau 9 par 9. Trois pouvoirs MBTI, une IA, aucun compte et aucun chrono.">
+  <title>Empreinte — Go MBTI</title>
+  <link rel="stylesheet" href="go.css"><script src="go-core.js" defer></script><script src="go.js" defer></script>
+</head>
+<body>
+  <header class="site-header"><a href="/">SLUMBYWISE</a><span>Empreinte / Go MBTI</span><span>Solo sans compte</span></header>
+  <main>
+    <div class="page-heading"><div><p class="eyebrow">UN DUEL DE CAPTURE</p><h1>Chaque pierre compte.</h1><p>Entoure les groupes adverses. La première équipe à capturer cinq pierres gagne.</p></div><button id="newGo">Nouvelle partie</button></div>
+    <div class="game-layout">
+      <section class="arena" aria-label="Partie de Go MBTI">
+        <div class="scoreboard"><div><span class="stone-key yours"></span><span>Toi</span><strong id="yourScore">0 <small>/ 5</small></strong></div><span class="versus">CAPTURES</span><div><strong id="theirScore">0 <small>/ 5</small></strong><span>IA</span><span class="stone-key theirs"></span></div></div>
+        <div class="turn-row"><strong id="goTurn">Choisis tes trois pouvoirs</strong><span id="goMove">Réflexion libre</span></div>
+        <div class="board-frame"><div class="columns" id="columnLabels" aria-hidden="true"></div><div class="rows" id="rowLabels" aria-hidden="true"></div><div class="goban" id="goban" aria-label="Plateau de neuf lignes et neuf colonnes"><svg class="grid-lines" viewBox="0 0 900 900" aria-hidden="true" id="gridLines"></svg><div class="intersections" id="intersections"></div></div></div>
+        <div class="board-legend"><span><i class="legend-ring"></i> Liberté</span><span><i class="legend-forecast">P</i> Prévision annoncée</span><span id="groupInfo">Les groupes se relient par les côtés.</span></div>
+        <div class="quick-powers" id="quickPowers" role="group" aria-label="Choisir une pose ou un pouvoir" hidden></div>
+        <div class="play-status"><p id="goNotice" role="status" aria-live="polite">Deux pierres par camp sont déjà au centre. À toi de construire la suite.</p><div><button id="cancelGo" hidden>Annuler</button><button id="confirmGo" class="primary" hidden>Confirmer</button></div></div>
+        <div class="board-actions"><button id="startGo" class="primary">Jouer contre l’IA</button><button id="passGo" hidden>Passer</button><label><input type="checkbox" id="confirmPlacements"> Confirmer chaque pose</label></div>
+        <section id="goResult" class="result" aria-live="polite" hidden><p class="eyebrow">FIN DU DUEL</p><h2 id="goResultTitle"></h2><p id="goResultDetail"></p><button id="againGo" class="primary">Rejouer</button></section>
+      </section>
+      <aside class="control-panel">
+        <section class="reserve"><div><h2>Ta réserve</h2><strong id="yourEnergy">0 / 6</strong></div><div class="reserve-track" id="reserveTrack" aria-hidden="true"></div><p>Une pose normale rapporte 1 point. Un pouvoir consomme ton coup et sa réserve.</p></section>
+        <section class="powers"><div class="section-title"><h2 id="powersTitle">Choisis trois pouvoirs</h2><span id="deckCount">3 / 3</span></div><div id="powerCards"></div><p id="powerHelp" class="subtle">Désélectionne un pouvoir pour en essayer un autre.</p></section>
+        <section class="opponent"><div class="section-title"><h2>L’adversaire</h2><span id="theirEnergy">0 / 6</span></div><p id="goBotStyle"></p><div id="enemyPowers"></div><p id="forecastInfo" class="subtle"></p></section>
+        <details class="help" open><summary>Un groupe respire par ses libertés</summary><p>Une liberté est une intersection vide juste au-dessus, en dessous, à gauche ou à droite d’un groupe. Sans liberté, le groupe est capturé.</p><p>Touche une pierre pour voir son groupe et ses libertés. Les diagonales ne relient pas les pierres.</p><p id="powerInstructions">Une pose normale se joue d’un clic. Les pouvoirs se prévisualisent avant confirmation.</p><p>Deux passes de suite ou 80 coups terminent aussi la partie : les captures départagent les camps, puis leurs pierres et l’espace entouré en cas d’égalité. Aucun chrono.</p></details>
+        <details class="history"><summary>Derniers coups</summary><ol id="goHistory"></ol></details>
+        <a class="previous" href="tactique.html">Retrouver le duel à seize personnages</a>
+      </aside>
+    </div>
+  </main>
+</body>
+</html>
