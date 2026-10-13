@@ -5,7 +5,7 @@ import { useProfile } from '@/hooks/useProfile';
 import { useProjects } from '@/hooks/useProjects';
 import { Header } from '@/components/shell/Header';
 import { ProfileState } from '@/components/shell/ProfileState';
-import { ProjectCard } from '@/components/core/ProjectCard';
+import { ProjectMatrix } from '@/components/core/ProjectMatrix';
 import { HudPanel } from '@/components/hud/HudPanel';
 import { DataReadout } from '@/components/hud/DataReadout';
 import { T } from '@/lib/tokens';
@@ -28,10 +28,6 @@ export default function DonjonPage() {
   const [showCreate, setShowCreate] = useState(false);
 
   if (!profile) return <ProfileState kind={loading ? 'loading' : 'missing'} />;
-
-  const active   = projects.filter(p => p.status === 'ACTIVE');
-  const planned  = projects.filter(p => p.status === 'PLANNED');
-  const paused   = projects.filter(p => p.status === 'PAUSED');
 
   return (
     <div style={{ color: T.text }}>
@@ -62,9 +58,7 @@ export default function DonjonPage() {
           />
         )}
 
-        <Section title={`ACTIFS · ${active.length}`}   projects={active}  emptyMsg="AUCUN PROJET ACTIF." />
-        <Section title={`EN ATTENTE · ${planned.length}`} projects={planned} emptyMsg="—" />
-        <Section title={`EN SOMMEIL · ${paused.length}`}  projects={paused}  emptyMsg="—" />
+        <ProjectMatrix projects={projects} userId={profile.user_id} />
 
         {projects.length === 0 && !showCreate && (
           <HudPanel thin>
@@ -212,35 +206,5 @@ function ProjectCreator({ onCreated }: { onCreated: () => void }) {
         </button>
       </div>
     </HudPanel>
-  );
-}
-
-// ─────────────────────────── Section ───────────────────────────
-
-function Section({
-  title, projects, emptyMsg,
-}: {
-  title: string;
-  projects: ReturnType<typeof useProjects>['projects'];
-  emptyMsg: string;
-}) {
-  if (projects.length === 0 && emptyMsg === '—') return null;
-  return (
-    <div>
-      <DataReadout color={T.textDim} size={10} letterSpacing="0.28em" style={{ padding: '0 4px 8px' }}>
-        {title}
-      </DataReadout>
-      {projects.length === 0 ? (
-        <HudPanel thin>
-          <div style={{ padding: 18, textAlign: 'center', fontFamily: T.mono, fontSize: 10, color: T.textMute, letterSpacing: '0.2em' }}>
-            {emptyMsg}
-          </div>
-        </HudPanel>
-      ) : (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-          {projects.map(p => <ProjectCard key={p.id} project={p} />)}
-        </div>
-      )}
-    </div>
   );
 }

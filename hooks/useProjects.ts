@@ -31,7 +31,7 @@ export function useProjects() {
       if (!mounted || !auth.user) return;
       const sb = supabase();
       channel = sb
-        .channel(`projects_${auth.user.id}`)
+        .channel(`projects_${auth.user.id}_${crypto.randomUUID()}`)
         .on('postgres_changes', { event: '*', schema: 'public', table: 'projects', filter: `user_id=eq.${auth.user.id}` },
           () => mutate('projects'))
         .subscribe();

@@ -1,0 +1,63 @@
+// Local browser integration test. Auth and data requests are intercepted; no real account is changed.
+const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
+const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
+const root=path.join(__dirname,'..'),env=fs.readFileSync(path.join(root,'.env.local'),'utf8');
+const api=new URL(env.match(/^NEXT_PUBLIC_SUPABASE_URL=["']?([^\s"']+)/m)[1]);
+const base=process.env.GRIND_TEST_URL||'http://127.0.0.1:3006',uid='00000000-0000-4000-8000-000000000001';
+const user={id:uid,aud:'authenticated',role:'authenticated',email:'local-test@example.invalid',app_metadata:{provider:'email'},user_metadata:{display_name:'Test local'},created_at:'2026-01-01T00:00:00Z'};
+const payload={sub:uid,exp:Math.floor(Date.now()/1000)+86400,aud:'authenticated',role:'authenticated'};
+const token=[{alg:'HS256',typ:'JWT'},payload].map(x=>Buffer.from(JSON.stringify(x)).toString('base64url')).join('.')+'.test';
+const auth={access_token:token,refresh_token:'local-test-only',token_type:'bearer',expires_in:86400,expires_at:payload.exp,user};
+const profile={user_id:uid,operator_code:'TEST',display_name:'Test local',mbti:'INTJ',level:1,total_xp:0,rank_letter:'E',rank_tier:'NEUTRAL',constance:0,mastery_points:0};
+const projects=[{id:'p1',title:'Préparer le dossier',ends_at:null,status:'ACTIVE'},{id:'p2',title:'Livrer la maquette',ends_at:new Date(Date.now()+86400000).toISOString(),status:'PLANNED'},{id:'p3',title:'Projet terminé',status:'COMPLETED',ends_at:null}].map(p=>({...p,user_id:uid,type:'DUNGEON',progress_pct:0,phase_count:3,phase_current:0,weekly_target_eur:0}));
+(async()=>{const browser=await chromium.launch({channel:'msedge',headless:true});try{
+ const c=await browser.newContext({viewport:{width:1280,height:1000},hasTouch:true}),p=await c.newPage(),errors=[],writes=[];
+ await c.addCookies([{name:'sb-'+api.hostname.split('.')[0]+'-auth-token',value:'base64-'+Buffer.from(JSON.stringify(auth)).toString('base64url'),url:base,sameSite:'Lax'}]);
+ let rejectSave=false;
+ await c.route(api.origin+'/**',async route=>{const req=route.request(),url=new URL(req.url());
+  if(req.method()==='OPTIONS')return route.fulfill({status:204,headers:{'access-control-allow-origin':'*','access-control-allow-headers':'*','access-control-allow-methods':'GET,POST,PUT,OPTIONS'}});
+  let result=[];
+  if(url.pathname==='/auth/v1/user'){
+   if(req.method()==='PUT') { writes.push(req.postDataJSON());if(rejectSave)return route.fulfill({status:500,contentType:'application/json',body:JSON.stringify({message:'test offline'})});Object.assign(user.user_metadata,req.postDataJSON().data); }
+   result=user;
+  }else if(url.pathname==='/auth/v1/token')result=auth;
+  else if(url.pathname==='/rest/v1/profiles')result=profile;
+  else if(url.pathname==='/rest/v1/projects')result=projects;
+  else if(url.pathname==='/rest/v1/rpc/cron_expire_overdue_quests')result=null;
+  else if(req.method()!=='GET')throw Error('Unexpected write '+url.pathname);
+  return route.fulfill({status:200,contentType:'application/json',headers:{'access-control-allow-origin':'*'},body:JSON.stringify(result)});
+ });
+ p.on('pageerror',e=>errors.push(e.message));
+ await p.goto(base+'/donjon/');await p.getByRole('heading',{name:'Matrice d’Eisenhower'}).waitFor();
+ const card=()=>p.locator('article').filter({hasText:'Préparer le dossier'});
+ assert.equal(await p.getByRole('region',{name:'À planifier',exact:true}).locator('article').count(),1);
+ assert.equal(await p.getByRole('region',{name:'À faire en priorité',exact:true}).locator('article').count(),1);
+ await card().getByLabel('Urgent').click();await p.getByText('Classement prêt',{exact:true}).waitFor();
+ assert.equal(await p.getByRole('region',{name:'À faire en priorité',exact:true}).locator('article').count(),2);
+ assert.deepEqual(writes[0].data.grind_priority_p1,{important:true,urgent:true});assert.equal(user.user_metadata.display_name,'Test local');
+ await p.reload();await p.getByText('Classement prêt',{exact:true}).waitFor();assert.equal(await card().getByLabel('Urgent').isChecked(),true);
+ rejectSave=true;await card().getByLabel('Important').click();await p.getByRole('alert').filter({hasText:'Classement non enregistré'}).waitFor();assert.equal(await card().getByLabel('Important').isChecked(),true);rejectSave=false;
+ await card().getByRole('button',{name:'Me concentrer'}).click();const dialog=p.getByRole('dialog');await dialog.waitFor();
+ assert.equal(await dialog.getByLabel('Objectif de la session').inputValue(),'Préparer le dossier');
+ await dialog.getByRole('button',{name:'Projet prioritaire'}).click();await dialog.getByRole('button',{name:'Commencer',exact:true}).click();
+ await dialog.getByRole('timer').waitFor();assert.match(await dialog.getByRole('timer').innerText(),/^(90:00|89:59)$/);
+ await p.clock.install();await p.clock.fastForward(120000);await dialog.getByRole('button',{name:'Je me suis déconcentré'}).click();assert.equal(await dialog.getByRole('timer').innerText(),'10:00');
+ await p.clock.fastForward(60000);await dialog.getByRole('button',{name:'Replonger',exact:true}).click();assert.ok((await dialog.innerText()).includes('Installation : encore 03:00'));assert.ok((await dialog.innerText()).includes('02:'));
+ await dialog.getByRole('button',{name:'Fermer le minuteur'}).click();await p.getByRole('link',{name:'QUÊTES',exact:true}).click();await p.getByRole('button',{name:/Entrée en concentration/}).click();assert.equal(await p.getByRole('dialog').getByRole('heading',{name:'Préparer le dossier'}).count(),1);
+ await p.reload();await p.getByRole('button',{name:/Entrée en concentration/}).click();await p.getByRole('dialog').getByRole('button',{name:'Je me suis déconcentré'}).click();
+ await p.clock.fastForward(601000);assert.equal(await dialog.getByRole('status').innerText(),'Prêt à reprendre');
+ await p.clock.fastForward(120000);assert.equal(await dialog.getByRole('status').innerText(),'Prêt à reprendre');
+ await dialog.getByRole('button',{name:'Replonger',exact:true}).click();await p.clock.fastForward(180000);assert.equal(await dialog.getByRole('status').innerText(),'Concentration');
+ await dialog.getByRole('button',{name:'Terminer et faire le bilan'}).click();await dialog.getByLabel('Ce que j’ai avancé').fill('Première partie rédigée');await dialog.getByRole('button',{name:'Enregistrer le bilan'}).click();
+ assert.ok((await dialog.innerText()).includes('Bilan enregistré'));
+ const stored=await p.evaluate(k=>JSON.parse(localStorage.getItem(k)),'grind-focus-history-v1:'+uid);assert.equal(stored.length,1);assert.equal(stored[0].note,'Première partie rédigée');assert.equal(stored[0].interruptions,2);assert.equal(projects[0].status,'ACTIVE');
+ await dialog.getByLabel('Objectif de la session').fill('Rituel du matin');await dialog.getByRole('button',{name:'Rituel 20 / 20 / 20'}).click();await dialog.getByRole('button',{name:'Commencer',exact:true}).click();assert.equal(await dialog.getByRole('status').innerText(),'Bouger');await p.clock.fastForward(1200000);assert.equal(await dialog.getByRole('status').innerText(),'Réfléchir');await p.clock.fastForward(1200000);assert.equal(await dialog.getByRole('status').innerText(),'Apprendre');await p.clock.fastForward(1200000);assert.equal(await dialog.getByRole('status').innerText(),'Bilan de la session');await dialog.getByRole('button',{name:'Enregistrer le bilan'}).click();
+ await dialog.getByRole('button',{name:'Personnalisé'}).click();await dialog.getByLabel('Travail (minutes)').fill('0');await dialog.getByRole('button',{name:'Commencer',exact:true}).click();await dialog.getByRole('alert').waitFor();await dialog.getByLabel('Travail (minutes)').fill('5');await dialog.getByLabel('Pause (minutes)').fill('1');await dialog.getByRole('button',{name:'Commencer',exact:true}).click();await p.clock.fastForward(300000);assert.equal(await dialog.getByRole('status').innerText(),'Pause de récupération');await p.clock.fastForward(60000);assert.equal(await dialog.getByRole('status').innerText(),'Bilan de la session');await dialog.getByRole('button',{name:'Enregistrer le bilan'}).click();
+ await dialog.getByRole('button',{name:'Fermer le minuteur'}).click();await p.goto(base+'/donjon/');await p.getByText('Classement prêt',{exact:true}).waitFor();
+ await card().dragTo(p.getByRole('region',{name:'À planifier',exact:true}));await p.getByText('Classement prêt',{exact:true}).waitFor();assert.equal(await p.getByRole('region',{name:'À planifier',exact:true}).locator('article').count(),1);
+ fs.mkdirSync(path.join(root,'test-results'),{recursive:true});await p.screenshot({path:path.join(root,'test-results/grind-desktop.png'),fullPage:true});
+ for(const width of [320,390,768,1280]){await p.setViewportSize({width,height:844});assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,'page overflow '+width);}
+ await p.setViewportSize({width:390,height:844});await card().getByRole('button',{name:'Me concentrer'}).tap();await p.screenshot({path:path.join(root,'test-results/grind-mobile-focus.png')});
+ assert.equal(await dialog.evaluate(el=>el.scrollWidth>el.clientWidth),false,'dialog overflow');assert.deepEqual(errors,[]);
+ console.log('Grind browser OK: account priorities, failed save rollback, navigation/reload, timed distraction/resume, entry, ritual, custom validation, recovery, history, no mission completion, responsive 320–1280. All account APIs mocked.');
+}finally{await browser.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

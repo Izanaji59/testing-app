@@ -1,12 +1,13 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { supabase } from '@/lib/supabase/client';
 import { MobileChrome } from '@/components/hud/MobileChrome';
 import { TabBar } from '@/components/shell/TabBar';
 import { XpToaster } from '@/components/shell/XpToaster';
 import { T } from '@/lib/tokens';
+import { FocusProvider } from '@/components/focus/FocusProvider';
 
 /**
  * Shell des écrans authentifiés.
@@ -16,6 +17,7 @@ import { T } from '@/lib/tokens';
  */
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
+  const pathname = usePathname();
   const [ready, setReady] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
 
@@ -31,12 +33,13 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     });
 
     const { data: sub } = sb.auth.onAuthStateChange((_event, session) => {
-      if (!session) router.replace('/login');
+      if (!session) { setReady(false); setUserId(null); router.replace('/login'); }
+      else { setUserId(session.user.id); setReady(true); }
     });
     return () => sub.subscription.unsubscribe();
   }, [router]);
 
-  if (!ready) {
+  if (!ready || !userId) {
     return (
       <main style={{ minHeight: '100vh', display: 'grid', placeItems: 'center', position: 'relative' }}>
         <MobileChrome />
@@ -48,13 +51,13 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <main style={{ minHeight: '100vh', position: 'relative' }}>
+    <FocusProvider key={userId} userId={userId}><main style={{ minHeight: '100vh', position: 'relative' }}>
       <MobileChrome />
-      <div style={{ maxWidth: 480, margin: '0 auto', paddingBottom: 110, position: 'relative' }}>
+      <div style={{ maxWidth: pathname === '/donjon' || pathname === '/donjon/' ? 1120 : 480, margin: '0 auto', paddingBottom: 170, position: 'relative' }}>
         {children}
       </div>
       <TabBar />
       {userId && <XpToaster userId={userId} />}
-    </main>
+    </main></FocusProvider>
   );
 }
