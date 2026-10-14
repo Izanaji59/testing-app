@@ -8,6 +8,7 @@ import { TabBar } from '@/components/shell/TabBar';
 import { XpToaster } from '@/components/shell/XpToaster';
 import { T } from '@/lib/tokens';
 import { FocusProvider } from '@/components/focus/FocusProvider';
+import { DeadlineReview } from '@/components/core/DeadlineReview';
 
 /**
  * Shell des écrans authentifiés.
@@ -54,6 +55,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     <FocusProvider key={userId} userId={userId}><main style={{ minHeight: '100vh', position: 'relative' }}>
       <MobileChrome />
       <div style={{ maxWidth: pathname === '/donjon' || pathname === '/donjon/' ? 1120 : 480, margin: '0 auto', paddingBottom: 170, position: 'relative' }}>
+        <DeadlineReview key={userId} userId={userId} />
         {children}
       </div>
       <TabBar />

@@ -11,9 +11,8 @@ async function fetchAllQuests(): Promise<Quest[]> {
   const { data: auth } = await sb.auth.getUser();
   if (!auth.user) return [];
 
-  // Bascule les quêtes en retard en EXPIRED avant de lire — pas de cron
-  // planifié côté serveur, donc on le fait à chaque rafraîchissement.
-  await sb.rpc('cron_expire_overdue_quests');
+  // Une lecture ne doit jamais appliquer de pénalité. Le bilan demande
+  // une réponse explicite avant de traiter une échéance manquée.
 
   const { data } = await sb
     .from('quests')
@@ -46,9 +45,9 @@ export function useQuests() {
       if (!mounted || !auth.user) return;
       const sb = supabase();
       channel = sb
-        .channel(`quests_${auth.user.id}`)
+        .channel(`quests_${auth.user.id}_${crypto.randomUUID()}`)
         .on('postgres_changes', { event: '*', schema: 'public', table: 'quests', filter: `user_id=eq.${auth.user.id}` },
-          () => mutate('quests'))
+          () => { mutate('quests'); mutate('quests-today'); })
         .subscribe();
     });
 
