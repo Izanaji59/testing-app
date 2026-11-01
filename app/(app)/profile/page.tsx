@@ -13,6 +13,7 @@ import { T } from '@/lib/tokens';
 import { supabase } from '@/lib/supabase/client';
 import { SPECS } from '@/lib/engine/specs';
 import { getMbtiClass } from '@/lib/engine/mbtiClasses';
+import { getRankTitle } from '@/lib/engine/rankTitles';
 import { fmtRank } from '@/lib/utils';
 
 export default function ProfilePage() {
@@ -38,6 +39,7 @@ export default function ProfilePage() {
   const rank = fmtRank(profile.rank_letter, profile.rank_tier);
   const letter = rank.replace(/[+\-−]/g, '');
   const tier = rank.endsWith('+') ? '+' : rank.endsWith('−') ? '-' : '';
+  const rankTitle = getRankTitle(profile.mbti, profile.rank_letter);
 
   async function logout() {
     await supabase().auth.signOut();
@@ -97,8 +99,11 @@ export default function ProfilePage() {
                 </DataReadout>
               )}
               <div style={{ fontFamily: T.display, fontSize: 22, color: T.text, marginTop: 4 }}>
-                Rang {rank}
+                Rang {rank} · {rankTitle.title}
               </div>
+              <DataReadout size={9} color={T.cyan} style={{ display: 'block', marginTop: 2 }}>
+                {rankTitle.stage.toUpperCase()} — {rankTitle.desc.toUpperCase()}
+              </DataReadout>
               <DataReadout style={{ display: 'block', marginTop: 2 }}>
                 NIVEAU {profile.level} · {profile.total_xp.toLocaleString('fr-FR')} XP
               </DataReadout>

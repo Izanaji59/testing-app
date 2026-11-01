@@ -5,6 +5,7 @@ import { DataReadout } from '@/components/hud/DataReadout';
 import { RankEmblem } from '@/components/hud/RankEmblem';
 import { fmtRank } from '@/lib/utils';
 import { getMbtiClass } from '@/lib/engine/mbtiClasses';
+import { getRankTitle } from '@/lib/engine/rankTitles';
 import type { Profile } from '@/lib/types';
 
 type Props = {
@@ -27,6 +28,7 @@ export function Header({ profile, title }: Props) {
   const level = profile?.level ?? 1;
   const letter = rank.replace(/[+\-]/g, '');
   const tier = rank.endsWith('+') ? '+' : rank.endsWith('−') || rank.endsWith('-') ? '-' : '';
+  const rankTitle = getRankTitle(profile?.mbti, profile?.rank_letter ?? 'E').title;
 
   return (
     <div
@@ -69,6 +71,9 @@ export function Header({ profile, title }: Props) {
           >
             {title ?? code}
           </div>
+          <DataReadout color={T.cyan} size={9} letterSpacing="0.22em" style={{ display: 'block', marginTop: 4 }}>
+            RANG {rank} · {rankTitle.toUpperCase()}
+          </DataReadout>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <RankEmblem letter={letter} tier={tier as '+' | '-' | ''} size={36} color={T.cyan} glow={1} />

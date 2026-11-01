@@ -4,16 +4,18 @@ import { motion } from 'framer-motion';
 import { T, EASE } from '@/lib/tokens';
 import { DataReadout } from '@/components/hud/DataReadout';
 import type { Project } from '@/lib/types';
+import { phaseView } from '@/lib/engine/progress';
 
 /**
  * Vue BOSS — barre HP géante, phases visibles.
+ * Les HP infligés suivent les quêtes terminées (progress_pct), y compris pour
+ * un boss créé sans hp_total.
  */
 export function BossHpBar({ project }: { project: Project }) {
   const total = project.hp_total ?? 1000;
-  const remaining = project.hp_remaining ?? total;
-  const pct = Math.max(0, Math.min(100, (1 - remaining / total) * 100));
-  const phases = project.phase_count || 3;
-  const currentPhase = project.phase_current || 1;
+  const { total: phases, current, pct } = phaseView(project, 3);
+  const remaining = Math.max(0, total - Math.round((total * pct) / 100));
+  const currentPhase = Math.min(phases, current);
 
   return (
     <div>

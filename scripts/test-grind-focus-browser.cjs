@@ -10,6 +10,7 @@ const token=[{alg:'HS256',typ:'JWT'},payload].map(x=>Buffer.from(JSON.stringify(
 const auth={access_token:token,refresh_token:'local-test-only',token_type:'bearer',expires_in:86400,expires_at:payload.exp,user};
 const profile={user_id:uid,operator_code:'TEST',display_name:'Test local',mbti:'INTJ',level:1,total_xp:0,rank_letter:'E',rank_tier:'NEUTRAL',constance:0,mastery_points:0};
 const projects=[{id:'p1',title:'Préparer le dossier',ends_at:null,status:'ACTIVE'},{id:'p2',title:'Livrer la maquette',ends_at:new Date(Date.now()+86400000).toISOString(),status:'PLANNED'},{id:'p3',title:'Projet terminé',status:'COMPLETED',ends_at:null}].map(p=>({...p,user_id:uid,type:'DUNGEON',progress_pct:0,phase_count:3,phase_current:0,weekly_target_eur:0}));
+const quests=[{id:'q1',user_id:uid,project_id:'p1',title:'Rédiger le chapitre 1',description:null,status:'PENDING',difficulty_score:null,difficulty_tier:'ROUTINE',estimated_minutes:30,actual_minutes:null,starts_at:null,due_at:null,completed_at:null,reward_xp_base:null,reward_stats:null,reward_eur:0,is_flash:false,created_at:'2026-01-01T00:00:00Z'}];
 (async()=>{const browser=await chromium.launch({channel:'msedge',headless:true});try{
  const c=await browser.newContext({viewport:{width:1280,height:1000},hasTouch:true}),p=await c.newPage(),errors=[],writes=[];
  await c.addCookies([{name:'sb-'+api.hostname.split('.')[0]+'-auth-token',value:'base64-'+Buffer.from(JSON.stringify(auth)).toString('base64url'),url:base,sameSite:'Lax'}]);
@@ -23,6 +24,7 @@ const projects=[{id:'p1',title:'Préparer le dossier',ends_at:null,status:'ACTIV
   }else if(url.pathname==='/auth/v1/token')result=auth;
   else if(url.pathname==='/rest/v1/profiles')result=profile;
   else if(url.pathname==='/rest/v1/projects')result=projects;
+  else if(url.pathname==='/rest/v1/quests')result=quests;
   else if(url.pathname==='/rest/v1/rpc/cron_expire_overdue_quests')result=null;
   else if(req.method()!=='GET')throw Error('Unexpected write '+url.pathname);
   return route.fulfill({status:200,contentType:'application/json',headers:{'access-control-allow-origin':'*'},body:JSON.stringify(result)});
@@ -37,13 +39,14 @@ const projects=[{id:'p1',title:'Préparer le dossier',ends_at:null,status:'ACTIV
  assert.deepEqual(writes[0].data.grind_priority_p1,{important:true,urgent:true});assert.equal(user.user_metadata.display_name,'Test local');
  await p.reload();await p.getByText('Classement prêt',{exact:true}).waitFor();assert.equal(await card().getByLabel('Urgent').isChecked(),true);
  rejectSave=true;await card().getByLabel('Important').click();await p.getByRole('alert').filter({hasText:'Classement non enregistré'}).waitFor();assert.equal(await card().getByLabel('Important').isChecked(),true);rejectSave=false;
- await card().getByRole('button',{name:'Me concentrer'}).click();const dialog=p.getByRole('dialog');await dialog.waitFor();
- assert.equal(await dialog.getByLabel('Objectif de la session').inputValue(),'Préparer le dossier');
+ assert.equal(await card().getByRole('button',{name:'Me concentrer'}).count(),0,'la concentration ne se lance pas depuis un projet');
+ await p.getByRole('link',{name:'QUÊTES',exact:true}).click();await p.getByRole('button',{name:'Me concentrer sur Rédiger le chapitre 1'}).click();const dialog=p.getByRole('dialog');await dialog.waitFor();
+ assert.equal(await dialog.getByLabel('Objectif de la session').inputValue(),'Rédiger le chapitre 1');assert.equal(await dialog.getByLabel('Mission').inputValue(),'q1');
  await dialog.getByRole('button',{name:'Projet prioritaire'}).click();await dialog.getByRole('button',{name:'Commencer',exact:true}).click();
  await dialog.getByRole('timer').waitFor();assert.match(await dialog.getByRole('timer').innerText(),/^(90:00|89:59)$/);
  await p.clock.install();await p.clock.fastForward(120000);await dialog.getByRole('button',{name:'Je me suis déconcentré'}).click();assert.equal(await dialog.getByRole('timer').innerText(),'10:00');
  await p.clock.fastForward(60000);await dialog.getByRole('button',{name:'Replonger',exact:true}).click();assert.ok((await dialog.innerText()).includes('Installation : encore 03:00'));assert.ok((await dialog.innerText()).includes('02:'));
- await dialog.getByRole('button',{name:'Fermer le minuteur'}).click();await p.getByRole('link',{name:'QUÊTES',exact:true}).click();await p.getByRole('button',{name:/Entrée en concentration/}).click();assert.equal(await p.getByRole('dialog').getByRole('heading',{name:'Préparer le dossier'}).count(),1);
+ await dialog.getByRole('button',{name:'Fermer le minuteur'}).click();await p.getByRole('link',{name:'QUÊTES',exact:true}).click();await p.getByRole('button',{name:/Entrée en concentration/}).click();assert.equal(await p.getByRole('dialog').getByRole('heading',{name:'Rédiger le chapitre 1'}).count(),1);
  await p.reload();await p.getByRole('button',{name:/Entrée en concentration/}).click();await p.getByRole('dialog').getByRole('button',{name:'Je me suis déconcentré'}).click();
  await p.clock.fastForward(601000);assert.equal(await dialog.getByRole('status').innerText(),'Prêt à reprendre');
  await p.clock.fastForward(120000);assert.equal(await dialog.getByRole('status').innerText(),'Prêt à reprendre');
@@ -57,7 +60,7 @@ const projects=[{id:'p1',title:'Préparer le dossier',ends_at:null,status:'ACTIV
  await card().dragTo(p.getByRole('region',{name:'À planifier',exact:true}));await p.getByText('Classement prêt',{exact:true}).waitFor();assert.equal(await p.getByRole('region',{name:'À planifier',exact:true}).locator('article').count(),1);
  fs.mkdirSync(path.join(root,'test-results'),{recursive:true});await p.screenshot({path:path.join(root,'test-results/grind-desktop.png'),fullPage:true});
  for(const width of [320,390,768,1280]){await p.setViewportSize({width,height:844});assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,'page overflow '+width);}
- await p.setViewportSize({width:390,height:844});await card().getByRole('button',{name:'Me concentrer'}).tap();await p.screenshot({path:path.join(root,'test-results/grind-mobile-focus.png')});
+ await p.setViewportSize({width:390,height:844});await p.getByRole('link',{name:'QUÊTES',exact:true}).tap();await p.getByRole('button',{name:'Me concentrer sur Rédiger le chapitre 1'}).tap();await p.screenshot({path:path.join(root,'test-results/grind-mobile-focus.png')});
  assert.equal(await dialog.evaluate(el=>el.scrollWidth>el.clientWidth),false,'dialog overflow');assert.deepEqual(errors,[]);
  console.log('Grind browser OK: account priorities, failed save rollback, navigation/reload, timed distraction/resume, entry, ritual, custom validation, recovery, history, no mission completion, responsive 320–1280. All account APIs mocked.');
 }finally{await browser.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

@@ -3,18 +3,19 @@
 import { T } from '@/lib/tokens';
 import { DataReadout } from '@/components/hud/DataReadout';
 import type { Project } from '@/lib/types';
+import { phaseView } from '@/lib/engine/progress';
 
 /**
  * Vue DUNGEON — salles exploratoires, ordre libre.
+ * Une salle s'ouvre à mesure que les quêtes du donjon sont terminées.
  */
 export function DungeonMap({ project }: { project: Project }) {
-  const rooms = project.phase_count || 5;
-  const explored = project.phase_current || 1;
+  const { total: rooms, done: explored, pct } = phaseView(project, 5);
 
   return (
     <div>
       <DataReadout size={9} style={{ display: 'block', marginBottom: 8 }}>
-        {explored}/{rooms} SALLES EXPLORÉES
+        {explored}/{rooms} SALLES EXPLORÉES · {Math.round(pct)}%
       </DataReadout>
       <div style={{ display: 'grid', gridTemplateColumns: `repeat(${Math.min(rooms, 5)}, 1fr)`, gap: 6 }}>
         {Array.from({ length: rooms }).map((_, i) => {

@@ -5,6 +5,7 @@ import { useState, useCallback } from 'react';
 import { HudPanel } from '@/components/hud/HudPanel';
 import { DataReadout } from '@/components/hud/DataReadout';
 import { TodoList } from '@/components/core/TodoList';
+import { useFocus } from '@/components/focus/FocusProvider';
 import { T, EASE } from '@/lib/tokens';
 import type { Quest, Task } from '@/lib/types';
 import { supabase } from '@/lib/supabase/client';
@@ -17,6 +18,7 @@ type Props = {
 };
 
 export function QuestCard({ quest, onChange }: Props) {
+  const { openFocus } = useFocus();
   const [busy, setBusy] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -117,6 +119,9 @@ export function QuestCard({ quest, onChange }: Props) {
               )}
               <button onClick={complete} disabled={busy} style={btnPrimary}>
                 {busy ? '…' : 'TERMINER'}
+              </button>
+              <button onClick={() => openFocus(quest)} style={btnSecondary} aria-label={`Me concentrer sur ${quest.title}`}>
+                ME CONCENTRER
               </button>
               <button onClick={toggleExpand} style={btnGhost}>
                 {expanded ? '▲ TÂCHES' : `▼ TÂCHES${tasksLoaded && tasks.length > 0 ? ` (${doneTasks}/${tasks.length})` : ''}`}

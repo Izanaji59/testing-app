@@ -1,15 +1,16 @@
 'use client';
 
 import { createContext, useContext, useEffect, useRef, useState } from 'react';
-import { useProjects } from '@/hooks/useProjects';
+import { useQuests } from '@/hooks/useQuests';
 import { advanceFocus, clockText, createFocus, distractFocus, finishFocus, phaseLabel, PRESETS, resumeFocus, validFocus, type FocusSession, type FocusRecord } from '@/lib/focus';
 import styles from './focus.module.css';
 
-const FocusContext = createContext<{ openFocus: (project?: { id: string; title: string }) => void }>({ openFocus: () => {} });
+// La concentration se rattache à une mission (quête), jamais à un projet / donjon.
+const FocusContext = createContext<{ openFocus: (mission?: { id: string; title: string }) => void }>({ openFocus: () => {} });
 export const useFocus = () => useContext(FocusContext);
 
 export function FocusProvider({ userId, children }: { userId: string; children: React.ReactNode }) {
-  const { projects } = useProjects();
+  const { quests } = useQuests();
   const [session, setSession] = useState<FocusSession | null>(null);
   const [history, setHistory] = useState<FocusRecord[]>([]);
   const [loaded, setLoaded] = useState(false);
@@ -18,7 +19,7 @@ export function FocusProvider({ userId, children }: { userId: string; children: 
   const [preset, setPreset] = useState('25');
   const [minutes, setMinutes] = useState('45');
   const [rest, setRest] = useState('10');
-  const [projectId, setProjectId] = useState('');
+  const [questId, setQuestId] = useState('');
   const [objective, setObjective] = useState('');
   const [note, setNote] = useState('');
   const [error, setError] = useState('');
@@ -60,16 +61,17 @@ export function FocusProvider({ userId, children }: { userId: string; children: 
     try { if (next) localStorage.setItem(sessionKey, JSON.stringify(next)); else localStorage.removeItem(sessionKey); }
     catch { setError('Sauvegarde indisponible : garde cet onglet ouvert pour conserver cette session.'); }
   }
-  function openFocus(project?: { id: string; title: string }) {
-    if (project && !session) { setProjectId(project.id); setObjective(project.title); }
-    setMessage(project && session && project.id !== session.projectId ? 'Une session est déjà ouverte. Termine son bilan avant de changer de donjon.' : '');
+  function openFocus(mission?: { id: string; title: string }) {
+    if (mission && !session) { setQuestId(mission.id); setObjective(mission.title); }
+    setMessage(mission && session && mission.id !== session.projectId ? 'Une session est déjà ouverte. Termine son bilan avant de changer de mission.' : '');
     setOpen(true);
   }
   function start() {
     try {
       const p = PRESETS.find(p => p.id === preset);
-      const project = projects.find(p => p.id === projectId);
-      const next = createFocus({ minutes: p?.minutes ?? Number(minutes), rest: p?.rest ?? Number(rest), label: p?.label ?? 'Personnalisé', ritual: preset === 'ritual', projectId: project?.id, projectTitle: project?.title, objective }, Date.now(), crypto.randomUUID());
+      const mission = quests.find(q => q.id === questId);
+      // projectId / projectTitle : noms historiques du format de session (v1, déjà stocké sur les appareils) — ils portent désormais l'id et le titre de la mission.
+      const next = createFocus({ minutes: p?.minutes ?? Number(minutes), rest: p?.rest ?? Number(rest), label: p?.label ?? 'Personnalisé', ritual: preset === 'ritual', projectId: mission?.id, projectTitle: mission?.title, objective }, Date.now(), crypto.randomUUID());
       setError(''); setMessage(''); setNote(''); store(next);
     } catch (e) { setError(e instanceof Error ? e.message : 'Impossible de lancer la session.'); }
   }
@@ -80,10 +82,10 @@ export function FocusProvider({ userId, children }: { userId: string; children: 
     try {
       localStorage.setItem(historyKey, JSON.stringify(records));
       localStorage.removeItem(sessionKey);
-      setHistory(records); setSession(null); setNote(''); setMessage('Bilan enregistré. Le donjon reste à valider dans tes missions.');
+      setHistory(records); setSession(null); setNote(''); setMessage('Bilan enregistré. La mission reste à terminer depuis tes quêtes.');
     } catch { setError('Le bilan n’a pas pu être enregistré. La session reste ouverte pour réessayer.'); }
   }
-  const selectable = projects.filter(p => p.user_id === userId && ['ACTIVE','PLANNED','PAUSED'].includes(p.status));
+  const selectable = quests.filter(q => q.user_id === userId && ['PENDING','IN_PROGRESS'].includes(q.status));
   const isWork = current?.phase === 'work';
   return <FocusContext.Provider value={{ openFocus }}>
     {children}
@@ -96,8 +98,8 @@ export function FocusProvider({ userId, children }: { userId: string; children: 
       {message && <p role="status" className={styles.hint}>{message}</p>}
       {!current ? <div className={styles.setup}>
         <p>Un objectif à la fois. Choisis le temps que tu veux lui consacrer.</p>
-        <label>Donjon ou projet<select value={projectId} onChange={e => { setProjectId(e.target.value); const p = projects.find(p => p.id === e.target.value); if (p) setObjective(p.title); }}>
-          <option value="">Session libre</option>{selectable.map(p => <option key={p.id} value={p.id}>{p.title}</option>)}
+        <label>Mission<select value={questId} onChange={e => { setQuestId(e.target.value); const q = quests.find(q => q.id === e.target.value); if (q) setObjective(q.title); }}>
+          <option value="">Session libre</option>{selectable.map(q => <option key={q.id} value={q.id}>{q.title}</option>)}
         </select></label>
         <label>Objectif de la session<input value={objective} onChange={e => setObjective(e.target.value)} maxLength={200} placeholder="Ex. Rédiger le premier chapitre" /></label>
         <fieldset><legend>Format</legend><div className={styles.presets}>{PRESETS.map(p => <button key={p.id} aria-pressed={preset === p.id} onClick={() => setPreset(p.id)}><strong>{p.label}</strong><span>{p.id === 'ritual' ? 'Bouger, réfléchir, apprendre' : `${p.minutes} min + ${p.rest} min de pause`}</span></button>)}<button aria-pressed={preset === 'custom'} onClick={() => setPreset('custom')}><strong>Personnalisé</strong><span>À ton rythme</span></button></div></fieldset>
@@ -119,7 +121,7 @@ export function FocusProvider({ userId, children }: { userId: string; children: 
         {(current.phase === 'recovery' || current.phase === 'complete') && <div className={styles.setup}>
           <p>{current.phase === 'recovery' ? 'Le bloc est terminé. Prends une pause ; aucune nouvelle session ne démarrera toute seule.' : 'Prends un instant pour noter ton avancée.'}</p>
           <label>Ce que j’ai avancé (facultatif)<textarea maxLength={1000} value={note} onChange={e => setNote(e.target.value)} rows={3} /></label>
-          <button className={styles.primary} onClick={saveRecord}>Enregistrer le bilan</button><p className={styles.hint}>Le minuteur ne valide pas le donjon et n’attribue pas d’XP automatiquement.</p>
+          <button className={styles.primary} onClick={saveRecord}>Enregistrer le bilan</button><p className={styles.hint}>Le minuteur ne valide pas la mission et n’attribue pas d’XP automatiquement.</p>
         </div>}
         <p className={styles.hint}>Tu peux fermer ce panneau : le minuteur continue.</p>
       </div>}

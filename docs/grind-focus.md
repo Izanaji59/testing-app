@@ -8,7 +8,7 @@ Le classement est enregistré dans les préférences du compte Supabase (`auth.u
 
 ## Sessions de concentration
 
-Le bouton Concentration est accessible sur toutes les pages authentifiées. « Me concentrer » sur une carte préremplit son projet et son titre ; l’objectif de session reste modifiable. Une session libre est également possible.
+Le bouton Concentration est accessible sur toutes les pages authentifiées. La concentration se rattache à une mission (une quête), jamais à un projet ou un donjon : « Me concentrer » sur une quête de la page Quêtes préremplit la mission et son titre, et le panneau propose les missions en attente ou en cours. L’objectif de session reste modifiable. Une session libre est également possible. L’avancement d’un donjon, lui, ne dépend que de ses quêtes terminées. Le format enregistré garde ses champs historiques `projectId` et `projectTitle`, qui portent désormais l’identifiant et le titre de la mission.
 
 Formats : 25/5, 50/10, 60/10, 90/15, rituel 20/20/20 et personnalisé (5 à 180 minutes de travail, 0 à 60 minutes de pause). Le rituel enchaîne Bouger, Réfléchir et Apprendre pendant vingt minutes chacun, à l’heure choisie par l’utilisateur.
 

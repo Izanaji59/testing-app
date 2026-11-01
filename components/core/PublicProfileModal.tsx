@@ -9,6 +9,7 @@ import { DataReadout } from '@/components/hud/DataReadout';
 import { RankEmblem } from '@/components/hud/RankEmblem';
 import { StatRadar } from '@/components/hud/StatRadar';
 import { fmtRank } from '@/lib/utils';
+import { getRankTitle, mbtiFromClassLabel } from '@/lib/engine/rankTitles';
 import type { PublicProfile, PublicStat } from '@/lib/types';
 
 type Props = {
@@ -53,6 +54,7 @@ export function PublicProfileModal({ userId, onClose }: Props) {
   const rank = profile ? fmtRank(profile.rank_letter, profile.rank_tier) : 'E';
   const letter = rank.replace(/[+\-−]/g, '');
   const tier = rank.endsWith('+') ? '+' : rank.endsWith('−') ? '-' : '';
+  const rankTitle = profile ? getRankTitle(mbtiFromClassLabel(profile.mbti_class), profile.rank_letter).title : '';
 
   return (
     <AnimatePresence>
@@ -95,6 +97,9 @@ export function PublicProfileModal({ userId, onClose }: Props) {
                       </div>
                       <DataReadout size={9} style={{ display: 'block', marginTop: 2 }}>
                         {profile.mbti_class} · RANG {rank} · NIV. {profile.level}
+                      </DataReadout>
+                      <DataReadout size={9} color={T.cyan} style={{ display: 'block', marginTop: 2 }}>
+                        {rankTitle.toUpperCase()}
                       </DataReadout>
                     </div>
                   </div>
