@@ -31,12 +31,13 @@ export function SlumbywiseNav() {
 
   return (
     <nav>
-      <div className="sw-brand">
+      <Link href="/" className="sw-brand" aria-label="Slumbywise — accueil">
+        <img src="/icons/slumbywise-256.png" alt="" width={48} height={48} className="sw-brand-logo" />
         <div>
           <div className="sw-brand-mark">Slumby<em>wise</em></div>
           <div className="sw-brand-by">by Denshiku</div>
         </div>
-      </div>
+      </Link>
       <div className="sw-nav-links">
         <Link href="/#livre">Le livre</Link>
         <Link href="/carnet">Le carnet</Link>

@@ -8,6 +8,7 @@ export function SlumbywiseFooter() {
       <div className="sw-footer-inner">
         <div className="sw-footer-top">
           <div className="sw-footer-brand-block">
+            <Link href="/" aria-label="Slumbywise — accueil"><img src="/icons/slumbywise-256.png" alt="" width={88} height={88} className="sw-footer-logo" loading="lazy" /></Link>
             <div className="sw-footer-brand">Slumby<em>wise</em></div>
             <div className="sw-footer-by">by Denshiku</div>
             <p className="sw-footer-mission">

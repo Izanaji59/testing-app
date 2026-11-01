@@ -97,7 +97,9 @@ export function SlumbywiseStyles() {
           border-bottom: 1px solid var(--hairline);
         }
 
-        .sw-brand { display: flex; align-items: baseline; gap: 10px; }
+        .sw-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
+        .sw-brand-logo { display: block; width: 48px; height: 48px; object-fit: contain; flex-shrink: 0; }
+        .sw-footer-logo { display: block; object-fit: contain; margin-bottom: 16px; }
         .sw-brand-mark { font-family: 'Instrument Serif', serif; font-size: 26px; font-weight: 400; letter-spacing: -0.02em; color: var(--warm-white); }
         .sw-brand-mark em { font-style: italic; color: var(--amber); }
         .sw-brand-by { font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--slate); }
@@ -244,6 +246,13 @@ export function SlumbywiseStyles() {
         }
 
         @media (max-width: 500px) {
+          .sw-root nav { padding: 14px 12px; gap: 10px; }
+          .sw-brand { gap: 6px; }
+          .sw-brand-logo { width: 36px; height: 36px; }
+          .sw-brand-mark { font-size: 23px; }
+          .sw-brand-by { font-size: 8px; letter-spacing: .12em; }
+          .sw-nav-links { gap: 10px; }
+          .sw-nav-links .sw-nav-cta { padding: 10px 8px; font-size: 10px; }
           .sw-footer-top { grid-template-columns: 1fr; }
           .sw-hero-actions { flex-direction: column; align-items: stretch; }
           .sw-btn-primary, .sw-btn-ghost { text-align: center; justify-content: center; }

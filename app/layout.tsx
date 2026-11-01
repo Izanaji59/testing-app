@@ -5,7 +5,16 @@ export const metadata: Metadata = {
   title: 'LATRACTION — Leveling',
   description: 'Centre de commandement personnel. Montée en puissance immersive.',
   applicationName: 'LATRACTION',
-  manifest: '/game/manifest.webmanifest',
+  manifest: '/site.webmanifest',
+  icons: {
+    icon: [
+      { url: '/favicon.ico?v=sl-logo-1', sizes: '16x16 32x32 48x48', type: 'image/x-icon' },
+      { url: '/icons/slumbywise-16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/icons/slumbywise-32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/icons/slumbywise-192.png', sizes: '192x192', type: 'image/png' },
+    ],
+    apple: [{ url: '/icons/slumbywise-180.png', sizes: '180x180', type: 'image/png' }],
+  },
 };
 
 export const viewport: Viewport = {
