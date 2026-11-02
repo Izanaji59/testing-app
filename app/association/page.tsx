@@ -1,0 +1,4 @@
+import type { Metadata } from 'next';
+import { InfoContent } from '@/components/slumbywise/InfoContent';
+export const metadata: Metadata={title:'Denshiku | Slumbywise',description:'Denshiku, l’association qui porte Slumbywise.'};
+export default function AssociationPage(){return <InfoContent title="Denshiku." intro="L’association qui porte Slumbywise et réunit ses lectures, ses outils du quotidien et ses jeux."><section><h2>Le projet</h2><p>Slumbywise propose des articles autour de la vie en décalé, un livre pour construire ses repères et Grindleveling pour avancer dans ses projets.</p><p>L’éducation des enfants orphelins fait partie de l’engagement porté par Denshiku.</p></section><section><h2>Entrer en contact</h2><p>Pour connaître les actions de l’association, proposer une collaboration ou demander des informations sur son fonctionnement :</p><p><a href="mailto:denshiku.corp@gmail.com">denshiku.corp@gmail.com</a></p></section></InfoContent>}

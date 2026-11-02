@@ -3,6 +3,7 @@ import { useState } from 'react';
 import type { Project } from '@/lib/types';
 import { priorityFor, quadrantFor, QUADRANTS } from '@/lib/priorities';
 import { usePriorities } from '@/hooks/usePriorities';
+import { useFocus } from '@/components/focus/FocusProvider';
 import { projectPct } from '@/lib/engine/progress';
 import { ProjectCard } from './ProjectCard';
 import styles from './matrix.module.css';
@@ -10,6 +11,7 @@ import styles from './matrix.module.css';
 type QuestCounts = Record<string, { total: number; done: number }>;
 
 export function ProjectMatrix({ projects, userId, questCounts }: { projects: Project[]; userId: string; questCounts: QuestCounts }) {
+  const { openFocus } = useFocus();
   const { values, ready, busy, error, save } = usePriorities(userId);
   const [view, setView] = useState<'matrix' | 'list'>('matrix');
   const [expanded, setExpanded] = useState<string | null>(null);
@@ -28,7 +30,7 @@ export function ProjectMatrix({ projects, userId, questCounts }: { projects: Pro
           <label><input type="checkbox" checked={priority.important} disabled={!ready || busy} onChange={e => void save(p.id, { ...priority, important: e.target.checked })} /> Important<span className={styles.sr}> : {p.title}</span></label>
           <label><input type="checkbox" checked={priority.urgent} disabled={!ready || busy} onChange={e => void save(p.id, { ...priority, urgent: e.target.checked })} /> Urgent<span className={styles.sr}> : {p.title}</span></label>
         </div>
-        <div className={styles.actions}><button aria-expanded={expanded === p.id} onClick={() => setExpanded(expanded === p.id ? null : p.id)}>Détails<span className={styles.sr}> de {p.title}</span></button></div>
+        <div className={styles.actions}><button onClick={() => openFocus(p)}>Me concentrer<span className={styles.sr}> sur {p.title}</span></button><button aria-expanded={expanded === p.id} onClick={() => setExpanded(expanded === p.id ? null : p.id)}>Détails<span className={styles.sr}> de {p.title}</span></button></div>
         {expanded === p.id && <div className={styles.details}><ProjectCard project={p} questCount={questCounts[p.id] ?? { total: 0, done: 0 }} /></div>}
       </article>;
     });

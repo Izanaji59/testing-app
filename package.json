@@ -11,7 +11,8 @@
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "export": "next build",
-    "deploy:game": "next build && node scripts/build-deploy.mjs"
+    "deploy:game": "next build && node scripts/build-deploy.mjs",
+    "allflix:import": "node scripts/import-allflix.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.5.2",

@@ -1,6 +1,9 @@
 const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict'),ts=require('typescript');
 function load(file){const out=ts.transpileModule(fs.readFileSync(path.join(__dirname,'..',file),'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;const m={exports:{}};new Function('exports','require','module',out)(m.exports,require,m);return m.exports;}
 const F=load('lib/focus.ts'),P=load('lib/priorities.ts'),start=1000000;
+const S=load('lib/ai/signals.ts');
+assert.equal(S.realFocus([{focus_seconds:120,duration_sec:600},{focus_seconds:null,duration_sec:120}]),2);
+assert.equal(S.realFocus([{focus_seconds:0,duration_sec:600}]),0,'zero net work must not fall back to wall time');
 const fresh=(minutes=25,rest=5,ritual=false)=>F.createFocus({minutes,rest,ritual,label:'Test',objective:'Avancer',projectId:'p1',projectTitle:'Projet'},start,'test');
 let s=fresh();assert.equal(F.phaseLabel(s),'Entrée en concentration');
 assert.equal(F.phaseLabel(F.advanceFocus(s,start+180000)),'Concentration');
@@ -26,6 +29,12 @@ assert.equal(F.clockText(899001),'15:00');assert.equal(F.clockText(0),'00:00');
 for(const v of [NaN,0,181,Infinity])assert.throws(()=>fresh(v));
 assert.throws(()=>F.createFocus({minutes:25,rest:5,label:'Test',objective:' '},start,'test'));
 for(const v of [null,{}, {...fresh(),phase:'oops'}, {...fresh(),workedMs:Infinity}])assert.equal(F.validFocus(v),false);
+const questSession=F.createFocus({minutes:25,rest:5,label:'Quête',objective:'Rédiger une page',questId:'q1',questTitle:'Écrire le dossier'},start,'quest-test');
+assert.equal(questSession.questId,'q1');assert.equal(F.finishFocus(questSession,start+120000).questTitle,'Écrire le dossier');
+const pendingReview={...F.finishFocus(questSession,start+120000),reviewNote:'Première page',reviewCompleteQuest:true,submittedAt:start+120000};
+assert.ok(F.validFocus(JSON.parse(JSON.stringify(pendingReview))));
+assert.deepEqual(F.finishFocus(pendingReview,pendingReview.submittedAt),pendingReview);
+for(const value of [{...questSession,questId:1},{...pendingReview,reviewNote:123},{...pendingReview,reviewCompleteQuest:'true'},{...pendingReview,submittedAt:NaN},{...pendingReview,submittedAt:start-1},{...questSession,submittedAt:start}])assert.equal(F.validFocus(value),false);
 const metadata={unrelated:'keep',grind_priority_a:{important:false,urgent:true},grind_priority_b:{important:'yes',urgent:true}};
 const saved=P.readPriorities(metadata);assert.deepEqual(saved,{a:{important:false,urgent:true}});assert.equal(metadata.unrelated,'keep');
 assert.equal(P.quadrantFor(P.priorityFor({id:'a',ends_at:null},saved,start)),'delegate');

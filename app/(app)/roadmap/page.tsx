@@ -2,24 +2,23 @@
 
 import { useProfile } from '@/hooks/useProfile';
 import { useProjects } from '@/hooks/useProjects';
+import { useQuests } from '@/hooks/useQuests';
 import { Header } from '@/components/shell/Header';
 import { ProfileState } from '@/components/shell/ProfileState';
 import { HudPanel } from '@/components/hud/HudPanel';
 import { DataReadout } from '@/components/hud/DataReadout';
 import { T } from '@/lib/tokens';
 import { RANK_GATES } from '@/lib/engine/rank';
-import { getRankTitle, MBTI_RANK_PROFILES, MBTI_GROUPS } from '@/lib/engine/rankTitles';
-import type { MbtiType } from '@/lib/engine/mbtiClasses';
+import { getRankTitle } from '@/lib/engine/rankTitles';
 import { projectPct } from '@/lib/engine/progress';
 
 export default function RoadmapPage() {
   const { profile, loading } = useProfile();
   const { projects } = useProjects();
+  const { quests } = useQuests();
+  const completedProjects = projects.filter(p=>p.status==='COMPLETED' && quests.filter(q=>q.project_id===p.id && q.status==='COMPLETED' && !q.is_flash).length>=3).length;
 
   if (!profile) return <ProfileState kind={loading ? 'loading' : 'missing'} />;
-
-  const mbtiKey = (profile.mbti ?? '').toUpperCase() as MbtiType;
-  const rankProfile = MBTI_RANK_PROFILES[mbtiKey];
 
   return (
     <div style={{ color: T.text }}>
@@ -30,15 +29,10 @@ export default function RoadmapPage() {
         {/* Trajectoire de rang */}
         <HudPanel label="TRAJECTOIRE · RANGS" glow={0.4}>
           <div style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 10 }}>
-            <DataReadout size={9} color={T.cyan} style={{ display: 'block' }}>
-              {rankProfile
-                ? `${MBTI_GROUPS[rankProfile.group].label.toUpperCase()} · ${profile.mbti!.toUpperCase()} ${rankProfile.profile.toUpperCase()} — TES TITRES ÉVOLUENT AVEC TON RANG`
-                : 'RENSEIGNE TON MBTI (PROFIL) POUR DÉBLOQUER TES TITRES DE RANG PERSONNELS'}
-            </DataReadout>
             {RANK_GATES.map(g => {
-              const passed = profile.level >= g.minLevel;
-              const current = profile.level >= g.minLevel && (g.maxLevel === undefined || profile.level <= g.maxLevel);
-              const rt = getRankTitle(profile.mbti, g.letter);
+              const passed = RANK_GATES.findIndex(r=>r.letter===profile.rank_letter) >= RANK_GATES.indexOf(g);
+              const current = profile.rank_letter === g.letter;
+              const rt = getRankTitle(profile.mbti,g.letter);
               return (
                 <div key={g.letter} style={{
                   display: 'flex', alignItems: 'center', gap: 14,
@@ -55,13 +49,10 @@ export default function RoadmapPage() {
                   </div>
                   <div style={{ flex: 1 }}>
                     <div style={{ fontFamily: T.display, fontSize: 13, color: passed ? T.text : T.textDim }}>
-                      Lv {g.minLevel}{g.maxLevel ? `–${g.maxLevel}` : '+'} · {rt.title}
+                      Lv {g.minLevel}{g.maxLevel ? `–${g.maxLevel}` : '+'} / {rt.title}
                     </div>
                     <DataReadout size={9} style={{ display: 'block', marginTop: 2 }}>
-                      {rt.stage.toUpperCase()} — {rt.desc.toUpperCase()}
-                    </DataReadout>
-                    <DataReadout size={8} color={T.textMute} style={{ display: 'block', marginTop: 2 }}>
-                      {g.gate || '—'}
+                      {g.gate}<br/>{rt.stage} — {rt.desc}
                     </DataReadout>
                   </div>
                   <div style={{
@@ -73,11 +64,13 @@ export default function RoadmapPage() {
                 </div>
               );
             })}
+            <p style={{fontSize:12,color:T.textDim,lineHeight:1.7}}>{profile.total_xp.toLocaleString('fr-FR')} XP acquis. {completedProjects} projet(s) reconnu(s) : projet terminé contenant au moins trois quêtes accomplies hors quêtes flash. Tes statistiques gardent leur propre progression.</p>
+            <p style={{fontSize:12,color:T.textDim,lineHeight:1.7}}>Repère : 180 XP par journée active, cinq jours par semaine, permettent d’atteindre le seuil du rang A en environ 17 mois. Cours, entraînement et projets peuvent contribuer. Un minuteur seul n’accorde pas d’XP.</p>
           </div>
         </HudPanel>
 
-        {/* Projets / donjons — l'avancement vient des quêtes (missions) terminées */}
-        <HudPanel label={`PROJETS · ${projects.length}`}>
+        {/* Missions actives */}
+        <HudPanel label={`PROJETS / ${projects.length}`}>
           <div style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 10 }}>
             {projects.length === 0 ? (
               <DataReadout>AUCUN PROJET ENCORE.</DataReadout>

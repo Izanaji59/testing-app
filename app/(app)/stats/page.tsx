@@ -12,7 +12,8 @@ import { XpBar } from '@/components/hud/XpBar';
 import { T } from '@/lib/tokens';
 import { statXpForLevel } from '@/lib/engine/xp';
 import { STAT_META } from '@/lib/engine/stats';
-import type { XpSource } from '@/lib/types';
+import type { XpSource, StatKind } from '@/lib/types';
+import { FocusStats } from '@/components/focus/FocusStats';
 
 export default function StatsPage() {
   const { profile, stats, loading } = useProfile();
@@ -23,6 +24,7 @@ export default function StatsPage() {
       <Header profile={profile} title="STATS" />
 
       <div style={{ padding: '14px 14px 0', display: 'flex', flexDirection: 'column', gap: 14 }}>
+        <FocusStats />
 
         <HudPanel label="RADAR · 11 AXES" glow={0.4}>
           <div style={{ padding: 18, display: 'grid', placeItems: 'center' }}>
@@ -116,6 +118,8 @@ function XpHistoryPanel() {
         ) : (
           entries.map(e => {
             const meta = e.stat_kind ? STAT_META[e.stat_kind] : null;
+            const shared = Array.isArray(e.metadata?.reward_stats) ? e.metadata.reward_stats.filter((k):k is StatKind=>typeof k==='string' && k in STAT_META).map(k=>STAT_META[k].short).join(' / ') : '';
+            const label = shared || meta?.short;
             return (
               <div
                 key={e.id}
@@ -129,7 +133,7 @@ function XpHistoryPanel() {
                     {describeEntry(e)}
                   </div>
                   <DataReadout size={8} color={T.textMute} style={{ display: 'block', marginTop: 2 }}>
-                    {meta ? `${meta.short} · ` : ''}{fmtRelativeTime(e.created_at)}
+                    {label ? `${label} / ` : ''}{fmtRelativeTime(e.created_at)}
                   </DataReadout>
                 </div>
                 <div style={{ fontFamily: T.rank, fontSize: 14, color: e.is_crit ? T.amber : T.green, whiteSpace: 'nowrap' }}>

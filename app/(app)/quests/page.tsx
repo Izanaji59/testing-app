@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import { useProfile } from '@/hooks/useProfile';
-import { useQuests, createQuestFlash } from '@/hooks/useQuests';
+import { useQuests, createQuestFlash, planUndatedQuestToday } from '@/hooks/useQuests';
+import { localDayDeadline } from '@/lib/quest-review';
 import { useProjects } from '@/hooks/useProjects';
 import { useMissionTemplates, createMissionTemplate, deleteMissionTemplate } from '@/hooks/useMissionTemplates';
 import { Header } from '@/components/shell/Header';
@@ -13,7 +14,7 @@ import { DataReadout } from '@/components/hud/DataReadout';
 import { T } from '@/lib/tokens';
 import { supabase } from '@/lib/supabase/client';
 import type { QuestStatus, DifficultyTier, StatKind, MissionTemplate } from '@/lib/types';
-import { DIFFICULTY_META } from '@/lib/engine/difficulty';
+import { DIFFICULTY_META, questXpBudget } from '@/lib/engine/difficulty';
 import { STAT_META, REWARDABLE_STAT_KINDS } from '@/lib/engine/stats';
 
 export default function QuestsPage() {
@@ -24,6 +25,16 @@ export default function QuestsPage() {
   const [filter, setFilter] = useState<QuestStatus | 'ALL'>('ALL');
   const [showCreate, setShowCreate] = useState(false);
   const [showTemplates, setShowTemplates] = useState(false);
+  const [planning, setPlanning] = useState('');
+  const [planError, setPlanError] = useState('');
+
+  async function planToday(id: string) {
+    if (planning) return;
+    setPlanning(id); setPlanError('');
+    try { await planUndatedQuestToday(id); }
+    catch (e) { setPlanError(e instanceof Error ? e.message : 'La date n’a pas pu être enregistrée.'); }
+    finally { setPlanning(''); }
+  }
 
   if (!profile) return <ProfileState kind={loading ? 'loading' : 'missing'} />;
 
@@ -105,6 +116,12 @@ export default function QuestsPage() {
         )}
 
         {/* Liste */}
+        {quests.some(q => !q.due_at && ['PENDING','IN_PROGRESS'].includes(q.status)) && <details style={{border:`1px solid ${T.line}`,padding:12,fontSize:12}}>
+          <summary style={{cursor:'pointer',padding:'6px 0'}}>Quêtes sans échéance</summary>
+          <p style={{color:T.textDim,lineHeight:1.6}}>Ces quêtes n’ont pas de bilan de retard. Tu peux en planifier une pour aujourd’hui, sans pénalité sur les jours passés.</p>
+          {quests.filter(q => !q.due_at && ['PENDING','IN_PROGRESS'].includes(q.status)).map(q => <div key={q.id} style={{display:'flex',gap:12,justifyContent:'space-between',alignItems:'center',padding:'10px 0'}}><span>{q.title}</span><button disabled={!!planning} onClick={()=>planToday(q.id)} style={{background:'transparent',color:T.cyan,border:`1px solid ${T.line}`,padding:10,minHeight:44}}>{planning===q.id?'Enregistrement…':'Prévoir aujourd’hui'}</button></div>)}
+          {planError && <p role="alert" style={{color:T.danger}}>{planError}</p>}
+        </details>}
         {filtered.length === 0 ? (
           <HudPanel thin>
             <div style={{ padding: 28, textAlign: 'center', fontFamily: T.mono, fontSize: 10, color: T.textDim, letterSpacing: '0.22em' }}>
@@ -140,6 +157,9 @@ function QuestCreator({
   const [rewardEur, setRewardEur] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [deadline, setDeadline] = useState('today');
+  const [chosenDay, setChosenDay] = useState('');
+  const [error, setError] = useState('');
 
   const suggestions = stat ? templates.filter(t => t.stat_kind === stat) : templates;
 
@@ -152,9 +172,11 @@ function QuestCreator({
   }
 
   async function submit() {
-    if (!title.trim()) return;
-    setSubmitting(true);
+    if (!title.trim() || submitting) return;
+    setSubmitting(true); setError('');
     try {
+      const chosen = chosenDay ? new Date(chosenDay + 'T12:00:00') : null;
+      if (deadline === 'date' && (!chosen || !Number.isFinite(chosen.getTime()) || localDayDeadline(chosen) < new Date().toISOString())) throw new Error('Choisis aujourd’hui ou une date à venir.');
       await createQuestFlash({
         title: title.trim(),
         project_id: projectId || null,
@@ -162,8 +184,11 @@ function QuestCreator({
         difficulty_tier: difficulty,
         reward_stats: stat ? [stat as StatKind] : [],
         reward_eur: rewardEur ? parseFloat(rewardEur) : 0,
+        due_at: deadline === 'none' ? null : deadline === 'date' ? localDayDeadline(chosen!) : localDayDeadline(),
       });
       onCreated();
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'La quête n’a pas pu être enregistrée. Réessaie.');
     } finally {
       setSubmitting(false);
     }
@@ -239,7 +264,7 @@ function QuestCreator({
             <DataReadout style={{ display: 'block', marginBottom: 6 }}>DIFFICULTÉ</DataReadout>
             <select value={difficulty} onChange={e => setDifficulty(e.target.value as DifficultyTier)} style={selectStyle}>
               {(Object.keys(DIFFICULTY_META) as DifficultyTier[]).map(d => (
-                <option key={d} value={d}>{DIFFICULTY_META[d].label} · {d === 'TRIVIAL' ? '5' : d === 'ROUTINE' ? '15' : d === 'NOTABLE' ? '30' : d === 'HARD' ? '60' : '150'} XP</option>
+                <option key={d} value={d}>{DIFFICULTY_META[d].label} / plafond {DIFFICULTY_META[d].baseXp} XP</option>
               ))}
             </select>
           </div>
@@ -254,13 +279,17 @@ function QuestCreator({
           </div>
         </div>
 
+        <label style={{fontSize:12}}>Échéance<select aria-label="Échéance" value={deadline} onChange={e=>setDeadline(e.target.value)} style={{...selectStyle,marginTop:8}}><option value="today">Aujourd’hui, en fin de journée</option><option value="date">Choisir une date</option><option value="none">Sans échéance</option></select></label>
+        {deadline === 'date' && <label style={{fontSize:12}}>Jour prévu<input aria-label="Jour prévu" type="date" value={chosenDay} onChange={e=>setChosenDay(e.target.value)} style={{...selectStyle,marginTop:8}} /></label>}
+        <p style={{fontSize:12,color:T.textDim,lineHeight:1.6,margin:0}}>{deadline === 'none' ? 'Sans date limite, cette quête ne déclenchera pas de bilan de retard.' : 'À 23 h 59, heure locale. Si la quête reste inachevée, un bilan te sera demandé avant tout point de résignation.'}</p>
         <DataReadout>DURÉE ESTIMÉE · {estimated} MIN</DataReadout>
         <input
-          type="range" min={5} max={120} step={5} value={estimated}
+          type="range" min={5} max={480} step={5} value={estimated}
           onChange={e => setEstimated(parseInt(e.target.value, 10))}
           style={{ accentColor: T.cyan }}
         />
 
+        <p style={{fontSize:12,color:T.textDim,lineHeight:1.6}}>Budget : <strong style={{color:T.cyan}}>{questXpBudget(difficulty,estimated)} XP</strong> à la validation. Une minute prévue vaut un XP, dans le plafond de difficulté. Le budget est fixé à la création ; les sous-tâches le partagent. Plafond global : 600 XP par jour, heure de Paris.</p>
         <DataReadout>REVENU (€) · 0 SI ÇA NE RAPPORTE RIEN</DataReadout>
         <input
           type="number" min={0} step={0.01} inputMode="decimal"
@@ -270,6 +299,7 @@ function QuestCreator({
           style={{ ...selectStyle, letterSpacing: '0.03em' }}
         />
 
+        {error && <p role="alert" style={{color:T.danger,fontSize:12}}>{error}</p>}
         <button
           onClick={submit}
           disabled={submitting || !title.trim()}

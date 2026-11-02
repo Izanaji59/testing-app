@@ -1,65 +1,38 @@
 'use client';
-
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { WHATSAPP_ORDER_URL } from './SlumbywiseStyles';
+import { usePathname } from 'next/navigation';
+import s from './shell.module.css';
 
 export function SlumbywiseNav() {
-  const [gameOpen, setGameOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
-  // Clic en dehors du dropdown (ou touche Échap) → on le referme.
+  const [open, setOpen] = useState(false);
+  const [games, setGames] = useState(false);
+  const nav = useRef<HTMLElement>(null);
+  const toggle = useRef<HTMLButtonElement>(null);
+  const gameToggle = useRef<HTMLButtonElement>(null);
+  const pathname = usePathname();
+  const close = () => { setOpen(false); setGames(false); };
   useEffect(() => {
-    if (!gameOpen) return;
-
-    function onPointerDown(e: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-        setGameOpen(false);
-      }
+    function outside(e: PointerEvent) { if (!nav.current?.contains(e.target as Node)) close(); }
+    function key(e: KeyboardEvent) {
+      if (e.key !== 'Escape') return;
+      if (games) { setGames(false); gameToggle.current?.focus(); }
+      else if (open) { setOpen(false); toggle.current?.focus(); }
     }
-    function onKeyDown(e: KeyboardEvent) {
-      if (e.key === 'Escape') setGameOpen(false);
-    }
-
-    document.addEventListener('mousedown', onPointerDown);
-    document.addEventListener('keydown', onKeyDown);
-    return () => {
-      document.removeEventListener('mousedown', onPointerDown);
-      document.removeEventListener('keydown', onKeyDown);
-    };
-  }, [gameOpen]);
-
-  return (
-    <nav>
-      <Link href="/" className="sw-brand" aria-label="Slumbywise — accueil">
-        <img src="/icons/slumbywise-256.png" alt="" width={48} height={48} className="sw-brand-logo" />
-        <div>
-          <div className="sw-brand-mark">Slumby<em>wise</em></div>
-          <div className="sw-brand-by">by Denshiku</div>
-        </div>
-      </Link>
-      <div className="sw-nav-links">
-        <Link href="/#livre">Le livre</Link>
-        <Link href="/carnet">Le carnet</Link>
-        <div className="sw-nav-dropdown" ref={dropdownRef}>
-          <button
-            type="button"
-            className="sw-nav-dropdown-trigger"
-            aria-expanded={gameOpen}
-            onClick={() => setGameOpen(o => !o)}
-          >
-            Jeu <span className="sw-nav-dropdown-caret">▾</span>
-          </button>
-          {gameOpen && (
-            <div className="sw-nav-dropdown-menu">
-              <Link href="/chess" onClick={() => setGameOpen(false)}>Chess</Link>
-              <Link href="/grindleveling" onClick={() => setGameOpen(false)}>Grindleveling</Link>
-              <a href="/game/memoire/" onClick={() => setGameOpen(false)}>Empreinte</a>
-            </div>
-          )}
-        </div>
-        <a href={WHATSAPP_ORDER_URL} target="_blank" rel="noopener noreferrer" className="sw-nav-cta">Commander</a>
-      </div>
-    </nav>
-  );
+    document.addEventListener('pointerdown', outside); document.addEventListener('keydown', key);
+    return () => { document.removeEventListener('pointerdown', outside); document.removeEventListener('keydown', key); };
+  }, [open, games]);
+  useEffect(close, [pathname]);
+  return <nav ref={nav} className={s.nav} aria-label="Navigation principale">
+    <Link href="/" className="sw-brand" aria-label="Slumbywise — accueil" onClick={close}><img src="/icons/slumbywise-256.png" alt="" width={48} height={48} className="sw-brand-logo" /><div><div className="sw-brand-mark">Slumby<em>wise</em></div><div className="sw-brand-by">by Denshiku</div></div></Link>
+    <button ref={toggle} type="button" className={s.menuToggle} aria-expanded={open} aria-controls="site-navigation" onClick={()=>setOpen(!open)}>{open ? 'Fermer' : 'Menu'}</button>
+    <div id="site-navigation" className={`${s.links} ${open ? s.open : ''}`}>
+      <Link href="/carnet" aria-current={pathname.startsWith('/carnet')?'page':undefined} onClick={close}>Le Carnet</Link>
+      <Link href="/livre" aria-current={pathname.startsWith('/livre')?'page':undefined} onClick={close}>Le Livre</Link>
+      <Link href="/grindleveling" onClick={close}>Avancer</Link>
+      <div className={s.games}><button ref={gameToggle} type="button" aria-expanded={games} aria-controls="site-games" onClick={()=>setGames(!games)}>Jouer</button>{games && <div id="site-games" className={s.dropdown}><Link href="/chess" onClick={close}>Échecs</Link><a href="/game/memoire/" onClick={close}>Empreinte</a></div>}</div>
+      <Link href="/allflix/" onClick={close}>Allflix</Link>
+      <Link className={s.contactLink} href="/contact" onClick={close}>Nous écrire</Link>
+    </div>
+  </nav>;
 }

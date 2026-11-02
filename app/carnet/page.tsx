@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import { CarnetContent } from '@/components/slumbywise/CarnetContent';
 
 export const metadata: Metadata = {
-  title: 'Le carnet — Slumbywise',
-  description: "Nuit après nuit, nous continuons d'écrire. Le carnet du veilleur, par Slumbywise x Denshiku.",
+  title: 'Les articles du Carnet — Slumbywise',
+  description: 'Le Carnet rassemble les articles de Slumbywise sur la nuit, les habitudes et la vie en horaires décalés.',
 };
 
 export default function CarnetPage() {

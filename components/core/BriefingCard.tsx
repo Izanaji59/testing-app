@@ -16,6 +16,8 @@ type Props = { briefing: Briefing | null };
 
 export function BriefingCard({ briefing }: Props) {
   const [addedTitles, setAddedTitles] = useState<string[]>([]);
+  const [adding, setAdding] = useState('');
+  const [error, setError] = useState('');
 
   if (!briefing) {
     return (
@@ -36,7 +38,9 @@ export function BriefingCard({ briefing }: Props) {
   const warnColor = warning ? T.danger : T.cyan;
 
   async function addSuggestion(m: NonNullable<typeof suggested_missions>[number]) {
-    await createQuestFlash({
+    if (adding || addedTitles.includes(m.title)) return;
+    setAdding(m.title); setError('');
+    try { await createQuestFlash({
       title: m.title,
       project_id: null,
       estimated_minutes: m.estimated_minutes,
@@ -45,6 +49,8 @@ export function BriefingCard({ briefing }: Props) {
     });
     setAddedTitles(t => [...t, m.title]);
     mutate('quests');
+    } catch { setError('La mission n’a pas pu être ajoutée. Réessaie.'); }
+    finally { setAdding(''); }
   }
 
   return (
@@ -97,7 +103,9 @@ export function BriefingCard({ briefing }: Props) {
 
         {suggested_missions && suggested_missions.length > 0 && (
           <div style={{ marginTop: 14, display: 'flex', flexDirection: 'column', gap: 8 }}>
-            <DataReadout size={9}>MISSIONS SUGGÉRÉES</DataReadout>
+            <DataReadout size={9}>MISSIONS POUR AUJOURD’HUI</DataReadout>
+            <p style={{fontSize:12,color:T.textDim}}>À terminer avant la fin de journée. Un bilan précède les points de résignation en cas de retard.</p>
+            {error && <p role="alert" style={{fontSize:12,color:T.danger}}>{error}</p>}
             {suggested_missions.map(m => {
               const added = addedTitles.includes(m.title);
               return (
@@ -116,7 +124,7 @@ export function BriefingCard({ briefing }: Props) {
                   </div>
                   <button
                     onClick={() => addSuggestion(m)}
-                    disabled={added}
+                    disabled={added || !!adding}
                     style={{
                       background: added ? 'transparent' : T.cyan,
                       color: added ? T.textMute : T.bg,
@@ -127,7 +135,7 @@ export function BriefingCard({ briefing }: Props) {
                       whiteSpace: 'nowrap',
                     }}
                   >
-                    {added ? 'AJOUTÉE' : '+ AJOUTER'}
+                    {added ? 'AJOUTÉE' : adding === m.title ? 'AJOUT…' : '+ AJOUTER'}
                   </button>
                 </div>
               );

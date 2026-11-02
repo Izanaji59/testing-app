@@ -9,8 +9,8 @@ const payload={sub:uid,exp:Math.floor(Date.now()/1000)+86400,aud:'authenticated'
 const token=[{alg:'HS256',typ:'JWT'},payload].map(x=>Buffer.from(JSON.stringify(x)).toString('base64url')).join('.')+'.test';
 const auth={access_token:token,refresh_token:'local-test-only',token_type:'bearer',expires_in:86400,expires_at:payload.exp,user};
 const profile={user_id:uid,operator_code:'TEST',display_name:'Test local',mbti:'INTJ',level:1,total_xp:0,rank_letter:'E',rank_tier:'NEUTRAL',constance:0,mastery_points:0};
-const q={id:'q1',user_id:uid,title:'Préparer mon dossier',status:'PENDING',due_at:new Date(Date.now()-3600000).toISOString(),difficulty_tier:'ROUTINE',reward_eur:0};
-(async()=>{const browser=await chromium.launch({channel:'msedge',headless:true});try{
+const q={id:'q1',user_id:uid,title:'Préparer mon dossier',status:'IN_PROGRESS',due_at:new Date(Date.now()-3600000).toISOString(),difficulty_tier:'ROUTINE',reward_eur:0};
+(async()=>{const browser=await chromium.launch({channel:process.env.PLAYWRIGHT_CHANNEL||'chrome',headless:true});try{
  const c=await browser.newContext({viewport:{width:390,height:844},hasTouch:true}),p=await c.newPage(),errors=[],writes=[],reviews=[];
  let fail=false,unavailable=false;
  await c.addCookies([{name:'sb-'+api.hostname.split('.')[0]+'-auth-token',value:'base64-'+Buffer.from(JSON.stringify(auth)).toString('base64url'),url:base,sameSite:'Lax'}]);
@@ -45,7 +45,7 @@ const q={id:'q1',user_id:uid,title:'Préparer mon dossier',status:'PENDING',due_
  fs.mkdirSync(path.join(root,'test-results'),{recursive:true});await p.screenshot({path:path.join(root,'test-results/deadline-review-mobile.png'),fullPage:true});
  for(const width of [320,390,1280]){await p.setViewportSize({width,height:844});assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,'overflow '+width);}
  fail=true;await submit().click();await p.getByRole('alert').filter({hasText:'Le bilan n’a pas pu'}).waitFor();assert.equal(await p.getByLabel('Ta réponse',{exact:true}).inputValue(),'Un rendez-vous urgent');
- fail=false;await submit().click();await p.getByRole('status').filter({hasText:'sans points de résignation'}).waitFor();assert.equal(q.status,'PENDING');
+ fail=false;await submit().click();await p.getByRole('status').filter({hasText:'sans points de résignation'}).waitFor();assert.equal(q.status,'IN_PROGRESS');
  await p.reload();await p.getByRole('button',{name:'+ NOUVELLE QUÊTE'}).waitFor();assert.equal(await p.getByRole('heading',{name:'Quelle est ton excuse ?'}).count(),0);
  q.due_at=new Date(Date.now()-1800000).toISOString();await p.reload();await p.getByRole('heading',{name:'Quelle est ton excuse ?'}).waitFor();
  await p.getByLabel('Ta réponse',{exact:true}).fill('J’ai choisi de repousser');await p.getByLabel(/J’ai volontairement/).check();await submit().click();

@@ -8,17 +8,16 @@ import { Header } from '@/components/shell/Header';
 import { ProfileState } from '@/components/shell/ProfileState';
 import { HudPanel } from '@/components/hud/HudPanel';
 import { DataReadout } from '@/components/hud/DataReadout';
-import { RankEmblem } from '@/components/hud/RankEmblem';
+import { ProfileSpace } from '@/components/profile/ProfileSpace';
 import { T } from '@/lib/tokens';
 import { supabase } from '@/lib/supabase/client';
 import { SPECS } from '@/lib/engine/specs';
 import { getMbtiClass } from '@/lib/engine/mbtiClasses';
-import { getRankTitle } from '@/lib/engine/rankTitles';
 import { fmtRank } from '@/lib/utils';
 
 export default function ProfilePage() {
   const router = useRouter();
-  const { profile, specializations, refresh, loading } = useProfile();
+  const { profile, stats, specializations, refresh, loading } = useProfile();
   const totalRevenue = useRevenue();
   const [savingMbti, setSavingMbti] = useState(false);
   const [mbtiSubmissions, setMbtiSubmissions] = useState<string[]>([]);
@@ -39,7 +38,6 @@ export default function ProfilePage() {
   const rank = fmtRank(profile.rank_letter, profile.rank_tier);
   const letter = rank.replace(/[+\-−]/g, '');
   const tier = rank.endsWith('+') ? '+' : rank.endsWith('−') ? '-' : '';
-  const rankTitle = getRankTitle(profile.mbti, profile.rank_letter);
 
   async function logout() {
     await supabase().auth.signOut();
@@ -87,29 +85,7 @@ export default function ProfilePage() {
 
       <div style={{ padding: '14px 14px 0', display: 'flex', flexDirection: 'column', gap: 14 }}>
 
-        {/* Identité */}
-        <HudPanel label="IDENTITÉ" glow={0.4}>
-          <div style={{ padding: 18, display: 'flex', alignItems: 'center', gap: 16 }}>
-            <RankEmblem letter={letter} tier={tier as '+' | '-' | ''} size={64} color={T.cyan} glow={1.2} />
-            <div style={{ flex: 1 }}>
-              <DataReadout>{profile.display_name || profile.operator_code}</DataReadout>
-              {profile.display_name && (
-                <DataReadout size={8} color={T.textMute} style={{ display: 'block', marginTop: 2 }}>
-                  {profile.operator_code}
-                </DataReadout>
-              )}
-              <div style={{ fontFamily: T.display, fontSize: 22, color: T.text, marginTop: 4 }}>
-                Rang {rank} · {rankTitle.title}
-              </div>
-              <DataReadout size={9} color={T.cyan} style={{ display: 'block', marginTop: 2 }}>
-                {rankTitle.stage.toUpperCase()} — {rankTitle.desc.toUpperCase()}
-              </DataReadout>
-              <DataReadout style={{ display: 'block', marginTop: 2 }}>
-                NIVEAU {profile.level} · {profile.total_xp.toLocaleString('fr-FR')} XP
-              </DataReadout>
-            </div>
-          </div>
-        </HudPanel>
+        <ProfileSpace profile={profile} stats={stats} owner onIdentityChange={refresh} />
 
         {/* MBTI → classe */}
         <HudPanel label={`CLASSE · ${mbtiClass.label}`} glow={0.3}>
