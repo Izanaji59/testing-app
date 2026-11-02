@@ -2,6 +2,12 @@
 
 Entrée la plus récente en haut. Une entrée par session : date, agent, commits, migrations appliquées, points ouverts.
 
+## 2026-11-02 (soir) — Claude Code
+
+- Suppression d'une quête : bouton « SUPPRIMER » avec confirmation sur `components/core/QuestCard.tsx`, pour toute quête non terminée. Une quête terminée ne se supprime pas (son XP est acquise et elle compte dans l'avancement du donjon).
+- Aucune migration : la RLS `quests_delete` et les clés étrangères existaient déjà (tâches et bilans supprimés en cascade, sessions de concentration conservées avec `quest_id` à null). Le trigger d'avancement recalcule le donjon.
+- Supprimer n'ajoute pas de résignation, contrairement à l'abandon (SKIPPED). Non testé dans un navigateur connecté (pas de test Playwright disponible ici).
+
 ## 2026-11-02 (après-midi) — Claude Code, fusion du travail de Codex
 
 À la demande de l'utilisateur, la branche locale `codex/slumbywise-logo` (commits `7842b98` et `8115faa`) **et** ses modifications non commitées du moment (import en double retiré dans `components/core/QuestCard.tsx`, nouveau `scripts/test-allflix-browser.cjs`) ont été fusionnées dans `main` et publiées. La copie de travail de Codex n'a pas été modifiée.

@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useState, useCallback } from 'react';
+import { mutate } from 'swr';
 import { HudPanel } from '@/components/hud/HudPanel';
 import { DataReadout } from '@/components/hud/DataReadout';
 import { TodoList } from '@/components/core/TodoList';
@@ -24,6 +25,7 @@ export function QuestCard({ quest, onChange }: Props) {
   const [expanded, setExpanded] = useState(false);
   const [tasks, setTasks] = useState<Task[]>([]);
   const [tasksLoaded, setTasksLoaded] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
 
   const meta = quest.difficulty_tier ? DIFFICULTY_META[quest.difficulty_tier] : DIFFICULTY_META.ROUTINE;
   const isDone = quest.status === 'COMPLETED';
@@ -72,6 +74,21 @@ export function QuestCard({ quest, onChange }: Props) {
       onChange?.();
     } catch { setError('Le démarrage n’a pas pu être enregistré. Réessaie.');
     } finally {
+      setBusy(false);
+    }
+  }
+
+  async function remove() {
+    if (busy || isDone) return;
+    setBusy(true); setError('');
+    try {
+      // `select` : avec la RLS, une suppression refusée ne renvoie pas d'erreur, seulement zéro ligne.
+      const { data, error: failure } = await supabase().from('quests').delete().eq('id', quest.id).select('id');
+      if (failure || !data?.length) throw failure ?? new Error('Aucune quête supprimée');
+      await Promise.all([mutate('quests'), mutate('quests-today'), mutate('projects')]);
+      onChange?.();
+    } catch {
+      setError('La quête n’a pas pu être supprimée. Réessaie.');
       setBusy(false);
     }
   }
@@ -132,6 +149,25 @@ export function QuestCard({ quest, onChange }: Props) {
               <button onClick={toggleExpand} style={btnGhost}>
                 {expanded ? '▲ TÂCHES' : `▼ TÂCHES${tasksLoaded && tasks.length > 0 ? ` (${doneTasks}/${tasks.length})` : ''}`}
               </button>
+              {!confirmDelete && (
+                <button onClick={() => setConfirmDelete(true)} disabled={busy} style={btnDanger} aria-label={`Supprimer la quête ${quest.title}`}>
+                  SUPPRIMER
+                </button>
+              )}
+            </div>
+          )}
+
+          {!isDone && confirmDelete && (
+            <div role="group" aria-label="Confirmer la suppression" style={{ marginTop: 10 }}>
+              <DataReadout size={8} color={T.danger} style={{ display: 'block', marginBottom: 6 }}>
+                SUPPRIMER CETTE QUÊTE ? SES TÂCHES SERONT AUSSI SUPPRIMÉES. IRRÉVERSIBLE.
+              </DataReadout>
+              <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+                <button onClick={remove} disabled={busy} style={{ ...btnDanger, borderColor: T.danger }}>
+                  {busy ? '…' : 'CONFIRMER LA SUPPRESSION'}
+                </button>
+                <button onClick={() => setConfirmDelete(false)} disabled={busy} style={btnGhost}>ANNULER</button>
+              </div>
             </div>
           )}
 
@@ -194,4 +230,10 @@ const btnGhost: React.CSSProperties = {
   fontSize: 9,
   letterSpacing: '0.18em',
   cursor: 'pointer',
+};
+
+const btnDanger: React.CSSProperties = {
+  ...btnGhost,
+  color: T.danger,
+  border: `1px solid ${T.danger}55`,
 };
