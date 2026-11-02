@@ -109,6 +109,7 @@ export function PublicProfileModal({ userId, onClose }: Props) {
                 </>
               )}
 
+              {status === 'ready' && <a href={'/member/?id='+userId} style={{display:'block',textAlign:'center',padding:12,color:T.cyan}}>Voir le profil et son journal</a>}
               <button
                 onClick={onClose}
                 style={{

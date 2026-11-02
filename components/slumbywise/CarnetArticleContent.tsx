@@ -5,6 +5,7 @@ import { SlumbywiseStyles, useSlumbywiseBody } from './SlumbywiseStyles';
 import { SlumbywiseNav } from './SlumbywiseNav';
 import { SlumbywiseFooter } from './SlumbywiseFooter';
 import type { CarnetArticle } from '@/lib/content/carnetArticles';
+import styles from './carnet.module.css';
 
 export function CarnetArticleContent({ article }: { article: CarnetArticle }) {
   useSlumbywiseBody();
@@ -16,24 +17,29 @@ export function CarnetArticleContent({ article }: { article: CarnetArticle }) {
       <div className="sw-root">
         <SlumbywiseNav />
 
-        <article className="sw-page-hero" style={{ maxWidth: 760 }}>
-          <Link href="/carnet" className="sw-btn-ghost">← Retour au carnet</Link>
+        <main className={styles.articleMain}>
+        <article>
+          <Link href="/carnet" className={styles.backLink}>← Tous les articles du Carnet</Link>
 
-          <div className="sw-blog-meta" style={{ marginTop: 40 }}>
-            <span className="sw-num">{article.num}</span>
-            <span>{article.date}</span>
-            <span>· {article.tag}</span>
+          <div className={styles.articleMeta} style={{ marginTop: 48 }}>
+            <span>Le Carnet</span>
+            <span>{article.tag}</span>
           </div>
 
-          <h1 className="sw-section-title" style={{ marginTop: 12 }}>{article.title}</h1>
-          <p className="sw-hero-message" style={{ marginTop: 8, marginBottom: 0 }}>{article.excerpt}</p>
+          <h1 className={styles.articleTitle}>{article.title}</h1>
+          <p className={styles.articleIntroduction}>{article.excerpt}</p>
 
           <div className="sw-article-body">
             {article.body.map((paragraph, i) => (
               <p key={i}>{paragraph}</p>
             ))}
           </div>
+          <div className={styles.articleEnd}>
+            <Link href="/carnet">Poursuivre dans les articles <span aria-hidden="true">↗</span></Link>
+            <Link href="/livre">Découvrir le livre <span aria-hidden="true">↗</span></Link>
+          </div>
         </article>
+        </main>
 
         <SlumbywiseFooter />
       </div>

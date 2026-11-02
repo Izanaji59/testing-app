@@ -2,6 +2,7 @@
 
 import { useProfile } from '@/hooks/useProfile';
 import { useProjects } from '@/hooks/useProjects';
+import { useQuests } from '@/hooks/useQuests';
 import { Header } from '@/components/shell/Header';
 import { ProfileState } from '@/components/shell/ProfileState';
 import { HudPanel } from '@/components/hud/HudPanel';
@@ -13,6 +14,8 @@ import { xpForLevel } from '@/lib/engine/xp';
 export default function RoadmapPage() {
   const { profile, loading } = useProfile();
   const { projects } = useProjects();
+  const { quests } = useQuests();
+  const completedProjects = projects.filter(p=>p.status==='COMPLETED' && quests.filter(q=>q.project_id===p.id && q.status==='COMPLETED' && !q.is_flash).length>=3).length;
 
   if (!profile) return <ProfileState kind={loading ? 'loading' : 'missing'} />;
 
@@ -26,8 +29,8 @@ export default function RoadmapPage() {
         <HudPanel label="TRAJECTOIRE · RANGS" glow={0.4}>
           <div style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 10 }}>
             {RANK_GATES.map(g => {
-              const passed = profile.level >= g.minLevel;
-              const current = profile.level >= g.minLevel && (g.maxLevel === undefined || profile.level <= g.maxLevel);
+              const passed = RANK_GATES.findIndex(r=>r.letter===profile.rank_letter) >= RANK_GATES.indexOf(g);
+              const current = profile.rank_letter === g.letter;
               return (
                 <div key={g.letter} style={{
                   display: 'flex', alignItems: 'center', gap: 14,
@@ -47,7 +50,7 @@ export default function RoadmapPage() {
                       Lv {g.minLevel}{g.maxLevel ? `–${g.maxLevel}` : '+'} · {g.label}
                     </div>
                     <DataReadout size={9} style={{ display: 'block', marginTop: 2 }}>
-                      {g.gate || '—'}
+                      {g.gate}
                     </DataReadout>
                   </div>
                   <div style={{
@@ -59,6 +62,8 @@ export default function RoadmapPage() {
                 </div>
               );
             })}
+            <p style={{fontSize:12,color:T.textDim,lineHeight:1.7}}>{profile.total_xp.toLocaleString('fr-FR')} XP acquis. {completedProjects} projet(s) reconnu(s) : projet terminé contenant au moins trois quêtes accomplies hors quêtes flash. Tes statistiques gardent leur propre progression.</p>
+            <p style={{fontSize:12,color:T.textDim,lineHeight:1.7}}>Repère : 180 XP par journée active, cinq jours par semaine, permettent d’atteindre le seuil du rang A en environ 17 mois. Cours, entraînement et projets peuvent contribuer. Un minuteur seul n’accorde pas d’XP.</p>
           </div>
         </HudPanel>
 

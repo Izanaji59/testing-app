@@ -33,18 +33,14 @@ export function SlumbywiseStyles() {
           --pool-teal: #4a9b8e;
           --gl-cyan: #4ECDFF;
           --gl-cyan-glow: rgba(78, 205, 255, 0.45);
-          --slate: #6b7a8c;
+          --slate: #a2a9b9;
           --hairline: rgba(242, 233, 216, 0.08);
           --hairline-strong: rgba(242, 233, 216, 0.16);
         }
 
         body.slumbywise-body {
           background-color: var(--night-deep);
-          background-image:
-            linear-gradient(rgba(78, 205, 255, 0.05) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(78, 205, 255, 0.05) 1px, transparent 1px);
-          background-size: 32px 32px;
-          background-attachment: fixed;
+          background-image: none;
           color: var(--warm-white);
           font-family: 'Inter', -apple-system, sans-serif;
           font-weight: 300;
@@ -55,6 +51,14 @@ export function SlumbywiseStyles() {
 
         .sw-root {
           position: relative;
+          color: var(--warm-white);
+          font-family: 'Inter', -apple-system, sans-serif;
+          background: var(--night-deep);
+        }
+
+        .sw-root a:focus-visible, .sw-root button:focus-visible, .sw-root input:focus-visible {
+          outline: 2px solid #d9c2f5;
+          outline-offset: 5px;
         }
 
         .sw-root::before {
@@ -135,7 +139,7 @@ export function SlumbywiseStyles() {
 
         .sw-btn-primary { display: inline-flex; align-items: center; gap: 12px; padding: 16px 30px; background: var(--amber); color: var(--night-deep); text-decoration: none; font-size: 14px; font-weight: 500; letter-spacing: 0.02em; border-radius: 2px; transition: all 0.25s; border: 1px solid var(--amber); }
         .sw-btn-primary:hover { background: transparent; color: var(--amber); }
-        .sw-btn-primary::after { content: '→'; font-size: 16px; }
+        .sw-btn-primary::after { content: none; }
         .sw-btn-ghost { padding: 15px 24px; color: var(--warm-white); text-decoration: none; font-size: 14px; letter-spacing: 0.02em; border-bottom: 1px solid var(--hairline-strong); transition: border-color 0.25s, color 0.25s; }
         .sw-btn-ghost:hover { color: var(--amber); border-color: var(--amber); }
 
@@ -261,7 +265,7 @@ export function SlumbywiseStyles() {
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .sw-root * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+          .sw-root * { animation-duration: 0.01ms !important; animation-delay: 0ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
         }
       ` }} />
     </>

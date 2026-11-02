@@ -104,7 +104,7 @@ export default function CmdPage() {
 
         {/* Bandeau pub — lien externe, ouvre dans un nouvel onglet */}
         <a
-          href="https://slumbywise.com/allflix"
+          href="/allflix/"
           target="_blank"
           rel="noopener noreferrer"
           style={{
@@ -120,7 +120,7 @@ export default function CmdPage() {
             PUB
           </DataReadout>
           <div style={{ fontFamily: T.mono, fontSize: 11, color: T.cyan, letterSpacing: '0.1em' }}>
-            SLUMBYWISE · ALLFLIX →
+            ALLFLIX
           </div>
         </a>
 

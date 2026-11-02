@@ -145,6 +145,8 @@ export interface SessionRow {
   started_at: string;
   ended_at: string | null;
   duration_sec: number | null;
+  focus_seconds?: number | null;
+  quest_completed?: boolean;
   quality: SessionQuality | null;
   interruptions: number;
   notes: string | null;

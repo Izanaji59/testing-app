@@ -8,8 +8,9 @@ import { TodoList } from '@/components/core/TodoList';
 import { T, EASE } from '@/lib/tokens';
 import type { Quest, Task } from '@/lib/types';
 import { supabase } from '@/lib/supabase/client';
-import { DIFFICULTY_META } from '@/lib/engine/difficulty';
+import { DIFFICULTY_META, questXpBudget } from '@/lib/engine/difficulty';
 import { fmtDuration } from '@/lib/utils';
+import { useFocus } from '@/components/focus/FocusProvider';
 
 type Props = {
   quest: Quest;
@@ -17,7 +18,9 @@ type Props = {
 };
 
 export function QuestCard({ quest, onChange }: Props) {
+  const { openFocus } = useFocus();
   const [busy, setBusy] = useState(false);
+  const [error, setError] = useState('');
   const [expanded, setExpanded] = useState(false);
   const [tasks, setTasks] = useState<Task[]>([]);
   const [tasksLoaded, setTasksLoaded] = useState(false);
@@ -43,13 +46,15 @@ export function QuestCard({ quest, onChange }: Props) {
 
   async function complete() {
     if (busy || isDone) return;
-    setBusy(true);
+    setBusy(true); setError('');
     try {
-      await supabase()
+      const result = await supabase()
         .from('quests')
         .update({ status: 'COMPLETED', completed_at: new Date().toISOString() })
         .eq('id', quest.id);
+      if (result.error) throw result.error;
       onChange?.();
+    } catch { setError('La quête n’a pas pu être validée. Réessaie.');
     } finally {
       setBusy(false);
     }
@@ -57,13 +62,15 @@ export function QuestCard({ quest, onChange }: Props) {
 
   async function start() {
     if (busy) return;
-    setBusy(true);
+    setBusy(true); setError('');
     try {
-      await supabase()
+      const result = await supabase()
         .from('quests')
         .update({ status: 'IN_PROGRESS', starts_at: new Date().toISOString() })
         .eq('id', quest.id);
+      if (result.error) throw result.error;
       onChange?.();
+    } catch { setError('Le démarrage n’a pas pu être enregistré. Réessaie.');
     } finally {
       setBusy(false);
     }
@@ -110,8 +117,12 @@ export function QuestCard({ quest, onChange }: Props) {
           </div>
 
           {/* Actions */}
+          {!isDone && <p style={{fontSize:11,color:T.cyan,margin:'0 0 8px'}}>Budget global : {quest.reward_xp_base ?? questXpBudget(quest.difficulty_tier ?? 'ROUTINE',quest.estimated_minutes ?? 30)} XP à la validation</p>}
+          {!isDone && <p style={{fontSize:11,color:T.textDim,margin:'0 0 12px'}}>{quest.due_at ? `Échéance : ${new Date(quest.due_at).toLocaleString('fr-FR',{dateStyle:'short',timeStyle:'short'})}` : 'Sans échéance'}</p>}
+          {error && <p role="alert" style={{fontSize:12,color:T.danger}}>{error}</p>}
           {!isDone && (
             <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+              {['PENDING', 'IN_PROGRESS'].includes(quest.status) && <button onClick={() => openFocus(undefined, quest)} style={btnPrimary}>ME CONCENTRER</button>}
               {quest.status === 'PENDING' && (
                 <button onClick={start} disabled={busy} style={btnSecondary}>DÉMARRER</button>
               )}
@@ -123,6 +134,8 @@ export function QuestCard({ quest, onChange }: Props) {
               </button>
             </div>
           )}
+
+          {!!quest.actual_minutes && <p style={{ color: T.textDim, fontSize: 12, marginTop: 10 }}>{quest.actual_minutes} min consacrées à cette quête</p>}
 
           {isDone && (
             <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>

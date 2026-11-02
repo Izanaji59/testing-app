@@ -2,9 +2,9 @@ import type { Metadata, Viewport } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'LATRACTION — Leveling',
-  description: 'Centre de commandement personnel. Montée en puissance immersive.',
-  applicationName: 'LATRACTION',
+  title: 'Slumbywise',
+  description: 'Lire, avancer, jouer. Un projet porté par Denshiku.',
+  applicationName: 'Slumbywise',
   manifest: '/site.webmanifest',
   icons: {
     icon: [
@@ -21,8 +21,6 @@ export const viewport: Viewport = {
   themeColor: '#03060D',
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

@@ -8,7 +8,7 @@ import { deadlineKey, pendingDeadlineReviews, type DeadlineReview as Review } fr
 import styles from './deadline-review.module.css';
 
 export function DeadlineReview({ userId }: { userId: string }) {
-  const { quests, refresh } = useQuests();
+  const { quests, refresh, error: questsError } = useQuests();
   const [now, setNow] = useState(Date.now);
   const [deferred, setDeferred] = useState<string[]>([]);
   const [reason, setReason] = useState('');
@@ -26,7 +26,15 @@ export function DeadlineReview({ userId }: { userId: string }) {
   );
   useEffect(() => {
     const timer = setInterval(() => setNow(Date.now()), 15_000);
-    return () => clearInterval(timer);
+    const syncClock = () => setNow(Date.now());
+    const onVisible = () => { if (document.visibilityState === 'visible') syncClock(); };
+    window.addEventListener('focus', syncClock);
+    document.addEventListener('visibilitychange', onVisible);
+    return () => {
+      clearInterval(timer);
+      window.removeEventListener('focus', syncClock);
+      document.removeEventListener('visibilitychange', onVisible);
+    };
   }, []);
   const pending = pendingDeadlineReviews(quests.filter(q => q.user_id === userId), reviews ?? [], now);
   const quest = pending.find(q => !deferred.includes(deadlineKey(q.id, q.due_at!)));
@@ -50,7 +58,8 @@ export function DeadlineReview({ userId }: { userId: string }) {
     } finally { saving.current = false; setBusy(false); }
   }
 
-  if (!quest) return notice || pending.length ? <aside className={styles.panel}>
+  if (!quest) return notice || pending.length || questsError ? <aside className={styles.panel}>
+    {questsError && <p role="alert">Les quêtes n’ont pas pu être chargées. Le bilan sera disponible une fois la connexion rétablie.</p>}
     {notice && <p role="status">{notice}</p>}
     {pending.length > 0 && <button onClick={() => setDeferred([])}>Reprendre le bilan ({pending.length})</button>}
   </aside> : null;

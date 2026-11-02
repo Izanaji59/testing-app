@@ -11,7 +11,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   const article = getCarnetArticle(params.slug);
   if (!article) return {};
   return {
-    title: `${article.plainTitle} — Le carnet · Slumbywise`,
+    title: `${article.plainTitle} — Articles du Carnet | Slumbywise`,
     description: article.excerpt,
   };
 }

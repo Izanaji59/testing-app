@@ -17,6 +17,11 @@ export const DIFFICULTY_META: Record<DifficultyTier, {
   LEGENDARY: { symbol: '✦',    label: 'LÉGENDAIRE', color: T.purple,  baseXp: 400, critChance: 0.15 },
 };
 
+/** One global budget. Subtasks do not create extra rewards. Mirrors f_quest_budget. */
+export function questXpBudget(tier: DifficultyTier, minutes = 30): number {
+  return Math.max(1, Math.min(Math.floor(minutes), DIFFICULTY_META[tier].baseXp));
+}
+
 /**
  * Calcul du score de difficulté à partir des 5 composantes.
  * Chaque composante normalisée [0, 1].

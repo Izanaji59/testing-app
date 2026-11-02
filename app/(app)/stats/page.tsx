@@ -13,6 +13,7 @@ import { T } from '@/lib/tokens';
 import { statXpForLevel } from '@/lib/engine/xp';
 import { STAT_META } from '@/lib/engine/stats';
 import type { XpSource } from '@/lib/types';
+import { FocusStats } from '@/components/focus/FocusStats';
 
 export default function StatsPage() {
   const { profile, stats, loading } = useProfile();
@@ -23,6 +24,7 @@ export default function StatsPage() {
       <Header profile={profile} title="STATS" />
 
       <div style={{ padding: '14px 14px 0', display: 'flex', flexDirection: 'column', gap: 14 }}>
+        <FocusStats />
 
         <HudPanel label="RADAR · 11 AXES" glow={0.4}>
           <div style={{ padding: 18, display: 'grid', placeItems: 'center' }}>

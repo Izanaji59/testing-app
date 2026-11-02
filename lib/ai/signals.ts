@@ -52,7 +52,7 @@ export function dispersion(projects: Project[], events: XpEvent[]): number {
 export function realFocus(sessions: SessionRow[]): number {
   if (sessions.length === 0) return 0;
   const durations = sessions
-    .map(s => (s.duration_sec ?? 0) / 60)
+    .map(s => (s.focus_seconds ?? s.duration_sec ?? 0) / 60)
     .filter(d => d > 0);
   if (durations.length === 0) return 0;
   return durations.reduce((a, b) => a + b, 0) / durations.length;

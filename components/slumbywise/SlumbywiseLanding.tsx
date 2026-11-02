@@ -1,252 +1,46 @@
 'use client';
-
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { SlumbywiseStyles, useSlumbywiseBody, WHATSAPP_ORDER_URL } from './SlumbywiseStyles';
+import { SlumbywiseStyles, useSlumbywiseBody } from './SlumbywiseStyles';
 import { SlumbywiseNav } from './SlumbywiseNav';
 import { SlumbywiseFooter } from './SlumbywiseFooter';
-import { BracketCorners } from '@/components/hud/BracketCorners';
-
-const MESSAGES: Record<string, string[]> = {
-  deep_night: [
-    "Tu es en pleine veille. Bienvenue.",
-    "L'heure du carnet, de la ronde, du silence.",
-    "L'heure de bascule est passée. Tu es dans ta vraie fenêtre.",
-  ],
-  dawn: [
-    "Fin de service, ou début de journée. Selon lequel des deux tu es.",
-    "L'heure grise. Les veilleurs rentrent, les matinaux se lèvent.",
-  ],
-  morning: [
-    "Si tu as veillé cette nuit, tu vas bientôt dormir. Bonne nuit.",
-    "L'heure du sas de sortie. Rideaux tirés, température basse.",
-  ],
-  afternoon: [
-    "Tu prépares peut-être ta prochaine nuit.",
-    "L'heure creuse. Bonne pour la sieste réglée.",
-    "Le monde diurne est en pleine course. Toi, tu reprends des forces.",
-  ],
-  evening: [
-    "Le sas de bascule s'approche.",
-    "L'heure où le veilleur s'installe. Repas, lumière chaude, préparation.",
-    "Bientôt la nuit. La vraie.",
-  ],
-  late_evening: [
-    "L'heure où beaucoup commencent. Bienvenue.",
-    "Poste de nuit dans quelques instants. Bonne veille.",
-    "Les diurnes s'endorment. Ton monde s'éveille.",
-  ],
-};
-
-function poolFor(hour: number): string[] {
-  if (hour < 5) return MESSAGES.deep_night;
-  if (hour < 8) return MESSAGES.dawn;
-  if (hour < 12) return MESSAGES.morning;
-  if (hour < 17) return MESSAGES.afternoon;
-  if (hour < 21) return MESSAGES.evening;
-  return MESSAGES.late_evening;
-}
+import { CARNET_ARTICLES } from '@/lib/content/carnetArticles';
+import s from './home.module.css';
 
 export function SlumbywiseLanding() {
-  const [clock, setClock] = useState('--:--');
-  const [message, setMessage] = useState("— chargement de l'heure —");
-
   useSlumbywiseBody();
-
+  const [clock, setClock] = useState('');
   useEffect(() => {
-    function tick() {
-      const now = new Date();
-      const h = String(now.getHours()).padStart(2, '0');
-      const m = String(now.getMinutes()).padStart(2, '0');
-      setClock(`${h}:${m}`);
-
-      const pool = poolFor(now.getHours());
-      const stableIndex = Math.floor(now.getMinutes() / 20) % pool.length;
-      setMessage(`— ${pool[stableIndex]}`);
-    }
-    tick();
-    const id = setInterval(tick, 1000);
-    return () => clearInterval(id);
+    const tick = () => setClock(new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }));
+    tick(); const timer = setInterval(tick, 30000); return () => clearInterval(timer);
   }, []);
-
-  const [h, m] = clock.split(':');
-
-  return (
-    <>
-      <SlumbywiseStyles />
-
-      <div className="sw-root">
-        <SlumbywiseNav />
-
-        <section className="sw-hero">
-          <div className="sw-time-block">
-            <BracketCorners size={8} color="var(--gl-cyan)" thickness={1} opacity={0.6} inset={-8} />
-            <span className="sw-time-label">Il est actuellement</span>
-            <span className="sw-time-clock">{h}<span className="sw-time-blink">:</span>{m}</span>
-          </div>
-          <div className="sw-hero-message">{message}</div>
-          <h1 className="sw-hero-headline">
-            Le sommeil n&apos;est pas un luxe. <em>C&apos;est ton terrain de jeu.</em>
-          </h1>
-          <p className="sw-hero-sub">
-            Le livre, le carnet, la lettre. Une bibliothèque associative pour apprendre à dompter ta nuit — que tu sois travailleur posté, soignant, boulanger, insomniaque ou créatif noctambule. Portée par l&apos;association Denshiku, entièrement au bénéfice de l&apos;éducation des enfants orphelins.
-          </p>
-          <div className="sw-hero-actions">
-            <a href={WHATSAPP_ORDER_URL} target="_blank" rel="noopener noreferrer" className="sw-btn-primary">Découvrir le livre</a>
-            <Link href="/carnet" className="sw-btn-ghost">Lire le carnet</Link>
-          </div>
-        </section>
-
-        <section className="sw-book" id="livre">
-          <div className="sw-section-inner sw-book-inner">
-            <img
-              src="/images/slumbywise/carnet-du-concierge-cover.jpg"
-              alt="Couverture du Carnet du Concierge — photo thermique d'une piscine, Denshiku"
-              className="sw-book-cover"
-            />
-            <div className="sw-book-content">
-              <div className="sw-eyebrow">Le livre</div>
-              <h2 className="sw-section-title">Le carnet d&apos;un homme <em>immobile</em>, écrit pour ceux qui veillent debout.</h2>
-              <blockquote className="sw-book-quote">
-                « Ce que j&apos;avais appris en marchant, je l&apos;ai compris en restant immobile. »
-              </blockquote>
-              <div className="sw-book-desc">
-                <p>Élias Morel a dirigé pendant vingt-six ans la piscine Ronsard. Un accident vasculaire cérébral l&apos;a laissé en fauteuil. La municipalité lui a offert de rester, comme concierge de nuit, de 22h à 6h.</p>
-                <p>C&apos;est dans ces nuits qu&apos;il a rédigé ce carnet — quarante-trois lectiones ancrées dans la chronobiologie, la neurologie, la philosophie et l&apos;histoire longue de la nuit humaine. Pour ceux qui subissent la nuit et voudraient l&apos;habiter. Pour ceux qui l&apos;habitent seuls et voudraient la partager.</p>
-              </div>
-              <div className="sw-book-meta">
-                <div className="sw-meta-item">
-                  <span className="sw-meta-label">Lectiones</span>
-                  <span className="sw-meta-value"><em>43</em></span>
-                </div>
-                <div className="sw-meta-item">
-                  <span className="sw-meta-label">Pages</span>
-                  <span className="sw-meta-value">≈ 200</span>
-                </div>
-                <div className="sw-meta-item">
-                  <span className="sw-meta-label">Mouvements</span>
-                  <span className="sw-meta-value">III</span>
-                </div>
-              </div>
-              <div className="sw-book-buy">
-                <div className="sw-book-price">
-                  <span className="sw-price-amount">19</span>
-                  <span className="sw-price-currency">EUR</span>
-                </div>
-                <a href={WHATSAPP_ORDER_URL} target="_blank" rel="noopener noreferrer" className="sw-btn-primary">Commander l&apos;exemplaire</a>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="sw-promise">
-          <div className="sw-section-inner sw-promise-inner">
-            <div>
-              <div className="sw-eyebrow">La promesse</div>
-              <h2 className="sw-section-title">La nuit protège <em>la nuit.</em></h2>
-              <p className="sw-book-desc">Slumbywise est un projet associatif porté par Denshiku. Chaque exemplaire vendu, chaque don reçu, chaque abonnement finance directement l&apos;accès à l&apos;éducation d&apos;un enfant orphelin — parce que les enfants qui ont un toit, un savoir, une place, dorment mieux la nuit.</p>
-              <p className="sw-book-desc" style={{ color: 'var(--pool-teal)', fontStyle: 'italic', fontFamily: "'Instrument Serif', serif", fontSize: 20, marginTop: 24 }}>Le veilleur qui achète ce livre reçoit un guide pour mieux vivre sa nuit. Ce qu&apos;il paie finance un enfant orphelin qui, lui, dort mieux parce qu&apos;il a une place dans le monde.</p>
-            </div>
-            <div className="sw-promise-flow">
-              <div className="sw-flow-step">
-                <div className="sw-flow-num">01</div>
-                <div className="sw-flow-text">Le lecteur achète, s&apos;abonne ou fait un don.</div>
-              </div>
-              <div className="sw-flow-step">
-                <div className="sw-flow-num">02</div>
-                <div className="sw-flow-text">100 % des recettes reviennent à l&apos;association <em>Denshiku</em>.</div>
-              </div>
-              <div className="sw-flow-step">
-                <div className="sw-flow-num">03</div>
-                <div className="sw-flow-text">L&apos;association finance la scolarité, la santé et l&apos;accompagnement d&apos;enfants orphelins.</div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ─── GRINDLEVELING ──────────────────────────────────────────── */}
-        <section className="sw-book" id="grindleveling">
-          <div className="sw-section-inner sw-promise-inner">
-            <div>
-              <div className="sw-eyebrow">Grindleveling</div>
-              <h2 className="sw-section-title">Ta nuit a une valeur. <em>Fais-la monter de niveau.</em></h2>
-              <p className="sw-book-desc">Ce que tu accomplis pendant que les autres dorment ne devrait pas disparaître avec le jour. Grindleveling transforme chaque tâche réelle en quête, chaque effort en statistique qui progresse, chaque euro gagné en preuve visible.</p>
-              <p className="sw-book-desc" style={{ color: 'var(--pool-teal)', fontStyle: 'italic', fontFamily: "'Instrument Serif', serif", fontSize: 20, marginTop: 24 }}>Le veilleur qui doute de sa nuit peut enfin la voir progresser, palier après palier.</p>
-              <Link href="/grindleveling" className="sw-btn-primary" style={{ marginTop: 8 }}>Entrer en jeu</Link>
-            </div>
-            <div className="sw-promise-flow">
-              <div className="sw-flow-step">
-                <div className="sw-flow-num">→</div>
-                <div className="sw-flow-text">Quêtes, projets, rangs — ta <em>progression réelle</em>, mesurée.</div>
-              </div>
-              <div className="sw-flow-step">
-                <div className="sw-flow-num">→</div>
-                <div className="sw-flow-text">Un revenu suivi, une stat qui monte à chaque euro généré.</div>
-              </div>
-              <div className="sw-flow-step">
-                <div className="sw-flow-num">→</div>
-                <div className="sw-flow-text">Une salle d&apos;opérateurs pour ne plus veiller <em>seul</em>.</div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ─── CHESS ──────────────────────────────────────────────────── */}
-        <section className="sw-promise" id="chess">
-          <div className="sw-section-inner sw-promise-inner">
-            <div>
-              <div className="sw-eyebrow">Chess</div>
-              <h2 className="sw-section-title">Une partie, <em>une vraie pause.</em></h2>
-              <p className="sw-book-desc">Entre deux rondes, le temps d&apos;une partie d&apos;échecs — le silence du plateau remplace celui de l&apos;attente. Seul contre un bot, ou avec quelqu&apos;un qui veille comme toi, où qu&apos;il soit.</p>
-              <p className="sw-book-desc" style={{ color: 'var(--pool-teal)', fontStyle: 'italic', fontFamily: "'Instrument Serif', serif", fontSize: 20, marginTop: 24 }}>Pas besoin d&apos;être deux au même endroit pour partager un moment. Juste un lien, et la nuit devient un peu moins longue.</p>
-              <Link href="/chess" className="sw-btn-primary" style={{ marginTop: 8 }}>Jouer maintenant</Link>
-            </div>
-            <div className="sw-promise-flow">
-              <div className="sw-flow-step">
-                <div className="sw-flow-num">→</div>
-                <div className="sw-flow-text">Aucune installation — une partie commence en <em>un clic</em>.</div>
-              </div>
-              <div className="sw-flow-step">
-                <div className="sw-flow-num">→</div>
-                <div className="sw-flow-text">Un lien à partager, et la partie se joue à deux, où que vous soyez.</div>
-              </div>
-              <div className="sw-flow-step">
-                <div className="sw-flow-num">→</div>
-                <div className="sw-flow-text">Seul ? Un bot t&apos;attend, à toute heure.</div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ─── EMPREINTE ──────────────────────────────────────────────── */}
-        <section className="sw-book" id="empreinte">
-          <div className="sw-section-inner sw-promise-inner">
-            <div>
-              <div className="sw-eyebrow">Empreinte</div>
-              <h2 className="sw-section-title">Chaque pierre compte. <em>À toi de trouver l&apos;ouverture.</em></h2>
-              <p className="sw-book-desc">Pose tes pierres, relie tes groupes et encercle ceux de l&apos;adversaire. Trois pouvoirs MBTI t&apos;aident à préparer une capture ou à ouvrir un passage.</p>
-              <p className="sw-book-desc" style={{ color: 'var(--pool-teal)', fontStyle: 'italic', fontFamily: "'Instrument Serif', serif", fontSize: 20, marginTop: 24 }}>Un duel contre l&apos;IA, sans compte ni chrono de réflexion.</p>
-              <a href="/game/memoire/" className="sw-btn-primary" style={{ marginTop: 8 }}>Entrer dans l&apos;arène</a>
-            </div>
-            <div className="sw-promise-flow">
-              <div className="sw-flow-step">
-                <div className="sw-flow-num">→</div>
-                <div className="sw-flow-text">Un plateau 9 × 9. <em>Cinq pierres capturées pour gagner.</em></div>
-              </div>
-              <div className="sw-flow-step">
-                <div className="sw-flow-num">→</div>
-                <div className="sw-flow-text">Trois pouvoirs parmi INTJ, INTP, ENTJ et ENTP. Une réserve gagnée à chaque pose normale.</div>
-              </div>
-              <div className="sw-flow-step">
-                <div className="sw-flow-num">→</div>
-                <div className="sw-flow-text">Au clic ou au toucher, avec un aperçu avant de confirmer un pouvoir.</div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <SlumbywiseFooter />
-      </div>
-    </>
-  );
+  return <><SlumbywiseStyles /><div className="sw-root"><SlumbywiseNav />
+    <main id="main-content" className={s.main}>
+      <section className={s.hero} aria-labelledby="home-title">
+        <img className={s.backdrop} src="/images/slumbywise/night-window.jpg" alt="" width={1659} height={948} fetchPriority="high" />
+        <div className={s.heroInner}><div className={s.time}><span>À ton rythme</span>{clock && <time>{clock}</time>}</div><h1 id="home-title">La nuit<br />t’appartient.</h1><p>Une lecture, une quête, une partie.<br />Trouve ce qui te fait du bien, à cette heure-ci.</p><Link href="/carnet" className="sw-btn-primary">Ouvrir le Carnet</Link></div>
+        <div className={s.entrances} aria-label="Explorer Slumbywise">
+          <Link href="/carnet"><span className={s.number}>01</span><div><h2>Lire</h2><p>Les articles du Carnet</p></div></Link>
+          <Link href="/grindleveling"><span className={s.number}>02</span><div><h2>Avancer</h2><p>Tes quêtes avec Grindleveling</p></div></Link>
+          <a href="#jouer"><span className={s.number}>03</span><div><h2>Jouer</h2><p>Échecs et Empreinte</p></div></a>
+        </div>
+      </section>
+      <section className={s.section} aria-labelledby="carnet-title">
+        <div className={s.heading}><div><p className={s.eyebrow}>Le Carnet</p><h2 id="carnet-title">À lire, <em>quand tu veux.</em></h2></div><Link href="/carnet" className={s.textLink}>Tous les articles</Link></div>
+        <div className={s.articles}>{CARNET_ARTICLES.map(article => <Link key={article.slug} href={'/carnet/' + article.slug} className={s.article}><span className={s.tag}>{article.tag}</span><h3>{article.title}</h3><span className={s.read}>Lire l’article</span></Link>)}</div>
+      </section>
+      <section id="livre" className={s.bookSection} aria-labelledby="book-title"><div className={s.bookInner}>
+        <Link href="/livre" className={s.coverLink} aria-label="Découvrir Le Carnet du Concierge"><img src="/images/slumbywise/carnet-du-concierge-cover.jpg" alt="Couverture du Carnet du Concierge" width={600} height={900} loading="lazy" /></Link>
+        <div><p className={s.eyebrow}>Le Livre</p><h2 id="book-title">Le Carnet<br />du <em>Concierge.</em></h2><p className={s.description}>Des repères pour vivre en décalé, construire tes habitudes et trouver ton rythme. Un livre à garder près de soi.</p><div className={s.bookAction}><Link href="/livre" className="sw-btn-primary">Découvrir le livre</Link><span>19 EUR</span></div><Link className={s.subtleLink} href="/carnet">Lire les articles du Carnet</Link></div>
+      </div></section>
+      <section className={`${s.section} ${s.focus}`} aria-labelledby="focus-title">
+        <div><p className={s.eyebrow}>Grindleveling</p><h2 id="focus-title">Une quête.<br /><em>Un pas de plus.</em></h2><p className={s.description}>Choisis une tâche, lance un temps de concentration et retrouve ton effort dans tes statistiques. Ton objectif reste en vue.</p><Link href="/grindleveling" className="sw-btn-primary">Retrouver mes quêtes</Link></div>
+        <div className={s.questExample} aria-label="Exemple de quête dans Grindleveling"><div className={s.exampleHeader}><span>Exemple de quête</span><span>Grindleveling</span></div><span className={s.questGoal}>Objectif : lancer mon activité</span><h3>Rédiger ma première offre</h3><div className={s.timer}><span>Concentration</span><strong>25:00</strong><span>Une tâche à la fois</span></div><div className={s.exampleFooter}><span>Temps consacré à la quête</span><span>Suivi dans tes statistiques</span></div></div>
+      </section>
+      <section id="jouer" className={`${s.section} ${s.games}`} aria-labelledby="games-title"><div className={s.heading}><div><p className={s.eyebrow}>Les jeux</p><h2 id="games-title">Le temps <em>d’une partie.</em></h2></div><p className={s.aside}>Directement dans ton navigateur.</p></div>
+        <div className={s.gameGrid}><Link href="/chess" className={s.game}><div className={s.gameImage}><img src="/images/slumbywise/chess-preview.png" alt="Le plateau d’échecs de Slumbywise" width={800} height={600} loading="lazy" /></div><div className={s.gameCaption}><div><h3>Échecs</h3><p>À deux sur un écran, ou contre un bot.</p></div><span>Jouer</span></div></Link>
+        <a href="/game/memoire/" className={s.game}><div className={s.gameImage}><img src="/images/slumbywise/empreinte-preview.png" alt="Le plateau d’Empreinte et ses pierres" width={800} height={600} loading="lazy" /></div><div className={s.gameCaption}><div><h3>Empreinte</h3><p>Un duel de territoire, des pouvoirs MBTI.</p></div><span>Jouer</span></div></a></div>
+      </section>
+      <section className={s.association}><p>Un projet porté par Denshiku.</p><Link href="/association" className={s.textLink}>Rencontrer l’association</Link></section>
+    </main><SlumbywiseFooter /></div></>;
 }

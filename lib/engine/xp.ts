@@ -4,7 +4,13 @@
 
 /** XP cumulé requis pour atteindre le niveau global L. */
 export function xpForLevel(L: number): number {
-  return Math.floor(100 * Math.pow(L, 1.6));
+  if (L <= 1) return 0;
+  if (L <= 10) return Math.floor((L - 1) * 4000 / 9);
+  if (L <= 25) return Math.floor(4000 + (L - 10) * 8000 / 15);
+  if (L <= 50) return Math.floor(12000 + (L - 25) * 18000 / 25);
+  if (L <= 80) return Math.floor(30000 + (L - 50) * 35000 / 30);
+  if (L <= 110) return Math.floor(65000 + (L - 80) * 85000 / 30);
+  return Math.floor(150000 + (L - 110) * 5000);
 }
 
 /** XP requis pour passer le niveau L d'une stat. */
