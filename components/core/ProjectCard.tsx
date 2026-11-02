@@ -7,6 +7,7 @@ import { XpBar } from '@/components/hud/XpBar';
 import { T } from '@/lib/tokens';
 import { supabase } from '@/lib/supabase/client';
 import type { Project } from '@/lib/types';
+import { projectPct } from '@/lib/engine/progress';
 import { ProjectTimeline } from './project-types/ProjectTimeline';
 import { CampaignPath } from './project-types/CampaignPath';
 import { RaidCountdown } from './project-types/RaidCountdown';
@@ -22,7 +23,7 @@ const TYPE_COLOR: Record<string, string> = {
   OPERATION: T.cyan, CAMPAIGN: T.cyan, RAID: T.danger, DUNGEON: T.purple, BOSS: T.amber,
 };
 
-export function ProjectCard({ project }: { project: Project }) {
+export function ProjectCard({ project, questCount }: { project: Project; questCount?: { total: number; done: number } }) {
   const color = TYPE_COLOR[project.type] ?? T.cyan;
   const [showRoadmap, setShowRoadmap] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -72,12 +73,24 @@ export function ProjectCard({ project }: { project: Project }) {
           </DataReadout>
         </button>
 
+        {questCount && (
+          <DataReadout
+            size={8}
+            color={questCount.total === 0 ? T.amber : T.textDim}
+            style={{ display: 'block', marginBottom: 8 }}
+          >
+            {questCount.total === 0
+              ? 'AUCUNE QUÊTE · AJOUTES-EN DANS QUÊTES POUR FAIRE MONTER L\'AVANCEMENT'
+              : `${questCount.done}/${questCount.total} QUÊTES TERMINÉES`}
+          </DataReadout>
+        )}
+
         {/* Progression générique en fallback */}
         {project.type !== 'BOSS' && (
           <>
-            <XpBar current={project.progress_pct} max={100} height={3} color={color} />
+            <XpBar current={projectPct(project)} max={100} height={3} color={color} />
             <DataReadout size={9} style={{ marginTop: 6, display: 'block' }}>
-              {Math.round(project.progress_pct)}% · {project.primary_stat ?? '—'}
+              {Math.round(projectPct(project))}% · {project.primary_stat ?? '—'}
             </DataReadout>
           </>
         )}

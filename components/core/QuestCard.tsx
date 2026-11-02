@@ -5,6 +5,7 @@ import { useState, useCallback } from 'react';
 import { HudPanel } from '@/components/hud/HudPanel';
 import { DataReadout } from '@/components/hud/DataReadout';
 import { TodoList } from '@/components/core/TodoList';
+import { useFocus } from '@/components/focus/FocusProvider';
 import { T, EASE } from '@/lib/tokens';
 import type { Quest, Task } from '@/lib/types';
 import { supabase } from '@/lib/supabase/client';

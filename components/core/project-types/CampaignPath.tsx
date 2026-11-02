@@ -2,13 +2,13 @@
 
 import { T } from '@/lib/tokens';
 import type { Project } from '@/lib/types';
+import { phaseView } from '@/lib/engine/progress';
 
 /**
  * Vue CAMPAIGN — chemin sinueux multi-phases.
  */
 export function CampaignPath({ project }: { project: Project }) {
-  const phases = project.phase_count || 3;
-  const current = project.phase_current || 1;
+  const { total: phases, current } = phaseView(project, 3);
   const w = 280; const h = 60;
 
   // Sinusoïde simple

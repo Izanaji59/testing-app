@@ -6,6 +6,7 @@ import { StatRadar } from '@/components/hud/StatRadar';
 import { RankEmblem } from '@/components/hud/RankEmblem';
 import { STAT_META } from '@/lib/engine/stats';
 import type { PublicProfile, PublicStat } from '@/lib/types';
+import { getRankTitle, mbtiFromClassLabel } from '@/lib/engine/rankTitles';
 import { fmtRank } from '@/lib/utils';
 import s from './profile.module.css';
 
@@ -18,7 +19,7 @@ const ORDER=Object.keys(STAT_META) as (keyof typeof STAT_META)[];
 /** The exact same earned-statistics block is rendered for owners and visitors. */
 export function ProfileStatistics({profile,stats}:{profile:PublicProfile;stats:PublicStat[]}) {
   const rank=fmtRank(profile.rank_letter,profile.rank_tier);
-  return <section className={s.stats} aria-label="Statistiques Grindleveling"><div className={s.statsHeader}><RankEmblem letter={profile.rank_letter} tier={profile.rank_tier==='PLUS'?'+':profile.rank_tier==='MINUS'?'-':''} size={58}/><div><h2>Rang {rank}</h2><p>Niveau {profile.level} / {profile.total_xp.toLocaleString('fr-FR')} XP</p></div></div><div className={s.radar}><StatRadar stats={stats} size={240}/></div><div className={s.statGrid}>{ORDER.map(kind=><div key={kind} className={s.stat}><span>{STAT_META[kind].label}</span><strong>{stats.find(x=>x.kind===kind)?.level??1}</strong></div>)}</div><p className={s.note}>Les mêmes statistiques, calculées à partir de tes accomplissements. Les montants de revenus restent privés.</p></section>;
+  return <section className={s.stats} aria-label="Statistiques Grindleveling"><div className={s.statsHeader}><RankEmblem letter={profile.rank_letter} tier={profile.rank_tier==='PLUS'?'+':profile.rank_tier==='MINUS'?'-':''} size={58}/><div><h2>Rang {rank}</h2><p>Niveau {profile.level} / {profile.total_xp.toLocaleString('fr-FR')} XP</p><p>{getRankTitle(mbtiFromClassLabel(profile.mbti_class),profile.rank_letter).title}</p></div></div><div className={s.radar}><StatRadar stats={stats} size={240}/></div><div className={s.statGrid}>{ORDER.map(kind=><div key={kind} className={s.stat}><span>{STAT_META[kind].label}</span><strong>{stats.find(x=>x.kind===kind)?.level??1}</strong></div>)}</div><p className={s.note}>Les mêmes statistiques, calculées à partir de tes accomplissements. Les montants de revenus restent privés.</p></section>;
 }
 
 export function ProfileSpace({profile,stats,owner=false,onIdentityChange}:{profile:PublicProfile;stats:PublicStat[];owner?:boolean;onIdentityChange?:()=>void}) {

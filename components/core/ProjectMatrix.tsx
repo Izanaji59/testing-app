@@ -4,12 +4,15 @@ import type { Project } from '@/lib/types';
 import { priorityFor, quadrantFor, QUADRANTS } from '@/lib/priorities';
 import { usePriorities } from '@/hooks/usePriorities';
 import { useFocus } from '@/components/focus/FocusProvider';
+import { projectPct } from '@/lib/engine/progress';
 import { ProjectCard } from './ProjectCard';
 import styles from './matrix.module.css';
 
-export function ProjectMatrix({ projects, userId }: { projects: Project[]; userId: string }) {
-  const { values, ready, busy, error, save } = usePriorities(userId);
+type QuestCounts = Record<string, { total: number; done: number }>;
+
+export function ProjectMatrix({ projects, userId, questCounts }: { projects: Project[]; userId: string; questCounts: QuestCounts }) {
   const { openFocus } = useFocus();
+  const { values, ready, busy, error, save } = usePriorities(userId);
   const [view, setView] = useState<'matrix' | 'list'>('matrix');
   const [expanded, setExpanded] = useState<string | null>(null);
   const [over, setOver] = useState<string | null>(null);
@@ -20,15 +23,15 @@ export function ProjectMatrix({ projects, userId }: { projects: Project[]; userI
     return items.slice().sort((a,b) => (Date.parse(a.ends_at || '') || Infinity) - (Date.parse(b.ends_at || '') || Infinity) || a.title.localeCompare(b.title, 'fr')).map(p => {
       const priority = priorityFor(p, values);
       return <article className={styles.card} key={p.id} draggable={ready && !busy} onDragStart={e => e.dataTransfer.setData('application/x-grind-project', p.id)} onDragEnd={() => setOver(null)}>
-        <div className={styles.cardHead}><h3>{p.title}</h3><span>{Math.round(p.progress_pct)} %</span></div>
-        <p className={styles.meta}>{statusNames[p.status]}{p.ends_at && Number.isFinite(Date.parse(p.ends_at)) ? ` / Échéance ${new Date(p.ends_at).toLocaleDateString('fr-FR')}` : ''}</p>
+        <div className={styles.cardHead}><h3>{p.title}</h3><span>{Math.round(projectPct(p))} %</span></div>
+        <p className={styles.meta}>{statusNames[p.status]} / {(questCounts[p.id]?.total ?? 0) === 0 ? 'Aucune quête : ajoutes-en pour faire monter l’avancement' : `${questCounts[p.id].done}/${questCounts[p.id].total} quêtes terminées`}{p.ends_at && Number.isFinite(Date.parse(p.ends_at)) ? ` / Échéance ${new Date(p.ends_at).toLocaleDateString('fr-FR')}` : ''}</p>
         {!values[p.id] && <p className={styles.suggestion}>Classement suggéré</p>}
         <div className={styles.criteria}>
           <label><input type="checkbox" checked={priority.important} disabled={!ready || busy} onChange={e => void save(p.id, { ...priority, important: e.target.checked })} /> Important<span className={styles.sr}> : {p.title}</span></label>
           <label><input type="checkbox" checked={priority.urgent} disabled={!ready || busy} onChange={e => void save(p.id, { ...priority, urgent: e.target.checked })} /> Urgent<span className={styles.sr}> : {p.title}</span></label>
         </div>
         <div className={styles.actions}><button onClick={() => openFocus(p)}>Me concentrer<span className={styles.sr}> sur {p.title}</span></button><button aria-expanded={expanded === p.id} onClick={() => setExpanded(expanded === p.id ? null : p.id)}>Détails<span className={styles.sr}> de {p.title}</span></button></div>
-        {expanded === p.id && <div className={styles.details}><ProjectCard project={p} /></div>}
+        {expanded === p.id && <div className={styles.details}><ProjectCard project={p} questCount={questCounts[p.id] ?? { total: 0, done: 0 }} /></div>}
       </article>;
     });
   }
@@ -45,6 +48,6 @@ export function ProjectMatrix({ projects, userId }: { projects: Project[]; userI
         {items.length ? cards(items) : <p className={styles.empty}>Aucun projet ici.</p>}
       </section>;
     })}</div> : <div className={styles.list}>{active.length ? cards(active) : <p>Aucun projet à classer.</p>}</div>}
-    {archived.length > 0 && <details className={styles.archived}><summary>Terminés et abandonnés ({archived.length})</summary>{archived.map(p => <ProjectCard key={p.id} project={p} />)}</details>}
+    {archived.length > 0 && <details className={styles.archived}><summary>Terminés et abandonnés ({archived.length})</summary>{archived.map(p => <ProjectCard key={p.id} project={p} questCount={questCounts[p.id] ?? { total: 0, done: 0 }} />)}</details>}
   </section>;
 }

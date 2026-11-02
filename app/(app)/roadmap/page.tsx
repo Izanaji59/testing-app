@@ -9,7 +9,8 @@ import { HudPanel } from '@/components/hud/HudPanel';
 import { DataReadout } from '@/components/hud/DataReadout';
 import { T } from '@/lib/tokens';
 import { RANK_GATES } from '@/lib/engine/rank';
-import { xpForLevel } from '@/lib/engine/xp';
+import { getRankTitle } from '@/lib/engine/rankTitles';
+import { projectPct } from '@/lib/engine/progress';
 
 export default function RoadmapPage() {
   const { profile, loading } = useProfile();
@@ -31,6 +32,7 @@ export default function RoadmapPage() {
             {RANK_GATES.map(g => {
               const passed = RANK_GATES.findIndex(r=>r.letter===profile.rank_letter) >= RANK_GATES.indexOf(g);
               const current = profile.rank_letter === g.letter;
+              const rt = getRankTitle(profile.mbti,g.letter);
               return (
                 <div key={g.letter} style={{
                   display: 'flex', alignItems: 'center', gap: 14,
@@ -47,10 +49,10 @@ export default function RoadmapPage() {
                   </div>
                   <div style={{ flex: 1 }}>
                     <div style={{ fontFamily: T.display, fontSize: 13, color: passed ? T.text : T.textDim }}>
-                      Lv {g.minLevel}{g.maxLevel ? `–${g.maxLevel}` : '+'} · {g.label}
+                      Lv {g.minLevel}{g.maxLevel ? `–${g.maxLevel}` : '+'} / {rt.title}
                     </div>
                     <DataReadout size={9} style={{ display: 'block', marginTop: 2 }}>
-                      {g.gate}
+                      {g.gate}<br/>{rt.stage} — {rt.desc}
                     </DataReadout>
                   </div>
                   <div style={{
@@ -68,10 +70,10 @@ export default function RoadmapPage() {
         </HudPanel>
 
         {/* Missions actives */}
-        <HudPanel label={`MISSIONS · ${projects.length}`}>
+        <HudPanel label={`PROJETS / ${projects.length}`}>
           <div style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 10 }}>
             {projects.length === 0 ? (
-              <DataReadout>AUCUNE MISSION ENCORE.</DataReadout>
+              <DataReadout>AUCUN PROJET ENCORE.</DataReadout>
             ) : projects.map(p => (
               <div key={p.id} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                 <div style={{
@@ -81,7 +83,7 @@ export default function RoadmapPage() {
                 <div style={{ flex: 1 }}>
                   <div style={{ fontFamily: T.display, fontSize: 13, color: T.text }}>{p.title}</div>
                   <DataReadout size={9} style={{ display: 'block', marginTop: 2 }}>
-                    {p.type} · {Math.round(p.progress_pct)}% · {p.status}
+                    {p.type} · {Math.round(projectPct(p))}% · {p.status}
                   </DataReadout>
                 </div>
               </div>

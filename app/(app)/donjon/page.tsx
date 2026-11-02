@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useProfile } from '@/hooks/useProfile';
 import { useProjects } from '@/hooks/useProjects';
+import { useQuests } from '@/hooks/useQuests';
 import { Header } from '@/components/shell/Header';
 import { ProfileState } from '@/components/shell/ProfileState';
 import { ProjectMatrix } from '@/components/core/ProjectMatrix';
@@ -25,9 +26,19 @@ const PROJECT_TYPES: { value: ProjectType; label: string; desc: string }[] = [
 export default function DonjonPage() {
   const { profile, loading } = useProfile();
   const { projects, refresh } = useProjects();
+  const { quests } = useQuests();
   const [showCreate, setShowCreate] = useState(false);
 
   if (!profile) return <ProfileState kind={loading ? 'loading' : 'missing'} />;
+
+  // L'avancement d'un projet vient de ses quêtes : même règle que le trigger SQL (les quêtes abandonnées ne comptent pas).
+  const questCounts: Record<string, { total: number; done: number }> = {};
+  for (const q of quests) {
+    if (q.status === 'SKIPPED') continue;
+    const c = (questCounts[q.project_id] ??= { total: 0, done: 0 });
+    c.total++;
+    if (q.status === 'COMPLETED') c.done++;
+  }
 
   return (
     <div style={{ color: T.text }}>
@@ -58,7 +69,7 @@ export default function DonjonPage() {
           />
         )}
 
-        <ProjectMatrix projects={projects} userId={profile.user_id} />
+        <ProjectMatrix projects={projects} userId={profile.user_id} questCounts={questCounts} />
 
         {projects.length === 0 && !showCreate && (
           <HudPanel thin>

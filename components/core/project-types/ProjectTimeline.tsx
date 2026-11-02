@@ -2,13 +2,13 @@
 
 import { T } from '@/lib/tokens';
 import type { Project } from '@/lib/types';
+import { phaseView } from '@/lib/engine/progress';
 
 /**
  * Vue OPERATION — timeline horizontale séquentielle.
  */
 export function ProjectTimeline({ project }: { project: Project }) {
-  const phases = project.phase_count || 1;
-  const current = project.phase_current || 1;
+  const { total: phases, current } = phaseView(project, 4);
 
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
