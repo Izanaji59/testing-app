@@ -1,0 +1,17 @@
+.titleSection{margin-top:56px}
+.titleSection h2{font-size:28px;letter-spacing:-.7px;margin:0 0 20px}
+.strip{list-style:none;margin:0;padding:0 0 10px;display:grid;grid-auto-flow:column;grid-auto-columns:minmax(118px,140px);gap:16px;overflow-x:auto}
+.person{display:block;min-width:0}
+.person strong{display:block;font-size:13px;font-weight:500;line-height:1.3;margin-top:10px;overflow-wrap:anywhere}
+.person small{display:block;font-size:11px;color:var(--muted);margin-top:2px}
+.native{color:var(--muted);margin:-6px 0 16px}
+.typing{margin:18px 0}
+.typeBlock{display:flex;gap:18px;align-items:flex-start;padding:18px;border:1px solid var(--line);border-radius:8px;background:#0e1420}
+.typeCode{font-size:40px;font-weight:800;letter-spacing:-1px;line-height:1;color:#e7edfa}
+.typeBlock strong{display:block;font-size:15px}
+.typeBlock p{margin:4px 0 0;font-size:13px;color:var(--muted)}
+.enneagram{font-size:14px;margin:14px 0}
+.hint{font-size:12px;color:var(--muted);margin:12px 0}
+.hint a{text-decoration:underline}
+.related{margin-top:56px}
+@media(max-width:700px){.typeBlock{padding:14px;gap:12px}.typeCode{font-size:30px}}

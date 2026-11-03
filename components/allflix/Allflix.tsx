@@ -4,6 +4,7 @@ import Link from 'next/link';
 import useSWR from 'swr';
 import { Catalog, Title, Playback, playbackKey, safePlayback } from '@/lib/allflix/types';
 import s from './allflix.module.css';
+import { TitleCharacters } from '@/components/characters/TitleCharacters';
 
 const fetcher=async(url:string)=>{const response=await fetch(url);if(!response.ok)throw new Error('Catalogue indisponible');return response.json();};
 const image=(path:string|null,size='w500')=>path?`https://image.tmdb.org/t/p/${size}${path}`:undefined;
@@ -11,8 +12,8 @@ const kind=(t:Title)=>t.anime?(t.media==='movie'?'Film d’animation':'Animé'):
 const href=(t:Title)=>`/allflix/fiche/?id=${t.id}`;
 const normalize=(value:string)=>value.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
 
-function Frame({children}:{children:React.ReactNode}){
- return <div className={s.app}><header className={s.nav}><Link href="/allflix/" className={s.brand}>allflix<span>par Slumbywise</span></Link><nav aria-label="Navigation Allflix"><Link href="/allflix/">Catalogue</Link><Link href="/">Slumbywise</Link></nav></header>{children}<footer className={s.footer}><div><strong>allflix</strong><p>Films, séries, animés.</p></div><div className={s.credits}><a href="https://www.themoviedb.org" target="_blank" rel="noopener noreferrer"><img src="/allflix/tmdb.svg" alt="TMDB" width="95" height="22"/></a><p>Fiches et images fournies par TMDB.</p><p lang="en">This product uses the TMDB API but is not endorsed or certified by TMDB.</p></div></footer></div>;
+export function Frame({children,extraCredit}:{children:React.ReactNode;extraCredit?:React.ReactNode}){
+ return <div className={s.app}><header className={s.nav}><Link href="/allflix/" className={s.brand}>allflix<span>par Slumbywise</span></Link><nav aria-label="Navigation Allflix"><Link href="/allflix/">Catalogue</Link><Link href="/personnages/">Personnages</Link><Link href="/">Slumbywise</Link></nav></header>{children}<footer className={s.footer}><div><strong>allflix</strong><p>Films, séries, animés.</p></div><div className={s.credits}><a href="https://www.themoviedb.org" target="_blank" rel="noopener noreferrer"><img src="/allflix/tmdb.svg" alt="TMDB" width="95" height="22"/></a><p>Fiches et images fournies par TMDB.</p>{extraCredit}<p lang="en">This product uses the TMDB API but is not endorsed or certified by TMDB.</p></div></footer></div>;
 }
 
 function Cover({title}:{title:Title}){const [failed,setFailed]=useState(false);return <div className={s.cover}>{title.poster&&!failed?<img src={image(title.poster)} alt="" loading="lazy" onError={()=>setFailed(true)}/>:<span>{title.title}</span>}<span className={s.coverTag}>{kind(title)}</span></div>;}
@@ -72,6 +73,6 @@ export function AllflixDetail(){
    <div className={s.playerHeading}><h3>{label}</h3>{title.media==='tv'&&episode?.synopsis&&<details><summary>Synopsis de cet épisode</summary><p>{episode.synopsis}</p></details>}</div>
    {linkError?<div className={s.empty} role="alert">Les liens de lecture n’ont pas pu être chargés. <button onClick={()=>retryLinks()}>Réessayer</button></div>:!links?<p role="status">Vérification de la disponibilité…</p>:<Player key={key+(source?.url??'')} source={source} title={label} poster={image(title.backdrop,'w1280')}/>}
    {title.media==='tv'&&episode&&season&&<div className={s.episodeNav}><button disabled={season.episodes.indexOf(episode)===0} onClick={()=>choose(season.number,season.episodes[season.episodes.indexOf(episode)-1].number)}>Épisode précédent</button><button disabled={season.episodes.indexOf(episode)===season.episodes.length-1} onClick={()=>choose(season.number,season.episodes[season.episodes.indexOf(episode)+1].number)}>Épisode suivant</button></div>}
-  </section></>}
+  </section><TitleCharacters titleId={title.id}/></>}
  </main></Frame>;
 }

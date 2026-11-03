@@ -34,6 +34,7 @@ GitHub `main` est la seule source de vérité. Les sessions se passent la main p
 - La concentration (minuteur) se rattache à une mission, jamais à un projet.
 - Résignation : jamais automatique, toujours après le bilan « Quelle est ton excuse ? » — échéance dépassée, ou mission démarrée non terminée dans la journée (une fois par jour, la mission reste en cours). Voir `docs/quest-deadline-review.md`.
 - Rangs E → S nommés selon le MBTI (16 profils × 6 rangs) : `lib/engine/rankTitles.ts`.
+- Personnages de fiction : typage éditorial uniquement, saisi dans `public/characters/typings.json` (voir `docs/personnages.md`). Données via API officielles (TMDB, AniList) ; ne jamais extraire les typages ou données d'autres sites (PDB, Boo…).
 - Interface en français.
 
 ## Tests

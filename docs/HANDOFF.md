@@ -2,6 +2,23 @@
 
 Entrée la plus récente en haut. Une entrée par session : date, agent, commits, migrations appliquées, points ouverts.
 
+## 2026-11-03 — Claude Code, personnages typés MBTI (V1)
+
+Demande de l'utilisateur : un équivalent de PDB (personnages de fiction typés MBTI / ennéagramme) intégré à Allflix, alimenté par un programme d'import qui tourne en local. Choix de l'utilisateur : **typage éditorial uniquement** (pas de votes pour l'instant), TMDB + AniList comme sources. Extraction de PDB / Boo refusée (droit des bases de données) : règle ajoutée dans `AGENTS.md`.
+
+**Ajouté** (basé sur `3c2133d`, rien de ta fusion n'est modifié)
+- Pages publiques `/personnages/` (filtre par type, `?type=INTJ`) et `/personnages/fiche/?id=…` : `components/characters/*`, `app/personnages/*`, logique et validation dans `lib/characters.ts`.
+- `components/allflix/Allflix.tsx` : `Frame` exporté (+ prop `extraCredit` pour le crédit AniList), lien « Personnages » dans la navigation, rangée `TitleCharacters` en bas de chaque fiche.
+- Import : `npm run characters:import` (`scripts/import-characters.mjs`, clé TMDB de `.env.local`, AniList sans clé, ~30 req/min). Données générées et publiées : `public/characters/index.json` (747 personnages, 40 œuvres via TMDB, 40 animés via AniList, 30 personnages partagés entre deux œuvres), `typings.json` (747 entrées vides, à remplir par l'utilisateur), `sources.json` (correspondance forcée pour le film Chainsaw Man).
+- Tests : `scripts/test-characters.cjs`, aussi lancé par `npm run characters:check` pour valider les typages saisis. Doc : `docs/personnages.md`.
+- Aucune migration, aucune donnée Supabase : tout est statique. Prochain numéro de migration libre : toujours `0021`.
+
+**Points ouverts**
+- L'utilisateur remplit `public/characters/typings.json` ; vérifier avec `npm run characters:check` avant de publier.
+- Pistes V2 évoquées : votes de la communauté (pondérés par le MBTI calibré du votant), vote par fonctions cognitives, noms français des personnages d'animés, pages indexables (rendu serveur), « personnages de ton type » sur le profil.
+- Le titre français TMDB de `tmdb-movie-81` est « Le Vaisseau fantôme » alors que l'œuvre est Nausicaä : la correspondance AniList est juste, le libellé du catalogue Allflix est à corriger à la source.
+- Pas de test navigateur exécuté côté Claude (Playwright absent ici) : un test des pages personnages dans ta suite serait bienvenu.
+
 ## 2026-11-03 — Codex, vérification finale et synchronisation
 
 - Fusion de `origin/main` (`0e1548f`) dans `codex/slumbywise-logo`, en conservant la suppression des quêtes, le bilan quotidien et les numéros de migration 0018–0020. Le test Allflix conserve le sélecteur de titre principal corrigé dans `2e236a7`.

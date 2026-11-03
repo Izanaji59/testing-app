@@ -12,7 +12,9 @@
     "typecheck": "tsc --noEmit",
     "export": "next build",
     "deploy:game": "next build && node scripts/build-deploy.mjs",
-    "allflix:import": "node scripts/import-allflix.mjs"
+    "allflix:import": "node scripts/import-allflix.mjs",
+    "characters:import": "node scripts/import-characters.mjs",
+    "characters:check": "node scripts/test-characters.cjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.5.2",
