@@ -1,4 +1,4 @@
-const {PGlite}=require('../../deadline-sql-test/node_modules/@electric-sql/pglite');const fs=require('fs'),assert=require('assert/strict');
+const {PGlite}=require(process.env.PGLITE_MODULE || '@electric-sql/pglite');const fs=require('fs'),assert=require('assert/strict');
 (async()=>{const db=new PGlite();await db.exec(`create role anon;create role authenticated;create schema auth;create table auth.users(id uuid primary key);create function auth.uid() returns uuid language sql stable as $$select nullif(current_setting('request.jwt.claim.sub',true),'')::uuid$$;grant usage on schema auth to anon,authenticated;create function uuid_generate_v4() returns uuid language sql as $$select gen_random_uuid()$$;create publication supabase_realtime;`);
 for(const name of fs.readdirSync('supabase/migrations').filter(n=>n.endsWith('.sql')).sort()){let sql=fs.readFileSync('supabase/migrations/'+name,'utf8').replace(/^create extension[^;]+;/gm,'');try{await db.exec(sql);console.log('OK',name);}catch(e){console.error('MIGRATION',name,e.message);throw e;}}
 

@@ -11,7 +11,6 @@ import type { Quest, Task } from '@/lib/types';
 import { supabase } from '@/lib/supabase/client';
 import { DIFFICULTY_META, questXpBudget } from '@/lib/engine/difficulty';
 import { fmtDuration } from '@/lib/utils';
-import { useFocus } from '@/components/focus/FocusProvider';
 
 type Props = {
   quest: Quest;
