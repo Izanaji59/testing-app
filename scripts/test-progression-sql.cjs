@@ -29,6 +29,6 @@ await db.exec(`set request.jwt.claim.sub='${other}'`);assert.equal((await one('s
 await db.exec('reset role');
 for(const [xp,projects,rank] of [[0,0,'E'],[4000,0,'D'],[12000,0,'C'],[30000,0,'B'],[65000,0,'B'],[65000,3,'A'],[150000,8,'S']])assert.equal((await one('select f_earned_rank($1,$2) r',[xp,projects])).r,rank);
 for(const [level,xp] of [[1,0],[10,4000],[25,12000],[50,30000],[80,65000],[110,150000]]){assert.equal(Number((await one('select f_xp_for_level($1) x',[level])).x),xp);assert.equal((await one('select f_level_for_xp($1) l',[xp])).l,level);}
-await db.exec(fs.readFileSync('supabase/migrations/0017_progression.sql','utf8'));await db.exec(fs.readFileSync('supabase/migrations/0018_profile_journal.sql','utf8'));
+await db.exec(fs.readFileSync('supabase/migrations/0019_progression.sql','utf8'));await db.exec(fs.readFileSync('supabase/migrations/0020_profile_journal.sql','utf8'));
 assert.equal(Number((await one('select total_xp from profiles where user_id=$1',[u])).total_xp),600);
 console.log('PASS: curve, frozen rewards, daily cap, duplicate completion, protected stats, journal privacy/publishing/ownership, idempotent migrations.');await db.close();})().catch(e=>{console.error(e.message);process.exitCode=1});

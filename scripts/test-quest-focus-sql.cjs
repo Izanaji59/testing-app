@@ -24,7 +24,7 @@ const fs=require('node:fs'),path=require('node:path'),assert=require('node:asser
  const migration=n=>fs.readFileSync(path.join(__dirname,'../supabase/migrations',n),'utf8');
  const source=migration('0005b_revenue_stat.sql');await db.exec(source.slice(source.indexOf('create or replace function trg_on_quest_completed()'),source.indexOf('-- 3. Trigger projet')));
  await db.exec('create trigger quest_completed before update on quests for each row execute function trg_on_quest_completed();');
- await db.exec(migration('0012_project_progress_sync.sql'));await db.exec(migration('0016_quest_focus.sql'));await db.exec(migration('0016_quest_focus.sql'));
+ await db.exec(migration('0012_project_progress_sync.sql'));await db.exec(migration('0018_quest_focus.sql'));await db.exec(migration('0018_quest_focus.sql'));
  const sid=n=>`30000000-0000-4000-8000-${String(n).padStart(12,'0')}`;
  const save=(n,sec,complete=false,id=q,options={})=>db.query('select save_quest_focus($1,$2,$3,$4,$5,$6,$7,$8) as completed',[sid(n),id,options.start??'2020-01-01T10:00:00Z',options.end??'2020-01-01T11:00:00Z',sec,options.interruptions??1,options.notes??'Première étape',complete]);
  await assert.rejects(save(1,600));
