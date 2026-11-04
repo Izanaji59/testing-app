@@ -17,7 +17,8 @@ Demande de l'utilisateur : un équivalent de PDB (personnages de fiction typés 
 - L'utilisateur remplit `public/characters/typings.json` ; vérifier avec `npm run characters:check` avant de publier.
 - Pistes V2 évoquées : votes de la communauté (pondérés par le MBTI calibré du votant), vote par fonctions cognitives, noms français des personnages d'animés, pages indexables (rendu serveur), « personnages de ton type » sur le profil.
 - Le titre français TMDB de `tmdb-movie-81` est « Le Vaisseau fantôme » alors que l'œuvre est Nausicaä : la correspondance AniList est juste, le libellé du catalogue Allflix est à corriger à la source.
-- Pas de test navigateur exécuté côté Claude (Playwright absent ici) : un test des pages personnages dans ta suite serait bienvenu.
+- Vérifié dans le navigateur intégré (dev, build de production local et site public) : liste, filtre par type, fiche personnage, rangée sur la fiche Allflix, crédit AniList. Un test Playwright des pages personnages dans ta suite reste bienvenu.
+- **Préexistant, à regarder** : sur le site public, toutes les pages testées (dont `/chess/`, non modifiée) émettent les erreurs React #418 / #423 (écart d'hydratation, React repasse en rendu client et la page fonctionne). Absentes du build servi localement : piste possible, une transformation du HTML côté Netlify ou un rendu dépendant de l'heure / du navigateur dans le layout.
 
 ## 2026-11-03 — Codex, vérification finale et synchronisation
 

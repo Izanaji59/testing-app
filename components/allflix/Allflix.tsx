@@ -4,7 +4,7 @@ import Link from 'next/link';
 import useSWR from 'swr';
 import { Catalog, Title, Playback, playbackKey, safePlayback } from '@/lib/allflix/types';
 import s from './allflix.module.css';
-import { TitleCharacters } from '@/components/characters/TitleCharacters';
+import { TitleCharacters, anilistCredit } from '@/components/characters/TitleCharacters';
 
 const fetcher=async(url:string)=>{const response=await fetch(url);if(!response.ok)throw new Error('Catalogue indisponible');return response.json();};
 const image=(path:string|null,size='w500')=>path?`https://image.tmdb.org/t/p/${size}${path}`:undefined;
@@ -64,7 +64,7 @@ export function AllflixDetail(){
  const key=title?playbackKey(title,season?.number,episode?.number):'';
  const source=safePlayback(links?.[key]);
  const label=title?.media==='tv'&&episode?`S${season!.number} E${episode.number} — ${episode.title}`:title?.title??'';
- return <Frame><main className={s.detail}><Link className={s.back} href="/allflix/#catalogue">Retour au catalogue</Link>
+ return <Frame extraCredit={anilistCredit}><main className={s.detail}><Link className={s.back} href="/allflix/#catalogue">Retour au catalogue</Link>
   {(!ready||id&&!title&&!error)&&<p role="status" className={s.empty}>Chargement de la fiche…</p>}
   {ready&&(!id||error)&&<div className={s.empty}><h1>Cette fiche est indisponible.</h1><p>Retrouve les titres disponibles dans le catalogue.</p>{id&&<button onClick={()=>mutate()}>Réessayer</button>}</div>}
   {title&&<><section className={s.titleIntro}><div className={s.detailCover}><Cover title={title}/></div><div><span className={s.eyebrow}>{kind(title)}{title.year?` / ${title.year}`:''}</span><h1>{title.title}</h1><div className={s.metadata}>{title.genres.map(g=><span key={g}>{g}</span>)}{!!title.minutes&&<span>{title.minutes} min</span>}{title.rating>0&&<span>{title.rating.toFixed(1)} / 10 TMDB</span>}</div><h2>Synopsis</h2><p className={s.synopsis}>{title.synopsis||'Le synopsis en français n’est pas encore renseigné.'}</p><a href={title.source} target="_blank" rel="noopener noreferrer" className={s.source}>Fiche originale sur TMDB</a></div></section>

@@ -7,6 +7,8 @@ import c from './characters.module.css';
 import { useCharacters } from './useCharacters';
 import { characterHref, type Character, type TypedCharacter } from '@/lib/characters';
 
+export const anilistCredit = <p>Personnages d’animés et leurs illustrations : <a href="https://anilist.co" target="_blank" rel="noopener noreferrer">AniList</a>.</p>;
+
 export const typeLine = (ch: TypedCharacter) =>
   ch.typing ? [ch.typing.mbti, ch.typing.enneagram].filter(Boolean).join(' · ') : 'Non typé';
 

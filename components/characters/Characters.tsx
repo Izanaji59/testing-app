@@ -6,7 +6,7 @@ import { Frame } from '@/components/allflix/Allflix';
 import s from '@/components/allflix/allflix.module.css';
 import c from './characters.module.css';
 import { useCharacters } from './useCharacters';
-import { Portrait, typeLine } from './TitleCharacters';
+import { Portrait, anilistCredit, typeLine } from './TitleCharacters';
 import { CHARACTER_ID, characterHref, type TypedCharacter } from '@/lib/characters';
 import { MBTI_GROUPS, MBTI_RANK_PROFILES, type MbtiGroupKey } from '@/lib/engine/rankTitles';
 import { MBTI_CLASSES, type MbtiType } from '@/lib/engine/mbtiClasses';
@@ -14,7 +14,6 @@ import { MBTI_CLASSES, type MbtiType } from '@/lib/engine/mbtiClasses';
 const TYPES = Object.keys(MBTI_RANK_PROFILES) as MbtiType[];
 const isType = (value: string): value is MbtiType => (TYPES as string[]).includes(value);
 const normalize = (value: string) => value.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
-const anilistCredit = <p>Personnages d’animés et leurs illustrations : <a href="https://anilist.co" target="_blank" rel="noopener noreferrer">AniList</a>.</p>;
 
 function CharacterCard({ ch }: { ch: TypedCharacter }) {
   return <Link className={s.card} href={characterHref(ch.id)}>
