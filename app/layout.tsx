@@ -23,10 +23,17 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
+// Netlify insère dans <head> un saut de ligne et un commentaire promotionnel absents du build.
+// React (18.3) hydrate tout le document : ces nœuds font échouer l'hydratation (#418, #423),
+// parfois jusqu'à bloquer la page (#329). Ce script s'exécute pendant l'analyse du HTML,
+// avant React, et retire uniquement ces nœuds.
+const STRIP_HOST_INJECTION = `(function(){var h=document.head;if(!h)return;for(var n=h.firstChild;n;){var next=n.nextSibling;if((n.nodeType===8&&/hosted on Netlify/i.test(n.data))||(n.nodeType===3&&!n.data.trim()))h.removeChild(n);n=next;}})();`;
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fr">
       <head>
+        <script dangerouslySetInnerHTML={{ __html: STRIP_HOST_INJECTION }} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
