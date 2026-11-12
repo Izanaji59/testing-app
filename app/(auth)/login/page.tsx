@@ -9,6 +9,7 @@ import { T, EASE } from '@/lib/tokens';
 import { HudPanel } from '@/components/hud/HudPanel';
 import { DataReadout } from '@/components/hud/DataReadout';
 import { MobileChrome } from '@/components/hud/MobileChrome';
+import { GrindIntro } from '@/components/shell/GrindIntro';
 
 type Mode = 'login' | 'register';
 type Status = 'idle' | 'sending' | 'sent' | 'error';
@@ -85,6 +86,7 @@ function LoginContent() {
   );
 
   const passwordsMismatch = confirmPassword.length > 0 && password !== confirmPassword;
+  const [introReplay, setIntroReplay] = useState(0);
 
   function switchMode(m: Mode) {
     setMode(m);
@@ -136,7 +138,8 @@ function LoginContent() {
       if (error) throw error;
       if (data.session) {
         await ensureProfile(sb, data.session.user.id);
-        router.replace('/cmd');
+        // Premier pas : créer son premier donjon (objectif), puis ses quêtes.
+        router.replace('/donjon/?creer=1');
       } else {
         setStatus('sent');
       }
@@ -149,6 +152,7 @@ function LoginContent() {
   return (
     <main style={{ minHeight: '100vh', position: 'relative', display: 'grid', placeItems: 'center', padding: 20 }}>
       <MobileChrome />
+      <GrindIntro replay={introReplay} onChoose={switchMode} />
 
       <motion.div
         initial={{ opacity: 0, y: 8 }}
@@ -172,6 +176,9 @@ function LoginContent() {
             ACCÈS OPÉRATEUR
           </div>
           <DataReadout size={9}>· système prêt ·</DataReadout>
+          <button type="button" onClick={() => setIntroReplay(n => n + 1)} style={{ display: 'block', margin: '10px auto 0', background: 'transparent', border: 'none', color: T.textMute, fontFamily: T.mono, fontSize: 9, letterSpacing: '0.2em', cursor: 'pointer', minHeight: 32 }}>
+            ▶ REVOIR L’ÉVEIL
+          </button>
         </div>
 
         <HudPanel label="AUTH" glow={0.6}>

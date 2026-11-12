@@ -43,4 +43,23 @@ assert.equal(P.quadrantFor(P.priorityFor({id:'x',ends_at:new Date(start+6*864000
 assert.equal(P.quadrantFor(P.priorityFor({id:'x',ends_at:new Date(start-86400000).toISOString()},saved,start)),'do');
 assert.equal(P.quadrantFor(P.priorityFor({id:'x',ends_at:'invalid'},saved,start)),'plan');
 assert.equal(P.quadrantFor({important:false,urgent:false}),'later');
-console.log('Focus and priorities OK: entry, interruption, early resume, 10-minute wait, reload, background catch-up, no automatic restart, ritual, invalid data, saved priorities and deadline suggestions.');
+// Alerte de fin de distraction : seulement une distraction écoulée et restée sans réponse.
+const distracted=F.distractFocus(fresh(),start+60000);
+assert.equal(F.distractionEndedAt(distracted,start+60000+599000),null);
+assert.equal(F.distractionEndedAt(distracted,start+60000+600000),start+660000);
+assert.equal(F.distractionEndedAt(JSON.parse(JSON.stringify(distracted)),start+60000+900000),start+660000,'survit au rechargement');
+assert.equal(F.distractionEndedAt(F.resumeFocus(distracted,start+60000+700000),start+60000+900000),null);
+assert.equal(F.distractionEndedAt(fresh(),start+9999999),null);
+// Heure de coucher idéale : cycles de 90 min + 15 min d'endormissement.
+const SL=load('lib/sleep.ts');
+assert.equal(SL.fmtClock(SL.bedtimeMinutes('07:00',5)),'23:15');
+assert.equal(SL.fmtClock(SL.bedtimeMinutes('06:30',6)),'21:15');
+assert.equal(SL.fmtClock(SL.bedtimeMinutes('05:00',4)),'22:45');
+assert.equal(SL.fmtClock(SL.bedtimeMinutes('08:00',5)),'00:15');
+for(const bad of [['25:00',5],['7:00',5],['07:00',2],['07:00',8],['07:00',4.5]])assert.equal(SL.bedtimeMinutes(...bad),null,String(bad));
+assert.equal(SL.sleepLength(5),'7 h 30');assert.equal(SL.sleepLength(6),'9 h');
+const evening=new Date(2026,10,12,21,0),late=new Date(2026,10,12,23,40);
+assert.equal(SL.nextOccurrence(23*60+15,evening).getDate(),12,'ce soir');
+assert.equal(SL.nextOccurrence(23*60+15,late).getDate(),13,'heure passée : demain');
+assert.equal(SL.nextOccurrence(15,evening).getDate(),13,'après minuit : la nuit qui vient');
+console.log('Focus and priorities OK: entry, interruption, early resume, 10-minute wait, reload, background catch-up, no automatic restart, ritual, invalid data, saved priorities and deadline suggestions, distraction alarm, ideal bedtime.');

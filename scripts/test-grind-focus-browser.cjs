@@ -45,9 +45,9 @@ const projects=[{id:'p1',title:'Préparer le dossier',ends_at:null,status:'ACTIV
  await p.clock.fastForward(60000);await dialog.getByRole('button',{name:'Replonger',exact:true}).click();assert.ok((await dialog.innerText()).includes('Installation : encore 03:00'));assert.ok((await dialog.innerText()).includes('02:'));
  await dialog.getByRole('button',{name:'Fermer le minuteur'}).click();await p.getByRole('link',{name:'QUÊTES',exact:true}).click();await p.getByRole('button',{name:/Entrée en concentration/}).click();assert.equal(await p.getByRole('dialog').getByRole('heading',{name:'Préparer le dossier'}).count(),1);
  await p.reload();await p.getByRole('button',{name:/Entrée en concentration/}).click();await p.getByRole('dialog').getByRole('button',{name:'Je me suis déconcentré'}).click();
- await p.clock.fastForward(601000);assert.equal(await dialog.getByRole('status').innerText(),'Prêt à reprendre');
- await p.clock.fastForward(120000);assert.equal(await dialog.getByRole('status').innerText(),'Prêt à reprendre');
- await dialog.getByRole('button',{name:'Replonger',exact:true}).click();await p.clock.fastForward(180000);assert.equal(await dialog.getByRole('status').innerText(),'Concentration');
+ await p.clock.fastForward(601000);assert.equal(await dialog.getByRole('status').innerText(),'Prêt à reprendre');const alarm=p.getByRole('alertdialog');await alarm.getByRole('heading',{name:'Distraction terminée'}).waitFor();assert.match(await alarm.getByRole('timer').innerText(),/^\+00:0[0-2]$/);
+ await p.clock.fastForward(120000);assert.equal(await dialog.getByRole('status').innerText(),'Prêt à reprendre');assert.match(await alarm.getByRole('timer').innerText(),/^\+02:0[0-2]$/);assert.match(await p.getByRole('button',{name:/Replonge ·/}).innerText(),/\+02:0/);
+ await alarm.getByRole('button',{name:'Replonger maintenant'}).click();assert.equal(await alarm.isVisible(),false);await p.clock.fastForward(180000);assert.equal(await dialog.getByRole('status').innerText(),'Concentration');
  await dialog.getByRole('button',{name:'Terminer et faire le bilan'}).click();await dialog.getByLabel('Ce que j’ai avancé').fill('Première partie rédigée');await dialog.getByRole('button',{name:'Enregistrer le bilan'}).click();
  assert.ok((await dialog.innerText()).includes('Bilan enregistré'));
  const stored=await p.evaluate(k=>JSON.parse(localStorage.getItem(k)),'grind-focus-history-v1:'+uid);assert.equal(stored.length,1);assert.equal(stored[0].note,'Première partie rédigée');assert.equal(stored[0].interruptions,2);assert.equal(projects[0].status,'ACTIVE');

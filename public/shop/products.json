@@ -1,0 +1,11 @@
+{
+  "_lisez-moi": "Boutique sommeil Slumbywise. Remplir chaque emplacement : nom, description, prix (texte libre, ex. « 24 € »), image (chemin dans public/, ex. /shop/masque.jpg), lien (page de paiement HTTPS : Stripe Payment Link, Shopify, Etsy… ; vide = commande par WhatsApp), statut : « bientot » (affiché « Bientôt »), « disponible » ou « epuise ». Ajouter ou retirer des emplacements librement, puis commit et push.",
+  "produits": [
+    { "id": "masque-nuit", "nom": "Masque de nuit", "description": "", "prix": "", "image": "", "lien": "", "statut": "bientot" },
+    { "id": "lumiere-chaude", "nom": "Lampe lumière chaude 2700 K", "description": "", "prix": "", "image": "", "lien": "", "statut": "bientot" },
+    { "id": "tisane-soir", "nom": "Infusion du soir", "description": "", "prix": "", "image": "", "lien": "", "statut": "bientot" },
+    { "id": "carnet-soir", "nom": "Carnet de nuit", "description": "", "prix": "", "image": "", "lien": "", "statut": "bientot" },
+    { "id": "tshirt-slumbywise", "nom": "T-shirt Slumbywise", "description": "", "prix": "", "image": "", "lien": "", "statut": "bientot" },
+    { "id": "sweat-slumbywise", "nom": "Sweat Slumbywise", "description": "", "prix": "", "image": "", "lien": "", "statut": "bientot" }
+  ]
+}

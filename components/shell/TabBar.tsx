@@ -3,10 +3,11 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { T } from '@/lib/tokens';
+import shell from './shell.module.css';
 
 type TabId = 'cmd' | 'quests' | 'donjon' | 'chat' | 'stats' | 'profile';
 
-const TABS: Array<{ id: TabId; label: string; href: string; icon: 'square' | 'diamond' | 'tower' | 'chat' | 'radar' | 'circle' }> = [
+export const TABS: Array<{ id: TabId; label: string; href: string; icon: 'square' | 'diamond' | 'tower' | 'chat' | 'radar' | 'circle' }> = [
   { id: 'cmd',     label: 'CMD',     href: '/cmd',     icon: 'square'  },
   { id: 'quests',  label: 'QUÊTES',  href: '/quests',  icon: 'diamond' },
   { id: 'donjon',  label: 'DONJON',  href: '/donjon',  icon: 'tower'   },
@@ -21,6 +22,7 @@ export function TabBar() {
 
   return (
     <div
+      className={shell.tabBar}
       style={{
         position: 'fixed',
         left: 14, right: 14, bottom: 20,
@@ -83,7 +85,7 @@ export function TabBar() {
   );
 }
 
-function TabIcon({ kind, active }: { kind: 'square' | 'diamond' | 'tower' | 'chat' | 'radar' | 'circle'; active: boolean }) {
+export function TabIcon({ kind, active }: { kind: 'square' | 'diamond' | 'tower' | 'chat' | 'radar' | 'circle'; active: boolean }) {
   const stroke = active ? T.cyan : T.textDim;
   const fill = active ? 'rgba(78, 205, 255, 0.2)' : 'none';
   const glow = active ? { filter: `drop-shadow(0 0 4px ${T.cyan})` } : {};

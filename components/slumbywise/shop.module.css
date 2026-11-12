@@ -1,0 +1,23 @@
+.shop{max-width:1180px;margin:auto;padding:155px 48px 90px;min-height:70vh}
+.shop h1{font:400 clamp(42px,6vw,76px)/1.05 'Instrument Serif',serif;margin:35px 0 18px}
+.intro{color:#c8c1d0;font-size:18px;line-height:1.7;max-width:650px}
+.grid{margin-top:48px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
+.card{display:flex;flex-direction:column;border:1px solid #ffffff1c;background:#101828;min-width:0}
+.visual{aspect-ratio:4/5;background:radial-gradient(ellipse at 50% 35%,#24304a,#0d1424 70%);display:grid;place-items:center;position:relative;overflow:hidden}
+.visual img{width:100%;height:100%;object-fit:cover}
+.placeholder{font:400 64px 'Instrument Serif',serif;color:#f0cb8340}
+.badge{position:absolute;top:14px;left:14px;padding:5px 10px;font:600 11px 'Inter',sans-serif;letter-spacing:.08em;text-transform:uppercase;background:#0b1220e0;color:#f0cb83;border:1px solid #f0cb8355}
+.body{padding:20px 20px 22px;display:flex;flex-direction:column;gap:10px;flex:1}
+.body h2{font:28px/1.1 'Instrument Serif',serif;margin:0;color:#f2e9d8}
+.body p{margin:0;font-size:14px;line-height:1.7;color:#c8c1d0}
+.price{font:600 15px 'Inter',sans-serif;color:#f0cb83}
+.action{margin-top:auto;padding-top:8px}
+.action a,.action span{display:inline-flex;align-items:center;justify-content:center;width:100%;min-height:46px;padding:0 18px;font:600 13px 'Inter',sans-serif;text-decoration:none}
+.action a{background:#e8a54a;color:#14101c}
+.action a:hover{background:#f0cb83}
+.action a:focus-visible{outline:2px solid #f0cb83;outline-offset:3px}
+.action .waitlist{background:transparent;color:#f0cb83;border:1px solid #f0cb8366}
+.action span{border:1px solid #ffffff26;color:#9a93a5}
+.note{margin-top:40px;font-size:13px;color:#9a93a5;line-height:1.7}
+@media(max-width:980px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:800px){.shop{padding:130px 24px 70px}.grid{grid-template-columns:1fr;gap:22px}}

@@ -6,7 +6,9 @@ import { useQuests } from '@/hooks/useQuests';
 import { supabase } from '@/lib/supabase/client';
 import { mutate } from 'swr';
 import type { Quest } from '@/lib/types';
-import { advanceFocus, clockText, createFocus, distractFocus, finishFocus, phaseLabel, PRESETS, resumeFocus, validFocus, type FocusSession, type FocusRecord } from '@/lib/focus';
+import { advanceFocus, clockText, createFocus, distractFocus, distractionEndedAt, finishFocus, phaseLabel, PRESETS, resumeFocus, validFocus, type FocusSession, type FocusRecord } from '@/lib/focus';
+import { DictationButton, appendDictation } from '@/components/core/DictationButton';
+import { notifyRefocus, playAlarm, unlockAlarm } from './alarm';
 import styles from './focus.module.css';
 
 const FocusContext = createContext<{ openFocus: (project?: { id: string; title: string }, quest?: Quest) => void }>({ openFocus: () => {} });
@@ -63,6 +65,27 @@ export function FocusProvider({ userId, children }: { userId: string; children: 
     if (!open && d?.open) d.close();
   }, [open]);
   const current = session ? advanceFocus(session, now) : null;
+  // Distraction de 10 minutes écoulée sans reprise : alerte insistante jusqu'à une décision.
+  const alarm = useRef<HTMLDialogElement>(null);
+  const alarmed = useRef('');
+  const overdueSince = session ? distractionEndedAt(session, now) : null;
+  const alarmKey = session && overdueSince !== null ? `${session.id}:${session.interruptions}` : '';
+  useEffect(() => {
+    const d = alarm.current;
+    if (!alarmKey) { if (d?.open) d.close(); return; }
+    if (d && !d.open) d.showModal();
+    if (alarmed.current !== alarmKey) {
+      alarmed.current = alarmKey;
+      notifyRefocus(session?.questTitle || session?.objective || 'ta quête');
+    }
+    playAlarm();
+    const ring = window.setInterval(playAlarm, 20000);
+    const title = document.title;
+    let flip = false;
+    const blink = window.setInterval(() => { flip = !flip; document.title = flip ? '⚠ REPLONGE MAINTENANT' : title; }, 1000);
+    return () => { clearInterval(ring); clearInterval(blink); document.title = title; };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [alarmKey]);
   const note = session?.reviewNote ?? '';
   const completeQuest = session?.reviewCompleteQuest ?? false;
   const reviewLocked = saving || session?.submittedAt !== undefined;
@@ -133,11 +156,20 @@ export function FocusProvider({ userId, children }: { userId: string; children: 
   const isWork = current?.phase === 'work';
   return <FocusContext.Provider value={{ openFocus }}>
     {children}
-    <button className={styles.dock} onClick={() => openFocus()} disabled={!loaded} aria-haspopup="dialog">
-      {current ? `${phaseLabel(current)} ${current.phase === 'ready' || current.phase === 'complete' ? '' : clockText(current.leftMs)}` : 'Concentration'}
+    <button className={`${styles.dock} ${overdueSince !== null ? styles.dockAlert : ''}`} onClick={() => openFocus()} disabled={!loaded} aria-haspopup="dialog">
+      {overdueSince !== null ? `⚠ Replonge · +${clockText(now - overdueSince)}` : current ? `${phaseLabel(current)} ${current.phase === 'ready' || current.phase === 'complete' ? '' : clockText(current.leftMs)}` : 'J’ai besoin de me concentrer'}
     </button>
+    <dialog ref={alarm} role="alertdialog" className={`${styles.dialog} ${styles.alarm}`} onCancel={e => e.preventDefault()} aria-labelledby="alarm-title" aria-describedby="alarm-text">
+      <p className={styles.alarmEyebrow}>Alerte de concentration</p>
+      <h2 id="alarm-title">Distraction terminée</h2>
+      <p id="alarm-text">Les 10 minutes sont écoulées. {current?.questTitle || current?.objective ? <>« {current?.questTitle || current?.objective} » t’attend.</> : 'Ta session t’attend.'}</p>
+      <div className={styles.overtime} role="timer" aria-label="Temps de distraction en plus">+{overdueSince !== null ? clockText(now - overdueSince) : '00:00'}</div>
+      <p className={styles.hint}>de distraction en plus. Chaque minute compte dans ton bilan.</p>
+      <button className={styles.primary} onClick={() => session && store(resumeFocus(session, Date.now()))}>Replonger maintenant</button>
+      <button className={styles.quiet} onClick={() => { if (session) { store(finishFocus(session, Date.now())); setOpen(true); } }}>Arrêter et faire le bilan</button>
+    </dialog>
     <dialog ref={dialog} className={styles.dialog} onCancel={() => setOpen(false)} onClose={() => setOpen(false)} aria-labelledby="focus-title">
-      <div className={styles.header}><h2 id="focus-title">Concentration</h2><button onClick={() => setOpen(false)} aria-label="Fermer le minuteur">Fermer</button></div>
+      <div className={styles.header}><h2 id="focus-title">Me concentrer</h2><button onClick={() => setOpen(false)} aria-label="Fermer le minuteur">Fermer</button></div>
       {error && <p role="alert" className={styles.error}>{error}</p>}
       {message && <p role="status" className={styles.hint}>{message}</p>}
       {!current ? <div className={styles.setup}>
@@ -147,7 +179,7 @@ export function FocusProvider({ userId, children }: { userId: string; children: 
           <option value="">Tous les donjons</option>{selectable.map(p => <option key={p.id} value={p.id}>{p.title}</option>)}
         </select></label>
         {!free && <><label>Quête à avancer<select value={questId} onChange={e => { setQuestId(e.target.value); setObjective(questChoices.find(q => q.id === e.target.value)?.title || ''); }}><option value="">Choisir une quête</option>{questChoices.map(q => <option key={q.id} value={q.id}>{q.title}</option>)}</select></label>{!questChoices.length && <p>Aucune quête ouverte dans cette sélection. <a href="/quests/">Créer une quête</a> pour commencer.</p>}</>}
-        <label>Action pendant cette session<input value={objective} onChange={e => setObjective(e.target.value)} maxLength={200} placeholder="Ex. Rédiger l’introduction du dossier" /></label>
+        <label>Action pendant cette session<span className={styles.withDictation}><input value={objective} onChange={e => setObjective(e.target.value)} maxLength={200} placeholder="Ex. Rédiger l’introduction du dossier" /><DictationButton label="action de la session" onText={text => setObjective(o => appendDictation(o, text).slice(0, 200))} /></span></label>
         <fieldset><legend>Format</legend><div className={styles.presets}>{PRESETS.map(p => <button key={p.id} aria-pressed={preset === p.id} onClick={() => setPreset(p.id)}><strong>{p.label}</strong><span>{p.id === 'ritual' ? 'Bouger, réfléchir, apprendre' : `${p.minutes} min + ${p.rest} min de pause`}</span></button>)}<button aria-pressed={preset === 'custom'} onClick={() => setPreset('custom')}><strong>Personnalisé</strong><span>À ton rythme</span></button></div></fieldset>
         {preset === 'custom' && <div className={styles.row}><label>Travail (minutes)<input type="number" min={5} max={180} value={minutes} onChange={e => setMinutes(e.target.value)} /></label><label>Pause (minutes)<input type="number" min={0} max={60} value={rest} onChange={e => setRest(e.target.value)} /></label></div>}
         <p className={styles.hint}>{preset === 'ritual' ? 'Trois étapes de 20 minutes, à l’heure qui te convient. Le rituel se déroule sur une heure.' : 'Les 3 premières minutes sont un repère d’entrée en concentration, inclus dans la durée choisie. Ce minuteur ne mesure pas ton attention.'}</p>
@@ -161,7 +193,8 @@ export function FocusProvider({ userId, children }: { userId: string; children: 
         <p className={styles.hint}>{clockText(current.workedMs)} accomplies sur {clockText(current.totalMs)}{current.interruptions ? ` / ${current.interruptions} interruption${current.interruptions > 1 ? 's' : ''}` : ''}</p>
         {isWork && current.entryLeftMs > 0 && <p>Installation : encore {clockText(current.entryLeftMs)}. Le travail déjà accompli est conservé.</p>}
         {isWork && current.ritual && <p>Étape {Math.min(3, Math.floor(current.workedMs / 1200000) + 1)} sur 3 : {clockText(1200000 - current.workedMs % 1200000)} restantes.</p>}
-        {isWork && <button onClick={() => session && store(distractFocus(session, Date.now()))}>Je me suis déconcentré</button>}
+        {isWork && <button onClick={() => { unlockAlarm(); if (session) store(distractFocus(session, Date.now())); }}>Je me suis déconcentré</button>}
+        {current.phase === 'distraction' && <p className={styles.hint}>Une alerte sonnera à la fin des 10 minutes si tu n’as pas replongé.</p>}
         {(current.phase === 'distraction' || current.phase === 'ready') && <><p>Le travail est suspendu. Tu peux revenir dès que tu le souhaites.</p><button className={styles.primary} onClick={() => session && store(resumeFocus(session, Date.now()))}>Replonger</button></>}
         {(current.phase === 'work' || current.phase === 'distraction' || current.phase === 'ready') && <button className={styles.quiet} onClick={() => session && store(finishFocus(session, Date.now()))}>Terminer et faire le bilan</button>}
         {(current.phase === 'recovery' || current.phase === 'complete') && <div className={styles.setup}>

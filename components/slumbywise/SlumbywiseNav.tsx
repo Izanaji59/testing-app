@@ -32,6 +32,7 @@ export function SlumbywiseNav() {
       <Link href="/grindleveling" onClick={close}>Avancer</Link>
       <div className={s.games}><button ref={gameToggle} type="button" aria-expanded={games} aria-controls="site-games" onClick={()=>setGames(!games)}>Jouer</button>{games && <div id="site-games" className={s.dropdown}><Link href="/chess" onClick={close}>Échecs</Link><a href="/game/memoire/" onClick={close}>Empreinte</a></div>}</div>
       <Link href="/allflix/" onClick={close}>Allflix</Link>
+      <Link href="/boutique/" aria-current={pathname.startsWith('/boutique')?'page':undefined} onClick={close}>Boutique</Link>
       <Link className={s.contactLink} href="/contact" onClick={close}>Nous écrire</Link>
     </div>
   </nav>;

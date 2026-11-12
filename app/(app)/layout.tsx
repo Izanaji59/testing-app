@@ -9,6 +9,9 @@ import { XpToaster } from '@/components/shell/XpToaster';
 import { T } from '@/lib/tokens';
 import { FocusProvider } from '@/components/focus/FocusProvider';
 import { DeadlineReview } from '@/components/core/DeadlineReview';
+import { SideNav } from '@/components/shell/SideNav';
+import { StartGuide } from '@/components/shell/StartGuide';
+import shell from '@/components/shell/shell.module.css';
 
 /**
  * Shell des écrans authentifiés.
@@ -52,10 +55,12 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <FocusProvider key={userId} userId={userId}><main style={{ minHeight: '100vh', position: 'relative' }}>
+    <FocusProvider key={userId} userId={userId}><main className={shell.main}>
       <MobileChrome />
-      <div style={{ maxWidth: pathname === '/donjon' || pathname === '/donjon/' ? 1120 : 480, margin: '0 auto', paddingBottom: 170, position: 'relative' }}>
+      <SideNav />
+      <div className={`${shell.content} ${pathname === '/donjon' || pathname === '/donjon/' ? shell.wide : ''}`}>
         <DeadlineReview key={userId} userId={userId} />
+        <StartGuide userId={userId} />
         {children}
       </div>
       <TabBar />

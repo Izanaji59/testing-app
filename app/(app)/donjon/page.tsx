@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useProfile } from '@/hooks/useProfile';
+import { DictationButton, appendDictation } from '@/components/core/DictationButton';
 import { useProjects } from '@/hooks/useProjects';
 import { useQuests } from '@/hooks/useQuests';
 import { Header } from '@/components/shell/Header';
@@ -28,6 +29,8 @@ export default function DonjonPage() {
   const { projects, refresh } = useProjects();
   const { quests } = useQuests();
   const [showCreate, setShowCreate] = useState(false);
+  // Lien du guide de démarrage (?creer=1) : ouvre directement le formulaire.
+  useEffect(() => { if (new URLSearchParams(location.search).get('creer') === '1') setShowCreate(true); }, []);
 
   if (!profile) return <ProfileState kind={loading ? 'loading' : 'missing'} />;
 
@@ -143,14 +146,18 @@ function ProjectCreator({ onCreated }: { onCreated: () => void }) {
       <div style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 12 }}>
 
         <DataReadout>TITRE DU PROJET</DataReadout>
-        <input
-          value={title}
-          onChange={e => setTitle(e.target.value)}
-          onKeyDown={e => { if (e.key === 'Enter') submit(); }}
-          autoFocus
-          placeholder="Ex : Lancer la V1 de l'app"
-          style={{ ...selectStyle, letterSpacing: '0.03em' }}
-        />
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+          <input
+            value={title}
+            onChange={e => setTitle(e.target.value)}
+            onKeyDown={e => { if (e.key === 'Enter') submit(); }}
+            autoFocus
+            aria-label="Titre du projet"
+            placeholder="Ex : Lancer la V1 de l'app"
+            style={{ ...selectStyle, letterSpacing: '0.03em', flex: 1, width: 'auto', minWidth: 0 }}
+          />
+          <DictationButton label="titre du projet" onText={text => setTitle(t => appendDictation(t, text))} />
+        </div>
 
         <DataReadout>TYPE</DataReadout>
         <select value={type} onChange={e => setType(e.target.value as ProjectType)} style={selectStyle}>

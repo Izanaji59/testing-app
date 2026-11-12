@@ -2,6 +2,18 @@
 
 Entrée la plus récente en haut. Une entrée par session : date, agent, commits, migrations appliquées, points ouverts.
 
+## 2026-11-12 (soir) — Claude Code, liste de l'utilisateur (dictée, PC, éveil, alerte, coucher, boutique)
+
+- **Dictée sur ordinateur** : `components/core/DictationButton.tsx` (Web Speech API, `fr-FR`), affiché seulement avec un pointeur précis et un navigateur compatible (Chrome, Edge). Branché sur le titre des quêtes, des projets et l'action de session de concentration. Sur téléphone, le clavier fait déjà la dictée.
+- **Vue PC** (≥ 1024 px) : `components/shell/SideNav.tsx` + `shell.module.css` ; menu latéral à la place de `TabBar` (masquée par CSS), contenu élargi à 900 px (1 180 px pour `/donjon`). Mobile inchangé.
+- **Éveil avant inscription** : `components/shell/GrindIntro.tsx` sur `/login` (une fois par appareil, clé `grind-intro-seen-v1`, « Revoir l'éveil »), textes originaux. « J'accepte » ouvre l'inscription. Pas d'animation de sortie volontairement (un calque invisible bloquait le formulaire).
+- **Premiers pas** : `components/shell/StartGuide.tsx` dans le layout (pages `/cmd`, `/donjon`, `/quests`) : donjon → quête dans ce donjon → quête démarrée. Refermable (`grind-guide-dismissed:<uid>`), masqué une fois fini (donc invisible pour les comptes existants). Après inscription : redirection vers `/donjon/?creer=1` ; `?creer=1` ouvre le formulaire sur `/donjon` et `/quests`.
+- **Alerte de fin de distraction** : `distractionEndedAt` dans `lib/focus.ts`, `components/focus/alarm.ts` (bips WebAudio toutes les 20 s, vibration, notification système, titre d'onglet clignotant), fenêtre `alertdialog` rouge avec compteur « +mm:ss » jusqu'à « Replonger maintenant » ou « Arrêter et faire le bilan ». Son et notification débloqués au clic « Je me suis déconcentré ». Bouton flottant renommé « J'ai besoin de me concentrer ». `scripts/test-grind-focus-browser.cjs` adapté (non exécuté ici, Playwright absent).
+- **Coucher à l'heure idéale** : suggestion intégrée dans « Suggère-moi une mission » (`lib/sleep.ts` : réveil − cycles de 90 min − 15 min). Échéance à l'heure exacte du coucher (option « exact » du formulaire), récompense Force + Discipline (`reward_stats` à deux stats, budget partagé par `0019_progression`).
+- **Boutique** : page `/boutique/` (Slumbywise) + `public/shop/products.json` (6 emplacements « Bientôt »), commande par lien HTTPS ou WhatsApp. Doc `docs/boutique.md`. L'utilisateur prépare les produits.
+- Aucune migration. Vérifié dans le navigateur : éveil (ouverture, choix, non-réaffichage, fermeture réelle) et boutique (desktop 3 colonnes, mobile sans débordement). **Non vérifié en session connectée** (pas de compte de test) : vue PC, guide, alerte, dictée → à couvrir par la suite Playwright.
+- Long terme (image « avaler pdb ») : données MBTI sur tous les profils, profils personnalisables avec des statistiques stables par profil.
+
 ## 2026-11-12 (suite) — Claude Code, typages suggérés et liens par tableur
 
 - **Typages** : 327 / 747 personnages pré-remplis dans `public/characters/typings.json` avec `"statut": "suggestion"` (jugement de Claude, aucune base tierce). Nouveau champ `statut` (`suggestion` / `valide` / vide) dans `lib/characters.ts`, validé par `npm run characters:check`, affiché « Suggestion de typage Slumbywise, à valider » sur la fiche. Laissés vides : figurants, films 2025-2026 peu connus, entrées TMDB multi-personnages (Simpson, Griffin, Elena/Katherine…).

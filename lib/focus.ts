@@ -49,6 +49,12 @@ export function resumeFocus(source: FocusSession, now: number): FocusSession {
   return { ...s, phase: 'work', leftMs: s.totalMs - s.workedMs, entryLeftMs: s.ritual ? 0 : Math.min(180000, s.totalMs - s.workedMs), anchor: now };
 }
 export function finishFocus(source: FocusSession, now: number): FocusSession { return { ...advanceFocus(source, now), phase: 'complete', leftMs: 0, anchor: now }; }
+/** Fin d'une distraction restée sans réponse : son horodatage une fois dépassée, sinon null. */
+export function distractionEndedAt(s: FocusSession, now: number): number | null {
+  if (s.phase !== 'distraction') return null;
+  const end = s.anchor + s.leftMs;
+  return now >= end ? end : null;
+}
 export function phaseLabel(s: FocusSession): string {
   if (s.phase === 'distraction') return 'Distraction';
   if (s.phase === 'ready') return 'Prêt à reprendre';

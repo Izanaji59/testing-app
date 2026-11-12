@@ -1,0 +1,31 @@
+/* Shell Grindleveling : colonne mobile (style HUD) ; sur ordinateur, menu latéral et contenu élargi. */
+.main{min-height:100vh;position:relative}
+.content{max-width:480px;margin:0 auto;padding-bottom:170px;position:relative}
+.content.wide{max-width:1120px}
+.sideNav{display:none}
+@keyframes dotPulse{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.15)}}
+
+@media (min-width:1024px){
+  .main{padding-left:240px}
+  .content{max-width:900px;padding:16px 28px 72px}
+  .content.wide{max-width:1180px}
+  .tabBar{display:none !important}
+  .sideNav{
+    display:flex;flex-direction:column;gap:6px;position:fixed;inset:0 auto 0 0;width:240px;z-index:50;
+    padding:26px 16px 22px;background:rgba(5,9,22,.92);border-right:1px solid rgba(78,205,255,.18);
+    backdrop-filter:blur(12px) saturate(160%);-webkit-backdrop-filter:blur(12px) saturate(160%);
+    box-shadow:6px 0 30px rgba(0,0,0,.45),inset -1px 0 0 rgba(78,205,255,.06);
+  }
+  .brand{display:block;padding:0 10px 22px;margin-bottom:8px;border-bottom:1px solid rgba(78,205,255,.12);text-decoration:none}
+  .brandTop{display:flex;align-items:center;gap:8px;font:10px var(--font-mono,'JetBrains Mono',monospace);letter-spacing:.28em;color:#4ecdff}
+  .brandDot{width:6px;height:6px;background:#4ecdff;box-shadow:0 0 8px #4ecdff;animation:dotPulse 1.6s ease-in-out infinite}
+  .brandName{display:block;margin-top:10px;font:700 18px 'Orbitron','Chakra Petch',sans-serif;letter-spacing:.08em;color:#e8f4ff;text-shadow:0 0 12px rgba(78,205,255,.35)}
+  .navItem{display:flex;align-items:center;gap:14px;min-height:46px;padding:0 12px;border:1px solid transparent;text-decoration:none;color:#8aa4bf;font:11px 'JetBrains Mono',monospace;letter-spacing:.22em;position:relative;transition:background .15s,color .15s}
+  .navItem:hover{background:rgba(78,205,255,.06);color:#dceaf7}
+  .navItem:focus-visible{outline:2px solid #ffb23d;outline-offset:2px}
+  .navItem[aria-current=page]{color:#4ecdff;background:rgba(78,205,255,.08);border-color:rgba(78,205,255,.25)}
+  .navItem[aria-current=page]::before{content:'';position:absolute;left:-1px;top:8px;bottom:8px;width:2px;background:#4ecdff;box-shadow:0 0 8px #4ecdff}
+  .sideFooter{margin-top:auto;padding:16px 10px 0;border-top:1px solid rgba(78,205,255,.12);font:10px 'JetBrains Mono',monospace;letter-spacing:.18em}
+  .sideFooter a{color:#6f87a3;text-decoration:none}
+  .sideFooter a:hover{color:#dceaf7}
+}

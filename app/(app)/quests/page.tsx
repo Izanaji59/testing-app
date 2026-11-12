@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useProfile } from '@/hooks/useProfile';
 import { useQuests, createQuestFlash, planUndatedQuestToday } from '@/hooks/useQuests';
 import { localDayDeadline } from '@/lib/quest-review';
@@ -16,6 +16,8 @@ import { supabase } from '@/lib/supabase/client';
 import type { QuestStatus, DifficultyTier, StatKind, MissionTemplate } from '@/lib/types';
 import { DIFFICULTY_META, questXpBudget } from '@/lib/engine/difficulty';
 import { STAT_META, REWARDABLE_STAT_KINDS } from '@/lib/engine/stats';
+import { DictationButton, appendDictation } from '@/components/core/DictationButton';
+import { bedtimeMinutes, fmtClock, nextOccurrence, sleepLength } from '@/lib/sleep';
 
 export default function QuestsPage() {
   const { profile, loading } = useProfile();
@@ -27,6 +29,8 @@ export default function QuestsPage() {
   const [showTemplates, setShowTemplates] = useState(false);
   const [planning, setPlanning] = useState('');
   const [planError, setPlanError] = useState('');
+  // Lien du guide de démarrage (?creer=1) : ouvre directement le formulaire.
+  useEffect(() => { if (new URLSearchParams(location.search).get('creer') === '1') setShowCreate(true); }, []);
 
   async function planToday(id: string) {
     if (planning) return;
@@ -160,8 +164,24 @@ function QuestCreator({
   const [deadline, setDeadline] = useState('today');
   const [chosenDay, setChosenDay] = useState('');
   const [error, setError] = useState('');
+  // Suggestion « coucher » : échéance à l'heure exacte, récompense Force (santé) + Discipline.
+  const [sleep, setSleep] = useState<{ due: string; bed: string } | null>(null);
+  const [showSleep, setShowSleep] = useState(false);
+  const [wake, setWake] = useState('07:00');
+  const [cycles, setCycles] = useState(5);
+  useEffect(() => { try { const w = localStorage.getItem('grind-wake-time'); if (w) setWake(w); } catch {} }, []);
+  const bed = bedtimeMinutes(wake, cycles);
 
   const suggestions = stat ? templates.filter(t => t.stat_kind === stat) : templates;
+
+  function applySleep() {
+    if (bed === null) return;
+    setTitle(`Me coucher à ${fmtClock(bed)}`);
+    setDifficulty('ROUTINE'); setStat(''); setEstimated(30);
+    setSleep({ due: nextOccurrence(bed).toISOString(), bed: fmtClock(bed) });
+    setDeadline('exact'); setShowSleep(false); setShowSuggestions(false);
+    try { localStorage.setItem('grind-wake-time', wake); } catch {}
+  }
 
   function applySuggestion(t: MissionTemplate) {
     setTitle(t.title);
@@ -182,9 +202,9 @@ function QuestCreator({
         project_id: projectId || null,
         estimated_minutes: estimated,
         difficulty_tier: difficulty,
-        reward_stats: stat ? [stat as StatKind] : [],
+        reward_stats: stat ? [stat as StatKind] : sleep ? ['FORCE', 'DISCIPLINE'] : [],
         reward_eur: rewardEur ? parseFloat(rewardEur) : 0,
-        due_at: deadline === 'none' ? null : deadline === 'date' ? localDayDeadline(chosen!) : localDayDeadline(),
+        due_at: deadline === 'none' ? null : deadline === 'exact' && sleep ? sleep.due : deadline === 'date' ? localDayDeadline(chosen!) : localDayDeadline(),
       });
       onCreated();
     } catch (e) {
@@ -205,7 +225,7 @@ function QuestCreator({
   return (
     <HudPanel label="CRÉATION" glow={0.3}>
       <div style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 12 }}>
-        {templates.length > 0 && (
+        {(
           <div>
             <button
               type="button"
@@ -220,8 +240,41 @@ function QuestCreator({
             </button>
             {showSuggestions && (
               <div style={{ marginTop: 8, display: 'flex', flexDirection: 'column', gap: 6 }}>
+                <button
+                  type="button"
+                  onClick={() => setShowSleep(s => !s)}
+                  aria-expanded={showSleep}
+                  style={{
+                    display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                    background: T.surf2, border: `1px solid ${T.lineMid}`, padding: '8px 10px',
+                    cursor: 'pointer', textAlign: 'left',
+                  }}
+                >
+                  <span style={{ fontFamily: T.mono, fontSize: 11, color: T.text }}>🌙 Me coucher à l’heure idéale</span>
+                  <span style={{ fontFamily: T.mono, fontSize: 9, color: T.textMute }}>{STAT_META.FORCE.short} + {STAT_META.DISCIPLINE.short}</span>
+                </button>
+                {showSleep && (
+                  <div style={{ border: `1px solid ${T.line}`, padding: 12, display: 'flex', flexDirection: 'column', gap: 10 }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+                      <label style={{ fontSize: 12, color: T.textDim }}>Réveil prévu
+                        <input type="time" aria-label="Heure de réveil" value={wake} onChange={e => setWake(e.target.value)} style={{ ...selectStyle, marginTop: 6 }} />
+                      </label>
+                      <label style={{ fontSize: 12, color: T.textDim }}>Sommeil
+                        <select aria-label="Durée de sommeil" value={cycles} onChange={e => setCycles(Number(e.target.value))} style={{ ...selectStyle, marginTop: 6 }}>
+                          {[4, 5, 6].map(c => <option key={c} value={c}>{sleepLength(c)} ({c} cycles)</option>)}
+                        </select>
+                      </label>
+                    </div>
+                    <p style={{ fontSize: 12, color: T.textDim, margin: 0, lineHeight: 1.6 }}>
+                      {bed === null ? 'Indique une heure de réveil.' : <>Coucher idéal : <strong style={{ color: T.cyan }}>{fmtClock(bed)}</strong> — cycles de 90 min, plus 15 min pour s’endormir. Se réveiller en fin de cycle évite la sensation de lourdeur.</>}
+                    </p>
+                    <button type="button" onClick={applySleep} disabled={bed === null} style={{ background: T.cyan, color: T.bg, border: 'none', padding: 10, fontFamily: T.mono, fontSize: 10, letterSpacing: '0.2em', cursor: 'pointer' }}>
+                      UTILISER CETTE HEURE
+                    </button>
+                  </div>
+                )}
                 {suggestions.length === 0 ? (
-                  <DataReadout size={9} color={T.textMute}>AUCUN MODÈLE POUR CETTE STAT.</DataReadout>
+                  <DataReadout size={9} color={T.textMute}>{templates.length ? 'AUCUN MODÈLE POUR CETTE STAT.' : 'TES MODÈLES DE MISSION APPARAÎTRONT ICI.'}</DataReadout>
                 ) : suggestions.map(t => (
                   <button
                     key={t.id}
@@ -243,13 +296,17 @@ function QuestCreator({
         )}
 
         <DataReadout>TITRE</DataReadout>
-        <input
-          value={title}
-          onChange={e => setTitle(e.target.value)}
-          autoFocus
-          placeholder="Ex : Finir prototype écran stats"
-          style={{ ...selectStyle, letterSpacing: '0.03em' }}
-        />
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+          <input
+            value={title}
+            onChange={e => setTitle(e.target.value)}
+            autoFocus
+            aria-label="Titre de la quête"
+            placeholder="Ex : Finir prototype écran stats"
+            style={{ ...selectStyle, letterSpacing: '0.03em', flex: 1, width: 'auto', minWidth: 0 }}
+          />
+          <DictationButton label="titre de la quête" onText={text => setTitle(t => appendDictation(t, text))} />
+        </div>
 
         <DataReadout>PROJET</DataReadout>
         <select value={projectId} onChange={e => setProjectId(e.target.value)} style={selectStyle}>
@@ -279,9 +336,9 @@ function QuestCreator({
           </div>
         </div>
 
-        <label style={{fontSize:12}}>Échéance<select aria-label="Échéance" value={deadline} onChange={e=>setDeadline(e.target.value)} style={{...selectStyle,marginTop:8}}><option value="today">Aujourd’hui, en fin de journée</option><option value="date">Choisir une date</option><option value="none">Sans échéance</option></select></label>
+        <label style={{fontSize:12}}>Échéance<select aria-label="Échéance" value={deadline} onChange={e=>setDeadline(e.target.value)} style={{...selectStyle,marginTop:8}}>{sleep && <option value="exact">À l’heure du coucher : {new Date(sleep.due).toLocaleString('fr-FR',{weekday:'short',hour:'2-digit',minute:'2-digit'})}</option>}<option value="today">Aujourd’hui, en fin de journée</option><option value="date">Choisir une date</option><option value="none">Sans échéance</option></select></label>
         {deadline === 'date' && <label style={{fontSize:12}}>Jour prévu<input aria-label="Jour prévu" type="date" value={chosenDay} onChange={e=>setChosenDay(e.target.value)} style={{...selectStyle,marginTop:8}} /></label>}
-        <p style={{fontSize:12,color:T.textDim,lineHeight:1.6,margin:0}}>{deadline === 'none' ? 'Sans date limite, cette quête ne déclenchera pas de bilan de retard.' : 'À 23 h 59, heure locale. Si la quête reste inachevée, un bilan te sera demandé avant tout point de résignation.'}</p>
+        <p style={{fontSize:12,color:T.textDim,lineHeight:1.6,margin:0}}>{deadline === 'none' ? 'Sans date limite, cette quête ne déclenchera pas de bilan de retard.' : deadline === 'exact' && sleep ? `Valide-la en allant te coucher. Si elle n’est pas validée à ${sleep.bed}, un bilan te sera demandé avant tout point de résignation. Récompense : Force (santé) et Discipline.` : 'À 23 h 59, heure locale. Si la quête reste inachevée, un bilan te sera demandé avant tout point de résignation.'}</p>
         <DataReadout>DURÉE ESTIMÉE · {estimated} MIN</DataReadout>
         <input
           type="range" min={5} max={480} step={5} value={estimated}
