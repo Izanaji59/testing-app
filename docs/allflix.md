@@ -29,6 +29,20 @@ Utiliser les vrais identifiants des fiches. Une URL HTTPS de vidéo MP4/WebM uti
 
 Enregistrer, reconstruire puis déployer. Aucun changement de code de la fiche n'est nécessaire. Un lien manquant affiche « Lecture à venir ». Il n'y a pas de lecture ni de chargement d'un lecteur tiers avant le clic. Les résumés d'épisodes restent repliés pour éviter les révélations involontaires.
 
+## Liens par tableur (Excel / CSV)
+
+```sh
+npm run allflix:links -- export allflix-liens.csv           # une ligne par œuvre, pré-remplie
+npm run allflix:links -- import allflix-liens.csv --dry-run # vérifier sans rien écrire
+npm run allflix:links -- import allflix-liens.csv           # écrit public/allflix/playback.json
+```
+
+L'export (clé TMDB requise) pré-remplit chaque œuvre avec ses plateformes légales en France (données JustWatch via TMDB) : `lecture = link`, `url` = page « Où regarder » de TMDB, et la liste des plateformes en information. Colonnes : `id; titre; type_oeuvre; annee; saison; episode; lecture; url; libelle; plateformes_fr`.
+
+Dans Excel : garder `id`, modifier `url` / `lecture` (`link`, `embed`, `video`) / `libelle`, ajouter une ligne par épisode si besoin (`saison` + `episode`), vider `url` pour ignorer une ligne. Enregistrer sous **CSV UTF-8 (délimité par des points-virgules)** ; le CSV classique d'Excel est aussi lu. Pour une série, une ligne sans saison ni épisode vaut pour toute l'œuvre ; une ligne d'épisode est prioritaire.
+
+L'import refuse toute URL non HTTPS ou dont le domaine n'est pas dans `config/allflix-sources.json` (plateformes officielles, YouTube, Vimeo, Archive.org…). Ajouter votre propre CDN à cette liste pour vos vidéos. Jamais de site de streaming non autorisé. Les lignes refusées sont listées avec leur numéro. Puis commit de `playback.json` et push. Tests : `node scripts/test-allflix-links.cjs`.
+
 ## Brancher une API de lecture (lien ou lecteur)
 
 Emplacement prêt, **inactif** tant qu'il n'est pas configuré. Une API externe renvoie, pour chaque œuvre ou épisode, un lien ou un lecteur. Elle est appelée par la fonction Netlify `netlify/functions/playback.mjs`, côté serveur : la clé n'est jamais envoyée au navigateur. Même principe que le module de streaming de TechBeme/Allflix (`STREAMING_API_URL` + `STREAMING_API_TOKEN`).

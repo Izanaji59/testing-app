@@ -16,7 +16,7 @@ const PLAYBACK_API=process.env.NEXT_PUBLIC_ALLFLIX_PLAYBACK_API==='on';
 const playbackFetcher=async(url:string):Promise<Playback|null>=>{const response=await fetch(url);if(response.status===404)return null;if(!response.ok)throw new Error('Lecture indisponible');return response.json();};
 
 export function Frame({children,extraCredit}:{children:React.ReactNode;extraCredit?:React.ReactNode}){
- return <div className={s.app}><header className={s.nav}><Link href="/allflix/" className={s.brand}>allflix<span>par Slumbywise</span></Link><nav aria-label="Navigation Allflix"><Link href="/allflix/">Catalogue</Link><Link href="/personnages/">Personnages</Link><Link href="/">Slumbywise</Link></nav></header>{children}<footer className={s.footer}><div><strong>allflix</strong><p>Films, séries, animés.</p></div><div className={s.credits}><a href="https://www.themoviedb.org" target="_blank" rel="noopener noreferrer"><img src="/allflix/tmdb.svg" alt="TMDB" width="95" height="22"/></a><p>Fiches et images fournies par TMDB.</p>{extraCredit}<p lang="en">This product uses the TMDB API but is not endorsed or certified by TMDB.</p></div></footer></div>;
+ return <div className={s.app}><header className={s.nav}><Link href="/allflix/" className={s.brand}>allflix<span>par Slumbywise</span></Link><nav aria-label="Navigation Allflix"><Link href="/allflix/">Catalogue</Link><Link href="/personnages/">Personnages</Link><Link href="/">Slumbywise</Link></nav></header>{children}<footer className={s.footer}><div><strong>allflix</strong><p>Films, séries, animés.</p></div><div className={s.credits}><a href="https://www.themoviedb.org" target="_blank" rel="noopener noreferrer"><img src="/allflix/tmdb.svg" alt="TMDB" width="95" height="22"/></a><p>Fiches et images fournies par TMDB. Plateformes de visionnage : JustWatch.</p>{extraCredit}<p lang="en">This product uses the TMDB API but is not endorsed or certified by TMDB.</p></div></footer></div>;
 }
 
 function Cover({title}:{title:Title}){const [failed,setFailed]=useState(false);return <div className={s.cover}>{title.poster&&!failed?<img src={image(title.poster)} alt="" loading="lazy" onError={()=>setFailed(true)}/>:<span>{title.title}</span>}<span className={s.coverTag}>{kind(title)}</span></div>;}
@@ -66,7 +66,8 @@ export function AllflixDetail(){
  function choose(sn:number,en?:number){setSeasonNumber(sn);setEpisodeNumber(en??null);const p=new URLSearchParams({id:id!,s:String(sn)});if(en!==undefined)p.set('e',String(en));history.replaceState(null,'','?'+p.toString());}
  const key=title?playbackKey(title,season?.number,episode?.number):'';
  // Ordre : lien saisi dans playback.json, sinon l'API de lecture si elle est activée.
- const local=safePlayback(links?.[key]);
+ // Une série peut avoir un lien par épisode ou un seul lien pour toute l'œuvre.
+ const local=safePlayback(links?.[key]??(title?.media==='tv'?links?.[title.id]:undefined));
  const apiUrl=title&&links&&!local&&PLAYBACK_API?playbackApiUrl(title,season?.number,episode?.number):null;
  const {data:remote,isLoading:checking}=useSWR<Playback|null>(apiUrl,playbackFetcher,{shouldRetryOnError:false,revalidateOnFocus:false});
  const source=local??safePlayback(remote??undefined);

@@ -13,6 +13,7 @@
     "export": "next build",
     "deploy:game": "next build && node scripts/build-deploy.mjs",
     "allflix:import": "node scripts/import-allflix.mjs",
+    "allflix:links": "node scripts/allflix-links.mjs",
     "characters:import": "node scripts/import-characters.mjs",
     "characters:check": "node scripts/test-characters.cjs"
   },

@@ -1,0 +1,30 @@
+{
+  "_lisez-moi": "Domaines acceptés par « npm run allflix:links -- import ». Sources autorisées uniquement : plateformes officielles, chaînes d'ayants droit, vos propres vidéos (ajouter votre CDN). Jamais de site de streaming non autorisé. Les sous-domaines sont inclus.",
+  "domaines": [
+    "themoviedb.org",
+    "justwatch.com",
+    "netflix.com",
+    "primevideo.com",
+    "amazon.fr",
+    "disneyplus.com",
+    "canalplus.com",
+    "crunchyroll.com",
+    "animationdigitalnetwork.com",
+    "animationdigitalnetwork.fr",
+    "tv.apple.com",
+    "max.com",
+    "paramountplus.com",
+    "m6plus.fr",
+    "tf1.fr",
+    "france.tv",
+    "arte.tv",
+    "rakuten.tv",
+    "pluto.tv",
+    "molotov.tv",
+    "youtube.com",
+    "youtube-nocookie.com",
+    "youtu.be",
+    "vimeo.com",
+    "archive.org"
+  ]
+}

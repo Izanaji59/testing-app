@@ -117,7 +117,7 @@ export function CharacterDetail() {
             </div>}
             {typing.enneagram && <p className={c.enneagram}>Ennéagramme <strong>{typing.enneagram}</strong></p>}
             {typing.note && <p className={s.synopsis}>{typing.note}</p>}
-            <p className={c.hint}>Typage éditorial Slumbywise.</p>
+            <p className={c.hint}>{typing.suggested ? 'Suggestion de typage Slumbywise, à valider.' : 'Typage éditorial Slumbywise.'}</p>
           </div> : <p className={c.hint}>Pas encore typé.</p>}
           <p className={c.hint}>
             {ch.imageKind === 'actor' && ch.actor ? `Photo : ${ch.actor}, interprète. ` : ''}

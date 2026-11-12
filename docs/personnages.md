@@ -43,6 +43,7 @@ Dans `typings.json`, chaque personnage a déjà son entrée (triée par œuvre) 
 ```
 
 - `mbti` : 4 lettres (`INTJ`, `enfp`…). `enneagramme` : `5`, `5w4` ou `5w6` (l'aile doit être voisine).
+- `statut` : `suggestion` (pré-rempli, affiché « Suggestion de typage, à valider »), `valide` après relecture, ou vide pour un typage saisi à la main. 327 personnages ont été pré-remplis en `suggestion` par Claude (jugement propre, aucune base tierce) ; les figurants, les œuvres 2025-2026 mal connues et les entrées TMDB regroupant plusieurs personnages d'un même doubleur (Les Simpson, Les Griffin) sont restés vides.
 - Une valeur mal écrite n'est jamais affichée. Vérifier avant de publier : `npm run characters:check`.
 - Un nouvel import ne modifie jamais une entrée remplie ; il ajoute les nouveaux personnages et retire seulement les entrées vides devenues orphelines.
 - Publier : commit puis push sur `main` (Netlify redéploie).

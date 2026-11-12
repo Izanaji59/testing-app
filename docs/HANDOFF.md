@@ -2,6 +2,13 @@
 
 Entrée la plus récente en haut. Une entrée par session : date, agent, commits, migrations appliquées, points ouverts.
 
+## 2026-11-12 (suite) — Claude Code, typages suggérés et liens par tableur
+
+- **Typages** : 327 / 747 personnages pré-remplis dans `public/characters/typings.json` avec `"statut": "suggestion"` (jugement de Claude, aucune base tierce). Nouveau champ `statut` (`suggestion` / `valide` / vide) dans `lib/characters.ts`, validé par `npm run characters:check`, affiché « Suggestion de typage Slumbywise, à valider » sur la fiche. Laissés vides : figurants, films 2025-2026 peu connus, entrées TMDB multi-personnages (Simpson, Griffin, Elena/Katherine…).
+- **Liens par tableur** : `npm run allflix:links -- export|import` (`scripts/allflix-links.mjs`). L'export pré-remplit les plateformes légales FR (JustWatch via TMDB : 62 / 80 œuvres disponibles) ; l'import valide le CSV et n'accepte que les domaines de `config/allflix-sources.json`. Doc : `docs/allflix.md` (« Liens par tableur »). Tests : `scripts/test-allflix-links.cjs`. Le CSV n'a **pas** été importé : l'utilisateur le relit et l'importe lui-même ; `playback.json` est toujours vide.
+- Fiche Allflix : une série accepte un lien d'œuvre (clé `tmdb-tv-…`) en plus des liens d'épisode ; crédit JustWatch ajouté au pied de page (exigé par TMDB pour ces données).
+- Demande refusée à nouveau : un « scraper de chaque site » pour récupérer des lecteurs de sites non autorisés (Darlav, anime-sama). Règle déjà dans `AGENTS.md`.
+
 ## 2026-11-12 — Claude Code, emplacement « lien ou lecteur » pour Allflix
 
 - Demande refusée : scraper le site Darlav et mettre ses liens sur chaque film (streaming non autorisé : copies de films du commerce intégrées depuis des hébergeurs de fichiers, pop-ups). Règle ajoutée dans `AGENTS.md`.

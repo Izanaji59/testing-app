@@ -8,3 +8,6 @@ next-env.d.ts
 .DS_Store
 *.log
 test-results/
+
+# Exports de travail Allflix (tableur des liens)
+allflix-liens*.csv
