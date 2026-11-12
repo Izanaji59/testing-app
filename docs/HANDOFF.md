@@ -5,6 +5,7 @@ Entrée la plus récente en haut. Une entrée par session : date, agent, commits
 ## 2026-11-13 (suite) — Claude Code, radar des statistiques lisible dès le rang E
 
 - `components/hud/StatRadar.tsx` : échelle adaptative (`lib/engine/radar.ts` → `radarScale` : meilleure stat + 25 %, arrondie aux paliers 5, 10, 15, 20, 30…, affichée sous le radar) au lieu d'une échelle fixe de 100 qui écrasait la forme au centre. Même échelle pour toutes les stats : proportions exactes. Seules les stats fournies sont tracées (les stats masquées d'un profil public n'apparaissent plus au niveau 1). Étiquettes non coupées (ancrage gauche/droite, marges), RÉS en rouge. Prop `max` toujours disponible pour forcer une échelle. Test : `scripts/test-stat-radar.cjs`. Rendu vérifié dans le navigateur. Aucune migration.
+- Résignation : la partie de la forme qui pointe vers RÉS (du centre aux milieux des côtés voisins) est remplie d'un dégradé rouge, avec bord et rayon rouges ; l'axe RÉS est rouge. Plus la résignation monte, plus la pointe rouge s'allonge.
 
 ## 2026-11-13 — Claude Code, visibilité du profil public et marque Denshiku
 
