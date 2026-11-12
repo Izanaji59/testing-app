@@ -5,6 +5,10 @@
 [build.environment]
   NODE_VERSION = "20"
 
+# Fonctions serveur : netlify/functions/playback.mjs (API de lecture Allflix, inactive sans configuration)
+[functions]
+  directory = "netlify/functions"
+
 # SPA fallback : sert index.html pour toutes les routes non-statiques
 # Netlify sert d'abord le fichier exact s'il existe (ex: /login/ → out/login/index.html)
 [[redirects]]

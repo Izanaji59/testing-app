@@ -29,6 +29,33 @@ Utiliser les vrais identifiants des fiches. Une URL HTTPS de vidéo MP4/WebM uti
 
 Enregistrer, reconstruire puis déployer. Aucun changement de code de la fiche n'est nécessaire. Un lien manquant affiche « Lecture à venir ». Il n'y a pas de lecture ni de chargement d'un lecteur tiers avant le clic. Les résumés d'épisodes restent repliés pour éviter les révélations involontaires.
 
+## Brancher une API de lecture (lien ou lecteur)
+
+Emplacement prêt, **inactif** tant qu'il n'est pas configuré. Une API externe renvoie, pour chaque œuvre ou épisode, un lien ou un lecteur. Elle est appelée par la fonction Netlify `netlify/functions/playback.mjs`, côté serveur : la clé n'est jamais envoyée au navigateur. Même principe que le module de streaming de TechBeme/Allflix (`STREAMING_API_URL` + `STREAMING_API_TOKEN`).
+
+Activer (Netlify → Site configuration → Environment variables), puis redéployer :
+
+| Variable | Valeur |
+| --- | --- |
+| `ALLFLIX_PLAYBACK_API_URL` | Adresse HTTPS de l'API (secrète côté serveur) |
+| `ALLFLIX_PLAYBACK_API_TOKEN` | Clé de l'API, envoyée en `Authorization: Bearer …` (facultative) |
+| `NEXT_PUBLIC_ALLFLIX_PLAYBACK_API` | `on` pour que les fiches interrogent l'API (lu au build) |
+
+Contrat attendu de l'API — requête `POST` JSON :
+
+```json
+{ "media": "movie", "tmdbId": 155 }
+{ "media": "tv", "tmdbId": 1396, "season": 1, "episode": 2 }
+```
+
+Réponse `200` : `{ "type": "video" | "embed" | "link", "url": "https://…", "label": "facultatif" }`. Réponse `404` si l'œuvre n'est pas disponible. Toute URL non HTTPS ou type inconnu est rejeté. Si l'API impose un autre format, adapter seulement `resolvePlayback` dans la fonction.
+
+Priorité sur une fiche : l'entrée de `playback.json` si elle existe, sinon l'API, sinon « Lecture à venir ». Réponses mises en cache 5 minutes (15 minutes pour « non disponible ») : les URL signées expirent.
+
+**Sources autorisées uniquement** : vos propres vidéos (stockage S3, R2, CDN), un catalogue sous licence ou un fournisseur officiel. Jamais un site de streaming non autorisé (refusé pour Darlav : copies pirates intégrées depuis des hébergeurs de fichiers, pop-ups publicitaires).
+
+Tests : `node scripts/test-playback-api.cjs`.
+
 ## Vérification
 
 - Films, séries, animés, recherche sans accents, tri, état sans résultat et reprise sur erreur.

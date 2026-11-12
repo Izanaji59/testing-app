@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import useSWR from 'swr';
-import { Catalog, Title, Playback, playbackKey, safePlayback } from '@/lib/allflix/types';
+import { Catalog, Title, Playback, playbackKey, playbackApiUrl, safePlayback } from '@/lib/allflix/types';
 import s from './allflix.module.css';
 import { TitleCharacters, anilistCredit } from '@/components/characters/TitleCharacters';
 
@@ -11,6 +11,9 @@ const image=(path:string|null,size='w500')=>path?`https://image.tmdb.org/t/p/${s
 const kind=(t:Title)=>t.anime?(t.media==='movie'?'Film d’animation':'Animé'):t.media==='movie'?'Film':'Série';
 const href=(t:Title)=>`/allflix/fiche/?id=${t.id}`;
 const normalize=(value:string)=>value.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+// API de lecture externe (fonction Netlify `playback`) : activ\u00e9e au build par NEXT_PUBLIC_ALLFLIX_PLAYBACK_API=on.
+const PLAYBACK_API=process.env.NEXT_PUBLIC_ALLFLIX_PLAYBACK_API==='on';
+const playbackFetcher=async(url:string):Promise<Playback|null>=>{const response=await fetch(url);if(response.status===404)return null;if(!response.ok)throw new Error('Lecture indisponible');return response.json();};
 
 export function Frame({children,extraCredit}:{children:React.ReactNode;extraCredit?:React.ReactNode}){
  return <div className={s.app}><header className={s.nav}><Link href="/allflix/" className={s.brand}>allflix<span>par Slumbywise</span></Link><nav aria-label="Navigation Allflix"><Link href="/allflix/">Catalogue</Link><Link href="/personnages/">Personnages</Link><Link href="/">Slumbywise</Link></nav></header>{children}<footer className={s.footer}><div><strong>allflix</strong><p>Films, séries, animés.</p></div><div className={s.credits}><a href="https://www.themoviedb.org" target="_blank" rel="noopener noreferrer"><img src="/allflix/tmdb.svg" alt="TMDB" width="95" height="22"/></a><p>Fiches et images fournies par TMDB.</p>{extraCredit}<p lang="en">This product uses the TMDB API but is not endorsed or certified by TMDB.</p></div></footer></div>;
@@ -62,7 +65,11 @@ export function AllflixDetail(){
  const episode=season?.episodes.find(e=>e.number===episodeNumber)??season?.episodes[0];
  function choose(sn:number,en?:number){setSeasonNumber(sn);setEpisodeNumber(en??null);const p=new URLSearchParams({id:id!,s:String(sn)});if(en!==undefined)p.set('e',String(en));history.replaceState(null,'','?'+p.toString());}
  const key=title?playbackKey(title,season?.number,episode?.number):'';
- const source=safePlayback(links?.[key]);
+ // Ordre : lien saisi dans playback.json, sinon l'API de lecture si elle est activée.
+ const local=safePlayback(links?.[key]);
+ const apiUrl=title&&links&&!local&&PLAYBACK_API?playbackApiUrl(title,season?.number,episode?.number):null;
+ const {data:remote,isLoading:checking}=useSWR<Playback|null>(apiUrl,playbackFetcher,{shouldRetryOnError:false,revalidateOnFocus:false});
+ const source=local??safePlayback(remote??undefined);
  const label=title?.media==='tv'&&episode?`S${season!.number} E${episode.number} — ${episode.title}`:title?.title??'';
  return <Frame extraCredit={anilistCredit}><main className={s.detail}><Link className={s.back} href="/allflix/#catalogue">Retour au catalogue</Link>
   {(!ready||id&&!title&&!error)&&<p role="status" className={s.empty}>Chargement de la fiche…</p>}
@@ -71,7 +78,7 @@ export function AllflixDetail(){
   <section className={s.watch} aria-label="Lecture"><div className={s.sectionTitle}><h2>{title.media==='movie'?'Le film':'Les épisodes'}</h2>{title.media==='tv'&&title.seasons.length>0&&<label className={s.select}>Saison<select aria-label="Saison" value={season?.number??''} onChange={e=>choose(Number(e.target.value))}>{title.seasons.map(s=><option key={s.number} value={s.number}>{s.title||`Saison ${s.number}`}</option>)}</select></label>}</div>
    {title.media==='tv'&&<div className={s.episodeList} aria-label="Choix de l’épisode">{season?.episodes.map(e=><button key={e.number} aria-pressed={e.number===episode?.number} onClick={()=>choose(season.number,e.number)}><span>{String(e.number).padStart(2,'0')}</span><span>{e.title||`Épisode ${e.number}`}<small>{e.minutes?`${e.minutes} min / `:''}{safePlayback(links?.[playbackKey(title,season.number,e.number)])?'Lecture disponible':'Lecture à venir'}</small></span></button>)}{!season?.episodes.length&&<p>Les épisodes de cette saison ne sont pas encore renseignés.</p>}</div>}
    <div className={s.playerHeading}><h3>{label}</h3>{title.media==='tv'&&episode?.synopsis&&<details><summary>Synopsis de cet épisode</summary><p>{episode.synopsis}</p></details>}</div>
-   {linkError?<div className={s.empty} role="alert">Les liens de lecture n’ont pas pu être chargés. <button onClick={()=>retryLinks()}>Réessayer</button></div>:!links?<p role="status">Vérification de la disponibilité…</p>:<Player key={key+(source?.url??'')} source={source} title={label} poster={image(title.backdrop,'w1280')}/>}
+   {linkError?<div className={s.empty} role="alert">Les liens de lecture n’ont pas pu être chargés. <button onClick={()=>retryLinks()}>Réessayer</button></div>:!links||checking?<p role="status">Vérification de la disponibilité…</p>:<Player key={key+(source?.url??'')} source={source} title={label} poster={image(title.backdrop,'w1280')}/>}
    {title.media==='tv'&&episode&&season&&<div className={s.episodeNav}><button disabled={season.episodes.indexOf(episode)===0} onClick={()=>choose(season.number,season.episodes[season.episodes.indexOf(episode)-1].number)}>Épisode précédent</button><button disabled={season.episodes.indexOf(episode)===season.episodes.length-1} onClick={()=>choose(season.number,season.episodes[season.episodes.indexOf(episode)+1].number)}>Épisode suivant</button></div>}
   </section><TitleCharacters titleId={title.id}/></>}
  </main></Frame>;

@@ -35,6 +35,7 @@ GitHub `main` est la seule source de vérité. Les sessions se passent la main p
 - Résignation : jamais automatique, toujours après le bilan « Quelle est ton excuse ? » — échéance dépassée, ou mission démarrée non terminée dans la journée (une fois par jour, la mission reste en cours). Voir `docs/quest-deadline-review.md`.
 - Rangs E → S nommés selon le MBTI (16 profils × 6 rangs) : `lib/engine/rankTitles.ts`.
 - Personnages de fiction : typage éditorial uniquement, saisi dans `public/characters/typings.json` (voir `docs/personnages.md`). Données via API officielles (TMDB, AniList) ; ne jamais extraire les typages ou données d'autres sites (PDB, Boo…).
+- Lecture Allflix : uniquement des sources autorisées (vidéos propres, catalogue sous licence, fournisseur officiel), via `playback.json` ou l'API de lecture (`docs/allflix.md`). Jamais de liens ni de lecteurs de sites de streaming non autorisés, ni de scraper pour en récupérer.
 - Interface en français.
 
 ## Tests

@@ -2,6 +2,14 @@
 
 Entrée la plus récente en haut. Une entrée par session : date, agent, commits, migrations appliquées, points ouverts.
 
+## 2026-11-12 — Claude Code, emplacement « lien ou lecteur » pour Allflix
+
+- Demande refusée : scraper le site Darlav et mettre ses liens sur chaque film (streaming non autorisé : copies de films du commerce intégrées depuis des hébergeurs de fichiers, pop-ups). Règle ajoutée dans `AGENTS.md`.
+- Ajouté à la place, sur le modèle du module streaming de TechBeme/Allflix : une fonction Netlify `netlify/functions/playback.mjs` qui interroge une API de lecture externe avec sa clé côté serveur et renvoie `{ type: video|embed|link, url, label? }` (HTTPS seulement). `netlify.toml` déclare le dossier des fonctions.
+- Fiche Allflix : `playback.json` reste prioritaire, puis l'API si `NEXT_PUBLIC_ALLFLIX_PLAYBACK_API=on` au build, sinon « Lecture à venir ». Helper `playbackApiUrl` dans `lib/allflix/types.ts`.
+- **Inactif** : aucune variable n'est configurée sur Netlify ; l'utilisateur attend une clé d'API. Activation et contrat décrits dans `docs/allflix.md` (« Brancher une API de lecture »). Tests : `scripts/test-playback-api.cjs`.
+- Point ouvert : quand la clé arrive, vérifier que la source est autorisée, adapter `resolvePlayback` si le format de l'API diffère, définir les 3 variables Netlify et redéployer.
+
 ## 2026-11-03 — Claude Code, personnages typés MBTI (V1)
 
 Demande de l'utilisateur : un équivalent de PDB (personnages de fiction typés MBTI / ennéagramme) intégré à Allflix, alimenté par un programme d'import qui tourne en local. Choix de l'utilisateur : **typage éditorial uniquement** (pas de votes pour l'instant), TMDB + AniList comme sources. Extraction de PDB / Boo refusée (droit des bases de données) : règle ajoutée dans `AGENTS.md`.
