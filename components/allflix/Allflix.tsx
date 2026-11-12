@@ -9,7 +9,7 @@ import { TitleCharacters, anilistCredit } from '@/components/characters/TitleCha
 const fetcher=async(url:string)=>{const response=await fetch(url);if(!response.ok)throw new Error('Catalogue indisponible');return response.json();};
 const image=(path:string|null,size='w500')=>path?`https://image.tmdb.org/t/p/${size}${path}`:undefined;
 const kind=(t:Title)=>t.anime?(t.media==='movie'?'Film d’animation':'Animé'):t.media==='movie'?'Film':'Série';
-const href=(t:Title)=>`/allflix/fiche/?id=${t.id}`;
+const href=(t:Title)=>safePlayback({type:'link',url:t.redirectUrl??''})?.url??`/allflix/fiche/?id=${t.id}`;
 const normalize=(value:string)=>value.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
 // API de lecture externe (fonction Netlify `playback`) : activ\u00e9e au build par NEXT_PUBLIC_ALLFLIX_PLAYBACK_API=on.
 const PLAYBACK_API=process.env.NEXT_PUBLIC_ALLFLIX_PLAYBACK_API==='on';
@@ -20,7 +20,7 @@ export function Frame({children,extraCredit}:{children:React.ReactNode;extraCred
 }
 
 function Cover({title}:{title:Title}){const [failed,setFailed]=useState(false);return <div className={s.cover}>{title.poster&&!failed?<img src={image(title.poster)} alt="" loading="lazy" onError={()=>setFailed(true)}/>:<span>{title.title}</span>}<span className={s.coverTag}>{kind(title)}</span></div>;}
-function Card({title}:{title:Title}){return <Link className={s.card} href={href(title)}><Cover title={title}/><h3>{title.title}</h3><p>{title.year||'Date à venir'}{title.rating>0?` / ${title.rating.toFixed(1)} sur TMDB`:''}</p></Link>;}
+function Card({title}:{title:Title}){return <a className={s.card} href={href(title)}><Cover title={title}/><h3>{title.title}</h3><p>{title.year||'Date à venir'}{title.rating>0?` / ${title.rating.toFixed(1)} sur TMDB`:''}</p></a>;}
 
 export function AllflixCatalog(){
  const {data,error,mutate}=useSWR<Catalog>('/allflix/catalog.json',fetcher);
@@ -60,6 +60,7 @@ export function AllflixDetail(){
  const [id,setId]=useState<string|null>(null),[ready,setReady]=useState(false),[seasonNumber,setSeasonNumber]=useState<number|null>(null),[episodeNumber,setEpisodeNumber]=useState<number|null>(null);
  useEffect(()=>{function read(){const p=new URLSearchParams(location.search);const value=p.get('id');setId(value&&/^tmdb-(movie|tv)-\d+$/.test(value)?value:null);const sn=p.get('s'),en=p.get('e');setSeasonNumber(sn!==null&&/^\d+$/.test(sn)?Number(sn):null);setEpisodeNumber(en!==null&&/^\d+$/.test(en)?Number(en):null);setReady(true);}read();window.addEventListener('popstate',read);return()=>window.removeEventListener('popstate',read);},[]);
  const {data:title,error,mutate}=useSWR<Title>(id?`/allflix/titles/${id}.json`:null,fetcher);
+ useEffect(()=>{const url=safePlayback({type:'link',url:title?.redirectUrl??''})?.url;if(url)window.location.replace(url);},[title?.redirectUrl]);
  const {data:links,error:linkError,mutate:retryLinks}=useSWR<Record<string,Playback>>('/allflix/playback.json',fetcher);
  const season=title?.seasons.find(s=>s.number===seasonNumber)??title?.seasons.find(s=>s.number>0)??title?.seasons[0];
  const episode=season?.episodes.find(e=>e.number===episodeNumber)??season?.episodes[0];

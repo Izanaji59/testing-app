@@ -2,6 +2,10 @@
 
 Entrée la plus récente en haut. Une entrée par session : date, agent, commits, migrations appliquées, points ouverts.
 
+## 2026-11-12 — Codex, redirections CSV
+
+- Les cartes importées ouvrent directement la première adresse exacte fournie pour chaque œuvre dans le CSV. Les anciennes URL des fiches redirigent également automatiquement. Les destinations ont été comparées au CSV (2500 correspondances).
+
 ## 2026-11-12 — Codex, import du CSV fourni
 
 - À la demande explicite de l’utilisateur : 2500 fiches regroupées par œuvre et 3733 liens HTTPS uniques issus de pages.csv, avec choix des saisons et langues. Les pages générales et réponses non 200 sont écartées. Aucun lien vidéo inventé, aucune extraction supplémentaire.

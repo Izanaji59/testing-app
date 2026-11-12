@@ -14,6 +14,6 @@ for(const row of rows){
  const g=groups.get(id);if(!g.externalLinks.some(l=>l.url===u.href))g.externalLinks.push({url:u.href,label:label+(parts.includes('vf')?' — VF':parts.includes('vostfr')?' — VOSTFR':'')});
 }
 catalog.titles=catalog.titles.filter(t=>!t.id.startsWith('source-'));
-for(const title of groups.values()){fs.writeFileSync('public/allflix/titles/'+title.id+'.json',JSON.stringify(title));catalog.titles.push({...title,externalLinks:undefined});}
+for(const title of groups.values()){title.redirectUrl=title.externalLinks[0].url;fs.writeFileSync('public/allflix/titles/'+title.id+'.json',JSON.stringify(title));catalog.titles.push({...title,externalLinks:undefined});}
 catalog.updatedAt=new Date().toISOString();fs.writeFileSync('public/allflix/catalog.json',JSON.stringify(catalog));
 console.log(`${groups.size} fiches, ${[...groups.values()].reduce((n,t)=>n+t.externalLinks.length,0)} liens uniques importés.`);
