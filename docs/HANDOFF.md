@@ -2,6 +2,10 @@
 
 Entrée la plus récente en haut. Une entrée par session : date, agent, commits, migrations appliquées, points ouverts.
 
+## 2026-11-13 (soir) — Claude Code, second lot de typages
+
+- 127 personnages de plus pré-remplis dans `public/characters/typings.json` (`"statut": "suggestion"`), soit 454 / 747. Restent 293 vides, volontairement : figurants, films 2025-2026 inconnus de Claude, entrées TMDB multi-personnages, secondaires peu caractérisés (liste par œuvre : `node -e` sur typings.json, ou voir `docs/personnages.md`). Aucune autre modification.
+
 ## 2026-11-13 (suite) — Claude Code, radar des statistiques lisible dès le rang E
 
 - `components/hud/StatRadar.tsx` : échelle adaptative (`lib/engine/radar.ts` → `radarScale` : meilleure stat + 25 %, arrondie aux paliers 5, 10, 15, 20, 30…, affichée sous le radar) au lieu d'une échelle fixe de 100 qui écrasait la forme au centre. Même échelle pour toutes les stats : proportions exactes. Seules les stats fournies sont tracées (les stats masquées d'un profil public n'apparaissent plus au niveau 1). Étiquettes non coupées (ancrage gauche/droite, marges), RÉS en rouge. Prop `max` toujours disponible pour forcer une échelle. Test : `scripts/test-stat-radar.cjs`. Rendu vérifié dans le navigateur. Aucune migration.

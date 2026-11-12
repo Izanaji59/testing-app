@@ -72,37 +72,42 @@
   "tmdb-credit-52fe4220c3a36847f8005cfd": {
     "personnage": "Scarecrow",
     "oeuvre": "The Dark Knight : Le Chevalier noir",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "INTJ",
+    "enneagramme": "5w4",
+    "note": "Manipule par la peur, froid et calculateur.",
+    "statut": "suggestion"
   },
   "tmdb-credit-6307937e18864b0080e39cd8": {
     "personnage": "Prue McKeel",
     "oeuvre": "Wildwood : La prophétie de la forêt",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ISTJ",
+    "enneagramme": "1w2",
+    "note": "D'après le roman : responsable, part seule sauver son frère.",
+    "statut": "suggestion"
   },
   "tmdb-credit-63079387dcb6a30083589eaa": {
     "personnage": "Curtis Mehlberg",
     "oeuvre": "Wildwood : La prophétie de la forêt",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ENFP",
+    "enneagramme": "7w6",
+    "note": "D'après le roman : imaginatif, impulsif, loyal.",
+    "statut": "suggestion"
   },
   "tmdb-credit-6307936c0398ab007d7617c3": {
     "personnage": "Alexandra",
     "oeuvre": "Wildwood : La prophétie de la forêt",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ENTJ",
+    "enneagramme": "8w7",
+    "note": "D'après le roman : ambitieuse et vengeresse.",
+    "statut": "suggestion"
   },
   "tmdb-credit-630793756e938a0092377c2b": {
     "personnage": "Brenden",
     "oeuvre": "Wildwood : La prophétie de la forêt",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESTP",
+    "enneagramme": "8w7",
+    "note": "D'après le roman : roi des bandits, charismatique.",
+    "statut": "suggestion"
   },
   "tmdb-credit-630793e685090f007a490a7d": {
     "personnage": "Owl Rex",
@@ -611,9 +616,10 @@
   "tmdb-credit-6984cd90c0f61b819c6e7f3e": {
     "personnage": "Eurylochus",
     "oeuvre": "L'Odyssée",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESTP",
+    "enneagramme": "6w7",
+    "note": "",
+    "statut": "suggestion"
   },
   "tmdb-credit-6744fbf646260e14fbeb5f22": {
     "personnage": "Calypso",
@@ -724,9 +730,10 @@
   "tmdb-credit-685183c3662e4cee015ea3e1": {
     "personnage": "Matt Hagen / Clayface",
     "oeuvre": "Clayface",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESFP",
+    "enneagramme": "3w4",
+    "note": "D'après les comics : acteur obsédé par son image.",
+    "statut": "suggestion"
   },
   "tmdb-credit-687fe2d22e48947adff773ce": {
     "personnage": "Caitlyn Corr",
@@ -810,9 +817,10 @@
   "tmdb-credit-67ad02452375bfc5f6d0aeab": {
     "personnage": "Cima",
     "oeuvre": "The Dog Stars",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ISFJ",
+    "enneagramme": "2w1",
+    "note": "D'après le roman : pragmatique et attentionnée.",
+    "statut": "suggestion"
   },
   "tmdb-credit-67ad025d645669137e9f3b6d": {
     "personnage": "Pops",
@@ -1047,16 +1055,18 @@
   "tmdb-credit-59392f0bc3a368783f00f2a0": {
     "personnage": "Papá",
     "oeuvre": "Coco",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ISTJ",
+    "enneagramme": "6w5",
+    "note": "",
+    "statut": "suggestion"
   },
   "tmdb-credit-59392f2a925141089500f736": {
     "personnage": "Papá Julio",
     "oeuvre": "Coco",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ISFJ",
+    "enneagramme": "9w1",
+    "note": "",
+    "statut": "suggestion"
   },
   "tmdb-credit-59392f89925141088e00fdf0": {
     "personnage": "Tío Oscar / Tío Felipe",
@@ -1152,9 +1162,10 @@
   "tmdb-credit-5f904ffc7614210037899456": {
     "personnage": "William Radford",
     "oeuvre": "La Guerre des mondes",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ISTJ",
+    "enneagramme": "6w5",
+    "note": "Analyste de la surveillance, père protecteur.",
+    "statut": "suggestion"
   },
   "tmdb-credit-5f905008fed59700384b0724": {
     "personnage": "NASA Scientist Sandra Salas",
@@ -1426,9 +1437,10 @@
   "tmdb-credit-55f5c5f59251414f6d00183c": {
     "personnage": "Dr. Tara Lewis",
     "oeuvre": "Esprits criminels",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "INTJ",
+    "enneagramme": "5w6",
+    "note": "",
+    "statut": "suggestion"
   },
   "tmdb-credit-52575b4c19c29531db185ff6": {
     "personnage": "Derek Morgan",
@@ -1625,9 +1637,10 @@
   "tmdb-credit-52570ed419c295731c00c79a": {
     "personnage": "Naomi",
     "oeuvre": "Supernatural",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ISTJ",
+    "enneagramme": "1w9",
+    "note": "",
+    "statut": "suggestion"
   },
   "tmdb-credit-604cedea22e480006ad2e09b": {
     "personnage": "Castiel",
@@ -1789,9 +1802,10 @@
   "tmdb-credit-5257308a760ee3776a341626": {
     "personnage": "Karen Filippelli",
     "oeuvre": "The Office",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESTJ",
+    "enneagramme": "3w2",
+    "note": "",
+    "statut": "suggestion"
   },
   "tmdb-credit-5e691a3fcabfe400180e8ced": {
     "personnage": "Robert California",
@@ -1954,23 +1968,26 @@
   "tmdb-credit-5254161b19c295794037bf88": {
     "personnage": "Quinn Garvey",
     "oeuvre": "How I Met Your Mother",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESTP",
+    "enneagramme": "8w7",
+    "note": "",
+    "statut": "suggestion"
   },
   "tmdb-credit-5256c75f19c2956ff60341c0": {
     "personnage": "Zoey Pierson",
     "oeuvre": "How I Met Your Mother",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ENFJ",
+    "enneagramme": "1w2",
+    "note": "",
+    "statut": "suggestion"
   },
   "tmdb-credit-5254161a19c295794037bf72": {
     "personnage": "Judy Eriksen",
     "oeuvre": "How I Met Your Mother",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESFJ",
+    "enneagramme": "2w1",
+    "note": "",
+    "statut": "suggestion"
   },
   "tmdb-credit-52cdd5b119c295599d036583": {
     "personnage": "Patrick Jane",
@@ -1999,23 +2016,26 @@
   "tmdb-credit-5375ddd60e0a26304700147d": {
     "personnage": "Dennis Abbott",
     "oeuvre": "Mentalist",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESTJ",
+    "enneagramme": "8w9",
+    "note": "",
+    "statut": "suggestion"
   },
   "tmdb-credit-5391cc8cc3a3686491001595": {
     "personnage": "Jason Wylie",
     "oeuvre": "Mentalist",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "INTP",
+    "enneagramme": "6w5",
+    "note": "",
+    "statut": "suggestion"
   },
   "tmdb-credit-56e1a554c3a3680a260031cc": {
     "personnage": "Michelle Vega",
     "oeuvre": "Mentalist",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESTJ",
+    "enneagramme": "1w2",
+    "note": "",
+    "statut": "suggestion"
   },
   "tmdb-credit-525783be760ee36aaa612f04": {
     "personnage": "Osvaldo 'Oscar' Ardiles",
@@ -2034,16 +2054,18 @@
   "tmdb-credit-525783bc760ee36aaa612de3": {
     "personnage": "Madeleine Hightower",
     "oeuvre": "Mentalist",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ENTJ",
+    "enneagramme": "8w7",
+    "note": "",
+    "statut": "suggestion"
   },
   "tmdb-credit-525783bd760ee36aaa612e83": {
     "personnage": "Gale Bertram",
     "oeuvre": "Mentalist",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ENTJ",
+    "enneagramme": "3w4",
+    "note": "",
+    "statut": "suggestion"
   },
   "tmdb-credit-53752474c3a3681efb000156": {
     "personnage": "Barry Allen / The Flash",
@@ -2063,9 +2085,10 @@
   "tmdb-credit-5813d7f89251414f9b027924": {
     "personnage": "Cecile Horton",
     "oeuvre": "Flash",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ENFJ",
+    "enneagramme": "2w1",
+    "note": "",
+    "statut": "suggestion"
   },
   "tmdb-credit-5375249fc3a3681ef4000189": {
     "personnage": "Iris West-Allen",
@@ -2086,23 +2109,26 @@
   "tmdb-credit-5d9e41487f0540001eab9cd1": {
     "personnage": "Chester P. Runk",
     "oeuvre": "Flash",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ENFP",
+    "enneagramme": "7w6",
+    "note": "",
+    "statut": "suggestion"
   },
   "tmdb-credit-5375247ec3a3681ecd000140": {
     "personnage": "Joe West",
     "oeuvre": "Flash",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ISFJ",
+    "enneagramme": "6w5",
+    "note": "Père protecteur, policier droit.",
+    "statut": "suggestion"
   },
   "tmdb-credit-6382e5e72e06970292e389b9": {
     "personnage": "Dr. Julian Albert",
     "oeuvre": "Flash",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "INTJ",
+    "enneagramme": "5w4",
+    "note": "",
+    "statut": "suggestion"
   },
   "tmdb-credit-607680262faf4d004194d8ec": {
     "personnage": "Mark Blaine / Chillblaine",
@@ -2250,23 +2276,26 @@
   "tmdb-credit-5d4e61a67c6de30013a646df": {
     "personnage": "Jessica Adams",
     "oeuvre": "Dr. House",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ENFJ",
+    "enneagramme": "1w2",
+    "note": "",
+    "statut": "suggestion"
   },
   "tmdb-credit-584a3fa692514119b601b22b": {
     "personnage": "Chris Taub",
     "oeuvre": "Dr. House",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ISTJ",
+    "enneagramme": "3w4",
+    "note": "",
+    "statut": "suggestion"
   },
   "tmdb-credit-5d4e61cb7c6de336cba56a1a": {
     "personnage": "Chi Park",
     "oeuvre": "Dr. House",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ISTJ",
+    "enneagramme": "6w5",
+    "note": "",
+    "statut": "suggestion"
   },
   "tmdb-credit-5d568396e8131d4aa1898161": {
     "personnage": "Thirteen",
@@ -2335,9 +2364,10 @@
   "tmdb-credit-5410f84dc3a368020f000253": {
     "personnage": "Jo Wilson",
     "oeuvre": "Grey's Anatomy",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESTP",
+    "enneagramme": "6w7",
+    "note": "",
+    "statut": "suggestion"
   },
   "tmdb-credit-5410f8c5c3a368020f00025b": {
     "personnage": "Owen Hunt",
@@ -2691,9 +2721,10 @@
   "tmdb-credit-626b0ea28258fc00689317b5": {
     "personnage": "Steven Conklin",
     "oeuvre": "L'Été où je suis devenue jolie",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESTP",
+    "enneagramme": "7w6",
+    "note": "",
+    "statut": "suggestion"
   },
   "tmdb-credit-626b0e9075110d0050494dd0": {
     "personnage": "Susannah Fisher",
@@ -2851,9 +2882,10 @@
   "anilist-char-89619": {
     "personnage": "Tenga Onigawara",
     "oeuvre": "Mob Psycho 100",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESTP",
+    "enneagramme": "8w7",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-89620": {
     "personnage": "Tome Kurata",
@@ -2874,23 +2906,26 @@
   "anilist-char-89622": {
     "personnage": "Ichi Mezato",
     "oeuvre": "Mob Psycho 100",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ENTP",
+    "enneagramme": "7w6",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-89623": {
     "personnage": "Tsubomi Takane",
     "oeuvre": "Mob Psycho 100",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESFP",
+    "enneagramme": "7w6",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-130683": {
     "personnage": "Shou Suzuki",
     "oeuvre": "Mob Psycho 100",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ENTP",
+    "enneagramme": "7w8",
+    "note": "",
+    "statut": "suggestion"
   },
   "tmdb-credit-533c742c925141760b000393": {
     "personnage": "Clarke Griffin",
@@ -2951,9 +2986,10 @@
   "tmdb-credit-6086f585713ea60079de6f53": {
     "personnage": "Emori",
     "oeuvre": "Les 100",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESTP",
+    "enneagramme": "7w6",
+    "note": "",
+    "statut": "suggestion"
   },
   "tmdb-credit-65b5a746b6cff1017cf70818": {
     "personnage": "Russell Lightbourne",
@@ -3064,9 +3100,10 @@
   "anilist-char-61815": {
     "personnage": "Dorami",
     "oeuvre": "Doraemon",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESFJ",
+    "enneagramme": "1w2",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-163719": {
     "personnage": "Sewashi",
@@ -3078,16 +3115,18 @@
   "anilist-char-163725": {
     "personnage": "Tamako Nobi",
     "oeuvre": "Doraemon",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESTJ",
+    "enneagramme": "1w2",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-163726": {
     "personnage": "Nobisuke Nobi",
     "oeuvre": "Doraemon",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ISFP",
+    "enneagramme": "9w1",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-9528": {
     "personnage": "Momoko Sakura",
@@ -3108,9 +3147,10 @@
   "anilist-char-21945": {
     "personnage": "Kazuhiko Hanawa",
     "oeuvre": "ちびまる子ちゃん",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESFJ",
+    "enneagramme": "3w2",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-26012": {
     "personnage": "Hanako Migiwa",
@@ -3122,37 +3162,42 @@
   "anilist-char-39490": {
     "personnage": "Sakiko Sakura",
     "oeuvre": "ちびまる子ちゃん",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ISTJ",
+    "enneagramme": "1w2",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-230181": {
     "personnage": "Sueo Maruo",
     "oeuvre": "ちびまる子ちゃん",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESTJ",
+    "enneagramme": "3w4",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-230182": {
     "personnage": "Sumire Sakura",
     "oeuvre": "ちびまる子ちゃん",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESTJ",
+    "enneagramme": "1w2",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-230183": {
     "personnage": "Hiroshi Sakura",
     "oeuvre": "ちびまる子ちゃん",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ISFP",
+    "enneagramme": "9w1",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-230184": {
     "personnage": "Tomozou Sakura",
     "oeuvre": "ちびまる子ちゃん",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "INFP",
+    "enneagramme": "9w1",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-5": {
     "personnage": "Ichigo Kurosaki",
@@ -3237,23 +3282,26 @@
   "anilist-char-209903": {
     "personnage": "Vivy",
     "oeuvre": "Vivy -Fluorite Eye's Song-",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ISFJ",
+    "enneagramme": "1w9",
+    "note": "IA chanteuse sérieuse, qui apprend ce que « chanter avec son cœur » veut dire.",
+    "statut": "suggestion"
   },
   "anilist-char-209902": {
     "personnage": "Matsumoto",
     "oeuvre": "Vivy -Fluorite Eye's Song-",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ENTP",
+    "enneagramme": "6w5",
+    "note": "IA bavarde, logique et pince-sans-rire.",
+    "statut": "suggestion"
   },
   "anilist-char-215276": {
     "personnage": "Estella",
     "oeuvre": "Vivy -Fluorite Eye's Song-",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ISFJ",
+    "enneagramme": "2w1",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-215277": {
     "personnage": "Grace",
@@ -3451,9 +3499,10 @@
   "anilist-char-3198": {
     "personnage": "Kazuha Tooyama",
     "oeuvre": "Détective Conan",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESFJ",
+    "enneagramme": "2w3",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-4162": {
     "personnage": "Hiroshi Agasa",
@@ -3490,9 +3539,10 @@
   "anilist-char-3891": {
     "personnage": "Pikachu",
     "oeuvre": "Pokémon",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESFP",
+    "enneagramme": "7w6",
+    "note": "Joueur, loyal, tempérament électrique.",
+    "statut": "suggestion"
   },
   "anilist-char-3935": {
     "personnage": "Musashi",
@@ -3521,9 +3571,10 @@
   "anilist-char-19852": {
     "personnage": "Kenji",
     "oeuvre": "Pokémon",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ISFP",
+    "enneagramme": "9w1",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-53521": {
     "personnage": "Togepy",
@@ -3535,30 +3586,34 @@
   "anilist-char-19018": {
     "personnage": "Rantarou Inadera",
     "oeuvre": "忍たま乱太郎",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESFP",
+    "enneagramme": "9w1",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-35552": {
     "personnage": "Shinbei Fukutomi",
     "oeuvre": "忍たま乱太郎",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ISFP",
+    "enneagramme": "9w8",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-36662": {
     "personnage": "Kirimaru Settsuno",
     "oeuvre": "忍たま乱太郎",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESTJ",
+    "enneagramme": "3w4",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-19425": {
     "personnage": "Hansuke Doi",
     "oeuvre": "忍たま乱太郎",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ISTJ",
+    "enneagramme": "6w5",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-35553": {
     "personnage": "Denzou Yamada",
@@ -3724,9 +3779,10 @@
   "anilist-char-21089": {
     "personnage": "Iggy",
     "oeuvre": "JoJo's Bizarre Adventure",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ISTP",
+    "enneagramme": "9w8",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-4004": {
     "personnage": "Dio Brando",
@@ -3739,16 +3795,18 @@
   "anilist-char-21962": {
     "personnage": "Suzie Q",
     "oeuvre": "JoJo's Bizarre Adventure",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESFP",
+    "enneagramme": "7w6",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-72735": {
     "personnage": "Daniel D'Arby",
     "oeuvre": "JoJo's Bizarre Adventure",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ENTP",
+    "enneagramme": "3w4",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-76658": {
     "personnage": "Vanilla Ice",
@@ -3792,9 +3850,10 @@
   "anilist-char-156764": {
     "personnage": "Riishu",
     "oeuvre": "Les Carnets de l'apothicaire",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ISFP",
+    "enneagramme": "6w5",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-156765": {
     "personnage": "Aaduo",
@@ -3814,9 +3873,10 @@
   "anilist-char-244318": {
     "personnage": "Hongniang",
     "oeuvre": "Les Carnets de l'apothicaire",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESTJ",
+    "enneagramme": "1w2",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-244319": {
     "personnage": "Meimei",
@@ -3828,9 +3888,10 @@
   "anilist-char-274189": {
     "personnage": "Pairin",
     "oeuvre": "Les Carnets de l'apothicaire",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESFP",
+    "enneagramme": "7w8",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-41112": {
     "personnage": "Sazae Fuguta",
@@ -3843,44 +3904,50 @@
   "anilist-char-79895": {
     "personnage": "Masuo Fuguta",
     "oeuvre": "サザエさん",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ISFJ",
+    "enneagramme": "9w1",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-247361": {
     "personnage": "Namihei Isono",
     "oeuvre": "サザエさん",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ISTJ",
+    "enneagramme": "1w9",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-247363": {
     "personnage": "Fune Isono",
     "oeuvre": "サザエさん",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ISFJ",
+    "enneagramme": "2w1",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-79867": {
     "personnage": "Katsuo Isono",
     "oeuvre": "サザエさん",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESTP",
+    "enneagramme": "7w8",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-247364": {
     "personnage": "Wakame Isono",
     "oeuvre": "サザエさん",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ISFJ",
+    "enneagramme": "2w1",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-247365": {
     "personnage": "Tarao Fuguta",
     "oeuvre": "サザエさん",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESFP",
+    "enneagramme": "7w6",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-247369": {
     "personnage": "Tama",
@@ -3970,9 +4037,10 @@
   "anilist-char-809": {
     "personnage": "Anko Mitarashi",
     "oeuvre": "Naruto",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESTP",
+    "enneagramme": "7w8",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-1555": {
     "personnage": "Hinata Hyuuga",
@@ -3985,23 +4053,26 @@
   "anilist-char-88348": {
     "personnage": "Rudeus Greyrat",
     "oeuvre": "Mushoku Tensei: Jobless Reincarnation",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "INTP",
+    "enneagramme": "6w5",
+    "note": "Analytique, anxieux, obsédé par l'idée de mieux faire cette fois.",
+    "statut": "suggestion"
   },
   "anilist-char-88350": {
     "personnage": "Roxy Migurdia",
     "oeuvre": "Mushoku Tensei: Jobless Reincarnation",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ISTJ",
+    "enneagramme": "6w5",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-88346": {
     "personnage": "Sylphiette",
     "oeuvre": "Mushoku Tensei: Jobless Reincarnation",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ISFJ",
+    "enneagramme": "2w1",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-88349": {
     "personnage": "Eris Boreas Greyrat",
@@ -4022,37 +4093,42 @@
   "anilist-char-88347": {
     "personnage": "Paul Greyrat",
     "oeuvre": "Mushoku Tensei: Jobless Reincarnation",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESTP",
+    "enneagramme": "7w8",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-137816": {
     "personnage": "Shizuka Nanahoshi",
     "oeuvre": "Mushoku Tensei: Jobless Reincarnation",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "INTJ",
+    "enneagramme": "5w6",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-145458": {
     "personnage": "Norn Greyrat",
     "oeuvre": "Mushoku Tensei: Jobless Reincarnation",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ISFP",
+    "enneagramme": "4w5",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-145459": {
     "personnage": "Aisha Greyrat",
     "oeuvre": "Mushoku Tensei: Jobless Reincarnation",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESTJ",
+    "enneagramme": "3w2",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-179854": {
     "personnage": "Lilia",
     "oeuvre": "Mushoku Tensei: Jobless Reincarnation",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ISTJ",
+    "enneagramme": "1w9",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-2951": {
     "personnage": "Shinnosuke Nohara",
@@ -4073,23 +4149,26 @@
   "anilist-char-7855": {
     "personnage": "Himawari Nohara",
     "oeuvre": "Shin Chan",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESFP",
+    "enneagramme": "7w6",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-33466": {
     "personnage": "Hiroshi Nohara",
     "oeuvre": "Shin Chan",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESFP",
+    "enneagramme": "9w1",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-7853": {
     "personnage": "Bou-chan",
     "oeuvre": "Shin Chan",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "INTP",
+    "enneagramme": "9w1",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-7856": {
     "personnage": "Shiro",
@@ -4115,16 +4194,18 @@
   "anilist-char-7861": {
     "personnage": "Nene Sakurada",
     "oeuvre": "Shin Chan",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESFJ",
+    "enneagramme": "3w2",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-7862": {
     "personnage": "Tooru Kazama",
     "oeuvre": "Shin Chan",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESTJ",
+    "enneagramme": "3w4",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-677": {
     "personnage": "Pu'ar",
@@ -4136,16 +4217,18 @@
   "anilist-char-1012": {
     "personnage": "Majin Boo",
     "oeuvre": "Dragon Ball Z",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESFP",
+    "enneagramme": "7w8",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-2094": {
     "personnage": "Gyuumaou",
     "oeuvre": "Dragon Ball Z",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESFJ",
+    "enneagramme": "9w1",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-2095": {
     "personnage": "Suno",
@@ -4196,9 +4279,10 @@
   "anilist-char-8299": {
     "personnage": "Akio Ogino",
     "oeuvre": "Le Voyage de Chihiro",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESTP",
+    "enneagramme": "7w8",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-8300": {
     "personnage": "Yuuko Ogino",
@@ -4296,9 +4380,10 @@
   "anilist-char-90178": {
     "personnage": "Aldebaran",
     "oeuvre": "Re:ZERO -Starting Life in Another World-",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ENTP",
+    "enneagramme": "7w6",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-90179": {
     "personnage": "Wilhelm van Astrea",
@@ -4359,9 +4444,10 @@
   "anilist-char-165862": {
     "personnage": "Kaigaku",
     "oeuvre": "Demon Slayer : Kimetsu no Yaiba La Forteresse Infinie",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESTP",
+    "enneagramme": "3w4",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-127518": {
     "personnage": "Nezuko Kamado",
@@ -4405,9 +4491,10 @@
   "anilist-char-509": {
     "personnage": "Markl",
     "oeuvre": "Le Château ambulant",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESFP",
+    "enneagramme": "6w7",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-510": {
     "personnage": "Arechi no Majo",
@@ -4448,16 +4535,18 @@
   "anilist-char-168136": {
     "personnage": "Madge",
     "oeuvre": "Le Château ambulant",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "INTJ",
+    "enneagramme": "1w9",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-168138": {
     "personnage": "Lettie Hatter",
     "oeuvre": "Le Château ambulant",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESFP",
+    "enneagramme": "7w6",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-121514": {
     "personnage": "Mitsuha Miyamizu",
@@ -4485,16 +4574,18 @@
   "anilist-char-121518": {
     "personnage": "Yotsuha Miyamizu",
     "oeuvre": "Your Name.",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESTP",
+    "enneagramme": "7w8",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-121520": {
     "personnage": "Hitoha Miyamizu",
     "oeuvre": "Your Name.",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ISFJ",
+    "enneagramme": "1w9",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-121521": {
     "personnage": "Sayaka Natori",
@@ -4506,9 +4597,10 @@
   "anilist-char-121522": {
     "personnage": "Miki Okudera",
     "oeuvre": "Your Name.",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESFP",
+    "enneagramme": "3w2",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-121523": {
     "personnage": "Shinta Takagi",
@@ -4638,30 +4730,34 @@
   "anilist-char-9174": {
     "personnage": "Moro no Kimi",
     "oeuvre": "Princesse Mononoké",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "INTJ",
+    "enneagramme": "8w9",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-11360": {
     "personnage": "Toki",
     "oeuvre": "Princesse Mononoké",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESTP",
+    "enneagramme": "8w7",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-11362": {
     "personnage": "Okkotonushi",
     "oeuvre": "Princesse Mononoké",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ISTJ",
+    "enneagramme": "8w9",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-11364": {
     "personnage": "Gonza",
     "oeuvre": "Princesse Mononoké",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ISFJ",
+    "enneagramme": "6w5",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-11366": {
     "personnage": "Kohroku",
@@ -4696,16 +4792,18 @@
   "anilist-char-269": {
     "personnage": "Totoro",
     "oeuvre": "Mon voisin Totoro",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ISFP",
+    "enneagramme": "9w1",
+    "note": "Gardien paisible de la forêt.",
+    "statut": "suggestion"
   },
   "anilist-char-270": {
     "personnage": "Kanta Oogaki",
     "oeuvre": "Mon voisin Totoro",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ISFP",
+    "enneagramme": "6w5",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-271": {
     "personnage": "Nekobasu",
@@ -4717,23 +4815,26 @@
   "anilist-char-8047": {
     "personnage": "Tatsuo Kusakabe",
     "oeuvre": "Mon voisin Totoro",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "INFP",
+    "enneagramme": "9w1",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-8048": {
     "personnage": "Yasuko Kusakabe",
     "oeuvre": "Mon voisin Totoro",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ISFJ",
+    "enneagramme": "2w1",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-11276": {
     "personnage": "Kanta no Obaa-chan",
     "oeuvre": "Mon voisin Totoro",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ISFJ",
+    "enneagramme": "2w1",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-13393": {
     "personnage": "Makkuro-Kurosuke",
@@ -4760,9 +4861,10 @@
   "anilist-char-3133": {
     "personnage": "Jiji",
     "oeuvre": "Kiki la petite sorcière",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ISTJ",
+    "enneagramme": "6w5",
+    "note": "Chat raisonnable et inquiet.",
+    "statut": "suggestion"
   },
   "anilist-char-11280": {
     "personnage": "Ursula",
@@ -4879,9 +4981,10 @@
   "anilist-char-189002": {
     "personnage": "Toki",
     "oeuvre": "Ponyo sur la falaise",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESTJ",
+    "enneagramme": "8w7",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-539": {
     "personnage": "Nausicaä",
@@ -4894,9 +4997,10 @@
   "anilist-char-540": {
     "personnage": "Yupa",
     "oeuvre": "Le Vaisseau fantôme",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "INFJ",
+    "enneagramme": "9w1",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-541": {
     "personnage": "Kushana",
@@ -4909,16 +5013,18 @@
   "anilist-char-543": {
     "personnage": "Asbel",
     "oeuvre": "Le Vaisseau fantôme",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESFP",
+    "enneagramme": "8w7",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-542": {
     "personnage": "Kurotowa",
     "oeuvre": "Le Vaisseau fantôme",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ENTP",
+    "enneagramme": "3w4",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-544": {
     "personnage": "Lastelle",
@@ -4973,16 +5079,18 @@
   "anilist-char-157115": {
     "personnage": "Toge Inumaki",
     "oeuvre": "Jujutsu Kaisen 0",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ISFJ",
+    "enneagramme": "9w1",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-137974": {
     "personnage": "Panda",
     "oeuvre": "Jujutsu Kaisen 0",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ENFP",
+    "enneagramme": "9w1",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-137975": {
     "personnage": "Aoi Toudou",
@@ -5099,9 +5207,10 @@
   "anilist-char-124030": {
     "personnage": "Miyako Ishida",
     "oeuvre": "Silent Voice",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESFJ",
+    "enneagramme": "2w1",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-124031": {
     "personnage": "Maria Ishida",
@@ -5136,9 +5245,10 @@
   "anilist-char-124036": {
     "personnage": "Ito Nishimiya",
     "oeuvre": "Silent Voice",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESTJ",
+    "enneagramme": "8w9",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-1795": {
     "personnage": "Motoko Kusanagi",
@@ -5182,9 +5292,10 @@
   "anilist-char-18516": {
     "personnage": "Ningyoutsukai",
     "oeuvre": "Ghost in the Shell",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "INTJ",
+    "enneagramme": "5w4",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-77779": {
     "personnage": "Nakamura Buchou",
@@ -5246,30 +5357,34 @@
   "anilist-char-314612": {
     "personnage": "Natsuko",
     "oeuvre": "Le Garçon et le Héron",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ISFJ",
+    "enneagramme": "2w1",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-314614": {
     "personnage": "Kiriko",
     "oeuvre": "Le Garçon et le Héron",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESTP",
+    "enneagramme": "8w7",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-310141": {
     "personnage": "Himi",
     "oeuvre": "Le Garçon et le Héron",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ENFJ",
+    "enneagramme": "2w1",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-314613": {
     "personnage": "Shouichi",
     "oeuvre": "Le Garçon et le Héron",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESTJ",
+    "enneagramme": "3w2",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-317403": {
     "personnage": "Rou Pelican",
@@ -5334,9 +5449,10 @@
   "anilist-char-16289": {
     "personnage": "Kaori",
     "oeuvre": "Akira",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ISFJ",
+    "enneagramme": "9w1",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-18439": {
     "personnage": "Resistance Member",
@@ -5348,16 +5464,18 @@
   "anilist-char-20463": {
     "personnage": "Yamagata",
     "oeuvre": "Akira",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESTP",
+    "enneagramme": "8w7",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-28166": {
     "personnage": "Kai",
     "oeuvre": "Akira",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESFP",
+    "enneagramme": "7w6",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-88236": {
     "personnage": "Kiyoko",
@@ -5408,9 +5526,10 @@
   "anilist-char-11266": {
     "personnage": "Mouro Shougun",
     "oeuvre": "Le Château dans le ciel",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESTJ",
+    "enneagramme": "8w7",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-11268": {
     "personnage": "Charles",
@@ -5429,9 +5548,10 @@
   "anilist-char-11272": {
     "personnage": "Pom Jii-san",
     "oeuvre": "Le Château dans le ciel",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "INFP",
+    "enneagramme": "9w1",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-11274": {
     "personnage": "Henri",
@@ -5465,16 +5585,18 @@
   "anilist-char-193379": {
     "personnage": "Shinjurou Rengoku",
     "oeuvre": "Demon Slayer : Kimetsu no Yaiba - Le film : Le train de l'Infini",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ISTP",
+    "enneagramme": "4w5",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-193380": {
     "personnage": "Senjurou Rengoku",
     "oeuvre": "Demon Slayer : Kimetsu no Yaiba - Le film : Le train de l'Infini",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ISFJ",
+    "enneagramme": "9w1",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-196849": {
     "personnage": "Kie Kamado",
@@ -5494,23 +5616,26 @@
   "anilist-char-534": {
     "personnage": "Seiji Amasawa",
     "oeuvre": "Si tu tends l'oreille",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ISTJ",
+    "enneagramme": "3w4",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-535": {
     "personnage": "Yuko Harada",
     "oeuvre": "Si tu tends l'oreille",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ISFJ",
+    "enneagramme": "6w7",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-536": {
     "personnage": "Seiya Tsukishima",
     "oeuvre": "Si tu tends l'oreille",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "INFP",
+    "enneagramme": "9w1",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-537": {
     "personnage": "Asako Tsukishima",
@@ -5522,9 +5647,10 @@
   "anilist-char-538": {
     "personnage": "Shiho Tsukishima",
     "oeuvre": "Si tu tends l'oreille",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "ESTJ",
+    "enneagramme": "1w2",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-4803": {
     "personnage": "Humbert von Gikkingen Danshaku",
@@ -5544,9 +5670,10 @@
   "anilist-char-20811": {
     "personnage": "Nishi Shiro",
     "oeuvre": "Si tu tends l'oreille",
-    "mbti": "",
-    "enneagramme": "",
-    "note": ""
+    "mbti": "INFJ",
+    "enneagramme": "9w1",
+    "note": "",
+    "statut": "suggestion"
   },
   "anilist-char-270176": {
     "personnage": "Kousaka",
