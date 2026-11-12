@@ -2,6 +2,11 @@
 
 Entrée la plus récente en haut. Une entrée par session : date, agent, commits, migrations appliquées, points ouverts.
 
+## 2026-11-12 — Codex, import du CSV fourni
+
+- À la demande explicite de l’utilisateur : 2500 fiches regroupées par œuvre et 3733 liens HTTPS uniques issus de pages.csv, avec choix des saisons et langues. Les pages générales et réponses non 200 sont écartées. Aucun lien vidéo inventé, aucune extraction supplémentaire.
+- Import reproductible : scripts/import-pages.cjs, entrée JSON convertie depuis le CSV. Liens externes affichés sur chaque fiche.
+
 ## 2026-11-13 (soir) — Claude Code, second lot de typages
 
 - 127 personnages de plus pré-remplis dans `public/characters/typings.json` (`"statut": "suggestion"`), soit 454 / 747. Restent 293 vides, volontairement : figurants, films 2025-2026 inconnus de Claude, entrées TMDB multi-personnages, secondaires peu caractérisés (liste par œuvre : `node -e` sur typings.json, ou voir `docs/personnages.md`). Aucune autre modification.

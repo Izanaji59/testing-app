@@ -2,6 +2,7 @@ export type Playback = { type: 'video' | 'embed' | 'link'; url: string; label?: 
 export type Episode = { number: number; title: string; synopsis: string; minutes: number | null; image: string | null; date: string | null };
 export type Season = { number: number; title: string; episodes: Episode[] };
 export type Title = {
+  externalLinks?: {url:string;label:string}[];
   id: string; tmdbId: number; media: 'movie' | 'tv'; anime: boolean;
   title: string; originalTitle: string; synopsis: string; year: string;
   poster: string | null; backdrop: string | null; genres: string[];
