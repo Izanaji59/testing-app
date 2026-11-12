@@ -16,10 +16,22 @@ const AVATARS:Record<string,string>={moon:'☾',leaf:'❧',book:'▤',star:'✦'
 const LABELS:Record<string,string>={moon:'Lune',leaf:'Feuille',book:'Livre',star:'Étoile',wave:'Vague',flame:'Flamme'};
 const ORDER=Object.keys(STAT_META) as (keyof typeof STAT_META)[];
 
-/** The exact same earned-statistics block is rendered for owners and visitors. */
-export function ProfileStatistics({profile,stats}:{profile:PublicProfile;stats:PublicStat[]}) {
-  const rank=fmtRank(profile.rank_letter,profile.rank_tier);
-  return <section className={s.stats} aria-label="Statistiques Grindleveling"><div className={s.statsHeader}><RankEmblem letter={profile.rank_letter} tier={profile.rank_tier==='PLUS'?'+':profile.rank_tier==='MINUS'?'-':''} size={58}/><div><h2>Rang {rank}</h2><p>Niveau {profile.level} / {profile.total_xp.toLocaleString('fr-FR')} XP</p><p>{getRankTitle(mbtiFromClassLabel(profile.mbti_class),profile.rank_letter).title}</p></div></div><div className={s.radar}><StatRadar stats={stats} size={240}/></div><div className={s.statGrid}>{ORDER.map(kind=><div key={kind} className={s.stat}><span>{STAT_META[kind].label}</span><strong>{stats.find(x=>x.kind===kind)?.level??1}</strong></div>)}</div><p className={s.note}>Les mêmes statistiques, calculées à partir de tes accomplissements. Les montants de revenus restent privés.</p></section>;
+/**
+ * Statistiques du profil. Pour un visiteur, seul ce que le joueur a choisi de montrer
+ * arrive (get_public_profile / get_public_stats filtrent côté serveur) ; le reste est signalé « masqué ».
+ */
+export function ProfileStatistics({profile,stats,owner=false}:{profile:PublicProfile;stats:PublicStat[];owner?:boolean}) {
+  const rankShown=profile.rank_letter!==null&&profile.level!==null;
+  const shown=ORDER.filter(kind=>stats.some(x=>x.kind===kind));
+  // Déduit de ce que le serveur a réellement renvoyé : une donnée masquée n'arrive jamais.
+  const hidden=owner?[]:[!rankShown&&'le rang',!stats.some(x=>x.kind!=='REVENU')&&'les statistiques',!stats.some(x=>x.kind==='REVENU')&&'la dimension économique'].filter(Boolean);
+  return <section className={s.stats} aria-label="Statistiques Grindleveling">
+    {rankShown&&profile.rank_letter?<div className={s.statsHeader}><RankEmblem letter={profile.rank_letter} tier={profile.rank_tier==='PLUS'?'+':profile.rank_tier==='MINUS'?'-':''} size={58}/><div><h2>Rang {fmtRank(profile.rank_letter,profile.rank_tier??'NEUTRAL')}</h2><p>Niveau {profile.level}{profile.total_xp!==null?` / ${profile.total_xp.toLocaleString('fr-FR')} XP`:''}</p><p>{getRankTitle(mbtiFromClassLabel(profile.mbti_class),profile.rank_letter).title}</p></div></div>:<h2>Statistiques</h2>}
+    {shown.length>2&&<div className={s.radar}><StatRadar stats={stats} size={240}/></div>}
+    {shown.length>0&&<div className={s.statGrid}>{shown.map(kind=><div key={kind} className={s.stat}><span>{STAT_META[kind].label}</span><strong>{stats.find(x=>x.kind===kind)?.level??1}</strong></div>)}</div>}
+    {hidden.length>0&&<p className={s.note}>Ce joueur a choisi de ne pas afficher {hidden.join(', ')}.</p>}
+    <p className={s.note}>{owner?'Calculées à partir de tes accomplissements. Choisis plus bas ce que les autres joueurs voient.':'Calculées à partir de ses accomplissements.'} Les montants de revenus restent toujours privés.</p>
+  </section>;
 }
 
 export function ProfileSpace({profile,stats,owner=false,onIdentityChange}:{profile:PublicProfile;stats:PublicStat[];owner?:boolean;onIdentityChange?:()=>void}) {
@@ -41,11 +53,13 @@ export function ProfileSpace({profile,stats,owner=false,onIdentityChange}:{profi
   const presentation=data?.presentation;
   function edit(){setForm(presentation!);setName(profile.display_name??'');setEditing(true);setFailure('');setNotice('');}
   async function savePresentation(){
-    if(busy)return;setBusy(true);setFailure('');setNotice('');
+    if(busy)return;
+    if(!name.trim()){setFailure('Le pseudo est obligatoire : c’est la seule information toujours visible des autres joueurs.');return;}
+    setBusy(true);setFailure('');setNotice('');
     try{
       const sb=supabase();
       const a=await sb.from('profile_presentations').upsert({...form,user_id:uid});if(a.error)throw a.error;
-      const b=await sb.from('profiles').update({display_name:name.trim()||null}).eq('user_id',uid);if(b.error)throw b.error;
+      const b=await sb.from('profiles').update({display_name:name.trim()}).eq('user_id',uid);if(b.error)throw b.error;
       await mutate();onIdentityChange?.();setEditing(false);setNotice('Présentation enregistrée.');
     }catch{setFailure('La présentation n’a pas pu être entièrement enregistrée. Tu peux réessayer.');}finally{setBusy(false);}
   }
@@ -60,11 +74,11 @@ export function ProfileSpace({profile,stats,owner=false,onIdentityChange}:{profi
     }catch{setFailure('L’article n’a pas pu être enregistré. Ton texte reste ouvert.');}finally{setBusy(false);}
   }
   return <div className={s.space}>
-    <section className={s.banner} data-theme={presentation?.theme??'night'} aria-label="Présentation du profil"><div className={s.avatar} aria-hidden="true">{AVATARS[presentation?.avatar??'moon']??'☾'}</div><h2>{profile.display_name||profile.operator_code}</h2><span className={s.meta}>{profile.mbti_class}</span>{presentation?.tagline&&<p className={s.tagline}>{presentation.tagline}</p>}{presentation?.bio&&<p>{presentation.bio}</p>}{owner&&<div className={s.actions}><button disabled={!data||busy} onClick={edit}>Personnaliser mon profil</button><a className={s.button} href={'/member/?id='+uid}>Voir mon profil de membre</a></div>}</section>
+    <section className={s.banner} data-theme={presentation?.theme??'night'} aria-label="Présentation du profil"><div className={s.avatar} aria-hidden="true">{AVATARS[presentation?.avatar??'moon']??'☾'}</div><h2>{profile.display_name||profile.operator_code}</h2>{profile.mbti_class&&<span className={s.meta}>{profile.mbti_class}</span>}{presentation?.tagline&&<p className={s.tagline}>{presentation.tagline}</p>}{presentation?.bio&&<p>{presentation.bio}</p>}{owner&&<div className={s.actions}><button disabled={!data||busy} onClick={edit}>Personnaliser mon profil</button><a className={s.button} href={'/member/?id='+uid}>Voir mon profil de membre</a></div>}</section>
     {error&&<p role="alert" className={s.alert}>La présentation et les articles sont indisponibles pour le moment. Les statistiques restent accessibles.</p>}
     {failure&&<p role="alert" className={s.alert}>{failure}</p>}{notice&&<p role="status" className={s.notice}>{notice}</p>}
-    {owner&&editing&&<form className={s.editor} onSubmit={e=>{e.preventDefault();void savePresentation();}}><h3>Ta présentation</h3><label>Pseudo<input maxLength={60} value={name} onChange={e=>setName(e.target.value)}/></label><label>En quelques mots<input maxLength={100} value={form.tagline} onChange={e=>setForm({...form,tagline:e.target.value})}/></label><label>À propos<textarea maxLength={600} rows={5} value={form.bio} onChange={e=>setForm({...form,bio:e.target.value})}/></label><div className={s.two}><label>Emblème<select aria-label="Emblème" value={form.avatar} onChange={e=>setForm({...form,avatar:e.target.value})}>{Object.keys(AVATARS).map(k=><option key={k} value={k}>{LABELS[k]}</option>)}</select></label><label>Ambiance<select aria-label="Ambiance" value={form.theme} onChange={e=>setForm({...form,theme:e.target.value})}><option value="night">Nuit</option><option value="forest">Forêt</option><option value="amber">Ambre</option><option value="violet">Violet</option></select></label></div><p className={s.note}>Cette présentation est visible par les membres. Le bloc de statistiques garde toujours la même disposition et ses valeurs calculées.</p><div className={s.actions}><button disabled={busy} type="submit">{busy?'Enregistrement…':'Enregistrer la présentation'}</button><button disabled={busy} type="button" onClick={()=>setEditing(false)}>Annuler</button></div></form>}
-    <ProfileStatistics profile={profile} stats={stats}/>
+    {owner&&editing&&<form className={s.editor} onSubmit={e=>{e.preventDefault();void savePresentation();}}><h3>Ta présentation</h3><label>Pseudo (obligatoire, toujours visible)<input required maxLength={60} value={name} onChange={e=>setName(e.target.value)}/></label><label>En quelques mots<input maxLength={100} value={form.tagline} onChange={e=>setForm({...form,tagline:e.target.value})}/></label><label>À propos<textarea maxLength={600} rows={5} value={form.bio} onChange={e=>setForm({...form,bio:e.target.value})}/></label><div className={s.two}><label>Emblème<select aria-label="Emblème" value={form.avatar} onChange={e=>setForm({...form,avatar:e.target.value})}>{Object.keys(AVATARS).map(k=><option key={k} value={k}>{LABELS[k]}</option>)}</select></label><label>Ambiance<select aria-label="Ambiance" value={form.theme} onChange={e=>setForm({...form,theme:e.target.value})}><option value="night">Nuit</option><option value="forest">Forêt</option><option value="amber">Ambre</option><option value="violet">Violet</option></select></label></div><p className={s.note}>Cette présentation est visible par les membres. Le bloc de statistiques garde toujours la même disposition et ses valeurs calculées.</p><div className={s.actions}><button disabled={busy} type="submit">{busy?'Enregistrement…':'Enregistrer la présentation'}</button><button disabled={busy} type="button" onClick={()=>setEditing(false)}>Annuler</button></div></form>}
+    <ProfileStatistics profile={profile} stats={stats} owner={owner}/>
     <section className={s.journal} aria-label="Journal du profil"><h2>{owner?'Mon journal':'Journal'}</h2><p className={s.journalIntro}>Notes de parcours, idées et découvertes.</p>{owner&&<button disabled={!data||busy||!!draft} onClick={newPost}>Écrire un article</button>}
       {owner&&draft&&<form className={s.editor} onSubmit={e=>{e.preventDefault();void savePost(false);}} style={{marginTop:18}}><h3>{draft.is_published?'Modifier l’article':'Un nouvel article'}</h3><label>Titre<input required maxLength={140} value={draft.title} onChange={e=>setDraft({...draft,title:e.target.value})}/></label><label>Texte<textarea required maxLength={12000} rows={12} value={draft.body} onChange={e=>setDraft({...draft,body:e.target.value})}/></label><p className={s.note}>Le brouillon reste privé. Publier rend cet article visible aux membres sur ton profil. Écrire un article ne modifie pas tes statistiques.</p><div className={s.actions}><button type="button" onClick={()=>setPreview(!preview)}>{preview?'Fermer l’aperçu':'Aperçu'}</button><button type="submit" disabled={busy}>{busy?'Enregistrement…':'Garder en brouillon'}</button><button type="button" disabled={busy||!draft.title.trim()||!draft.body.trim()} onClick={()=>savePost(true)}>{draft.is_published?'Mettre à jour la publication':'Publier aux membres'}</button><button type="button" disabled={busy} onClick={()=>{if(window.confirm('Fermer cet article sans enregistrer les dernières modifications ?'))setDraft(null);}}>Fermer</button></div>{preview&&<article className={s.post}><h3>{draft.title}</h3><div className={s.postBody}>{draft.body}</div></article>}</form>}
       {!data&&!error&&<p className={s.note}>Chargement du journal…</p>}{data?.posts.length===0&&<p className={s.note}>{owner?'Ton premier article prendra place ici.':'Aucun article publié pour le moment.'}</p>}

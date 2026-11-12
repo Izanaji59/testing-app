@@ -8,7 +8,7 @@ const user={id:uid,aud:'authenticated',role:'authenticated',email:'local-test@ex
 const payload={sub:uid,exp:Math.floor(Date.now()/1000)+86400,aud:'authenticated',role:'authenticated'};
 const token=[{alg:'HS256',typ:'JWT'},payload].map(x=>Buffer.from(JSON.stringify(x)).toString('base64url')).join('.')+'.test';
 const auth={access_token:token,refresh_token:'local-test-only',token_type:'bearer',expires_in:86400,expires_at:payload.exp,user};
-const profile={user_id:uid,operator_code:'TEST',display_name:'Test local',mbti:'INTJ',level:1,total_xp:0,rank_letter:'E',rank_tier:'NEUTRAL',constance:0,mastery_points:0};
+const profile={user_id:uid,operator_code:'TEST',display_name:'Test local',mbti:'INTJ',level:1,total_xp:0,rank_letter:'E',rank_tier:'NEUTRAL',constance:0,mastery_points:0,show_stats:true,show_revenue:false,show_rank:true,show_mbti:true};
 const project={id:'p1',user_id:uid,title:'Lancer mon activité',status:'ACTIVE',type:'DUNGEON',progress_pct:0,phase_count:3,phase_current:0};
 const quest={id:'q1',user_id:uid,project_id:'p1',title:'Rédiger la première offre',status:'PENDING',due_at:null,difficulty_tier:'ROUTINE',reward_eur:0,actual_minutes:0};
 (async()=>{const browser=await chromium.launch({channel:'chrome',headless:true});try{
@@ -25,7 +25,7 @@ else if(url.pathname==='/rest/v1/rpc/get_public_profile')result=[profile];else i
 else if(req.method()!=='GET')throw Error('Unexpected write '+url.pathname);
 return route.fulfill({status:200,contentType:'application/json',headers:{'access-control-allow-origin':'*'},body:JSON.stringify(result)});});p.on('pageerror',e=>errors.push(e.message));
 await p.goto(base+'/profile/');await p.getByRole('button',{name:'Personnaliser mon profil'}).click();const statBlock=p.getByRole('region',{name:'Statistiques Grindleveling'}),original=await statBlock.innerText();
-await p.getByLabel('Pseudo',{exact:true}).fill('Nuit tranquille');await p.getByLabel('À propos',{exact:true}).fill('Mon parcours.');await p.getByLabel('Ambiance',{exact:true}).selectOption('violet');await p.getByRole('button',{name:'Enregistrer la présentation'}).click();await p.getByRole('status').filter({hasText:'Présentation enregistrée'}).waitFor();assert.equal(await statBlock.innerText(),original);
+await p.getByLabel(/^Pseudo/).fill('Nuit tranquille');await p.getByLabel('À propos',{exact:true}).fill('Mon parcours.');await p.getByLabel('Ambiance',{exact:true}).selectOption('violet');await p.getByRole('button',{name:'Enregistrer la présentation'}).click();await p.getByRole('status').filter({hasText:'Présentation enregistrée'}).waitFor();assert.equal(await statBlock.innerText(),original);
 await p.getByRole('button',{name:'Écrire un article'}).click();await p.getByLabel('Titre',{exact:true}).fill('Première étape');await p.getByLabel('Texte',{exact:true}).fill('J’avance à mon rythme. <script>test</script>');await p.getByRole('button',{name:'Garder en brouillon'}).click();await p.getByText('Brouillon privé',{exact:true}).waitFor();assert.equal(posts[0].is_published,false);
 await p.getByRole('button',{name:'Modifier',exact:true}).click();await p.getByRole('button',{name:'Publier aux membres',exact:true}).click();await p.getByRole('status').filter({hasText:'Article publié'}).waitFor();assert.equal(posts[0].is_published,true);assert.equal(await statBlock.innerText(),original);
 fs.mkdirSync(path.join(root,'test-results'),{recursive:true});await p.screenshot({path:path.join(root,'test-results/profile-mobile.png'),fullPage:true});

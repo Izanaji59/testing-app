@@ -12,7 +12,7 @@ export function SideNav() {
   return (
     <nav className={s.sideNav} aria-label="Navigation Grindleveling">
       <Link href="/cmd" className={s.brand}>
-        <span className={s.brandTop}><span className={s.brandDot} aria-hidden="true" />LATRACTION · LV</span>
+        <span className={s.brandTop}><span className={s.brandDot} aria-hidden="true" />DENSHIKU · LV</span>
         <span className={s.brandName}>GRINDLEVELING</span>
       </Link>
       {TABS.map(tab => (

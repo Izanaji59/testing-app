@@ -14,7 +14,7 @@ export default function ChessBotPage() {
 
       <div style={{ maxWidth: 480, margin: '0 auto', padding: '20px 16px 40px' }}>
         <div style={{ textAlign: 'center', marginBottom: 24 }}>
-          <DataReadout color={T.cyan} size={9} letterSpacing="0.4em">LATRACTION · CHESS</DataReadout>
+          <DataReadout color={T.cyan} size={9} letterSpacing="0.4em">DENSHIKU · CHESS</DataReadout>
           <div style={{
             marginTop: 8, fontFamily: T.display, fontSize: 24, fontWeight: 700,
             letterSpacing: '0.06em', color: T.text, textShadow: `0 0 14px ${T.cyanGlow}`,

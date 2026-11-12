@@ -50,7 +50,7 @@ export function Header({ profile, title }: Props) {
               animation: 'lt-pulse 1.6s ease-in-out infinite',
             }}
           />
-          <DataReadout color={T.cyan} size={9} letterSpacing="0.28em">LATRACTION · LV</DataReadout>
+          <DataReadout color={T.cyan} size={9} letterSpacing="0.28em">DENSHIKU · LV</DataReadout>
         </div>
         <DataReadout color={T.textMute} size={9}>{clock}</DataReadout>
       </div>

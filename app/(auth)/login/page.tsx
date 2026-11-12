@@ -161,7 +161,7 @@ function LoginContent() {
         style={{ width: '100%', maxWidth: 380 }}
       >
         <div style={{ textAlign: 'center', marginBottom: 28 }}>
-          <DataReadout color={T.cyan} size={9} letterSpacing="0.4em">LATRACTION · LV</DataReadout>
+          <DataReadout color={T.cyan} size={9} letterSpacing="0.4em">DENSHIKU · LV</DataReadout>
           <div
             style={{
               marginTop: 10,

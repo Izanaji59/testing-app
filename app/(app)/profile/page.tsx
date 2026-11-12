@@ -14,6 +14,7 @@ import { supabase } from '@/lib/supabase/client';
 import { SPECS } from '@/lib/engine/specs';
 import { getMbtiClass } from '@/lib/engine/mbtiClasses';
 import { fmtRank } from '@/lib/utils';
+import type { Profile } from '@/lib/types';
 
 export default function ProfilePage() {
   const router = useRouter();
@@ -86,6 +87,8 @@ export default function ProfilePage() {
       <div style={{ padding: '14px 14px 0', display: 'flex', flexDirection: 'column', gap: 14 }}>
 
         <ProfileSpace profile={profile} stats={stats} owner onIdentityChange={refresh} />
+
+        <VisibilitySettings profile={profile} onChange={refresh} />
 
         {/* MBTI → classe */}
         <HudPanel label={`CLASSE · ${mbtiClass.label}`} glow={0.3}>
@@ -211,5 +214,56 @@ function Stat({ label, value }: { label: string; value: string }) {
         {value}
       </div>
     </div>
+  );
+}
+
+// ─────────────────────── Ce que les autres joueurs voient ───────────────────────
+
+const VISIBILITY: Array<{ key: 'show_stats' | 'show_revenue' | 'show_rank' | 'show_mbti'; label: string; detail: string }> = [
+  { key: 'show_stats',   label: 'Mes statistiques',        detail: 'Discipline, Focus, Force… et le radar.' },
+  { key: 'show_revenue', label: 'Ma dimension économique', detail: 'Le niveau de la stat Revenu. Les montants en euros restent toujours privés.' },
+  { key: 'show_rank',    label: 'Mon rang et mon niveau',  detail: 'Rang, titre de rang, niveau et XP totale.' },
+  { key: 'show_mbti',    label: 'Mon MBTI',                detail: 'Ta classe MBTI et le titre de rang propre à ton type.' },
+];
+
+function VisibilitySettings({ profile, onChange }: { profile: Profile; onChange: () => void }) {
+  const [saving, setSaving] = useState<string | null>(null);
+  const [error, setError] = useState('');
+
+  async function toggle(key: (typeof VISIBILITY)[number]['key'], value: boolean) {
+    setSaving(key); setError('');
+    const { error: failure } = await supabase().from('profiles').update({ [key]: value }).eq('user_id', profile.user_id);
+    if (failure) setError('Ce choix n’a pas pu être enregistré. Réessaie.');
+    else onChange();
+    setSaving(null);
+  }
+
+  return (
+    <HudPanel label="CE QUE LES AUTRES VOIENT" glow={0.3}>
+      <div style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 12 }}>
+        <p style={{ margin: 0, fontSize: 13, color: T.textDim, lineHeight: 1.6 }}>
+          Ton pseudo <strong style={{ color: T.text }}>{profile.display_name || profile.operator_code}</strong> est toujours affiché. Le reste, c’est toi qui choisis.
+        </p>
+        {VISIBILITY.map(v => (
+          <label key={v.key} style={{ display: 'flex', gap: 12, alignItems: 'flex-start', minHeight: 44, cursor: saving ? 'wait' : 'pointer' }}>
+            <input
+              type="checkbox"
+              checked={!!profile[v.key]}
+              disabled={saving !== null}
+              onChange={e => toggle(v.key, e.target.checked)}
+              style={{ width: 20, height: 20, marginTop: 2, accentColor: T.cyan, flexShrink: 0 }}
+            />
+            <span>
+              <span style={{ display: 'block', fontFamily: T.display, fontSize: 14, color: T.text }}>{v.label}</span>
+              <span style={{ display: 'block', fontSize: 12, color: T.textDim, marginTop: 2 }}>{v.detail}</span>
+            </span>
+          </label>
+        ))}
+        {error && <p role="alert" style={{ margin: 0, fontSize: 12, color: T.danger }}>{error}</p>}
+        <a href={'/member/?id=' + profile.user_id} style={{ fontFamily: T.mono, fontSize: 10, letterSpacing: '0.18em', color: T.cyan }}>
+          → VOIR MON PROFIL COMME LES AUTRES
+        </a>
+      </div>
+    </HudPanel>
   );
 }

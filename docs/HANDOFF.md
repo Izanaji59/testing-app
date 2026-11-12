@@ -2,6 +2,13 @@
 
 Entrée la plus récente en haut. Une entrée par session : date, agent, commits, migrations appliquées, points ouverts.
 
+## 2026-11-13 — Claude Code, visibilité du profil public et marque Denshiku
+
+- **Migration 0021 appliquée** (`0021_profile_visibility.sql`) : colonnes `profiles.show_stats` / `show_revenue` / `show_rank` / `show_mbti` (défauts : vrai, **faux** pour la dimension économique, vrai, vrai) ; `get_public_profile` recréée (champs masqués à null + les 4 préférences) ; `get_public_stats` filtre REVENU selon `show_revenue` et les autres stats selon `show_stats`. Les deux RPC sont désormais réservées aux comptes connectés (`get_public_profile` était exécutable par `anon`). Pseudo obligatoire : trigger `profile_pseudo` (vide → code opérateur) + contrainte `profiles_display_name_required`. Prochain numéro libre : `0022`.
+- Front : panneau « Ce que les autres voient » sur `/profile` (cases à cocher, enregistrement immédiat, lien vers la vue publique) ; `ProfileStatistics`, la bannière de `ProfileSpace` et `PublicProfileModal` gèrent les champs masqués ; pseudo requis à l'édition. `PublicProfile` a des champs nullables + les 4 préférences.
+- Interface : « LATRACTION » remplacé par « DENSHIKU » partout où il s'affichait (connexion, en-tête, menu PC, pages d'échecs). Règle ajoutée dans `AGENTS.md`.
+- Tests : `scripts/test-profile-visibility-sql.cjs` (chaîne complète 0001 → 0021 sur PGlite) ; `test-profile-browser.cjs` adapté (libellé du pseudo, préférences dans le profil simulé), non exécuté ici. Non vérifié en session connectée.
+
 ## 2026-11-12 (soir) — Claude Code, liste de l'utilisateur (dictée, PC, éveil, alerte, coucher, boutique)
 
 - **Dictée sur ordinateur** : `components/core/DictationButton.tsx` (Web Speech API, `fr-FR`), affiché seulement avec un pointeur précis et un navigateur compatible (Chrome, Edge). Branché sur le titre des quêtes, des projets et l'action de session de concentration. Sur téléphone, le clavier fait déjà la dictée.

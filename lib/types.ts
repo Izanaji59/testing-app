@@ -39,6 +39,11 @@ export interface Profile {
   mastery_points: number;
   active_boss_id: string | null;
   active_raid_id: string | null;
+  /** Ce que les autres joueurs voient du profil (le pseudo est toujours visible). */
+  show_stats: boolean;
+  show_revenue: boolean;
+  show_rank: boolean;
+  show_mbti: boolean;
   created_at: string;
   updated_at: string;
   last_active_at: string | null;
@@ -200,16 +205,23 @@ export interface PublicStat {
   level: number;
 }
 
-/** Sous-ensemble public d'un profil, renvoyé par get_public_profile(). */
+/**
+ * Sous-ensemble public d'un profil, renvoyé par get_public_profile().
+ * Les champs masqués par le joueur arrivent à null (filtrés côté serveur).
+ */
 export interface PublicProfile {
   user_id: string;
   display_name: string | null;
   operator_code: string;
-  level: number;
-  rank_letter: RankLetter;
-  rank_tier: RankTier;
-  total_xp: number;
-  mbti_class: string;
+  level: number | null;
+  rank_letter: RankLetter | null;
+  rank_tier: RankTier | null;
+  total_xp: number | null;
+  mbti_class: string | null;
+  show_stats: boolean;
+  show_revenue: boolean;
+  show_rank: boolean;
+  show_mbti: boolean;
 }
 
 export interface BriefingPayload {

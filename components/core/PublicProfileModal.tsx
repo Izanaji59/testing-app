@@ -10,6 +10,7 @@ import { RankEmblem } from '@/components/hud/RankEmblem';
 import { StatRadar } from '@/components/hud/StatRadar';
 import { fmtRank } from '@/lib/utils';
 import { getRankTitle, mbtiFromClassLabel } from '@/lib/engine/rankTitles';
+import { STAT_META } from '@/lib/engine/stats';
 import type { PublicProfile, PublicStat } from '@/lib/types';
 
 type Props = {
@@ -51,10 +52,12 @@ export function PublicProfileModal({ userId, onClose }: Props) {
     return () => { cancelled = true; };
   }, [userId]);
 
-  const rank = profile ? fmtRank(profile.rank_letter, profile.rank_tier) : 'E';
-  const letter = rank.replace(/[+\-−]/g, '');
-  const tier = rank.endsWith('+') ? '+' : rank.endsWith('−') ? '-' : '';
-  const rankTitle = profile ? getRankTitle(mbtiFromClassLabel(profile.mbti_class), profile.rank_letter).title : '';
+  // Rang, MBTI et stats masqués par le joueur arrivent à null / vides depuis le serveur.
+  const rank = profile?.rank_letter ? fmtRank(profile.rank_letter, profile.rank_tier ?? 'NEUTRAL') : null;
+  const letter = rank ? rank.replace(/[+\-−]/g, '') : '';
+  const tier = rank?.endsWith('+') ? '+' : rank?.endsWith('−') ? '-' : '';
+  const rankTitle = profile?.rank_letter ? getRankTitle(mbtiFromClassLabel(profile.mbti_class), profile.rank_letter).title : '';
+  const meta = profile ? [profile.mbti_class, rank && `RANG ${rank}`, profile.level !== null && `NIV. ${profile.level}`].filter(Boolean).join(' · ') : '';
 
   return (
     <AnimatePresence>
@@ -90,27 +93,39 @@ export function PublicProfileModal({ userId, onClose }: Props) {
               {status === 'ready' && profile && (
                 <>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 18 }}>
-                    <RankEmblem letter={letter} tier={tier as '+' | '-' | ''} size={56} color={T.cyan} glow={1.1} />
+                    {rank && <RankEmblem letter={letter} tier={tier as '+' | '-' | ''} size={56} color={T.cyan} glow={1.1} />}
                     <div>
                       <div style={{ fontFamily: T.display, fontSize: 18, color: T.text, letterSpacing: '0.04em' }}>
                         {profile.display_name || profile.operator_code}
                       </div>
-                      <DataReadout size={9} style={{ display: 'block', marginTop: 2 }}>
-                        {profile.mbti_class} · RANG {rank} · NIV. {profile.level}
-                      </DataReadout>
-                      <DataReadout size={9} color={T.cyan} style={{ display: 'block', marginTop: 2 }}>
-                        {rankTitle.toUpperCase()}
-                      </DataReadout>
+                      {meta && <DataReadout size={9} style={{ display: 'block', marginTop: 2 }}>{meta}</DataReadout>}
+                      {rankTitle && (
+                        <DataReadout size={9} color={T.cyan} style={{ display: 'block', marginTop: 2 }}>
+                          {rankTitle.toUpperCase()}
+                        </DataReadout>
+                      )}
                     </div>
                   </div>
 
-                  <DataReadout size={9} style={{ display: 'block', marginBottom: 4 }}>
-                    {profile.total_xp.toLocaleString('fr-FR')} XP TOTAL
-                  </DataReadout>
+                  {profile.total_xp !== null && (
+                    <DataReadout size={9} style={{ display: 'block', marginBottom: 4 }}>
+                      {profile.total_xp.toLocaleString('fr-FR')} XP TOTAL
+                    </DataReadout>
+                  )}
 
-                  <div style={{ display: 'grid', placeItems: 'center', marginTop: 10 }}>
-                    <StatRadar stats={stats} size={220} />
-                  </div>
+                  {stats.length > 2 ? (
+                    <div style={{ display: 'grid', placeItems: 'center', marginTop: 10 }}>
+                      <StatRadar stats={stats} size={220} />
+                    </div>
+                  ) : stats.length > 0 ? (
+                    <DataReadout size={9} style={{ display: 'block', marginTop: 10 }}>
+                      {stats.map(st => `${STAT_META[st.kind].label} NIV. ${st.level}`).join(' · ')}
+                    </DataReadout>
+                  ) : (
+                    <DataReadout size={9} color={T.textMute} style={{ display: 'block', marginTop: 10 }}>
+                      CE JOUEUR NE PARTAGE PAS SES STATISTIQUES.
+                    </DataReadout>
+                  )}
                 </>
               )}
 
