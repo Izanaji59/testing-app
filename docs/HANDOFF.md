@@ -2,6 +2,10 @@
 
 Entrée la plus récente en haut. Une entrée par session : date, agent, commits, migrations appliquées, points ouverts.
 
+## 2026-11-13 (suite) — Claude Code, radar des statistiques lisible dès le rang E
+
+- `components/hud/StatRadar.tsx` : échelle adaptative (`lib/engine/radar.ts` → `radarScale` : meilleure stat + 25 %, arrondie aux paliers 5, 10, 15, 20, 30…, affichée sous le radar) au lieu d'une échelle fixe de 100 qui écrasait la forme au centre. Même échelle pour toutes les stats : proportions exactes. Seules les stats fournies sont tracées (les stats masquées d'un profil public n'apparaissent plus au niveau 1). Étiquettes non coupées (ancrage gauche/droite, marges), RÉS en rouge. Prop `max` toujours disponible pour forcer une échelle. Test : `scripts/test-stat-radar.cjs`. Rendu vérifié dans le navigateur. Aucune migration.
+
 ## 2026-11-13 — Claude Code, visibilité du profil public et marque Denshiku
 
 - **Migration 0021 appliquée** (`0021_profile_visibility.sql`) : colonnes `profiles.show_stats` / `show_revenue` / `show_rank` / `show_mbti` (défauts : vrai, **faux** pour la dimension économique, vrai, vrai) ; `get_public_profile` recréée (champs masqués à null + les 4 préférences) ; `get_public_stats` filtre REVENU selon `show_revenue` et les autres stats selon `show_stats`. Les deux RPC sont désormais réservées aux comptes connectés (`get_public_profile` était exécutable par `anon`). Pseudo obligatoire : trigger `profile_pseudo` (vide → code opérateur) + contrainte `profiles_display_name_required`. Prochain numéro libre : `0022`.
