@@ -1,6 +1,9 @@
 'use client';
 
+import Link from 'next/link';
 import { useProfile } from '@/hooks/useProfile';
+import { useChallenges } from '@/hooks/useChallenges';
+import { DailyCheck } from '@/components/core/DailyCheck';
 import { useTodayBriefing } from '@/hooks/useTodayBriefing';
 import { useActiveProjects } from '@/hooks/useProjects';
 import { useTodayQuests } from '@/hooks/useQuests';
@@ -29,6 +32,9 @@ export default function CmdPage() {
       <Header profile={profile} title="COMMANDEMENT" />
 
       <div style={{ padding: '14px 14px 0', display: 'flex', flexDirection: 'column', gap: 14 }}>
+
+        {/* Bilan « Qu'as-tu fait aujourd'hui ? » : alerte tant que rien n'est accompli */}
+        <DailyCheck />
 
         {/* Briefing du jour */}
         <BriefingCard briefing={briefing} />
@@ -86,6 +92,9 @@ export default function CmdPage() {
           </HudPanel>
         )}
 
+        {/* Défis communs */}
+        <ChallengesStrip />
+
         {/* Stats rapides */}
         <HudPanel label="STATUS" thin glow={0.15}>
           <div style={{ padding: 14, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 10 }}>
@@ -126,5 +135,31 @@ export default function CmdPage() {
 
       </div>
     </div>
+  );
+}
+
+function ChallengesStrip() {
+  const { challenges } = useChallenges();
+  const joined = challenges.filter(c => c.joined_at);
+  return (
+    <Link href="/defis" style={{ display: 'block', padding: '12px 14px', border: `1px solid ${T.lineMid}`, background: 'rgba(255,178,61,0.05)', textDecoration: 'none' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12 }}>
+        <DataReadout size={9} color={T.amber}>⚑ DÉFIS COMMUNS{joined.length ? ` · ${joined.length} EN COURS` : ''}</DataReadout>
+        <span aria-hidden="true" style={{ fontFamily: T.mono, fontSize: 14, color: T.amber }}>→</span>
+      </div>
+      {joined.length === 0
+        ? <div style={{ fontSize: 12, color: T.textDim, marginTop: 4 }}>Rejoins un défi partagé : 100 pompes par jour, coucher avant 23 h 30…</div>
+        : <ul style={{ listStyle: 'none', margin: '8px 0 0', padding: 0, display: 'flex', flexDirection: 'column', gap: 6 }}>
+            {joined.slice(0, 3).map(c => {
+              const day = Math.min(c.duration_days, Math.floor((Date.now() - Date.parse(c.joined_at!)) / 86_400_000) + 1);
+              return (
+                <li key={c.id} style={{ display: 'flex', justifyContent: 'space-between', gap: 12, fontSize: 13, color: T.text }}>
+                  <span style={{ overflowWrap: 'anywhere' }}>{c.title}</span>
+                  <span style={{ fontFamily: T.mono, fontSize: 10, color: T.textDim, whiteSpace: 'nowrap' }}>JOUR {day}/{c.duration_days}</span>
+                </li>
+              );
+            })}
+          </ul>}
+    </Link>
   );
 }

@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
-import type { Project } from '@/lib/types';
+import type { Project, Quest } from '@/lib/types';
+import { ProjectQuestBoard } from './ProjectQuestBoard';
 import { priorityFor, quadrantFor, QUADRANTS } from '@/lib/priorities';
 import { usePriorities } from '@/hooks/usePriorities';
 import { useFocus } from '@/components/focus/FocusProvider';
@@ -10,7 +11,7 @@ import styles from './matrix.module.css';
 
 type QuestCounts = Record<string, { total: number; done: number }>;
 
-export function ProjectMatrix({ projects, userId, questCounts }: { projects: Project[]; userId: string; questCounts: QuestCounts }) {
+export function ProjectMatrix({ projects, userId, questCounts, quests }: { projects: Project[]; userId: string; questCounts: QuestCounts; quests: Quest[] }) {
   const { openFocus } = useFocus();
   const { values, ready, busy, error, save } = usePriorities(userId);
   const [view, setView] = useState<'matrix' | 'list'>('matrix');
@@ -36,18 +37,20 @@ export function ProjectMatrix({ projects, userId, questCounts }: { projects: Pro
     });
   }
   return <section className={styles.section} aria-label="Organisation des donjons">
-    <div className={styles.heading}><div><h2>Matrice d’Eisenhower</h2><p>Choisis ce qui mérite ton attention maintenant.</p></div><div className={styles.views} role="group" aria-label="Affichage des donjons"><button aria-pressed={view === 'matrix'} onClick={() => setView('matrix')}>Matrice</button><button aria-pressed={view === 'list'} onClick={() => setView('list')}>Liste</button></div></div>
-    <p className={styles.explanation}>Modifie les cases Important et Urgent, ou déplace un projet entre les quadrants sur ordinateur. Le classement est enregistré sur ton compte.</p>
-    <p className={styles.explanation}>Au départ, les projets sont proposés comme importants ; une échéance dans les 7 jours, ou dépassée, les place dans l’urgence. Tu gardes la main sur ces choix.</p>
-    {error && <p role="alert" className={styles.error}>{error}</p>}
-    <p role="status" className={styles.saveStatus}>{busy ? 'Enregistrement du classement…' : ready ? 'Classement prêt' : error ? 'Classement indisponible' : 'Chargement du classement…'}</p>
+    <div className={styles.heading}><div><h2>{view === 'matrix' ? 'Matrice d’Eisenhower' : 'Toutes les quêtes'}</h2><p>{view === 'matrix' ? 'Choisis ce qui mérite ton attention maintenant.' : 'Chaque donjon avec ses quêtes à faire et terminées.'}</p></div><div className={styles.views} role="group" aria-label="Affichage des donjons"><button aria-pressed={view === 'matrix'} onClick={() => setView('matrix')}>Matrice</button><button aria-pressed={view === 'list'} onClick={() => setView('list')}>Liste</button></div></div>
+    {view === 'matrix' && <>
+      <p className={styles.explanation}>Modifie les cases Important et Urgent, ou déplace un projet entre les quadrants sur ordinateur. Le classement est enregistré sur ton compte.</p>
+      <p className={styles.explanation}>Au départ, les projets sont proposés comme importants ; une échéance dans les 7 jours, ou dépassée, les place dans l’urgence. Tu gardes la main sur ces choix.</p>
+      {error && <p role="alert" className={styles.error}>{error}</p>}
+      <p role="status" className={styles.saveStatus}>{busy ? 'Enregistrement du classement…' : ready ? 'Classement prêt' : error ? 'Classement indisponible' : 'Chargement du classement…'}</p>
+    </>}
     {view === 'matrix' ? <div className={styles.matrix}>{QUADRANTS.map(q => {
       const items = active.filter(p => quadrantFor(priorityFor(p, values)) === q.id);
       return <section key={q.id} aria-label={q.title} className={`${styles.quadrant} ${over === q.id ? styles.over : ''}`} style={{ borderTopColor: q.color }} onDragOver={e => { if (ready && !busy && Array.from(e.dataTransfer.types).includes('application/x-grind-project')) { e.preventDefault(); setOver(q.id); } }} onDragLeave={e => { if (!e.currentTarget.contains(e.relatedTarget as Node)) setOver(null); }} onDrop={e => { e.preventDefault(); setOver(null); const id = e.dataTransfer.getData('application/x-grind-project'); if (ready && !busy && active.some(p => p.id === id)) void save(id, { important: q.important, urgent: q.urgent }); }}>
         <div className={styles.quadrantHead}><div><h3>{q.title}</h3><p>{q.subtitle}</p></div><span>{items.length}</span></div>
         {items.length ? cards(items) : <p className={styles.empty}>Aucun projet ici.</p>}
       </section>;
-    })}</div> : <div className={styles.list}>{active.length ? cards(active) : <p>Aucun projet à classer.</p>}</div>}
+    })}</div> : <ProjectQuestBoard projects={active} quests={quests} />}
     {archived.length > 0 && <details className={styles.archived}><summary>Terminés et abandonnés ({archived.length})</summary>{archived.map(p => <ProjectCard key={p.id} project={p} questCount={questCounts[p.id] ?? { total: 0, done: 0 }} />)}</details>}
   </section>;
 }

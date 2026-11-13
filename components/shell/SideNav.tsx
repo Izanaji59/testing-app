@@ -21,6 +21,10 @@ export function SideNav() {
           {tab.label}
         </Link>
       ))}
+      <Link href="/defis" className={s.navItem} aria-current={pathname?.startsWith('/defis') ? 'page' : undefined}>
+        <span aria-hidden="true" style={{ width: 20, textAlign: 'center', fontSize: 15 }}>⚑</span>
+        DÉFIS
+      </Link>
       <div className={s.sideFooter}><Link href="/">← SLUMBYWISE</Link></div>
     </nav>
   );

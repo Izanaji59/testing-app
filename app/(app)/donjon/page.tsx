@@ -1,6 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { mutate } from 'swr';
 import { useProfile } from '@/hooks/useProfile';
 import { DictationButton, appendDictation } from '@/components/core/DictationButton';
 import { useProjects } from '@/hooks/useProjects';
@@ -15,6 +17,7 @@ import { supabase } from '@/lib/supabase/client';
 import type { ProjectType, DifficultyTier, StatKind } from '@/lib/types';
 import { DIFFICULTY_META } from '@/lib/engine/difficulty';
 import { STAT_META, REWARDABLE_STAT_KINDS } from '@/lib/engine/stats';
+import { PROJECT_TEMPLATES, type ProjectTemplate } from '@/lib/engine/projectTemplates';
 
 const PROJECT_TYPES: { value: ProjectType; label: string; desc: string }[] = [
   { value: 'OPERATION', label: 'OPÉRATION', desc: 'Tâche structurée, durée courte' },
@@ -66,13 +69,21 @@ export default function DonjonPage() {
           {showCreate ? '✕ ANNULER' : '+ NOUVEAU PROJET'}
         </button>
 
+        <Link href="/defis" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, padding: '12px 14px', border: `1px solid ${T.lineMid}`, background: 'rgba(255,178,61,0.05)', textDecoration: 'none' }}>
+          <span>
+            <DataReadout size={9} color={T.amber} style={{ display: 'block' }}>⚑ DÉFIS COMMUNS</DataReadout>
+            <span style={{ display: 'block', fontSize: 12, color: T.textDim, marginTop: 4 }}>100 pompes, coucher avant 23 h 30… Relève un objectif quotidien avec les autres joueurs.</span>
+          </span>
+          <span style={{ fontFamily: T.mono, fontSize: 14, color: T.amber }}>→</span>
+        </Link>
+
         {showCreate && (
           <ProjectCreator
             onCreated={() => { setShowCreate(false); refresh(); }}
           />
         )}
 
-        <ProjectMatrix projects={projects} userId={profile.user_id} questCounts={questCounts} />
+        <ProjectMatrix projects={projects} userId={profile.user_id} questCounts={questCounts} quests={quests} />
 
         {projects.length === 0 && !showCreate && (
           <HudPanel thin>
@@ -102,6 +113,35 @@ function ProjectCreator({ onCreated }: { onCreated: () => void }) {
   const [weeklyTarget, setWeeklyTarget] = useState('');
   const [submitting, setSub]    = useState(false);
   const [error, setError]       = useState<string | null>(null);
+  const [showTemplates, setShowTemplates] = useState(false);
+
+  /** Crée le projet du modèle puis ses premières quêtes (sans échéance). */
+  async function applyTemplate(t: ProjectTemplate) {
+    if (submitting) return;
+    setSub(true); setError(null);
+    try {
+      const sb = supabase();
+      const { data: auth } = await sb.auth.getUser();
+      if (!auth.user) throw new Error('Non authentifié');
+      const { data: project, error: insertErr } = await sb.from('projects').insert({
+        user_id: auth.user.id, type: t.type, title: t.title, status: 'ACTIVE', difficulty: t.difficulty,
+        primary_stat: t.stat, starts_at: new Date().toISOString(),
+        ends_at: t.days ? new Date(Date.now() + t.days * 86400000).toISOString() : null,
+      }).select('id').single();
+      if (insertErr || !project) throw insertErr ?? new Error('Projet non créé');
+      const { error: questsErr } = await sb.from('quests').insert(t.quests.map(q => ({
+        user_id: auth.user!.id, project_id: project.id, title: q.title, status: 'PENDING',
+        difficulty_tier: q.tier, estimated_minutes: q.minutes, reward_stats: [t.stat], due_at: null, is_flash: false,
+      })));
+      if (questsErr) throw questsErr;
+      await mutate('quests');
+      onCreated();
+    } catch {
+      setError('Le modèle n’a pas pu être entièrement créé. Vérifie tes donjons avant de réessayer.');
+    } finally {
+      setSub(false);
+    }
+  }
 
   async function submit() {
     if (!title.trim()) return;
@@ -145,7 +185,34 @@ function ProjectCreator({ onCreated }: { onCreated: () => void }) {
     <HudPanel label="NOUVEAU PROJET" glow={0.4}>
       <div style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 12 }}>
 
-        <DataReadout>TITRE DU PROJET</DataReadout>
+        <button
+          type="button"
+          onClick={() => setShowTemplates(s => !s)}
+          aria-expanded={showTemplates}
+          style={{ background: 'transparent', color: T.cyan, border: `1px solid ${T.lineMid}`, padding: '10px 12px', fontFamily: T.mono, fontSize: 9, letterSpacing: '0.2em', cursor: 'pointer', minHeight: 44 }}
+        >
+          {showTemplates ? '✕ FERMER LES MODÈLES' : '💡 PARTIR D’UN MODÈLE DE PROJET'}
+        </button>
+        {showTemplates && (
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 8 }}>
+            {PROJECT_TEMPLATES.map(t => (
+              <button
+                key={t.id}
+                type="button"
+                disabled={submitting}
+                onClick={() => applyTemplate(t)}
+                style={{ textAlign: 'left', background: T.surf2, border: `1px solid ${T.line}`, padding: 12, cursor: submitting ? 'wait' : 'pointer', color: T.text, minHeight: 44 }}
+              >
+                <DataReadout size={8} color={STAT_META[t.stat].color} style={{ display: 'block' }}>{t.domain.toUpperCase()} · {STAT_META[t.stat].short}</DataReadout>
+                <span style={{ display: 'block', fontFamily: T.display, fontSize: 14, marginTop: 6 }}>{t.title}</span>
+                <span style={{ display: 'block', fontSize: 12, color: T.textDim, marginTop: 4, lineHeight: 1.5 }}>{t.pitch}</span>
+                <span style={{ display: 'block', fontFamily: T.mono, fontSize: 9, color: T.textMute, letterSpacing: '0.14em', marginTop: 8 }}>{t.quests.length} QUÊTES DE DÉPART{t.days ? ` · ${t.days} JOURS` : ''}</span>
+              </button>
+            ))}
+          </div>
+        )}
+
+        <DataReadout>OU TITRE DU PROJET</DataReadout>
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
           <input
             value={title}

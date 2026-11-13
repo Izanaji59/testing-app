@@ -34,6 +34,7 @@ GitHub `main` est la seule source de vérité. Les sessions se passent la main p
 - La concentration (minuteur) se rattache à une mission, jamais à un projet.
 - Résignation : jamais automatique, toujours après le bilan « Quelle est ton excuse ? » — échéance dépassée, ou mission démarrée non terminée dans la journée (une fois par jour, la mission reste en cours). Voir `docs/quest-deadline-review.md`.
 - Profil public : chaque joueur choisit ce que les autres voient (`profiles.show_stats`, `show_revenue`, `show_rank`, `show_mbti`) ; le pseudo est obligatoire et toujours visible. Le filtrage se fait côté serveur dans `get_public_profile` / `get_public_stats` (migration 0021) : ne jamais exposer une donnée d'un autre joueur par une autre voie (requête directe, nouvelle RPC) sans appliquer ces choix. Les montants de revenus ne sont jamais publics.
+- Défis communs (migration 0022) : rejoindre, quête du jour et classement passent uniquement par les RPC `security definer` ; le classement n'expose que le pseudo et les jours réussis.
 - Marque affichée dans l'interface : « Denshiku » (anciennement LATRACTION, qui ne doit plus apparaître à l'écran).
 - Rangs E → S nommés selon le MBTI (16 profils × 6 rangs) : `lib/engine/rankTitles.ts`.
 - Personnages de fiction : typage éditorial uniquement, saisi dans `public/characters/typings.json` (voir `docs/personnages.md`). Données via API officielles (TMDB, AniList) ; ne jamais extraire les typages ou données d'autres sites (PDB, Boo…).

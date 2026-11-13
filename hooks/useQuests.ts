@@ -130,10 +130,23 @@ export async function createQuestFlash(input: {
     reward_eur: input.reward_eur ?? 0,
     is_flash: input.project_id === null,
     due_at: dueAt,
-  });
+  }).select('id').single();
   if (result.error) throw result.error;
   await Promise.all([mutate('quests'), mutate('quests-today')]);
-  return result;
+  return { id: result.data.id as string };
+}
+
+/**
+ * Déclare une action déjà accomplie aujourd'hui : quête flash créée puis validée.
+ * L'XP reste calculée par les triggers SQL (budget figé, plafond quotidien).
+ */
+export async function declareAccomplishment(title: string, minutes: number) {
+  const { id } = await createQuestFlash({ title, project_id: null, estimated_minutes: minutes, difficulty_tier: 'ROUTINE' });
+  const { error } = await supabase().from('quests')
+    .update({ status: 'COMPLETED', completed_at: new Date().toISOString() })
+    .eq('id', id);
+  if (error) throw error;
+  await Promise.all([mutate('quests'), mutate('quests-today'), mutate('profile-bundle')]);
 }
 
 /** Opt-in repair: date one existing undated quest from today, never backfill old days. */

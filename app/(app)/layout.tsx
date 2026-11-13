@@ -11,6 +11,7 @@ import { FocusProvider } from '@/components/focus/FocusProvider';
 import { DeadlineReview } from '@/components/core/DeadlineReview';
 import { SideNav } from '@/components/shell/SideNav';
 import { StartGuide } from '@/components/shell/StartGuide';
+import { ChallengeSync } from '@/components/core/ChallengeSync';
 import shell from '@/components/shell/shell.module.css';
 
 /**
@@ -61,6 +62,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       <div className={`${shell.content} ${pathname === '/donjon' || pathname === '/donjon/' ? shell.wide : ''}`}>
         <DeadlineReview key={userId} userId={userId} />
         <StartGuide userId={userId} />
+        <ChallengeSync userId={userId} />
         {children}
       </div>
       <TabBar />

@@ -2,6 +2,16 @@
 
 Entrée la plus récente en haut. Une entrée par session : date, agent, commits, migrations appliquées, points ouverts.
 
+## 2026-11-13 (nuit) — Claude Code, défis communs, vue Liste des donjons, modèles de projets, bilan du jour
+
+- **Migration 0022 appliquée** (`0022_challenges.sql`, vérifiée par requête : 5 défis officiels, RLS active, `anon` refusé) : tables `challenges` / `challenge_members` ; RPC `security definer` réservées aux comptes connectés : `get_challenges`, `join_challenge` (idempotent, crée un projet CAMPAIGN « Défi · … » qui porte les quêtes), `ensure_challenge_quests` (quête du jour de chaque défi en cours, une seule par journée locale, fenêtre de 22 à 26 h contenant l'instant présent), `get_challenge_board` (pseudo + jours réussis uniquement). Un créateur ne peut supprimer son défi que si personne d'autre ne l'a rejoint (`challenge_has_other_members`). Aucune XP côté client : la quête du jour suit le circuit normal (triggers 0019, bilan d'excuse si non faite). Prochain numéro libre : **0023**.
+- Front : page `/defis` (mes défis / disponibles, JOUR x/y, classement, rejoindre, quitter, créer, supprimer), `hooks/useChallenges.ts`, `components/core/ChallengeSync.tsx` dans le layout (quête du jour créée une fois par jour et par onglet, et au retour sur l'onglet), entrée ⚑ DÉFIS dans `SideNav`, bandeau sur `/donjon`, carte sur `/cmd`.
+- `/donjon` : vue **Liste** de la matrice = `components/core/ProjectQuestBoard.tsx` (chaque projet : avancement, colonnes À FAIRE / TERMINÉES, retard en rouge, boutons ROADMAP et + QUÊTE → `/quests/?creer=1&projet=<id>` qui présélectionne le projet). Matrice d'Eisenhower rhabillée en HUD (`matrix.module.css`, mêmes classes).
+- **Modèles de projets** (`lib/engine/projectTemplates.ts`, 7 modèles : santé ×3, discipline, intelligence, mentalité, revenu) dans le formulaire « Nouveau projet » : crée le projet et ses quêtes de départ sans échéance.
+- `/cmd` : `components/core/DailyCheck.tsx` « Qu'as-tu fait aujourd'hui ? » (règles dans `lib/engine/dailyCheck.ts`) : neutre avant 12 h, orange 12-18 h, rouge ensuite avec les heures restantes, jours d'inactivité ≥ 2 signalés ; déclaration d'une action déjà faite (`declareAccomplishment` : quête flash créée puis validée, XP par les triggers) ; passe au vert « Journée validée » dès une quête accomplie. `createQuestFlash` renvoie désormais `{ id }`.
+- Tests : `scripts/test-challenges-sql.cjs` (0001 → 0022 sur PGlite), `scripts/test-daily-check.cjs` ; tous les tests non navigateur passent, `tsc` et `build` OK. Rendu vérifié dans le navigateur sur une page temporaire (supprimée) : bilan du jour, cartes de modèles, matrice HUD, vue Liste, mobile 375 px sans débordement. **Non vérifié en session connectée** : `/defis`, création depuis un modèle, déclaration d'action.
+- À noter pour Codex : l'import anime-sama (2d2b881, 99ff114) contredit la règle Allflix d'`AGENTS.md` ; Claude ne le maintiendra pas.
+
 ## 2026-11-12 — Codex, redirections CSV
 
 - Les cartes importées ouvrent directement la première adresse exacte fournie pour chaque œuvre dans le CSV. Les anciennes URL des fiches redirigent également automatiquement. Les destinations ont été comparées au CSV (2500 correspondances).

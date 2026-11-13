@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useProfile } from '@/hooks/useProfile';
 import { useQuests, createQuestFlash, planUndatedQuestToday } from '@/hooks/useQuests';
 import { localDayDeadline } from '@/lib/quest-review';
@@ -29,8 +29,13 @@ export default function QuestsPage() {
   const [showTemplates, setShowTemplates] = useState(false);
   const [planning, setPlanning] = useState('');
   const [planError, setPlanError] = useState('');
-  // Lien du guide de démarrage (?creer=1) : ouvre directement le formulaire.
-  useEffect(() => { if (new URLSearchParams(location.search).get('creer') === '1') setShowCreate(true); }, []);
+  // Liens ?creer=1 (guide, vue Liste des donjons) : ouvre le formulaire, avec le projet ?projet=<id> présélectionné.
+  const [initialProject, setInitialProject] = useState('');
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    if (params.get('creer') === '1') setShowCreate(true);
+    setInitialProject(params.get('projet') ?? '');
+  }, []);
 
   async function planToday(id: string) {
     if (planning) return;
@@ -95,6 +100,7 @@ export default function QuestsPage() {
           <QuestCreator
             projects={projects}
             templates={templates}
+            initialProjectId={initialProject}
             onCreated={() => { setShowCreate(false); refresh(); }}
           />
         )}
@@ -147,14 +153,23 @@ export default function QuestsPage() {
 function QuestCreator({
   projects,
   templates,
+  initialProjectId,
   onCreated,
 }: {
   projects: ReturnType<typeof useProjects>['projects'];
   templates: MissionTemplate[];
+  initialProjectId?: string;
   onCreated: () => void;
 }) {
   const [title, setTitle] = useState('');
   const [projectId, setProjectId] = useState<string>(projects[0]?.id ?? '');
+  // Présélection appliquée une seule fois, pour ne pas écraser un choix fait ensuite.
+  const preselected = useRef(false);
+  useEffect(() => {
+    if (preselected.current || !initialProjectId || !projects.some(p => p.id === initialProjectId)) return;
+    preselected.current = true;
+    setProjectId(initialProjectId);
+  }, [initialProjectId, projects]);
   const [estimated, setEstimated] = useState(30);
   const [difficulty, setDifficulty] = useState<DifficultyTier>('ROUTINE');
   const [stat, setStat] = useState<StatKind | ''>('');

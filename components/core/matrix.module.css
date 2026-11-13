@@ -1,1 +1,65 @@
-.section{font:14px/1.5 system-ui,sans-serif;color:#dceaf7;min-width:0}.heading{display:flex;align-items:center;justify-content:space-between;gap:18px}.heading h2{font-size:22px;margin:0}.heading p{color:#a2b8cf;font-size:13px;margin:5px 0}.views{display:flex;gap:5px}.section button{min-height:44px;background:#0e2133;border:1px solid #38516a;padding:9px 12px;color:#dceaf7;border-radius:7px;cursor:pointer;font:inherit;font-size:12px}.section button[aria-pressed=true]{border-color:#4ecdff;color:#78d8ff}.section button:focus-visible,.section input:focus-visible{outline:2px solid #ffb23d;outline-offset:3px}.explanation{color:#a2b8cf;font-size:12px;margin:10px 0}.saveStatus{font-size:11px;color:#a2b8cf;min-height:18px;margin:10px 0}.matrix{display:grid;grid-template-columns:1fr 1fr;gap:16px}.quadrant{min-width:0;background:#08121fe6;border:1px solid #233a50;border-top:3px solid;padding:16px;border-radius:10px;min-height:200px}.quadrant.over{outline:2px dashed #4ecdff;outline-offset:3px}.quadrantHead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}.quadrantHead h3{font-size:16px;margin:0}.quadrantHead p{font-size:12px;color:#a2b8cf;margin:4px 0 0}.quadrantHead>span{color:#a2b8cf}.card{background:#0e1d2e;border:1px solid #2d455b;border-radius:8px;padding:14px;margin-top:10px;min-width:0}.cardHead{display:flex;align-items:baseline;justify-content:space-between;gap:10px}.cardHead h3{font-size:15px;margin:0;overflow-wrap:anywhere}.cardHead>span{font-size:12px;color:#78d8ff;white-space:nowrap}.meta,.suggestion{font-size:11px;color:#a2b8cf;margin:6px 0}.suggestion{color:#d0b784}.criteria{display:flex;flex-wrap:wrap;gap:14px;margin:8px 0}.criteria label{display:flex;align-items:center;gap:7px;font-size:12px;min-height:44px;cursor:pointer}.criteria input{width:17px;height:17px;accent-color:#4ecdff}.actions{display:flex;flex-wrap:wrap;gap:8px}.actions>button:first-child{border-color:#326a84;color:#78d8ff}.details{margin-top:12px;overflow-wrap:anywhere}.empty{color:#7e97b7;font-size:12px;padding:24px 0}.error{color:#ff9bad}.list{display:grid;gap:12px;max-width:720px;margin:auto}.archived{margin:24px 0}.archived summary{cursor:pointer;padding:12px 0}.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}@media(max-width:700px){.matrix{grid-template-columns:1fr}.heading{flex-wrap:wrap}.quadrant{padding:12px;min-height:150px}.heading h2{font-size:20px}}
+/* Matrice d'Eisenhower des donjons — habillage HUD (Solo Leveling : cyan glacé, angles nets, lueurs). */
+
+.section{font:14px/1.5 "Chakra Petch",system-ui,sans-serif;color:#dceaf7;min-width:0}
+
+.heading{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:0 2px}
+.heading h2{font:600 15px/1.3 "JetBrains Mono",ui-monospace,monospace;letter-spacing:.24em;text-transform:uppercase;margin:0;color:#4ecdff;text-shadow:0 0 12px rgba(78,205,255,.45)}
+.heading h2::before{content:"◇ ";color:#b8ecff}
+.heading p{color:#7e97b7;font-size:12px;margin:5px 0}
+
+.views{display:flex;gap:0;border:1px solid rgba(120,200,255,.26)}
+.views button{border:0!important;border-right:1px solid rgba(120,200,255,.26)!important}
+.views button:last-child{border-right:0!important}
+
+.section button{min-height:44px;background:rgba(14,26,46,.72);border:1px solid rgba(120,200,255,.26);padding:9px 14px;color:#dceaf7;border-radius:0;cursor:pointer;font:500 10px/1 "JetBrains Mono",ui-monospace,monospace;letter-spacing:.18em;text-transform:uppercase;transition:border-color .15s,color .15s,box-shadow .15s,background .15s}
+.section button:hover:not(:disabled){border-color:rgba(120,200,255,.55);color:#b8ecff}
+.section button[aria-pressed=true]{background:rgba(78,205,255,.12);color:#4ecdff;box-shadow:inset 0 -2px 0 #4ecdff}
+.section button:disabled{opacity:.5;cursor:not-allowed}
+.section button:focus-visible,.section input:focus-visible,.section summary:focus-visible{outline:2px solid #ffb23d;outline-offset:3px}
+
+.explanation{color:#7e97b7;font-size:12px;margin:10px 0;padding-left:10px;border-left:2px solid rgba(120,200,255,.26)}
+.saveStatus{font:10px/1.4 "JetBrains Mono",ui-monospace,monospace;letter-spacing:.16em;text-transform:uppercase;color:#7e97b7;min-height:18px;margin:10px 0}
+
+.matrix{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
+.quadrant{position:relative;min-width:0;background:linear-gradient(180deg,rgba(78,205,255,.05),rgba(10,19,32,.78) 40%);border:1px solid rgba(120,200,255,.14);border-top:2px solid;padding:16px;min-height:200px;clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px))}
+.quadrant::after{content:"";position:absolute;inset:auto 0 0 auto;width:14px;height:14px;background:linear-gradient(135deg,transparent 50%,rgba(120,200,255,.35) 50%);pointer-events:none}
+.quadrant.over{outline:2px dashed #4ecdff;outline-offset:-4px;background:rgba(78,205,255,.1)}
+
+.quadrantHead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+.quadrantHead h3{font:600 12px/1.3 "JetBrains Mono",ui-monospace,monospace;letter-spacing:.2em;text-transform:uppercase;margin:0}
+.quadrantHead p{font-size:11px;color:#7e97b7;margin:4px 0 0}
+.quadrantHead>span{font:700 22px/1 "Orbitron",system-ui,sans-serif;color:#dceaf7;text-shadow:0 0 10px rgba(78,205,255,.4);font-variant-numeric:tabular-nums}
+
+.card{position:relative;background:rgba(14,26,46,.72);border:1px solid rgba(120,200,255,.14);border-left:2px solid rgba(78,205,255,.6);padding:12px 14px;margin-top:10px;min-width:0;transition:border-color .15s,box-shadow .15s}
+.card:hover{border-color:rgba(120,200,255,.4);box-shadow:0 0 16px rgba(78,205,255,.12)}
+.card[draggable=true]{cursor:grab}
+.cardHead{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.cardHead h3{font:600 15px/1.3 "Chakra Petch",system-ui,sans-serif;letter-spacing:.03em;margin:0;overflow-wrap:anywhere}
+.cardHead>span{font:700 14px/1 "Orbitron",system-ui,sans-serif;color:#4ecdff;white-space:nowrap;text-shadow:0 0 8px rgba(78,205,255,.45)}
+
+.meta,.suggestion{font:10px/1.5 "JetBrains Mono",ui-monospace,monospace;letter-spacing:.06em;color:#7e97b7;margin:6px 0}
+.suggestion{color:#ffb23d;letter-spacing:.16em;text-transform:uppercase}
+.suggestion::before{content:"◆ "}
+
+.criteria{display:flex;flex-wrap:wrap;gap:14px;margin:8px 0}
+.criteria label{display:flex;align-items:center;gap:8px;font:10px/1 "JetBrains Mono",ui-monospace,monospace;letter-spacing:.16em;text-transform:uppercase;min-height:44px;cursor:pointer;color:#dceaf7}
+.criteria input{width:17px;height:17px;accent-color:#4ecdff}
+
+.actions{display:flex;flex-wrap:wrap;gap:8px}
+.actions>button:first-child{border-color:rgba(78,205,255,.55);color:#4ecdff;box-shadow:0 0 12px rgba(78,205,255,.15)}
+
+.details{margin-top:12px;overflow-wrap:anywhere}
+.empty{font:10px/1.5 "JetBrains Mono",ui-monospace,monospace;letter-spacing:.2em;text-transform:uppercase;color:#4a607e;padding:24px 0;text-align:center}
+.error{color:#ff9bad}
+
+.archived{margin:24px 0;border-top:1px solid rgba(120,200,255,.14)}
+.archived summary{cursor:pointer;padding:14px 0;min-height:44px;font:10px/1.5 "JetBrains Mono",ui-monospace,monospace;letter-spacing:.2em;text-transform:uppercase;color:#7e97b7}
+
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+
+@media(max-width:700px){
+  .matrix{grid-template-columns:1fr}
+  .heading{flex-wrap:wrap}
+  .quadrant{padding:12px;min-height:150px}
+}
