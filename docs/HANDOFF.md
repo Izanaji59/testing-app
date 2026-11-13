@@ -2,6 +2,14 @@
 
 Entrée la plus récente en haut. Une entrée par session : date, agent, commits, migrations appliquées, points ouverts.
 
+## 2026-11-13 (nuit, suite) — Claude Code, partage des quêtes et des défis
+
+- `lib/share.ts` : une quête se partage par lien `/quests/?partage=<code>` (titre, minutes, difficulté, 2 compétences max, encodés en base64url ; jamais d'euros, d'échéance ni d'identifiant). Un défi par `/defis/?defi=<id>`. Ordre des listes TIERS/STATS figé (liens déjà envoyés).
+- Bouton ⇪ PARTAGER sur chaque `QuestCard`, ⇪ INVITER sur chaque défi → `components/core/SharePanel.tsx` : envoi dans le tchat, copie du lien, partage natif du téléphone.
+- `/quests/?partage=` → `SharedQuestOffer` : « Relever la quête » la copie dans le compte du joueur (quêtes du jour, XP par les triggers habituels). `/defis/?defi=` met le défi en avant avec REJOINDRE.
+- Tchat : un message contenant un de ces liens affiche une carte (`ChatShareCard`) avec RELEVER / REJOINDRE ; le chemin est reconstruit depuis les données validées, quel que soit le domaine du lien. `useChat` charge désormais les 200 messages **les plus récents** (il chargeait les 200 plus anciens) ; `sendChatMessage` exporté, erreurs d'envoi affichées.
+- Aucune migration. Test : `scripts/test-share.cjs`. Panneau de partage vérifié dans le navigateur ; non vérifié en session connectée (envoi réel dans le tchat, ajout d'une quête partagée).
+
 ## 2026-11-13 (nuit) — Claude Code, défis communs, vue Liste des donjons, modèles de projets, bilan du jour
 
 - **Migration 0022 appliquée** (`0022_challenges.sql`, vérifiée par requête : 5 défis officiels, RLS active, `anon` refusé) : tables `challenges` / `challenge_members` ; RPC `security definer` réservées aux comptes connectés : `get_challenges`, `join_challenge` (idempotent, crée un projet CAMPAIGN « Défi · … » qui porte les quêtes), `ensure_challenge_quests` (quête du jour de chaque défi en cours, une seule par journée locale, fenêtre de 22 à 26 h contenant l'instant présent), `get_challenge_board` (pseudo + jours réussis uniquement). Un créateur ne peut supprimer son défi que si personne d'autre ne l'a rejoint (`challenge_has_other_members`). Aucune XP côté client : la quête du jour suit le circuit normal (triggers 0019, bilan d'excuse si non faite). Prochain numéro libre : **0023**.

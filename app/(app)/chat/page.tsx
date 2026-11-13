@@ -8,13 +8,18 @@ import { ProfileState } from '@/components/shell/ProfileState';
 import { HudPanel } from '@/components/hud/HudPanel';
 import { DataReadout } from '@/components/hud/DataReadout';
 import { PublicProfileModal } from '@/components/core/PublicProfileModal';
+import { ChatShareCard } from '@/components/core/ChatShareCard';
+import { useChallenges } from '@/hooks/useChallenges';
+import { findShareLink } from '@/lib/share';
 import { T } from '@/lib/tokens';
 
 export default function ChatPage() {
   const { profile, loading } = useProfile();
   const { messages, send } = useChat();
+  const { challenges } = useChallenges();
   const [draft, setDraft] = useState('');
   const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState('');
   const [openProfileId, setOpenProfileId] = useState<string | null>(null);
   const listRef = useRef<HTMLDivElement>(null);
 
@@ -27,10 +32,12 @@ export default function ChatPage() {
   async function submit() {
     const text = draft.trim();
     if (!text || sending) return;
-    setSending(true);
+    setSending(true); setSendError('');
     try {
       await send(text);
       setDraft('');
+    } catch {
+      setSendError('Le message n’a pas pu être envoyé. Réessaie.');
     } finally {
       setSending(false);
     }
@@ -57,6 +64,8 @@ export default function ChatPage() {
             ) : (
               messages.map(m => {
                 const isMe = m.user_id === profile.user_id;
+                const link = findShareLink(m.body);
+                const text = link ? m.body.replace(link.raw, '').trim() : m.body;
                 return (
                   <div key={m.id} style={{ display: 'flex', flexDirection: 'column', alignItems: isMe ? 'flex-end' : 'flex-start' }}>
                     <button
@@ -69,15 +78,16 @@ export default function ChatPage() {
                     >
                       {isMe ? 'TOI' : m.sender_name}
                     </button>
-                    <div style={{
+                    {text && <div style={{
                       marginTop: 3, padding: '8px 12px', maxWidth: '82%',
                       border: `1px solid ${isMe ? T.lineHot : T.line}`,
                       background: isMe ? 'rgba(78, 205, 255, 0.06)' : 'rgba(255,255,255,0.02)',
                       fontFamily: T.mono, fontSize: 12, color: T.text,
                       lineHeight: 1.5, wordBreak: 'break-word',
                     }}>
-                      {m.body}
-                    </div>
+                      {text}
+                    </div>}
+                    {link && <ChatShareCard link={link} challenges={challenges} />}
                   </div>
                 );
               })
@@ -117,8 +127,10 @@ export default function ChatPage() {
           </button>
         </div>
 
+        {sendError && <p role="alert" style={{ margin: 0, fontSize: 12, color: T.danger }}>{sendError}</p>}
+
         <DataReadout size={8} color={T.textMute} style={{ display: 'block', textAlign: 'center', marginBottom: 8 }}>
-          SALLE UNIQUE · TOUS LES OPÉRATEURS · CLIQUE UN PSEUDO POUR VOIR SON PROFIL
+          SALLE UNIQUE · TOUS LES OPÉRATEURS · CLIQUE UN PSEUDO POUR VOIR SON PROFIL · ⇪ PARTAGER UNE QUÊTE OU UN DÉFI DEPUIS SA CARTE
         </DataReadout>
 
         {/* Bandeau pub — lien externe, ouvre dans un nouvel onglet */}

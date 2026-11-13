@@ -9,6 +9,8 @@ import { useMissionTemplates, createMissionTemplate, deleteMissionTemplate } fro
 import { Header } from '@/components/shell/Header';
 import { ProfileState } from '@/components/shell/ProfileState';
 import { QuestCard } from '@/components/core/QuestCard';
+import { SharedQuestOffer } from '@/components/core/SharedQuestOffer';
+import { decodeSharedQuest, type SharedQuest } from '@/lib/share';
 import { HudPanel } from '@/components/hud/HudPanel';
 import { DataReadout } from '@/components/hud/DataReadout';
 import { T } from '@/lib/tokens';
@@ -31,11 +33,19 @@ export default function QuestsPage() {
   const [planError, setPlanError] = useState('');
   // Liens ?creer=1 (guide, vue Liste des donjons) : ouvre le formulaire, avec le projet ?projet=<id> présélectionné.
   const [initialProject, setInitialProject] = useState('');
+  // Lien de quête partagée (?partage=…) : undefined = aucun lien, null = lien abîmé.
+  const [shared, setShared] = useState<SharedQuest | null | undefined>(undefined);
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     if (params.get('creer') === '1') setShowCreate(true);
     setInitialProject(params.get('projet') ?? '');
+    if (params.has('partage')) setShared(decodeSharedQuest(params.get('partage')));
   }, []);
+
+  function closeShared() {
+    setShared(undefined);
+    history.replaceState(null, '', location.pathname);
+  }
 
   async function planToday(id: string) {
     if (planning) return;
@@ -56,6 +66,8 @@ export default function QuestsPage() {
       <Header profile={profile} title="QUÊTES" />
 
       <div style={{ padding: '14px 14px 0', display: 'flex', flexDirection: 'column', gap: 12 }}>
+
+        {shared !== undefined && <SharedQuestOffer quest={shared} onClose={closeShared} />}
 
         {/* Filtres */}
         <div style={{ display: 'flex', gap: 6, overflowX: 'auto', paddingBottom: 4 }}>

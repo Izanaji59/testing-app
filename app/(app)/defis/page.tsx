@@ -1,7 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { SharePanel } from '@/components/core/SharePanel';
+import { challengeSharePath } from '@/lib/share';
 import useSWR from 'swr';
 import { useProfile } from '@/hooks/useProfile';
 import { useChallenges, joinChallenge, leaveChallenge, createChallenge, deleteChallenge, fetchBoard, type Challenge } from '@/hooks/useChallenges';
@@ -36,10 +38,14 @@ export default function DefisPage() {
   const { profile, loading } = useProfile();
   const { challenges, error, loading: listLoading } = useChallenges();
   const [showCreate, setShowCreate] = useState(false);
+  // Lien partagé /defis/?defi=<id> : le défi est mis en avant en haut de la page.
+  const [sharedId, setSharedId] = useState('');
+  useEffect(() => { setSharedId((new URLSearchParams(location.search).get('defi') ?? '').toLowerCase()); }, []);
   if (!profile) return <ProfileState kind={loading ? 'loading' : 'missing'} />;
 
-  const mine = challenges.filter(c => c.joined_at);
-  const others = challenges.filter(c => !c.joined_at);
+  const shared = sharedId ? challenges.find(c => c.id === sharedId) : undefined;
+  const mine = challenges.filter(c => c.joined_at && c.id !== shared?.id);
+  const others = challenges.filter(c => !c.joined_at && c.id !== shared?.id);
 
   return (
     <div style={{ color: T.text }}>
@@ -56,6 +62,10 @@ export default function DefisPage() {
 
         {error && <p role="alert" style={{ color: T.danger, fontSize: 13, margin: 0 }}>Les défis n’ont pas pu être chargés. Réessaie dans un instant.</p>}
         {listLoading && <DataReadout color={T.cyan}>CHARGEMENT DES DÉFIS…</DataReadout>}
+
+        {sharedId && !listLoading && !error && (shared
+          ? <Section title="⚑ DÉFI PARTAGÉ AVEC TOI"><ChallengeCard challenge={shared} userId={profile.user_id} highlight /></Section>
+          : <p role="status" style={{ margin: 0, fontSize: 13, color: T.textDim }}>Ce défi n’existe plus ou le lien est incomplet.</p>)}
 
         {mine.length > 0 && <Section title={`MES DÉFIS EN COURS · ${mine.length}`}>{mine.map(c => <ChallengeCard key={c.id} challenge={c} userId={profile.user_id} />)}</Section>}
         {others.length > 0 && <Section title={`DÉFIS DISPONIBLES · ${others.length}`}>{others.map(c => <ChallengeCard key={c.id} challenge={c} userId={profile.user_id} />)}</Section>}
@@ -76,7 +86,8 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   </section>;
 }
 
-function ChallengeCard({ challenge: c, userId }: { challenge: Challenge; userId: string }) {
+function ChallengeCard({ challenge: c, userId, highlight = false }: { challenge: Challenge; userId: string; highlight?: boolean }) {
+  const [sharing, setSharing] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const [showBoard, setShowBoard] = useState(false);
@@ -94,7 +105,7 @@ function ChallengeCard({ challenge: c, userId }: { challenge: Challenge; userId:
   }
 
   return (
-    <HudPanel thin glow={c.joined_at ? 0.35 : 0.15}>
+    <HudPanel thin glow={highlight ? 0.8 : c.joined_at ? 0.35 : 0.15}>
       <div style={{ padding: 14, display: 'flex', flexDirection: 'column', gap: 8 }}>
         <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
           {c.official && <DataReadout size={8} color={T.amber}>◆ OFFICIEL</DataReadout>}
@@ -121,9 +132,11 @@ function ChallengeCard({ challenge: c, userId }: { challenge: Challenge; userId:
           {!c.joined_at && <button type="button" disabled={busy} onClick={() => run(() => joinChallenge(c.id), 'Impossible de rejoindre ce défi. Réessaie.')} style={btn(true)}>{busy ? '…' : 'REJOINDRE'}</button>}
           {c.joined_at && c.project_id && <Link href="/quests/" style={{ ...btn(true), textDecoration: 'none', display: 'inline-flex', alignItems: 'center' }}>QUÊTE DU JOUR</Link>}
           <button type="button" aria-expanded={showBoard} onClick={() => setShowBoard(s => !s)} style={btn(false)}>{showBoard ? '▲ CLASSEMENT' : '▼ CLASSEMENT'}</button>
+          <button type="button" aria-expanded={sharing} onClick={() => setSharing(s => !s)} style={btn(false)}>⇪ INVITER</button>
           {c.joined_at && !confirmLeave && <button type="button" onClick={() => setConfirmLeave(true)} style={{ ...btn(false), color: T.textMute, borderColor: T.line }}>QUITTER</button>}
           {c.mine && !c.joined_at && <button type="button" disabled={busy} onClick={() => run(() => deleteChallenge(c.id), 'Le défi n’a pas pu être supprimé.')} style={{ ...btn(false), color: T.danger, borderColor: `${T.danger}55` }}>SUPPRIMER</button>}
         </div>
+        {sharing && <SharePanel prefix={`⚑ Défi « ${c.title} » · ${c.duration_days} jours, rejoins-moi`} detail={c.daily_goal} path={challengeSharePath(c.id)} onClose={() => setSharing(false)} />}
         {confirmLeave && (
           <div role="group" aria-label="Quitter le défi" style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
             <DataReadout size={8} color={T.danger} style={{ flexBasis: '100%' }}>QUITTER ? PLUS DE QUÊTE QUOTIDIENNE. LE PROJET RESTE DANS TES DONJONS.</DataReadout>

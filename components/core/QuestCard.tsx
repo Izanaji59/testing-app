@@ -12,6 +12,8 @@ import type { Quest, Task } from '@/lib/types';
 import { supabase } from '@/lib/supabase/client';
 import { DIFFICULTY_META, questXpBudget } from '@/lib/engine/difficulty';
 import { fmtDuration } from '@/lib/utils';
+import { questSharePath } from '@/lib/share';
+import { SharePanel } from '@/components/core/SharePanel';
 
 type Props = {
   quest: Quest;
@@ -26,6 +28,13 @@ export function QuestCard({ quest, onChange }: Props) {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [tasksLoaded, setTasksLoaded] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const [sharing, setSharing] = useState(false);
+  const sharePath = questSharePath({
+    title: quest.title,
+    minutes: Math.min(240, Math.max(5, Math.round(quest.estimated_minutes ?? 30))),
+    tier: quest.difficulty_tier ?? 'ROUTINE',
+    stats: quest.reward_stats ?? [],
+  });
 
   const meta = quest.difficulty_tier ? DIFFICULTY_META[quest.difficulty_tier] : DIFFICULTY_META.ROUTINE;
   const isDone = quest.status === 'COMPLETED';
@@ -149,6 +158,9 @@ export function QuestCard({ quest, onChange }: Props) {
               <button onClick={toggleExpand} style={btnGhost}>
                 {expanded ? '▲ TÂCHES' : `▼ TÂCHES${tasksLoaded && tasks.length > 0 ? ` (${doneTasks}/${tasks.length})` : ''}`}
               </button>
+              <button onClick={() => setSharing(s => !s)} aria-expanded={sharing} style={btnGhost} aria-label={`Partager la quête ${quest.title}`}>
+                ⇪ PARTAGER
+              </button>
               {!confirmDelete && (
                 <button onClick={() => setConfirmDelete(true)} disabled={busy} style={btnDanger} aria-label={`Supprimer la quête ${quest.title}`}>
                   SUPPRIMER
@@ -156,6 +168,8 @@ export function QuestCard({ quest, onChange }: Props) {
               )}
             </div>
           )}
+
+          {sharing && <SharePanel prefix="⚔ Quête à relever" detail={quest.title} path={sharePath} onClose={() => setSharing(false)} />}
 
           {!isDone && confirmDelete && (
             <div role="group" aria-label="Confirmer la suppression" style={{ marginTop: 10 }}>
@@ -176,7 +190,8 @@ export function QuestCard({ quest, onChange }: Props) {
           {isDone && (
             <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
               <DataReadout color={T.green} size={9}>✓ TERMINÉE</DataReadout>
-              <button onClick={toggleExpand} style={{ ...btnGhost, marginLeft: 'auto' }}>
+              <button onClick={() => setSharing(s => !s)} aria-expanded={sharing} style={{ ...btnGhost, marginLeft: 'auto' }} aria-label={`Partager la quête ${quest.title}`}>⇪ PARTAGER</button>
+              <button onClick={toggleExpand} style={btnGhost}>
                 {expanded ? '▲' : '▼'} TÂCHES
               </button>
             </div>
