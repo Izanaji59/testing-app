@@ -6,12 +6,14 @@ export type RankTier   = 'MINUS' | 'NEUTRAL' | 'PLUS';
 export type StatKind =
   | 'DISCIPLINE' | 'FOCUS' | 'INTELLIGENCE' | 'CREATIVITY'
   | 'LEADERSHIP' | 'FORCE' | 'MENTALITE' | 'TECHNIQUE' | 'SOCIAL'
-  | 'REVENU' | 'RESIGNATION';
+  | 'AGUERRISSEMENT' | 'REVENU' | 'RESIGNATION';
 
 export type ProjectType   = 'OPERATION' | 'CAMPAIGN' | 'RAID' | 'DUNGEON' | 'BOSS';
 export type ProjectStatus = 'PLANNED' | 'ACTIVE' | 'PAUSED' | 'COMPLETED' | 'ABANDONED';
 export type QuestStatus   = 'PENDING' | 'IN_PROGRESS' | 'COMPLETED' | 'SKIPPED' | 'EXPIRED';
 export type DifficultyTier = 'TRIVIAL' | 'ROUTINE' | 'NOTABLE' | 'HARD' | 'LEGENDARY';
+/** Plusieurs stats, chacune avec sa difficulté (migration 0023). */
+export type StatTiers = Partial<Record<StatKind, DifficultyTier>>;
 
 export type SpecKind =
   | 'ARCHITECT' | 'STRATEGIST' | 'CREATOR' | 'WARRIOR'
@@ -44,6 +46,8 @@ export interface Profile {
   show_revenue: boolean;
   show_rank: boolean;
   show_mbti: boolean;
+  /** Profil social (batterie sociale) ; null = déduit du MBTI. */
+  social_profile?: 'INTROVERTI' | 'EXTRAVERTI' | 'AMBIVERTI' | null;
   created_at: string;
   updated_at: string;
   last_active_at: string | null;
@@ -106,6 +110,7 @@ export interface Project {
   completed_at: string | null;
   primary_stat: StatKind | null;
   secondary_stat: StatKind | null;
+  stat_tiers: StatTiers | null;
   is_locked: boolean;
   weekly_target_eur: number;
   created_at: string;
@@ -127,6 +132,7 @@ export interface Quest {
   completed_at: string | null;
   reward_xp_base: number | null;
   reward_stats: StatKind[] | null;
+  stat_tiers: StatTiers | null;
   reward_eur: number;
   is_flash: boolean;
   created_at: string;

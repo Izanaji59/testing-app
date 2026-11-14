@@ -14,9 +14,11 @@ import { HudPanel } from '@/components/hud/HudPanel';
 import { DataReadout } from '@/components/hud/DataReadout';
 import { T } from '@/lib/tokens';
 import { supabase } from '@/lib/supabase/client';
-import type { ProjectType, DifficultyTier, StatKind } from '@/lib/types';
+import type { ProjectType, DifficultyTier, StatTiers } from '@/lib/types';
 import { DIFFICULTY_META } from '@/lib/engine/difficulty';
-import { STAT_META, REWARDABLE_STAT_KINDS } from '@/lib/engine/stats';
+import { STAT_META } from '@/lib/engine/stats';
+import { LOOT_RATE, cleanStatTiers, sortedStatTiers, topTier } from '@/lib/engine/statTiers';
+import { StatTierPicker } from '@/components/core/StatTierPicker';
 import { PROJECT_TEMPLATES, type ProjectTemplate } from '@/lib/engine/projectTemplates';
 
 const PROJECT_TYPES: { value: ProjectType; label: string; desc: string }[] = [
@@ -108,7 +110,7 @@ function ProjectCreator({ onCreated }: { onCreated: () => void }) {
   const [title, setTitle]       = useState('');
   const [type, setType]         = useState<ProjectType>('OPERATION');
   const [difficulty, setDiff]   = useState<DifficultyTier>('NOTABLE');
-  const [stat, setStat]         = useState<StatKind | ''>('');
+  const [statTiers, setStatTiers] = useState<StatTiers>({});
   const [endsAt, setEndsAt]     = useState('');
   const [weeklyTarget, setWeeklyTarget] = useState('');
   const [submitting, setSub]    = useState(false);
@@ -125,7 +127,7 @@ function ProjectCreator({ onCreated }: { onCreated: () => void }) {
       if (!auth.user) throw new Error('Non authentifié');
       const { data: project, error: insertErr } = await sb.from('projects').insert({
         user_id: auth.user.id, type: t.type, title: t.title, status: 'ACTIVE', difficulty: t.difficulty,
-        primary_stat: t.stat, starts_at: new Date().toISOString(),
+        primary_stat: t.stat, stat_tiers: cleanStatTiers({ [t.stat]: t.difficulty }), starts_at: new Date().toISOString(),
         ends_at: t.days ? new Date(Date.now() + t.days * 86400000).toISOString() : null,
       }).select('id').single();
       if (insertErr || !project) throw insertErr ?? new Error('Projet non créé');
@@ -152,13 +154,15 @@ function ProjectCreator({ onCreated }: { onCreated: () => void }) {
       const { data: auth } = await sb.auth.getUser();
       if (!auth.user) throw new Error('Non authentifié');
 
+      const tiers = cleanStatTiers(statTiers);
       const { error: insertErr } = await sb.from('projects').insert({
         user_id:      auth.user.id,
         type,
         title:        title.trim(),
         status:       'ACTIVE',
-        difficulty,
-        primary_stat: stat || null,
+        difficulty:   topTier(tiers) ?? difficulty,
+        primary_stat: sortedStatTiers(tiers)[0]?.kind ?? null,
+        stat_tiers:   tiers,
         starts_at:    new Date().toISOString(),
         ends_at:      endsAt || null,
         weekly_target_eur: weeklyTarget ? parseFloat(weeklyTarget) : 0,
@@ -233,25 +237,25 @@ function ProjectCreator({ onCreated }: { onCreated: () => void }) {
           ))}
         </select>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+        <StatTierPicker
+          idPrefix="projet"
+          value={statTiers}
+          onChange={setStatTiers}
+          hint="Les stats que ce donjon fait progresser. Les quêtes du quotidien peuvent viser d’autres stats : à la fin, le butin du donjon est versé dans celles-ci."
+        />
+        {!topTier(statTiers) && (
           <div>
-            <DataReadout style={{ display: 'block', marginBottom: 6 }}>DIFFICULTÉ</DataReadout>
-            <select value={difficulty} onChange={e => setDiff(e.target.value as DifficultyTier)} style={selectStyle}>
+            <label htmlFor="projet-difficulte"><DataReadout style={{ display: 'block', marginBottom: 6 }}>DIFFICULTÉ</DataReadout></label>
+            <select id="projet-difficulte" value={difficulty} onChange={e => setDiff(e.target.value as DifficultyTier)} style={selectStyle}>
               {(Object.keys(DIFFICULTY_META) as DifficultyTier[]).map(d => (
                 <option key={d} value={d}>{DIFFICULTY_META[d].label}</option>
               ))}
             </select>
           </div>
-          <div>
-            <DataReadout style={{ display: 'block', marginBottom: 6 }}>STAT PRINCIPALE</DataReadout>
-            <select value={stat} onChange={e => setStat(e.target.value as StatKind | '')} style={selectStyle}>
-              <option value="">— Aucune —</option>
-              {REWARDABLE_STAT_KINDS.map(s => (
-                <option key={s} value={s}>{STAT_META[s].short} — {STAT_META[s].label}</option>
-              ))}
-            </select>
-          </div>
-        </div>
+        )}
+        <p style={{ fontSize: 12, color: T.textDim, margin: 0, lineHeight: 1.6 }}>
+          Butin : {Math.round(LOOT_RATE[topTier(statTiers) ?? difficulty] * 100)} % de l’XP gagnée par les quêtes de ce donjon, versé d’un coup quand tu le termines (à l’échéance, ou quand tu estimes l’avoir fini).
+        </p>
 
         <DataReadout>DATE DE FIN · OPTIONNELLE (SINON PAS DE COMPTE À REBOURS SUR LA ROADMAP)</DataReadout>
         <input

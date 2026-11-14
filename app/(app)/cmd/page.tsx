@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useProfile } from '@/hooks/useProfile';
 import { useChallenges } from '@/hooks/useChallenges';
 import { DailyCheck } from '@/components/core/DailyCheck';
+import { EnergyPanels } from '@/components/core/EnergyPanels';
 import { useTodayBriefing } from '@/hooks/useTodayBriefing';
 import { useActiveProjects } from '@/hooks/useProjects';
 import { useTodayQuests } from '@/hooks/useQuests';
@@ -15,7 +16,8 @@ import { HudPanel } from '@/components/hud/HudPanel';
 import { DataReadout } from '@/components/hud/DataReadout';
 import { XpBar } from '@/components/hud/XpBar';
 import { T } from '@/lib/tokens';
-import { xpForLevel, currentLevelXp } from '@/lib/engine/xp';
+import { xpForLevel, currentLevelXp, statXpForLevel } from '@/lib/engine/xp';
+import { STAT_KINDS, STAT_META } from '@/lib/engine/stats';
 
 export default function CmdPage() {
   const { profile, stats, loading } = useProfile();
@@ -35,6 +37,9 @@ export default function CmdPage() {
 
         {/* Bilan « Qu'as-tu fait aujourd'hui ? » : alerte tant que rien n'est accompli */}
         <DailyCheck />
+
+        {/* Réservoir de volonté (Deep Work) et batterie sociale */}
+        <EnergyPanels />
 
         {/* Briefing du jour */}
         <BriefingCard briefing={briefing} />
@@ -95,19 +100,31 @@ export default function CmdPage() {
         {/* Défis communs */}
         <ChallengesStrip />
 
-        {/* Stats rapides */}
-        <HudPanel label="STATUS" thin glow={0.15}>
-          <div style={{ padding: 14, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 10 }}>
-            {stats.slice(0, 6).map(s => (
-              <div key={s.id}>
-                <div style={{ fontFamily: T.mono, fontSize: 8, color: T.textDim, letterSpacing: '0.2em' }}>
-                  {s.kind.slice(0, 4)}
-                </div>
-                <div style={{ fontFamily: T.rank, fontSize: 18, color: T.text, fontVariantNumeric: 'tabular-nums' }}>
-                  {s.level}
-                </div>
-              </div>
-            ))}
+        {/* Status : toutes les stats, dans l'ordre du Système, avec l'avancée vers le niveau suivant */}
+        <HudPanel label={`STATUS · ${STAT_KINDS.length} STATS`} thin glow={0.15}>
+          <div style={{ padding: 14 }}>
+            {/* 3 colonnes sur téléphone, 6 au plus sur ordinateur (deux lignes égales). */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(max(96px, calc((100% - 60px) / 6)), 1fr))', gap: '14px 12px' }}>
+              {STAT_KINDS.map(kind => {
+                const s = stats.find(x => x.kind === kind);
+                const level = s?.level ?? 1;
+                const meta = STAT_META[kind];
+                return (
+                  <div key={kind} title={meta.description}>
+                    <div style={{ fontFamily: T.mono, fontSize: 9, color: meta.color, letterSpacing: '0.16em', whiteSpace: 'nowrap' }}>
+                      <span aria-hidden="true">{meta.symbol} </span>{meta.short}
+                    </div>
+                    <div style={{ fontFamily: T.rank, fontSize: 20, color: kind === 'RESIGNATION' ? T.danger : T.text, fontVariantNumeric: 'tabular-nums', margin: '2px 0 4px' }}>
+                      {level}
+                    </div>
+                    <XpBar current={s?.xp ?? 0} max={statXpForLevel(level)} height={4} color={meta.color} />
+                  </div>
+                );
+              })}
+            </div>
+            <Link href="/stats" style={{ display: 'inline-flex', alignItems: 'center', minHeight: 44, marginTop: 10, fontFamily: T.mono, fontSize: 9, letterSpacing: '0.2em', color: T.cyan, textDecoration: 'none' }}>
+              VOIR LE DÉTAIL ET LE RADAR →
+            </Link>
           </div>
         </HudPanel>
 

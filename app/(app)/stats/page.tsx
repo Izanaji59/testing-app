@@ -26,7 +26,7 @@ export default function StatsPage() {
       <div style={{ padding: '14px 14px 0', display: 'flex', flexDirection: 'column', gap: 14 }}>
         <FocusStats />
 
-        <HudPanel label="RADAR · 11 AXES" glow={0.4}>
+        <HudPanel label={`RADAR · ${stats.length} AXES`} glow={0.4}>
           <div style={{ padding: 18, display: 'grid', placeItems: 'center' }}>
             <StatRadar stats={stats} size={280} />
           </div>

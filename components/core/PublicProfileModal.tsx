@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { supabase } from '@/lib/supabase/client';
 import { T, EASE } from '@/lib/tokens';
@@ -59,7 +60,8 @@ export function PublicProfileModal({ userId, onClose }: Props) {
   const rankTitle = profile?.rank_letter ? getRankTitle(mbtiFromClassLabel(profile.mbti_class), profile.rank_letter).title : '';
   const meta = profile ? [profile.mbti_class, rank && `RANG ${rank}`, profile.level !== null && `NIV. ${profile.level}`].filter(Boolean).join(' · ') : '';
 
-  return (
+  // Portail : les panneaux HUD sont en 3D (transform), qui piégerait un position: fixed.
+  return createPortal(
     <AnimatePresence>
       <motion.div
         initial={{ opacity: 0 }}
@@ -148,6 +150,7 @@ export function PublicProfileModal({ userId, onClose }: Props) {
           </HudPanel>
         </motion.div>
       </motion.div>
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body,
   );
 }

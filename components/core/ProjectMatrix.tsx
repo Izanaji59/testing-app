@@ -7,6 +7,10 @@ import { usePriorities } from '@/hooks/usePriorities';
 import { useFocus } from '@/components/focus/FocusProvider';
 import { projectPct } from '@/lib/engine/progress';
 import { ProjectCard } from './ProjectCard';
+import { useProjectLoot } from '@/hooks/useProjectLoot';
+import { readyToClose } from '@/lib/engine/statTiers';
+import { DungeonGate } from '@/components/hud/DungeonGate';
+import { tiltTo, untilt } from '@/components/hud/tilt';
 import styles from './matrix.module.css';
 
 type QuestCounts = Record<string, { total: number; done: number }>;
@@ -14,6 +18,7 @@ type QuestCounts = Record<string, { total: number; done: number }>;
 export function ProjectMatrix({ projects, userId, questCounts, quests }: { projects: Project[]; userId: string; questCounts: QuestCounts; quests: Quest[] }) {
   const { openFocus } = useFocus();
   const { values, ready, busy, error, save } = usePriorities(userId);
+  const { loot } = useProjectLoot();
   const [view, setView] = useState<'matrix' | 'list'>('matrix');
   const [expanded, setExpanded] = useState<string | null>(null);
   const [over, setOver] = useState<string | null>(null);
@@ -23,9 +28,19 @@ export function ProjectMatrix({ projects, userId, questCounts, quests }: { proje
   function cards(items: Project[]) {
     return items.slice().sort((a,b) => (Date.parse(a.ends_at || '') || Infinity) - (Date.parse(b.ends_at || '') || Infinity) || a.title.localeCompare(b.title, 'fr')).map(p => {
       const priority = priorityFor(p, values);
-      return <article className={styles.card} key={p.id} draggable={ready && !busy} onDragStart={e => e.dataTransfer.setData('application/x-grind-project', p.id)} onDragEnd={() => setOver(null)}>
-        <div className={styles.cardHead}><h3>{p.title}</h3><span>{Math.round(projectPct(p))} %</span></div>
+      const flash = p.title === 'Quêtes flash';
+      return <article className={styles.card} key={p.id} draggable={ready && !busy} onDragStart={e => { untilt(e.currentTarget); e.dataTransfer.setData('application/x-grind-project', p.id); }} onDragEnd={() => setOver(null)}
+        onPointerMove={e => tiltTo(e.currentTarget, e)} onPointerLeave={e => untilt(e.currentTarget)} style={{ transition: 'transform .4s cubic-bezier(.22,1,.36,1), border-color .15s, box-shadow .15s' }}>
+        <div className={styles.cardHead} style={{ alignItems: 'center' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, minWidth: 0 }}>
+            {!flash && <DungeonGate tier={p.difficulty ?? 'NOTABLE'} intensity={Math.min(1, (loot[p.id]?.loot_xp ?? 0) / 400)} unstable={readyToClose(p, questCounts[p.id]?.total ?? 0)} width={40} height={50} />}
+            <h3>{p.title}</h3>
+          </div>
+          <span>{Math.round(projectPct(p))} %</span>
+        </div>
         <p className={styles.meta}>{statusNames[p.status]} / {(questCounts[p.id]?.total ?? 0) === 0 ? 'Aucune quête : ajoutes-en pour faire monter l’avancement' : `${questCounts[p.id].done}/${questCounts[p.id].total} quêtes terminées`}{p.ends_at && Number.isFinite(Date.parse(p.ends_at)) ? ` / Échéance ${new Date(p.ends_at).toLocaleDateString('fr-FR')}` : ''}</p>
+        {!flash && (loot[p.id]?.loot_xp ?? 0) > 0 && <p className={styles.meta}>Butin en réserve : {loot[p.id].loot_xp.toLocaleString('fr-FR')} XP, versé quand tu termines le donjon</p>}
+        {!flash && readyToClose(p, questCounts[p.id]?.total ?? 0) && <p className={styles.suggestion}>Prêt à terminer : ouvre les détails</p>}
         {!values[p.id] && <p className={styles.suggestion}>Classement suggéré</p>}
         <div className={styles.criteria}>
           <label><input type="checkbox" checked={priority.important} disabled={!ready || busy} onChange={e => void save(p.id, { ...priority, important: e.target.checked })} /> Important<span className={styles.sr}> : {p.title}</span></label>

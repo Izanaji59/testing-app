@@ -14,6 +14,8 @@ import { DIFFICULTY_META, questXpBudget } from '@/lib/engine/difficulty';
 import { fmtDuration } from '@/lib/utils';
 import { questSharePath } from '@/lib/share';
 import { SharePanel } from '@/components/core/SharePanel';
+import { StatTierChips } from '@/components/core/StatTierPicker';
+import { questStatTiers } from '@/lib/engine/statTiers';
 
 type Props = {
   quest: Quest;
@@ -141,6 +143,7 @@ export function QuestCard({ quest, onChange }: Props) {
           }}>
             {quest.title}
           </div>
+          {questStatTiers(quest).length > 0 && <div style={{ marginBottom: 10 }}><StatTierChips entries={questStatTiers(quest)} /></div>}
 
           {/* Actions */}
           {!isDone && <p style={{fontSize:11,color:T.cyan,margin:'0 0 8px'}}>Budget global : {quest.reward_xp_base ?? questXpBudget(quest.difficulty_tier ?? 'ROUTINE',quest.estimated_minutes ?? 30)} XP à la validation</p>}
@@ -213,6 +216,7 @@ export function QuestCard({ quest, onChange }: Props) {
 }
 
 const btnPrimary: React.CSSProperties = {
+  minHeight: 44,
   background: T.cyan,
   color: T.bg,
   border: 'none',
@@ -226,6 +230,7 @@ const btnPrimary: React.CSSProperties = {
 };
 
 const btnSecondary: React.CSSProperties = {
+  minHeight: 44,
   background: 'transparent',
   color: T.cyan,
   border: `1px solid ${T.lineMid}`,
@@ -237,6 +242,7 @@ const btnSecondary: React.CSSProperties = {
 };
 
 const btnGhost: React.CSSProperties = {
+  minHeight: 44,
   background: 'transparent',
   color: T.textDim,
   border: `1px solid ${T.line}`,

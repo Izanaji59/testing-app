@@ -14,7 +14,7 @@ export const PRESETS = [
   { id: '50', label: 'Approfondir', minutes: 50, rest: 10 },
   { id: '60', label: 'Concentration longue', minutes: 60, rest: 10 },
   { id: '90', label: 'Projet prioritaire', minutes: 90, rest: 15 },
-  { id: 'ritual', label: 'Rituel 20 / 20 / 20', minutes: 60, rest: 0 },
+  { id: 'ritual', label: 'Méthode 20 / 20 / 20', minutes: 60, rest: 0 },
 ];
 export function createFocus(input: { minutes: number; rest: number; label: string; ritual?: boolean; projectId?: string; projectTitle?: string; questId?: string; questTitle?: string; objective: string }, now: number, id: string): FocusSession {
   if (!Number.isFinite(input.minutes) || input.minutes < 5 || input.minutes > 180 || !Number.isFinite(input.rest) || input.rest < 0 || input.rest > 60) throw new Error('Choisis 5 à 180 minutes de travail et 0 à 60 minutes de pause.');

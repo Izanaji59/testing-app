@@ -15,9 +15,11 @@ import { HudPanel } from '@/components/hud/HudPanel';
 import { DataReadout } from '@/components/hud/DataReadout';
 import { T } from '@/lib/tokens';
 import { supabase } from '@/lib/supabase/client';
-import type { QuestStatus, DifficultyTier, StatKind, MissionTemplate } from '@/lib/types';
+import type { QuestStatus, DifficultyTier, StatKind, StatTiers, MissionTemplate } from '@/lib/types';
 import { DIFFICULTY_META, questXpBudget } from '@/lib/engine/difficulty';
 import { STAT_META, REWARDABLE_STAT_KINDS } from '@/lib/engine/stats';
+import { cleanStatTiers, sortedStatTiers, topTier } from '@/lib/engine/statTiers';
+import { StatTierPicker } from '@/components/core/StatTierPicker';
 import { DictationButton, appendDictation } from '@/components/core/DictationButton';
 import { bedtimeMinutes, fmtClock, nextOccurrence, sleepLength } from '@/lib/sleep';
 
@@ -183,8 +185,10 @@ function QuestCreator({
     setProjectId(initialProjectId);
   }, [initialProjectId, projects]);
   const [estimated, setEstimated] = useState(30);
+  // Difficulté utilisée seulement sans stat choisie ; sinon c'est la plus haute des stats.
   const [difficulty, setDifficulty] = useState<DifficultyTier>('ROUTINE');
-  const [stat, setStat] = useState<StatKind | ''>('');
+  const [statTiers, setStatTiers] = useState<StatTiers>({});
+  const tier = topTier(statTiers) ?? difficulty;
   const [rewardEur, setRewardEur] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -199,12 +203,13 @@ function QuestCreator({
   useEffect(() => { try { const w = localStorage.getItem('grind-wake-time'); if (w) setWake(w); } catch {} }, []);
   const bed = bedtimeMinutes(wake, cycles);
 
-  const suggestions = stat ? templates.filter(t => t.stat_kind === stat) : templates;
+  const chosenStats = Object.keys(statTiers);
+  const suggestions = chosenStats.length ? templates.filter(t => chosenStats.includes(t.stat_kind)) : templates;
 
   function applySleep() {
     if (bed === null) return;
     setTitle(`Me coucher à ${fmtClock(bed)}`);
-    setDifficulty('ROUTINE'); setStat(''); setEstimated(30);
+    setDifficulty('ROUTINE'); setStatTiers({ FORCE: 'ROUTINE', DISCIPLINE: 'ROUTINE' }); setEstimated(30);
     setSleep({ due: nextOccurrence(bed).toISOString(), bed: fmtClock(bed) });
     setDeadline('exact'); setShowSleep(false); setShowSuggestions(false);
     try { localStorage.setItem('grind-wake-time', wake); } catch {}
@@ -213,7 +218,7 @@ function QuestCreator({
   function applySuggestion(t: MissionTemplate) {
     setTitle(t.title);
     setDifficulty(t.difficulty_tier);
-    setStat(t.stat_kind);
+    setStatTiers(cleanStatTiers({ [t.stat_kind]: t.difficulty_tier }) ?? {});
     setEstimated(t.estimated_minutes);
     setShowSuggestions(false);
   }
@@ -224,12 +229,14 @@ function QuestCreator({
     try {
       const chosen = chosenDay ? new Date(chosenDay + 'T12:00:00') : null;
       if (deadline === 'date' && (!chosen || !Number.isFinite(chosen.getTime()) || localDayDeadline(chosen) < new Date().toISOString())) throw new Error('Choisis aujourd’hui ou une date à venir.');
+      const tiers = cleanStatTiers(statTiers);
       await createQuestFlash({
         title: title.trim(),
         project_id: projectId || null,
         estimated_minutes: estimated,
-        difficulty_tier: difficulty,
-        reward_stats: stat ? [stat as StatKind] : sleep ? ['FORCE', 'DISCIPLINE'] : [],
+        difficulty_tier: tier,
+        reward_stats: sortedStatTiers(tiers).map(e => e.kind),
+        stat_tiers: tiers,
         reward_eur: rewardEur ? parseFloat(rewardEur) : 0,
         due_at: deadline === 'none' ? null : deadline === 'exact' && sleep ? sleep.due : deadline === 'date' ? localDayDeadline(chosen!) : localDayDeadline(),
       });
@@ -343,25 +350,23 @@ function QuestCreator({
           ))}
         </select>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+        <StatTierPicker
+          idPrefix="quete"
+          value={statTiers}
+          onChange={setStatTiers}
+          defaultTier="ROUTINE"
+          hint="Choisis une ou plusieurs stats et la difficulté de chacune (ex. Focus notable, Mentalité difficile). Sans stat, l’XP va en Discipline."
+        />
+        {!topTier(statTiers) && (
           <div>
-            <DataReadout style={{ display: 'block', marginBottom: 6 }}>DIFFICULTÉ</DataReadout>
-            <select value={difficulty} onChange={e => setDifficulty(e.target.value as DifficultyTier)} style={selectStyle}>
+            <label htmlFor="quete-difficulte"><DataReadout style={{ display: 'block', marginBottom: 6 }}>DIFFICULTÉ</DataReadout></label>
+            <select id="quete-difficulte" value={difficulty} onChange={e => setDifficulty(e.target.value as DifficultyTier)} style={selectStyle}>
               {(Object.keys(DIFFICULTY_META) as DifficultyTier[]).map(d => (
                 <option key={d} value={d}>{DIFFICULTY_META[d].label} / plafond {DIFFICULTY_META[d].baseXp} XP</option>
               ))}
             </select>
           </div>
-          <div>
-            <DataReadout style={{ display: 'block', marginBottom: 6 }}>STAT FOCUS</DataReadout>
-            <select value={stat} onChange={e => setStat(e.target.value as StatKind | '')} style={selectStyle}>
-              <option value="">— Aucune —</option>
-              {REWARDABLE_STAT_KINDS.map(s => (
-                <option key={s} value={s}>{STAT_META[s].short}</option>
-              ))}
-            </select>
-          </div>
-        </div>
+        )}
 
         <label style={{fontSize:12}}>Échéance<select aria-label="Échéance" value={deadline} onChange={e=>setDeadline(e.target.value)} style={{...selectStyle,marginTop:8}}>{sleep && <option value="exact">À l’heure du coucher : {new Date(sleep.due).toLocaleString('fr-FR',{weekday:'short',hour:'2-digit',minute:'2-digit'})}</option>}<option value="today">Aujourd’hui, en fin de journée</option><option value="date">Choisir une date</option><option value="none">Sans échéance</option></select></label>
         {deadline === 'date' && <label style={{fontSize:12}}>Jour prévu<input aria-label="Jour prévu" type="date" value={chosenDay} onChange={e=>setChosenDay(e.target.value)} style={{...selectStyle,marginTop:8}} /></label>}
@@ -373,8 +378,7 @@ function QuestCreator({
           style={{ accentColor: T.cyan }}
         />
 
-        <p style={{fontSize:12,color:T.textDim,lineHeight:1.6}}>Budget : <strong style={{color:T.cyan}}>{questXpBudget(difficulty,estimated)} XP</strong> à la validation. Une minute prévue vaut un XP, dans le plafond de difficulté. Le budget est fixé à la création ; les sous-tâches le partagent. Plafond global : 600 XP par jour, heure de Paris.</p>
-        <DataReadout>REVENU (€) · 0 SI ÇA NE RAPPORTE RIEN</DataReadout>
+        <p style={{fontSize:12,color:T.textDim,lineHeight:1.6}}>Budget : <strong style={{color:T.cyan}}>{questXpBudget(tier,estimated)} XP</strong> à la validation. Une minute prévue vaut un XP, dans le plafond de difficulté. Le budget est fixé à la création ; les sous-tâches le partagent. Plafond global : 600 XP par jour, heure de Paris.</p>        <DataReadout>REVENU (€) · 0 SI ÇA NE RAPPORTE RIEN</DataReadout>
         <input
           type="number" min={0} step={0.01} inputMode="decimal"
           value={rewardEur}

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { supabase } from '@/lib/supabase/client';
 import { T, EASE } from '@/lib/tokens';
@@ -84,7 +85,8 @@ export function ProjectRoadmapModal({ project, onClose }: Props) {
     return total;
   }, [byDay, weekStart]);
 
-  return (
+  // Portail : les panneaux HUD sont en 3D (transform), qui piégerait un position: fixed.
+  return createPortal(
     <AnimatePresence>
       <motion.div
         initial={{ opacity: 0 }}
@@ -185,7 +187,8 @@ export function ProjectRoadmapModal({ project, onClose }: Props) {
           </HudPanel>
         </motion.div>
       </motion.div>
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body,
   );
 }
 

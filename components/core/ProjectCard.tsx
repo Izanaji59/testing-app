@@ -14,6 +14,9 @@ import { RaidCountdown } from './project-types/RaidCountdown';
 import { DungeonMap } from './project-types/DungeonMap';
 import { BossHpBar } from './project-types/BossHpBar';
 import { ProjectRoadmapModal } from './ProjectRoadmapModal';
+import { ProjectLoot } from './ProjectLoot';
+import { StatTierChips } from './StatTierPicker';
+import { projectStatTiers } from '@/lib/engine/statTiers';
 
 const TYPE_GLYPH: Record<string, string> = {
   OPERATION: '⊟', CAMPAIGN: '◇◇◇', RAID: '⏱', DUNGEON: '⌬', BOSS: '✦',
@@ -90,10 +93,15 @@ export function ProjectCard({ project, questCount }: { project: Project; questCo
           <>
             <XpBar current={projectPct(project)} max={100} height={3} color={color} />
             <DataReadout size={9} style={{ marginTop: 6, display: 'block' }}>
-              {Math.round(projectPct(project))}% · {project.primary_stat ?? '—'}
+              {Math.round(projectPct(project))}%
             </DataReadout>
           </>
         )}
+        {projectStatTiers(project).length > 0 && (
+          <div style={{ marginTop: 8 }}><StatTierChips entries={projectStatTiers(project)} /></div>
+        )}
+
+        <ProjectLoot project={project} questCount={questCount} />
 
         {!confirmDelete ? (
           <button

@@ -6,6 +6,9 @@ import { HudPanel } from '@/components/hud/HudPanel';
 import { DataReadout } from '@/components/hud/DataReadout';
 import { XpBar } from '@/components/hud/XpBar';
 import { ProjectRoadmapModal } from './ProjectRoadmapModal';
+import { ProjectLoot } from './ProjectLoot';
+import { StatTierChips } from './StatTierPicker';
+import { projectStatTiers } from '@/lib/engine/statTiers';
 import { T } from '@/lib/tokens';
 import { DIFFICULTY_META } from '@/lib/engine/difficulty';
 import { projectPct } from '@/lib/engine/progress';
@@ -88,6 +91,9 @@ function ProjectBlock({ project: p, quests, onRoadmap }: { project: Project; que
             )}
           </Column>
         </div>
+
+        {projectStatTiers(p).length > 0 && <StatTierChips entries={projectStatTiers(p)} />}
+        <ProjectLoot project={p} questCount={{ total: quests.filter(q => q.status !== 'SKIPPED').length, done: done.length }} />
 
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
           <button type="button" onClick={onRoadmap} style={ghost}>◉ ROADMAP</button>

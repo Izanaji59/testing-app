@@ -50,7 +50,7 @@ export const PROJECT_TEMPLATES: ProjectTemplate[] = [
     quests: [
       { title: 'Écrire ma routine du matin idéale', minutes: 20, tier: 'ROUTINE' },
       { title: 'Me lever sans repousser le réveil', minutes: 5, tier: 'ROUTINE' },
-      { title: 'Rituel 20/20/20 : bouger, réfléchir, apprendre', minutes: 60, tier: 'NOTABLE' },
+      { title: 'Méthode 20/20/20 : bouger, réfléchir, apprendre', minutes: 60, tier: 'NOTABLE' },
     ],
   },
   {

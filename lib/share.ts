@@ -11,7 +11,7 @@ export type ShareLink =
 
 // Ordre figé : les liens déjà partagés en dépendent. Ajouter à la fin, ne jamais réordonner.
 const TIERS: DifficultyTier[] = ['TRIVIAL', 'ROUTINE', 'NOTABLE', 'HARD', 'LEGENDARY'];
-const STATS: StatKind[] = ['DISCIPLINE', 'FOCUS', 'INTELLIGENCE', 'CREATIVITY', 'LEADERSHIP', 'FORCE', 'MENTALITE', 'TECHNIQUE', 'SOCIAL'];
+const STATS: StatKind[] = ['DISCIPLINE', 'FOCUS', 'INTELLIGENCE', 'CREATIVITY', 'LEADERSHIP', 'FORCE', 'MENTALITE', 'TECHNIQUE', 'SOCIAL', 'AGUERRISSEMENT'];
 
 export const SHARE_TITLE_MAX = 120;
 const CODE_MAX = 700;

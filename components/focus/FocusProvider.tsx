@@ -11,6 +11,12 @@ import { DictationButton, appendDictation } from '@/components/core/DictationBut
 import { notifyRefocus, playAlarm, unlockAlarm } from './alarm';
 import styles from './focus.module.css';
 
+/** Bilans valides d'un historique local (localStorage). */
+function validRecords(value: unknown): FocusRecord[] {
+  return Array.isArray(value) ? value.filter((r): r is FocusRecord => validFocus(r) && 'note' in r && typeof r.note === 'string' && 'savedAt' in r && Number.isFinite(r.savedAt)).slice(0, 20) : [];
+}
+type AccountSession = { id: string; quest_id: string | null; ended_at: string | null; focus_seconds: number | null; interruptions: number; notes: string | null; quest_completed: boolean };
+
 const FocusContext = createContext<{ openFocus: (project?: { id: string; title: string }, quest?: Quest) => void }>({ openFocus: () => {} });
 export const useFocus = () => useContext(FocusContext);
 
@@ -36,6 +42,25 @@ export function FocusProvider({ userId, children }: { userId: string; children: 
   const dialog = useRef<HTMLDialogElement>(null);
   const sessionKey = 'grind-focus-v1:' + userId;
   const historyKey = 'grind-focus-history-v1:' + userId;
+  // Bilans enregistrés sur le compte (sessions liées à une quête), pour les voir sur tous les appareils.
+  const [account, setAccount] = useState<AccountSession[]>([]);
+  const [syncing, setSyncing] = useState(false);
+  const [syncError, setSyncError] = useState('');
+  async function refreshHistory() {
+    setSyncing(true); setSyncError('');
+    try { setHistory(validRecords(JSON.parse(localStorage.getItem(historyKey) || '[]'))); } catch { /* historique local illisible : on garde l'affichage actuel */ }
+    try {
+      const { data, error: failure } = await supabase().from('sessions')
+        .select('id,quest_id,ended_at,focus_seconds,interruptions,notes,quest_completed')
+        .eq('user_id', userId).not('focus_seconds', 'is', null)
+        .order('ended_at', { ascending: false }).limit(20);
+      if (failure) throw failure;
+      setAccount((data ?? []) as AccountSession[]);
+      void Promise.allSettled(['focus-stats', 'willpower', 'quests'].map(key => mutate(key)));
+    } catch { setSyncError('Les bilans du compte n’ont pas pu être chargés. Réessaie.'); }
+    finally { setSyncing(false); }
+  }
+  useEffect(() => { if (open) void refreshHistory(); }, [open]); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
     setSession(null); setHistory([]); setLoaded(false); setOpen(false);
     function read() {
@@ -43,8 +68,7 @@ export function FocusProvider({ userId, children }: { userId: string; children: 
         const value = JSON.parse(localStorage.getItem(sessionKey) || 'null');
         if (value !== null && !validFocus(value)) throw new Error('Session invalide');
         setSession(value); setNow(Date.now());
-        const records: unknown = JSON.parse(localStorage.getItem(historyKey) || '[]');
-        setHistory(Array.isArray(records) ? records.filter((r): r is FocusRecord => validFocus(r) && 'note' in r && typeof r.note === 'string' && 'savedAt' in r && Number.isFinite(r.savedAt)).slice(0, 20) : []);
+        setHistory(validRecords(JSON.parse(localStorage.getItem(historyKey) || '[]')));
       } catch { setError('La sauvegarde locale est indisponible ou illisible. Cette session reste utilisable dans cet onglet.'); }
       setLoaded(true);
     }
@@ -134,7 +158,15 @@ export function FocusProvider({ userId, children }: { userId: string; children: 
         questCompleted = data === true;
         record.questCompleted = questCompleted;
         // A failed refresh must not turn a committed save into an apparent failure.
-        void Promise.allSettled(['quests','quests-today','projects','profile-bundle','focus-stats','xp-history'].map(key => mutate(key)));
+        void Promise.allSettled(['quests','quests-today','projects','profile-bundle','focus-stats','xp-history','willpower','project-loot'].map(key => mutate(key)));
+      }
+      if (record.ritual && record.workedMs >= 30 * 60000 && userId) {
+        // La méthode 20/20/20 recharge le réservoir de volonté. Même identifiant que la session :
+        // un nouvel essai d'enregistrement ne le compte pas deux fois (conflit ignoré).
+        void supabase().from('willpower_events').insert({
+          id: record.id, user_id: userId, kind: 'RITUAL', activity: 'RITUEL_202020',
+          minutes: Math.max(1, Math.round(record.workedMs / 60000)), occurred_at: new Date(record.startedAt).toISOString(),
+        }).then(() => mutate('willpower'));
       }
       const historyJSON = localStorage.getItem(historyKey);
       let saved: unknown;
@@ -154,6 +186,14 @@ export function FocusProvider({ userId, children }: { userId: string; children: 
   const selectable = projects.filter(p => p.user_id === userId && ['ACTIVE','PLANNED','PAUSED'].includes(p.status));
   const questChoices = quests.filter(q => q.user_id === userId && ['PENDING','IN_PROGRESS'].includes(q.status) && (!projectId || q.project_id === projectId));
   const isWork = current?.phase === 'work';
+  // Bilans de cet appareil + bilans du compte faits ailleurs (même identifiant de session : pas de doublon).
+  const bilans = [
+    ...history.map(r => ({ id: r.id, title: r.objective, at: r.savedAt, workedMs: r.workedMs, detail: `${clockText(r.distractionMs)} de distraction`, note: r.note })),
+    ...account.filter(s => !history.some(r => r.id === s.id)).map(s => ({
+      id: s.id, title: quests.find(q => q.id === s.quest_id)?.title || 'Quête', at: Date.parse(s.ended_at ?? ''), workedMs: (s.focus_seconds ?? 0) * 1000,
+      detail: `${s.interruptions} interruption${s.interruptions > 1 ? 's' : ''}${s.quest_completed ? ' / quête validée' : ''}`, note: s.notes ?? '',
+    })),
+  ].filter(b => Number.isFinite(b.at)).sort((a, b) => b.at - a.at).slice(0, 20);
   return <FocusContext.Provider value={{ openFocus }}>
     {children}
     <button className={`${styles.dock} ${overdueSince !== null ? styles.dockAlert : ''}`} onClick={() => openFocus()} disabled={!loaded} aria-haspopup="dialog">
@@ -174,7 +214,7 @@ export function FocusProvider({ userId, children }: { userId: string; children: 
       {message && <p role="status" className={styles.hint}>{message}</p>}
       {!current ? <div className={styles.setup}>
         <p>Une quête à la fois. Le donjon donne le cap ; choisis l’action que tu vas avancer maintenant.</p>
-        <label>Type de session<select aria-label="Type de session" value={free ? 'free' : 'quest'} onChange={e => { setFree(e.target.value === 'free'); setQuestId(''); setObjective(''); }}><option value="quest">Avancer une quête</option><option value="free">Session libre ou rituel</option></select></label>
+        <label>Type de session<select aria-label="Type de session" value={free ? 'free' : 'quest'} onChange={e => { setFree(e.target.value === 'free'); setQuestId(''); setObjective(''); }}><option value="quest">Avancer une quête</option><option value="free">Session libre ou méthode 20/20/20</option></select></label>
         <label>Donjon ou projet (contexte)<select value={projectId} onChange={e => { setProjectId(e.target.value); setQuestId(''); setObjective(''); }}>
           <option value="">Tous les donjons</option>{selectable.map(p => <option key={p.id} value={p.id}>{p.title}</option>)}
         </select></label>
@@ -182,9 +222,9 @@ export function FocusProvider({ userId, children }: { userId: string; children: 
         <label>Action pendant cette session<span className={styles.withDictation}><input value={objective} onChange={e => setObjective(e.target.value)} maxLength={200} placeholder="Ex. Rédiger l’introduction du dossier" /><DictationButton label="action de la session" onText={text => setObjective(o => appendDictation(o, text).slice(0, 200))} /></span></label>
         <fieldset><legend>Format</legend><div className={styles.presets}>{PRESETS.map(p => <button key={p.id} aria-pressed={preset === p.id} onClick={() => setPreset(p.id)}><strong>{p.label}</strong><span>{p.id === 'ritual' ? 'Bouger, réfléchir, apprendre' : `${p.minutes} min + ${p.rest} min de pause`}</span></button>)}<button aria-pressed={preset === 'custom'} onClick={() => setPreset('custom')}><strong>Personnalisé</strong><span>À ton rythme</span></button></div></fieldset>
         {preset === 'custom' && <div className={styles.row}><label>Travail (minutes)<input type="number" min={5} max={180} value={minutes} onChange={e => setMinutes(e.target.value)} /></label><label>Pause (minutes)<input type="number" min={0} max={60} value={rest} onChange={e => setRest(e.target.value)} /></label></div>}
-        <p className={styles.hint}>{preset === 'ritual' ? 'Trois étapes de 20 minutes, à l’heure qui te convient. Le rituel se déroule sur une heure.' : 'Les 3 premières minutes sont un repère d’entrée en concentration, inclus dans la durée choisie. Ce minuteur ne mesure pas ton attention.'}</p>
+        <p className={styles.hint}>{preset === 'ritual' ? 'Trois étapes de 20 minutes, à l’heure qui te convient. La méthode se déroule sur une heure.' : 'Les 3 premières minutes sont un repère d’entrée en concentration, inclus dans la durée choisie. Ce minuteur ne mesure pas ton attention.'}</p>
         <button className={styles.primary} onClick={start} disabled={!objective.trim() || !loaded || (!free && !questId)}>Commencer</button>
-        <details><summary>Les inspirations</summary><p>Formats adaptés de Deep Work et des méthodes de Robin Sharma. La pause de 15 minutes après un bloc de 90 minutes est un choix de Grindleveling.</p><p><a href="https://calnewport.com/on-deep-breaks/" target="_blank" rel="noreferrer">Cal Newport</a> / <a href="https://robinsharma.com/the-6010-method-for-superhuman-productivity/" target="_blank" rel="noreferrer">Méthode 60/10</a> / <a href="https://robinsharma.com/the-202020-formula-for-great-mornings-6minute-episode/" target="_blank" rel="noreferrer">Rituel 20/20/20</a></p></details>
+        <details><summary>Les inspirations</summary><p>Formats adaptés de Deep Work et des méthodes de Robin Sharma. La pause de 15 minutes après un bloc de 90 minutes est un choix de Grindleveling.</p><p><a href="https://calnewport.com/on-deep-breaks/" target="_blank" rel="noreferrer">Cal Newport</a> / <a href="https://robinsharma.com/the-6010-method-for-superhuman-productivity/" target="_blank" rel="noreferrer">Méthode 60/10</a> / <a href="https://robinsharma.com/the-202020-formula-for-great-mornings-6minute-episode/" target="_blank" rel="noreferrer">Méthode 20/20/20</a></p></details>
       </div> : <div className={styles.session}>
         <p className={styles.hint}>{current.projectTitle ? `Cap : ${current.projectTitle}` : 'Session libre'} / {current.label}</p><h3>{current.questTitle || current.objective}</h3>{current.questTitle && current.objective !== current.questTitle && <p>{current.objective}</p>}
         <p className={styles.phase} role="status">{phaseLabel(current)}</p>
@@ -206,8 +246,12 @@ export function FocusProvider({ userId, children }: { userId: string; children: 
         </div>}
         <p className={styles.hint}>Tu peux fermer ce panneau : le minuteur continue.</p>
       </div>}
-      <details className={styles.history}><summary>Dernières sessions ({history.length})</summary>{history.length === 0 ? <p>Aucune session enregistrée.</p> : <ol>{history.map(r => <li key={r.id}><strong>{r.objective}</strong><span>{new Date(r.savedAt).toLocaleDateString('fr-FR')} / {clockText(r.workedMs)} accomplies / {clockText(r.distractionMs)} de distraction</span>{r.note && <p>{r.note}</p>}</li>)}</ol>}</details>
-      <p className={styles.hint}>Le minuteur en cours reste sur cet appareil. Les bilans liés à une quête sont enregistrés sur ton compte.</p>
+      <details className={styles.history}><summary>Derniers bilans ({bilans.length})</summary>
+        <button className={styles.quiet} onClick={() => void refreshHistory()} disabled={syncing}>{syncing ? 'Rafraîchissement…' : 'Rafraîchir les bilans'}</button>
+        {syncError && <p role="alert" className={styles.error}>{syncError}</p>}
+        {bilans.length === 0 ? <p>Aucun bilan enregistré.</p> : <ol>{bilans.map(b => <li key={b.id}><strong>{b.title}</strong><span>{new Date(b.at).toLocaleDateString('fr-FR')} / {clockText(b.workedMs)} accomplies / {b.detail}</span>{b.note && <p>{b.note}</p>}</li>)}</ol>}
+      </details>
+      <p className={styles.hint}>Le minuteur en cours reste sur cet appareil. Les bilans liés à une quête sont enregistrés sur ton compte et visibles sur tous tes appareils ; les sessions libres restent sur celui-ci.</p>
     </dialog>
   </FocusContext.Provider>;
 }

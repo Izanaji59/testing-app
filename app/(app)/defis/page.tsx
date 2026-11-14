@@ -16,7 +16,7 @@ import { T } from '@/lib/tokens';
 import { STAT_META } from '@/lib/engine/stats';
 import type { StatKind } from '@/lib/types';
 
-const CHALLENGE_STATS: StatKind[] = ['FORCE', 'DISCIPLINE', 'FOCUS', 'INTELLIGENCE', 'CREATIVITY', 'LEADERSHIP', 'MENTALITE', 'TECHNIQUE', 'SOCIAL'];
+const CHALLENGE_STATS: StatKind[] = ['FORCE', 'DISCIPLINE', 'FOCUS', 'INTELLIGENCE', 'CREATIVITY', 'LEADERSHIP', 'MENTALITE', 'TECHNIQUE', 'SOCIAL', 'AGUERRISSEMENT'];
 const DURATIONS = [7, 14, 21, 30, 60];
 
 /** Jour du défi (1 = jour d'adhésion), plafonné à sa durée ; null s'il n'est pas rejoint. */

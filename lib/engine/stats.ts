@@ -46,6 +46,10 @@ export const STAT_META: Record<StatKind, {
     label: 'SOCIAL', short: 'SOC', symbol: '◐', color: T.amber,
     description: 'Conversations qualitatives, networking, liens entretenus, intelligence émotionnelle.',
   },
+  AGUERRISSEMENT: {
+    label: 'AGUERRISSEMENT', short: 'AGU', symbol: '◭', color: T.amber,
+    description: 'Épreuves réelles bien hors de sa zone de confort : marcher 60 km, sauter en parachute, affronter le froid ou l\'inconnu.',
+  },
   REVENU: {
     label: 'REVENU', short: 'REV', symbol: '€', color: T.green,
     description: 'Gains générés par les quêtes et projets terminés.',

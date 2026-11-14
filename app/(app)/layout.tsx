@@ -12,6 +12,7 @@ import { DeadlineReview } from '@/components/core/DeadlineReview';
 import { SideNav } from '@/components/shell/SideNav';
 import { StartGuide } from '@/components/shell/StartGuide';
 import { ChallengeSync } from '@/components/core/ChallengeSync';
+import { DungeonClearHost } from '@/components/core/DungeonClear';
 import shell from '@/components/shell/shell.module.css';
 
 /**
@@ -67,6 +68,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       </div>
       <TabBar />
       {userId && <XpToaster userId={userId} />}
+      <DungeonClearHost />
     </main></FocusProvider>
   );
 }
