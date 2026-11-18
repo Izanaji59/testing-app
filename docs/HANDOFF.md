@@ -2,6 +2,10 @@
 
 Entrée la plus récente en haut. Une entrée par session : date, agent, commits, migrations appliquées, points ouverts.
 
+## 2026-11-19 — Allflix, premier film en lecture intégrée
+
+- Big Buck Bunny (Blender Foundation, CC BY 3.0) est lu dans le lecteur natif depuis Wikimedia Commons, avec crédit et générique. Les 62 destinations « Où regarder » restent en place. Aucune migration.
+
 ## Allflix — disponibilités de visionnage en France
 
 - Export TMDB/JustWatch et import de 62 liens « Où regarder » : 9 films, 20 séries et 33 animés. Les destinations présentent les offres par plateforme. Aucune API de flux vidéo ni migration ajoutée.

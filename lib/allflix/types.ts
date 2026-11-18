@@ -1,4 +1,4 @@
-export type Playback = { type: 'video' | 'embed' | 'link'; url: string; label?: string };
+export type Playback = { type: 'video' | 'embed' | 'link'; url: string; label?: string; credit?: string };
 export type Episode = { number: number; title: string; synopsis: string; minutes: number | null; image: string | null; date: string | null };
 export type Season = { number: number; title: string; episodes: Episode[] };
 export type Title = {

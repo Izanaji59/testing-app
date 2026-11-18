@@ -53,7 +53,7 @@ function Player({source,title,poster}:{source?:Playback;title:string;poster?:str
  if(source.type==='link')return <div className={s.playerEmpty}><h3>{title}</h3><a className={s.primary} href={source.url} target="_blank" rel="noopener noreferrer">{source.label||'Ouvrir la lecture'}</a></div>;
  if(!playing)return <div className={s.playerEmpty}>{poster&&<img src={poster} alt=""/>}<button className={s.primary} onClick={()=>setPlaying(true)}>Lire {title}</button></div>;
  if(source.type==='embed')return <iframe className={s.player} src={source.url} title={`Lecture de ${title}`} allow="fullscreen; picture-in-picture; encrypted-media" allowFullScreen sandbox="allow-scripts allow-same-origin allow-presentation" referrerPolicy="no-referrer"/>;
- return <div><video className={s.player} src={source.url} poster={poster} controls playsInline autoPlay onError={()=>setFailed(true)}/>{failed&&<p role="alert">La vidéo n’a pas pu être chargée. <a href={source.url} target="_blank" rel="noopener noreferrer">Ouvrir le lien de lecture</a></p>}</div>;
+ return <div><video className={s.player} src={source.url} poster={poster} controls playsInline autoPlay onError={()=>setFailed(true)}/>{source.credit&&<p><a className={s.source} href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener noreferrer">{source.credit}</a></p>}{failed&&<p role="alert">La vidéo n’a pas pu être chargée. <a href={source.url} target="_blank" rel="noopener noreferrer">Ouvrir le lien de lecture</a></p>}</div>;
 }
 
 export function AllflixDetail(){
