@@ -6,7 +6,7 @@ const fs = require('fs'), assert = require('assert/strict');
   await db.exec(`create role anon;create role authenticated;create schema auth;create table auth.users(id uuid primary key);create function auth.uid() returns uuid language sql stable as $$select nullif(current_setting('request.jwt.claim.sub',true),'')::uuid$$;grant usage on schema auth to anon,authenticated;create function uuid_generate_v4() returns uuid language sql as $$select gen_random_uuid()$$;create publication supabase_realtime;`);
   for (const name of fs.readdirSync('supabase/migrations').filter(n => n.endsWith('.sql')).sort())
     await db.exec(fs.readFileSync('supabase/migrations/' + name, 'utf8').replace(/^create extension[^;]+;/gm, ''));
-  await db.exec(fs.readFileSync('supabase/migrations/0022_challenges.sql', 'utf8')); // ré-exécution sans effet
+  await db.exec(fs.readFileSync('supabase/migrations/0024_challenge_stat_tiers.sql', 'utf8')); // ré-exécution sans effet
 
   const a = '00000000-0000-4000-8000-00000000000a', b = '00000000-0000-4000-8000-00000000000b';
   await db.exec(`grant usage on schema public to authenticated; grant select,insert,update,delete on all tables in schema public to authenticated;
@@ -65,6 +65,20 @@ const fs = require('fs'), assert = require('assert/strict');
   assert.equal((await rows('select count(*)::int as n from challenges where id=$1', [mine]))[0].n, 1, 'déjà rejoint par un autre : conservé');
   await assert.rejects(db.query(`delete from challenges where created_by is null`).then(async () => { if ((await rows('select count(*)::int as n from challenges where created_by is null'))[0].n !== 5) throw new Error('supprimé'); throw new Error('ok'); }), /ok/);
 
+  // Défi à plusieurs stats : stat principale = la plus difficile ; le projet et la quête du jour les reprennent.
+  const multi = (await rows(`insert into challenges(title,daily_goal,stat_tiers,duration_days,created_by) values('Marche dure','Marcher 15 km','{"AGUERRISSEMENT":"HARD","FORCE":"NOTABLE"}',21,$1) returning id, stat_kind`, [a]))[0];
+  assert.equal(multi.stat_kind, 'AGUERRISSEMENT');
+  await assert.rejects(db.query(`insert into challenges(title,daily_goal,stat_tiers,duration_days,created_by) values('Faux défi','Rien à faire','{"REVENU":"HARD"}',7,$1)`, [a]));
+  assert.deepEqual((await rows('select * from get_challenges()')).find(c => c.id === multi.id).stat_tiers, { AGUERRISSEMENT: 'HARD', FORCE: 'NOTABLE' });
+  assert.equal(list.find(c => c.id === pushups.id).stat_tiers, null, 'défi officiel : une stat, comme avant');
+  const multiProject = (await rows('select join_challenge($1) as id', [multi.id]))[0].id;
+  const [mp] = await rows('select primary_stat, secondary_stat, difficulty from projects where id=$1', [multiProject]);
+  assert.deepEqual([mp.primary_stat, mp.secondary_stat, mp.difficulty], ['AGUERRISSEMENT', 'FORCE', 'HARD']);
+  assert.equal((await rows('select ensure_challenge_quests($1,$2) as n', [start, end]))[0].n, 1);
+  const [mq] = await rows('select difficulty_tier, reward_stats from quests where project_id=$1', [multiProject]);
+  assert.equal(mq.difficulty_tier, 'HARD'); assert.equal(String(mq.reward_stats), '{AGUERRISSEMENT,FORCE}');
+  assert.equal((await rows('select difficulty_tier from quests where project_id=$1', [project]))[0].difficulty_tier, 'ROUTINE', 'quête d’un défi à une stat inchangée');
+
   // Quitter : l'adhésion disparaît, le projet reste dans les donjons ; plus de quête du jour.
   await db.query('delete from challenge_members where challenge_id=$1', [pushups.id]);
   assert.equal((await rows('select count(*)::int as n from projects where id=$1', [project]))[0].n, 1);
@@ -76,5 +90,5 @@ const fs = require('fs'), assert = require('assert/strict');
   await assert.rejects(db.query('select * from challenges'));
   await db.exec('reset role');
   await db.close();
-  console.log('Challenges SQL OK: migrations 0001-0022, défis officiels, rejoindre (idempotent), quête du jour unique, journée validée, classement minimal, RLS, création/suppression, quitter, anon refusé.');
+  console.log('Challenges SQL OK: migrations 0001-0024, défis à plusieurs stats (projet et quête du jour), défis officiels, rejoindre (idempotent), quête du jour unique, journée validée, classement minimal, RLS, création/suppression, quitter, anon refusé.');
 })().catch(e => { console.error(e); process.exitCode = 1; });

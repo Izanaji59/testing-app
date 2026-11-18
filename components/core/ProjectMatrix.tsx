@@ -19,7 +19,7 @@ export function ProjectMatrix({ projects, userId, questCounts, quests }: { proje
   const { openFocus } = useFocus();
   const { values, ready, busy, error, save } = usePriorities(userId);
   const { loot } = useProjectLoot();
-  const [view, setView] = useState<'matrix' | 'list'>('matrix');
+  const [view, setView] = useState<'matrix' | 'list'>('list');
   const [expanded, setExpanded] = useState<string | null>(null);
   const [over, setOver] = useState<string | null>(null);
   const active = projects.filter(p => ['ACTIVE', 'PLANNED', 'PAUSED'].includes(p.status));
@@ -38,7 +38,8 @@ export function ProjectMatrix({ projects, userId, questCounts, quests }: { proje
           </div>
           <span>{Math.round(projectPct(p))} %</span>
         </div>
-        <p className={styles.meta}>{statusNames[p.status]} / {(questCounts[p.id]?.total ?? 0) === 0 ? 'Aucune quête : ajoutes-en pour faire monter l’avancement' : `${questCounts[p.id].done}/${questCounts[p.id].total} quêtes terminées`}{p.ends_at && Number.isFinite(Date.parse(p.ends_at)) ? ` / Échéance ${new Date(p.ends_at).toLocaleDateString('fr-FR')}` : ''}</p>
+        {p.identity && <p className={styles.identity}>« {p.identity} »</p>}
+        <p className={styles.meta}>{statusNames[p.status]} / {(questCounts[p.id]?.total ?? 0) === 0 ? 'Aucune quête : ajoutes-en pour faire monter l’avancement' : `${questCounts[p.id].done}/${questCounts[p.id].total} quêtes terminées`}{p.ends_at && Number.isFinite(Date.parse(p.ends_at)) ? ` / Fin de transmission ${new Date(p.ends_at).toLocaleDateString('fr-FR')}` : ''}</p>
         {!flash && (loot[p.id]?.loot_xp ?? 0) > 0 && <p className={styles.meta}>Butin en réserve : {loot[p.id].loot_xp.toLocaleString('fr-FR')} XP, versé quand tu termines le donjon</p>}
         {!flash && readyToClose(p, questCounts[p.id]?.total ?? 0) && <p className={styles.suggestion}>Prêt à terminer : ouvre les détails</p>}
         {!values[p.id] && <p className={styles.suggestion}>Classement suggéré</p>}
@@ -52,7 +53,7 @@ export function ProjectMatrix({ projects, userId, questCounts, quests }: { proje
     });
   }
   return <section className={styles.section} aria-label="Organisation des donjons">
-    <div className={styles.heading}><div><h2>{view === 'matrix' ? 'Matrice d’Eisenhower' : 'Toutes les quêtes'}</h2><p>{view === 'matrix' ? 'Choisis ce qui mérite ton attention maintenant.' : 'Chaque donjon avec ses quêtes à faire et terminées.'}</p></div><div className={styles.views} role="group" aria-label="Affichage des donjons"><button aria-pressed={view === 'matrix'} onClick={() => setView('matrix')}>Matrice</button><button aria-pressed={view === 'list'} onClick={() => setView('list')}>Liste</button></div></div>
+    <div className={styles.heading}><div><h2>{view === 'matrix' ? 'Matrice d’Eisenhower' : 'Mes donjons et leurs quêtes'}</h2><p>{view === 'matrix' ? 'Choisis ce qui mérite ton attention maintenant.' : 'Chaque donjon, qui tu y deviens, et ses quêtes : quotidiennes, à faire, terminées.'}</p></div><div className={styles.views} role="group" aria-label="Affichage des donjons"><button aria-pressed={view === 'list'} onClick={() => setView('list')}>Liste</button><button aria-pressed={view === 'matrix'} onClick={() => setView('matrix')}>Matrice</button></div></div>
     {view === 'matrix' && <>
       <p className={styles.explanation}>Modifie les cases Important et Urgent, ou déplace un projet entre les quadrants sur ordinateur. Le classement est enregistré sur ton compte.</p>
       <p className={styles.explanation}>Au départ, les projets sont proposés comme importants ; une échéance dans les 7 jours, ou dépassée, les place dans l’urgence. Tu gardes la main sur ces choix.</p>

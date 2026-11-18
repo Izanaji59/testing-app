@@ -9,7 +9,7 @@ const SEEN_KEY = 'grind-intro-seen-v1';
 const LINES = [
   { text: '◆ SIGNAL DÉTECTÉ', accent: true },
   { text: 'Un nouveau joueur vient d’éveiller le système.' },
-  { text: 'Ici, chaque objectif devient un donjon. Chaque action, une quête.' },
+  { text: 'Ici, tu ne poursuis pas des objectifs : tu deviens qui tu es. Chaque part de toi est un donjon, chaque moyen une quête.' },
   { text: 'Ton niveau ne monte que si tu avances vraiment. Tes stats retombent si tu t’arrêtes.' },
   { text: 'Le système ne te demande qu’une chose.' },
   { text: 'Acceptes-tu de devenir le joueur de ta propre vie ?', accent: true },

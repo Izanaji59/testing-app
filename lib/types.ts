@@ -113,6 +113,26 @@ export interface Project {
   stat_tiers: StatTiers | null;
   is_locked: boolean;
   weekly_target_eur: number;
+  /** Phrase d'identité du donjon (« Je suis quelqu'un qui… »), 0025. */
+  identity?: string | null;
+  created_at: string;
+}
+
+/** Quête quotidienne d'un donjon (0025) : émet une quête chaque jour jusqu'à sa fin de transmission. */
+export interface QuestRoutine {
+  id: string;
+  user_id: string;
+  project_id: string;
+  title: string;
+  estimated_minutes: number;
+  difficulty_tier: DifficultyTier;
+  reward_stats: StatKind[] | null;
+  stat_tiers: StatTiers | null;
+  /** Émission : premier jour où la quête est émise. */
+  starts_at: string;
+  /** Fin de transmission propre à la routine ; sinon celle du donjon, sinon jusqu'à l'arrêt. */
+  ends_at: string | null;
+  active: boolean;
   created_at: string;
 }
 
@@ -135,6 +155,8 @@ export interface Quest {
   stat_tiers: StatTiers | null;
   reward_eur: number;
   is_flash: boolean;
+  /** Quête émise par une routine quotidienne (0025). */
+  routine_id?: string | null;
   created_at: string;
 }
 

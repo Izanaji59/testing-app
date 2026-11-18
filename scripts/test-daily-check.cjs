@@ -55,5 +55,23 @@ for (const t of PROJECT_TEMPLATES) {
     assert.ok(Number.isInteger(q.minutes) && q.minutes >= 5 && q.minutes <= 240, q.title + ' minutes');
     assert.ok(TIERS.includes(q.tier), q.title + ' palier');
   }
+  // Un donjon décrit une identité, au présent.
+  assert.ok(/^Je suis quelqu’un qui .{3,}\.$/.test(t.identity) && t.identity.length <= 160, t.id + ' identité');
+  // Une quête quotidienne n'a de sens que si le donjon dure plus d'un jour (ou n'a pas de fin).
+  if (t.quests.some(q => q.daily)) assert.ok(t.days === null || t.days > 1, t.id + ' quotidienne');
 }
-console.log(`Daily check OK: alertes matin/après-midi/soir, inactivité, journée locale ; ${PROJECT_TEMPLATES.length} modèles de projets valides.`);
+assert.ok(PROJECT_TEMPLATES.some(t => t.quests.some(q => q.daily)), 'au moins une quête quotidienne');
+
+// Suggestions de mission : même catalogue que les modèles, filtrées par stat, quotidiennes d'abord, sans doublon.
+const mod = { exports: {} };
+new Function('exports', 'require', ts.transpileModule(fs.readFileSync(path.join(__dirname, '../lib/engine/missionCatalog.ts'), 'utf8'), { compilerOptions: { module: ts.ModuleKind.CommonJS } }).outputText)(mod.exports, p => (p === './projectTemplates' ? load('lib/engine/projectTemplates.ts') : {}));
+const { SYSTEM_MISSIONS, suggestMissions } = mod.exports;
+assert.equal(SYSTEM_MISSIONS.length, PROJECT_TEMPLATES.reduce((n, t) => n + t.quests.length, 0));
+assert.ok(SYSTEM_MISSIONS.every(m => m.stat !== 'REVENU'), 'le revenu se gagne en euros : ses quêtes visent une stat d’XP');
+const force = suggestMissions(['FORCE'], 50);
+assert.ok(force.length > 0 && force.every(m => m.stat === 'FORCE'));
+assert.ok(force.findIndex(m => !m.daily) === -1 || force.slice(force.findIndex(m => !m.daily)).every(m => !m.daily), 'quotidiennes en tête');
+assert.equal(new Set(suggestMissions([], 100).map(m => m.title)).size, suggestMissions([], 100).length);
+assert.equal(suggestMissions([], 6).length, 6);
+assert.deepEqual(suggestMissions(['LEADERSHIP']), []);
+console.log(`Daily check OK: alertes matin/après-midi/soir, inactivité, journée locale ; ${PROJECT_TEMPLATES.length} modèles de donjons valides (identité, quêtes une fois / chaque jour) ; ${SYSTEM_MISSIONS.length} suggestions de mission.`);

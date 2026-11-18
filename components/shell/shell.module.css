@@ -1,6 +1,7 @@
 /* Shell Grindleveling : colonne mobile (style HUD) ; sur ordinateur, menu latéral et contenu élargi. */
-.main{min-height:100vh;position:relative}
-.content{max-width:480px;margin:0 auto;padding-bottom:170px;position:relative}
+.main{min-height:100vh;position:relative;overflow-x:clip}
+/* overflow-x: clip : un panneau 3D qui bascule en s'ouvrant ne doit pas élargir la page (sur téléphone, le navigateur dézoomerait). */
+.content{max-width:480px;margin:0 auto;padding-bottom:170px;position:relative;overflow-x:clip}
 .content.wide{max-width:1120px}
 .sideNav{display:none}
 @keyframes dotPulse{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.15)}}

@@ -14,9 +14,10 @@ import { DataReadout } from '@/components/hud/DataReadout';
 import { XpBar } from '@/components/hud/XpBar';
 import { T } from '@/lib/tokens';
 import { STAT_META } from '@/lib/engine/stats';
-import type { StatKind } from '@/lib/types';
+import { cleanStatTiers, sortedStatTiers } from '@/lib/engine/statTiers';
+import { StatTierPicker, StatTierChips } from '@/components/core/StatTierPicker';
+import type { StatTiers } from '@/lib/types';
 
-const CHALLENGE_STATS: StatKind[] = ['FORCE', 'DISCIPLINE', 'FOCUS', 'INTELLIGENCE', 'CREATIVITY', 'LEADERSHIP', 'MENTALITE', 'TECHNIQUE', 'SOCIAL', 'AGUERRISSEMENT'];
 const DURATIONS = [7, 14, 21, 30, 60];
 
 /** Jour du défi (1 = jour d'adhésion), plafonné à sa durée ; null s'il n'est pas rejoint. */
@@ -109,7 +110,9 @@ function ChallengeCard({ challenge: c, userId, highlight = false }: { challenge:
       <div style={{ padding: 14, display: 'flex', flexDirection: 'column', gap: 8 }}>
         <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
           {c.official && <DataReadout size={8} color={T.amber}>◆ OFFICIEL</DataReadout>}
-          <DataReadout size={8} color={STAT_META[c.stat_kind].color}>{STAT_META[c.stat_kind].symbol} {STAT_META[c.stat_kind].label}</DataReadout>
+          {c.stat_tiers
+            ? <StatTierChips entries={sortedStatTiers(c.stat_tiers)} />
+            : <DataReadout size={8} color={STAT_META[c.stat_kind].color}>{STAT_META[c.stat_kind].symbol} {STAT_META[c.stat_kind].label}</DataReadout>}
           <DataReadout size={8} style={{ marginLeft: 'auto' }}>{c.members} PARTICIPANT{c.members > 1 ? 'S' : ''}</DataReadout>
         </div>
         <div style={{ fontFamily: T.display, fontSize: 17, color: T.text, letterSpacing: '0.03em' }}>{c.title}</div>
@@ -172,20 +175,21 @@ function ChallengeCreator({ userId, onDone }: { userId: string; onDone: () => vo
   const [title, setTitle] = useState('');
   const [goal, setGoal] = useState('');
   const [description, setDescription] = useState('');
-  const [stat, setStat] = useState<StatKind>('FORCE');
+  const [statTiers, setStatTiers] = useState<StatTiers>({});
   const [duration, setDuration] = useState(30);
   const [minutes, setMinutes] = useState(20);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
-  const field: React.CSSProperties = { background: 'rgba(78,205,255,0.04)', border: `1px solid ${T.lineMid}`, color: T.text, padding: '10px 12px', fontFamily: T.mono, fontSize: 12, width: '100%', boxSizing: 'border-box', marginTop: 6 };
-  const valid = title.trim().length >= 3 && goal.trim().length >= 3;
+  const field: React.CSSProperties = { background: 'rgba(78,205,255,0.04)', border: `1px solid ${T.lineMid}`, color: T.text, padding: '10px 12px', fontFamily: T.mono, fontSize: 12, width: '100%', boxSizing: 'border-box', marginTop: 6, minHeight: 44 };
+  const tiers = cleanStatTiers(statTiers);
+  const valid = title.trim().length >= 3 && goal.trim().length >= 3 && !!tiers;
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
-    if (!valid || busy) return;
+    if (!valid || busy || !tiers) return;
     setBusy(true); setError('');
     try {
-      await createChallenge({ title: title.trim(), daily_goal: goal.trim(), description: description.trim(), stat_kind: stat, duration_days: duration, minutes }, userId);
+      await createChallenge({ title: title.trim(), daily_goal: goal.trim(), description: description.trim(), stat_kind: sortedStatTiers(tiers)[0].kind, stat_tiers: tiers, duration_days: duration, minutes }, userId);
       onDone();
     } catch { setError('Le défi n’a pas pu être créé. Vérifie les champs et réessaie.'); }
     finally { setBusy(false); }
@@ -197,11 +201,18 @@ function ChallengeCreator({ userId, onDone }: { userId: string; onDone: () => vo
         <label style={{ fontSize: 12, color: T.textDim }}>Nom du défi<input required maxLength={80} value={title} onChange={e => setTitle(e.target.value)} placeholder="Ex : Gainage 2 minutes" style={field} /></label>
         <label style={{ fontSize: 12, color: T.textDim }}>Objectif de chaque jour<input required maxLength={120} value={goal} onChange={e => setGoal(e.target.value)} placeholder="Ex : Tenir 2 minutes de gainage" style={field} /></label>
         <label style={{ fontSize: 12, color: T.textDim }}>Description (facultatif)<textarea maxLength={500} rows={3} value={description} onChange={e => setDescription(e.target.value)} style={{ ...field, resize: 'vertical' }} /></label>
+        <StatTierPicker
+          idPrefix="defi"
+          value={statTiers}
+          onChange={setStatTiers}
+          defaultTier="ROUTINE"
+          hint="Les stats que ce défi fait progresser, chacune avec sa difficulté. La quête du jour prend la difficulté la plus haute."
+        />
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: 10 }}>
-          <label style={{ fontSize: 12, color: T.textDim }}>Compétence<select value={stat} onChange={e => setStat(e.target.value as StatKind)} style={field}>{CHALLENGE_STATS.map(s => <option key={s} value={s}>{STAT_META[s].label}</option>)}</select></label>
           <label style={{ fontSize: 12, color: T.textDim }}>Durée<select value={duration} onChange={e => setDuration(Number(e.target.value))} style={field}>{DURATIONS.map(d => <option key={d} value={d}>{d} jours</option>)}</select></label>
           <label style={{ fontSize: 12, color: T.textDim }}>Minutes par jour<input type="number" min={5} max={240} value={minutes} onChange={e => setMinutes(Math.max(5, Math.min(240, Number(e.target.value) || 5)))} style={field} /></label>
         </div>
+        {!tiers && <p style={{ margin: 0, fontSize: 12, color: T.amber, lineHeight: 1.6 }}>Choisis au moins une stat.</p>}
         <p style={{ margin: 0, fontSize: 12, color: T.textMute, lineHeight: 1.6 }}>Le défi sera visible de tous les joueurs. Tu pourras le supprimer tant que personne d’autre ne l’a rejoint.</p>
         {error && <p role="alert" style={{ margin: 0, fontSize: 12, color: T.danger }}>{error}</p>}
         <button type="submit" disabled={!valid || busy} style={{ ...btn(true), opacity: valid ? 1 : 0.5 }}>{busy ? 'CRÉATION…' : 'PUBLIER LE DÉFI'}</button>

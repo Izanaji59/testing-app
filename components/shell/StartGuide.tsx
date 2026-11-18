@@ -25,8 +25,8 @@ export function guideProgress(projects: Pick<Project, 'id' | 'title'>[], quests:
 }
 
 const STEPS: Array<{ key: keyof GuideProgress; title: string; text: string; cta: string; href: string }> = [
-  { key: 'donjon', title: 'Crée ton premier donjon', text: 'Un objectif qui compte : lancer un projet, reprendre le sport, réussir un examen…', cta: 'Créer un donjon', href: '/donjon/?creer=1' },
-  { key: 'quest', title: 'Découpe-le en quête', text: 'Une action concrète, datée, qui fait avancer ce donjon.', cta: 'Créer une quête', href: '/quests/?creer=1' },
+  { key: 'donjon', title: 'Ouvre ton premier donjon', text: 'Une part de ton identité, pas un objectif à tenir : « Je suis quelqu’un qui prend soin de son corps. » Pars d’un modèle ou écris le tien.', cta: 'Ouvrir un donjon', href: '/donjon/?creer=1' },
+  { key: 'quest', title: 'Crée ses quêtes, dans le donjon', text: 'Les moyens concrets : une quête émise une fois, ou chaque jour jusqu’à la fin du donjon.', cta: 'Créer une quête', href: '/quests/?creer=1' },
   { key: 'started', title: 'Lance ta première quête', text: 'Démarre-la, ou appuie sur « J’ai besoin de me concentrer » pour la travailler maintenant.', cta: 'Voir mes quêtes', href: '/quests/' },
 ];
 

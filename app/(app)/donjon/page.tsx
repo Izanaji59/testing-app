@@ -2,7 +2,10 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { mutate } from 'swr';
+import { DonjonIntro } from '@/components/core/DonjonIntro';
+import { createRoutine, ensureRoutineQuests } from '@/hooks/useRoutines';
 import { useProfile } from '@/hooks/useProfile';
 import { DictationButton, appendDictation } from '@/components/core/DictationButton';
 import { useProjects } from '@/hooks/useProjects';
@@ -19,7 +22,7 @@ import { DIFFICULTY_META } from '@/lib/engine/difficulty';
 import { STAT_META } from '@/lib/engine/stats';
 import { LOOT_RATE, cleanStatTiers, sortedStatTiers, topTier } from '@/lib/engine/statTiers';
 import { StatTierPicker } from '@/components/core/StatTierPicker';
-import { PROJECT_TEMPLATES, type ProjectTemplate } from '@/lib/engine/projectTemplates';
+import { PROJECT_TEMPLATES, templateQuestStat, type ProjectTemplate } from '@/lib/engine/projectTemplates';
 
 const PROJECT_TYPES: { value: ProjectType; label: string; desc: string }[] = [
   { value: 'OPERATION', label: 'OPÉRATION', desc: 'Tâche structurée, durée courte' },
@@ -30,6 +33,7 @@ const PROJECT_TYPES: { value: ProjectType; label: string; desc: string }[] = [
 ];
 
 export default function DonjonPage() {
+  const router = useRouter();
   const { profile, loading } = useProfile();
   const { projects, refresh } = useProjects();
   const { quests } = useQuests();
@@ -54,36 +58,44 @@ export default function DonjonPage() {
 
       <div style={{ padding: '14px 14px 0', display: 'flex', flexDirection: 'column', gap: 18 }}>
 
+        <DonjonIntro mbti={profile.mbti} />
+
         {/* Bouton création */}
         <button
           onClick={() => setShowCreate(s => !s)}
+          aria-expanded={showCreate}
           style={{
             background: 'transparent',
             color: T.cyan,
             border: `1px dashed ${T.lineMid}`,
             padding: '14px',
+            minHeight: 44,
             fontFamily: T.mono,
             fontSize: 10,
             letterSpacing: '0.28em',
             cursor: 'pointer',
           }}
         >
-          {showCreate ? '✕ ANNULER' : '+ NOUVEAU PROJET'}
+          {showCreate ? '✕ ANNULER' : '+ OUVRIR UN DONJON'}
         </button>
+
+        {showCreate && (
+          <ProjectCreator
+            onCreated={id => {
+              setShowCreate(false); refresh();
+              // Étape suivante : créer les quêtes de ce donjon.
+              if (id) router.push(`/quests/?creer=1&projet=${id}`);
+            }}
+          />
+        )}
 
         <Link href="/defis" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, padding: '12px 14px', border: `1px solid ${T.lineMid}`, background: 'rgba(255,178,61,0.05)', textDecoration: 'none' }}>
           <span>
             <DataReadout size={9} color={T.amber} style={{ display: 'block' }}>⚑ DÉFIS COMMUNS</DataReadout>
-            <span style={{ display: 'block', fontSize: 12, color: T.textDim, marginTop: 4 }}>100 pompes, coucher avant 23 h 30… Relève un objectif quotidien avec les autres joueurs.</span>
+            <span style={{ display: 'block', fontSize: 12, color: T.textDim, marginTop: 4 }}>Des quêtes quotidiennes à plusieurs, avec classement : 100 pompes, coucher avant 23 h 30… Même principe qu’une quête « chaque jour » de tes donjons.</span>
           </span>
           <span style={{ fontFamily: T.mono, fontSize: 14, color: T.amber }}>→</span>
         </Link>
-
-        {showCreate && (
-          <ProjectCreator
-            onCreated={() => { setShowCreate(false); refresh(); }}
-          />
-        )}
 
         <ProjectMatrix projects={projects} userId={profile.user_id} questCounts={questCounts} quests={quests} />
 
@@ -91,10 +103,10 @@ export default function DonjonPage() {
           <HudPanel thin>
             <div style={{ padding: 28, textAlign: 'center' }}>
               <div style={{ fontFamily: T.mono, fontSize: 10, color: T.textDim, letterSpacing: '0.22em' }}>
-                AUCUN PROJET POUR LE MOMENT.
+                AUCUN DONJON OUVERT.
               </div>
               <div style={{ fontFamily: T.mono, fontSize: 10, color: T.cyan, letterSpacing: '0.22em', marginTop: 8 }}>
-                UTILISE LE BOUTON + CI-DESSUS.
+                COMMENCE PAR QUI TU ES : + OUVRIR UN DONJON.
               </div>
             </div>
           </HudPanel>
@@ -106,8 +118,9 @@ export default function DonjonPage() {
 
 // ─────────────────────────── Project Creator ───────────────────────────
 
-function ProjectCreator({ onCreated }: { onCreated: () => void }) {
+function ProjectCreator({ onCreated }: { onCreated: (id?: string) => void }) {
   const [title, setTitle]       = useState('');
+  const [identity, setIdentity] = useState('');
   const [type, setType]         = useState<ProjectType>('OPERATION');
   const [difficulty, setDiff]   = useState<DifficultyTier>('NOTABLE');
   const [statTiers, setStatTiers] = useState<StatTiers>({});
@@ -117,7 +130,10 @@ function ProjectCreator({ onCreated }: { onCreated: () => void }) {
   const [error, setError]       = useState<string | null>(null);
   const [showTemplates, setShowTemplates] = useState(false);
 
-  /** Crée le projet du modèle puis ses premières quêtes (sans échéance). */
+  /**
+   * Ouvre le donjon du modèle avec son identité, puis ses quêtes : les quêtes « une fois » sans échéance,
+   * les quêtes « chaque jour » comme quêtes quotidiennes jusqu'à la fin du donjon (celle du jour est émise tout de suite).
+   */
   async function applyTemplate(t: ProjectTemplate) {
     if (submitting) return;
     setSub(true); setError(null);
@@ -126,17 +142,29 @@ function ProjectCreator({ onCreated }: { onCreated: () => void }) {
       const { data: auth } = await sb.auth.getUser();
       if (!auth.user) throw new Error('Non authentifié');
       const { data: project, error: insertErr } = await sb.from('projects').insert({
-        user_id: auth.user.id, type: t.type, title: t.title, status: 'ACTIVE', difficulty: t.difficulty,
+        user_id: auth.user.id, type: t.type, title: t.title, identity: t.identity, status: 'ACTIVE', difficulty: t.difficulty,
         primary_stat: t.stat, stat_tiers: cleanStatTiers({ [t.stat]: t.difficulty }), starts_at: new Date().toISOString(),
         ends_at: t.days ? new Date(Date.now() + t.days * 86400000).toISOString() : null,
       }).select('id').single();
       if (insertErr || !project) throw insertErr ?? new Error('Projet non créé');
-      const { error: questsErr } = await sb.from('quests').insert(t.quests.map(q => ({
-        user_id: auth.user!.id, project_id: project.id, title: q.title, status: 'PENDING',
-        difficulty_tier: q.tier, estimated_minutes: q.minutes, reward_stats: [t.stat], due_at: null, is_flash: false,
-      })));
-      if (questsErr) throw questsErr;
-      await mutate('quests');
+      const stat = templateQuestStat(t);
+      const once = t.quests.filter(q => !q.daily);
+      if (once.length) {
+        const { error: questsErr } = await sb.from('quests').insert(once.map(q => ({
+          user_id: auth.user!.id, project_id: project.id, title: q.title, status: 'PENDING',
+          difficulty_tier: q.tier, estimated_minutes: q.minutes, reward_stats: [stat],
+          stat_tiers: cleanStatTiers({ [stat]: q.tier }), due_at: null, is_flash: false,
+        })));
+        if (questsErr) throw questsErr;
+      }
+      for (const q of t.quests.filter(q => q.daily)) {
+        await createRoutine({
+          project_id: project.id, title: q.title, estimated_minutes: q.minutes, difficulty_tier: q.tier,
+          reward_stats: [stat], stat_tiers: cleanStatTiers({ [stat]: q.tier }), ends_at: null,
+        });
+      }
+      await ensureRoutineQuests();
+      await Promise.allSettled([mutate('quests'), mutate('quests-today'), mutate('routines')]);
       onCreated();
     } catch {
       setError('Le modèle n’a pas pu être entièrement créé. Vérifie tes donjons avant de réessayer.');
@@ -155,10 +183,11 @@ function ProjectCreator({ onCreated }: { onCreated: () => void }) {
       if (!auth.user) throw new Error('Non authentifié');
 
       const tiers = cleanStatTiers(statTiers);
-      const { error: insertErr } = await sb.from('projects').insert({
+      const { data: created, error: insertErr } = await sb.from('projects').insert({
         user_id:      auth.user.id,
         type,
         title:        title.trim(),
+        identity:     identity.trim() ? identity.trim().slice(0, 160) : null,
         status:       'ACTIVE',
         difficulty:   topTier(tiers) ?? difficulty,
         primary_stat: sortedStatTiers(tiers)[0]?.kind ?? null,
@@ -166,10 +195,10 @@ function ProjectCreator({ onCreated }: { onCreated: () => void }) {
         starts_at:    new Date().toISOString(),
         ends_at:      endsAt || null,
         weekly_target_eur: weeklyTarget ? parseFloat(weeklyTarget) : 0,
-      });
+      }).select('id').single();
 
       if (insertErr) throw insertErr;
-      onCreated();
+      onCreated(created?.id);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Erreur inconnue');
     } finally {
@@ -186,7 +215,7 @@ function ProjectCreator({ onCreated }: { onCreated: () => void }) {
   };
 
   return (
-    <HudPanel label="NOUVEAU PROJET" glow={0.4}>
+    <HudPanel label="OUVRIR UN DONJON" glow={0.4}>
       <div style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 12 }}>
 
         <button
@@ -195,43 +224,68 @@ function ProjectCreator({ onCreated }: { onCreated: () => void }) {
           aria-expanded={showTemplates}
           style={{ background: 'transparent', color: T.cyan, border: `1px solid ${T.lineMid}`, padding: '10px 12px', fontFamily: T.mono, fontSize: 9, letterSpacing: '0.2em', cursor: 'pointer', minHeight: 44 }}
         >
-          {showTemplates ? '✕ FERMER LES MODÈLES' : '💡 PARTIR D’UN MODÈLE DE PROJET'}
+          {showTemplates ? '✕ FERMER LES MODÈLES' : '💡 PARTIR D’UN MODÈLE DE DONJON'}
         </button>
         {showTemplates && (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 8 }}>
-            {PROJECT_TEMPLATES.map(t => (
-              <button
-                key={t.id}
-                type="button"
-                disabled={submitting}
-                onClick={() => applyTemplate(t)}
-                style={{ textAlign: 'left', background: T.surf2, border: `1px solid ${T.line}`, padding: 12, cursor: submitting ? 'wait' : 'pointer', color: T.text, minHeight: 44 }}
-              >
-                <DataReadout size={8} color={STAT_META[t.stat].color} style={{ display: 'block' }}>{t.domain.toUpperCase()} · {STAT_META[t.stat].short}</DataReadout>
-                <span style={{ display: 'block', fontFamily: T.display, fontSize: 14, marginTop: 6 }}>{t.title}</span>
-                <span style={{ display: 'block', fontSize: 12, color: T.textDim, marginTop: 4, lineHeight: 1.5 }}>{t.pitch}</span>
-                <span style={{ display: 'block', fontFamily: T.mono, fontSize: 9, color: T.textMute, letterSpacing: '0.14em', marginTop: 8 }}>{t.quests.length} QUÊTES DE DÉPART{t.days ? ` · ${t.days} JOURS` : ''}</span>
-              </button>
-            ))}
-          </div>
+          <>
+            <p style={{ fontSize: 12, color: T.textDim, margin: 0, lineHeight: 1.6 }}>Un clic ouvre le donjon avec son identité et ses quêtes : celles marquées ↻ sont émises chaque jour jusqu’à la fin du donjon, les autres une seule fois.</p>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 8 }}>
+              {PROJECT_TEMPLATES.map(t => {
+                const daily = t.quests.filter(q => q.daily).length;
+                return (
+                  <button
+                    key={t.id}
+                    type="button"
+                    disabled={submitting}
+                    onClick={() => applyTemplate(t)}
+                    style={{ textAlign: 'left', background: T.surf2, border: `1px solid ${T.line}`, padding: 12, cursor: submitting ? 'wait' : 'pointer', color: T.text, minHeight: 44 }}
+                  >
+                    <DataReadout size={8} color={STAT_META[t.stat].color} style={{ display: 'block' }}>{t.domain.toUpperCase()} · {STAT_META[t.stat].short}</DataReadout>
+                    <span style={{ display: 'block', fontFamily: T.display, fontSize: 14, marginTop: 6 }}>{t.title}</span>
+                    <span style={{ display: 'block', fontFamily: T.display, fontStyle: 'italic', fontSize: 12, color: T.cyanHi, marginTop: 4, lineHeight: 1.5 }}>« {t.identity} »</span>
+                    <span style={{ display: 'block', fontSize: 12, color: T.textDim, marginTop: 4, lineHeight: 1.5 }}>{t.pitch}</span>
+                    <span style={{ display: 'block', fontFamily: T.mono, fontSize: 9, color: T.textMute, letterSpacing: '0.14em', marginTop: 8 }}>
+                      {t.quests.length - daily} UNE FOIS{daily ? ` · ${daily} ↻ CHAQUE JOUR` : ''}{t.days ? ` · ${t.days} JOURS` : ' · SANS FIN'}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </>
         )}
 
-        <DataReadout>OU TITRE DU PROJET</DataReadout>
+        <label htmlFor="donjon-nom"><DataReadout>OU TON PROPRE DONJON · SON NOM</DataReadout></label>
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
           <input
+            id="donjon-nom"
             value={title}
             onChange={e => setTitle(e.target.value)}
-            onKeyDown={e => { if (e.key === 'Enter') submit(); }}
             autoFocus
-            aria-label="Titre du projet"
-            placeholder="Ex : Lancer la V1 de l'app"
+            placeholder="Ex : Ma forme physique"
             style={{ ...selectStyle, letterSpacing: '0.03em', flex: 1, width: 'auto', minWidth: 0 }}
           />
-          <DictationButton label="titre du projet" onText={text => setTitle(t => appendDictation(t, text))} />
+          <DictationButton label="nom du donjon" onText={text => setTitle(t => appendDictation(t, text))} />
         </div>
 
-        <DataReadout>TYPE</DataReadout>
-        <select value={type} onChange={e => setType(e.target.value as ProjectType)} style={selectStyle}>
+        <label htmlFor="donjon-identite"><DataReadout>IDENTITÉ · QUI ES-TU DANS CE DONJON ?</DataReadout></label>
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+          <input
+            id="donjon-identite"
+            value={identity}
+            maxLength={160}
+            onChange={e => setIdentity(e.target.value)}
+            onKeyDown={e => { if (e.key === 'Enter') submit(); }}
+            placeholder="Je suis quelqu’un qui…"
+            style={{ ...selectStyle, letterSpacing: '0.03em', flex: 1, width: 'auto', minWidth: 0 }}
+          />
+          <DictationButton label="identité du donjon" onText={text => setIdentity(t => appendDictation(t, text))} />
+        </div>
+        <p style={{ fontSize: 12, color: T.textDim, margin: 0, lineHeight: 1.6 }}>
+          Pas un objectif à tenir : une phrase qui te décrit, au présent. « Je suis quelqu’un qui écrit chaque jour », plutôt que « écrire un livre ».
+        </p>
+
+        <label htmlFor="donjon-type"><DataReadout>TYPE</DataReadout></label>
+        <select id="donjon-type" value={type} onChange={e => setType(e.target.value as ProjectType)} style={selectStyle}>
           {PROJECT_TYPES.map(pt => (
             <option key={pt.value} value={pt.value}>{pt.label} — {pt.desc}</option>
           ))}
@@ -254,11 +308,15 @@ function ProjectCreator({ onCreated }: { onCreated: () => void }) {
           </div>
         )}
         <p style={{ fontSize: 12, color: T.textDim, margin: 0, lineHeight: 1.6 }}>
-          Butin : {Math.round(LOOT_RATE[topTier(statTiers) ?? difficulty] * 100)} % de l’XP gagnée par les quêtes de ce donjon, versé d’un coup quand tu le termines (à l’échéance, ou quand tu estimes l’avoir fini).
+          Butin : {Math.round(LOOT_RATE[topTier(statTiers) ?? difficulty] * 100)} % de l’XP gagnée par les quêtes de ce donjon, versé d’un coup quand tu le termines (à sa fin de transmission, ou quand tu estimes l’avoir fini).
         </p>
 
-        <DataReadout>DATE DE FIN · OPTIONNELLE (SINON PAS DE COMPTE À REBOURS SUR LA ROADMAP)</DataReadout>
+        <label htmlFor="donjon-fin"><DataReadout>FIN DE TRANSMISSION · OPTIONNELLE</DataReadout></label>
+        <p style={{ fontSize: 12, color: T.textDim, margin: 0, lineHeight: 1.6 }}>
+          Le donjon est émis aujourd’hui. Sa fin de transmission arrête ses quêtes quotidiennes et lance le compte à rebours de la roadmap. Sans date, il reste ouvert jusqu’à ce que tu le termines.
+        </p>
         <input
+          id="donjon-fin"
           type="date"
           value={endsAt}
           onChange={e => setEndsAt(e.target.value)}
@@ -291,7 +349,7 @@ function ProjectCreator({ onCreated }: { onCreated: () => void }) {
             boxShadow: `0 0 10px ${T.cyanGlow}`,
           }}
         >
-          {submitting ? 'CRÉATION…' : 'CRÉER LE PROJET'}
+          {submitting ? 'OUVERTURE…' : 'OUVRIR LE DONJON · PUIS SES QUÊTES →'}
         </button>
       </div>
     </HudPanel>

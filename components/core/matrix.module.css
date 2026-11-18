@@ -63,3 +63,4 @@
   .heading{flex-wrap:wrap}
   .quadrant{padding:12px;min-height:150px}
 }
+.identity{font:italic 13px/1.5 "Chakra Petch",system-ui,sans-serif;color:#b8ecff;margin:6px 0 2px;overflow-wrap:anywhere}

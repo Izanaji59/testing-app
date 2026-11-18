@@ -2,10 +2,12 @@
 
 import useSWR, { mutate } from 'swr';
 import { supabase } from '@/lib/supabase/client';
-import type { StatKind } from '@/lib/types';
+import type { StatKind, StatTiers } from '@/lib/types';
 
 export type Challenge = {
   id: string; title: string; description: string; daily_goal: string; stat_kind: StatKind;
+  /** Plusieurs stats avec leur difficulté (0024) ; null pour les défis à une stat. */
+  stat_tiers: StatTiers | null;
   duration_days: number; minutes: number; mine: boolean; official: boolean; members: number;
   joined_at: string | null; project_id: string | null;
 };
@@ -52,7 +54,8 @@ export async function leaveChallenge(id: string, userId: string) {
   await mutate('challenges');
 }
 
-export async function createChallenge(input: { title: string; description: string; daily_goal: string; stat_kind: StatKind; duration_days: number; minutes: number }, userId: string) {
+/** `stat_kind` = la stat la plus difficile (la base le recalcule depuis `stat_tiers`). */
+export async function createChallenge(input: { title: string; description: string; daily_goal: string; stat_kind: StatKind; stat_tiers: StatTiers; duration_days: number; minutes: number }, userId: string) {
   const { error } = await supabase().from('challenges').insert({ ...input, created_by: userId });
   if (error) throw error;
   await mutate('challenges');

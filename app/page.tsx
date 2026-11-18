@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import { SlumbywiseLanding } from '@/components/slumbywise/SlumbywiseLanding';
 
 export const metadata: Metadata = {
-  title: 'Slumbywise — Lire, avancer, jouer',
-  description: 'Les articles du Carnet, Le Carnet du Concierge, les quêtes de Grindleveling et les jeux Slumbywise. Un projet porté par Denshiku.',
+  title: 'Slumbywise — Voir, lire et se divertir correctement',
+  description: 'Le Carnet, le Livre et Allflix pour voir ou lire correctement ; Grindleveling, les échecs et Empreinte pour se divertir correctement. Un projet porté par Denshiku : l’héritage, c’est le partage.',
 };
 
 /**

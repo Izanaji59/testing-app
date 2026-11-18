@@ -122,6 +122,7 @@ export function QuestCard({ quest, onChange }: Props) {
               {meta.symbol}
             </span>
             <DataReadout size={8} color={meta.color}>{meta.label}</DataReadout>
+            {quest.routine_id && <DataReadout size={8} color={T.amber}>↻ QUOTIDIENNE</DataReadout>}
             {quest.reward_eur > 0 && (
               <DataReadout size={8} color={T.green}>{quest.reward_eur.toLocaleString('fr-FR')} €</DataReadout>
             )}
@@ -147,7 +148,7 @@ export function QuestCard({ quest, onChange }: Props) {
 
           {/* Actions */}
           {!isDone && <p style={{fontSize:11,color:T.cyan,margin:'0 0 8px'}}>Budget global : {quest.reward_xp_base ?? questXpBudget(quest.difficulty_tier ?? 'ROUTINE',quest.estimated_minutes ?? 30)} XP à la validation</p>}
-          {!isDone && <p style={{fontSize:11,color:T.textDim,margin:'0 0 12px'}}>{quest.due_at ? `Échéance : ${new Date(quest.due_at).toLocaleString('fr-FR',{dateStyle:'short',timeStyle:'short'})}` : 'Sans échéance'}</p>}
+          {!isDone && <p style={{fontSize:11,color:T.textDim,margin:'0 0 12px'}}>{quest.due_at ? `${quest.routine_id ? 'Quête du jour · fin de transmission' : 'Fin de transmission'} : ${new Date(quest.due_at).toLocaleString('fr-FR',{dateStyle:'short',timeStyle:'short'})}` : 'Sans échéance'}</p>}
           {error && <p role="alert" style={{fontSize:12,color:T.danger}}>{error}</p>}
           {!isDone && (
             <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
