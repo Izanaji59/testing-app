@@ -1,1 +1,312 @@
-{}
+{
+  "tmdb-movie-155": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/movie/155-the-dark-knight/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-movie-1596275": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/movie/1596275-drive-the-pretenders/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-movie-1507696": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/movie/1507696-apocalipsis-z-nuevo-mundo/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-movie-1232569": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/movie/1232569-pinocchio-unstrung/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-movie-354912": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/movie/354912-coco/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-movie-1294189": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/movie/1294189-the-mongoose/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-movie-755898": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/movie/755898-war-of-the-worlds/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-movie-1148365": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/movie/1148365-matchbox-the-movie/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-movie-1571955": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/movie/1571955-colision/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-tv-4057": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/tv/4057-criminal-minds/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-tv-2734": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/tv/2734-law-order-special-victims-unit/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-tv-1434": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/tv/1434-family-guy/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-tv-1622": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/tv/1622-supernatural/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-tv-456": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/tv/456-the-simpsons/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-tv-2316": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/tv/2316-the-office/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-tv-18165": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/tv/18165-the-vampire-diaries/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-tv-1100": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/tv/1100-how-i-met-your-mother/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-tv-5920": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/tv/5920-the-mentalist/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-tv-60735": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/tv/60735-the-flash/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-tv-1421": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/tv/1421-modern-family/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-tv-1408": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/tv/1408-house/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-tv-1416": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/tv/1416-grey-s-anatomy/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-tv-44217": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/tv/44217-vikings/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-tv-1400": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/tv/1400-seinfeld/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-tv-33880": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/tv/33880-the-legend-of-korra/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-tv-1668": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/tv/1668-friends/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-tv-194766": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/tv/194766-the-summer-i-turned-pretty/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-tv-46648": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/tv/46648-true-detective/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-tv-67075": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/tv/67075-mobusaiko100/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-tv-48866": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/tv/48866-the-100/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-tv-262259": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/tv/262259-wandansu/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-tv-30984": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/tv/30984-bleach/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-tv-116725": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/tv/116725-vivy-fluorite-eye-s-song/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-tv-312359": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/tv/312359-doragonboru-chao-birusu/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-tv-30983": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/tv/30983-ming-tan-zhen-konan/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-tv-60572": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/tv/60572-pokettomonsuta/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-tv-95479": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/tv/95479-zhou-shu-hui-zhan/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-tv-45790": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/tv/45790-jiyojiyono-qi-miao-na-mao-xian/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-tv-220542": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/tv/220542-yao-wu-nohitorigoto/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-tv-46260": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/tv/46260-naruto/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-tv-94664": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/tv/94664-wu-zhi-zhuan-sheng-yi-shi-jie-xing-ttara-ben-qi-dasu/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-tv-57911": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/tv/57911-doraemon/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-tv-12971": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/tv/12971-doragonboruzetto/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-movie-129": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/movie/129-qian-to-qian-xun-no-shen-yin-shi/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-tv-65942": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/tv/65942-re/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-movie-4935": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/movie/4935-hauruno-dong-ku-cheng/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-movie-372058": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/movie/372058-jun-no-ming-ha/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-movie-1218925": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/movie/1218925-ju-chang-ban-chiensoman-reze-pian/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-movie-128": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/movie/128-mononoke-ji/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-movie-8392": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/movie/8392-tonarinototoro/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-movie-16859": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/movie/16859-mo-nu-no-zhai-ji-bian/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-movie-12429": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/movie/12429-ya-no-shang-noponiyo/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-movie-81": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/movie/81-feng-no-gu-nonaushika/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-movie-810693": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/movie/810693-ju-chang-ban-zhou-shu-hui-zhan-0/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-movie-10494": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/movie/10494-perfect-blue/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-movie-378064": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/movie/378064-ying-hua-sheng-no-xing/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-movie-9323": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/movie/9323-ghost-in-the-shell/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-movie-508883": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/movie/508883-jun-tachihadou-sheng-kiruka/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-movie-149": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/movie/149-akira/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-movie-10515": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/movie/10515-tian-kong-no-cheng-rapiyuta/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-movie-635302": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/movie/635302-ju-chang-ban-gui-mie-no-ren-wu-xian-lie-che-bian/watch?locale=FR",
+    "label": "Où regarder"
+  },
+  "tmdb-movie-37797": {
+    "type": "link",
+    "url": "https://www.themoviedb.org/movie/37797-er-osumaseba/watch?locale=FR",
+    "label": "Où regarder"
+  }
+}

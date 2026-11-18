@@ -2,6 +2,11 @@
 
 Entrée la plus récente en haut. Une entrée par session : date, agent, commits, migrations appliquées, points ouverts.
 
+## Allflix — disponibilités de visionnage en France
+
+- Export TMDB/JustWatch et import de 62 liens « Où regarder » : 9 films, 20 séries et 33 animés. Les destinations présentent les offres par plateforme. Aucune API de flux vidéo ni migration ajoutée.
+- L’export ignore les fiches sans identifiant TMDB pour les appels réseau et signale les erreurs de récupération.
+
 ## 2026-11-13 (nuit, suite) — Claude Code, partage des quêtes et des défis
 
 - `lib/share.ts` : une quête se partage par lien `/quests/?partage=<code>` (titre, minutes, difficulté, 2 compétences max, encodés en base64url ; jamais d'euros, d'échéance ni d'identifiant). Un défi par `/defis/?defi=<id>`. Ordre des listes TIERS/STATS figé (liens déjà envoyés).

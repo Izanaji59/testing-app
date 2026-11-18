@@ -107,13 +107,20 @@ async function exportCsv(out) {
   const { titles } = await readJson(path.join(root, 'public/allflix/catalog.json'), { titles: [] });
   const rows = [];
   for (const [i, t] of titles.entries()) {
+    if (!Number.isInteger(t.tmdbId) || t.tmdbId <= 0) {
+      rows.push(providerRow(t, null));
+      continue;
+    }
     const url = new URL(`https://api.themoviedb.org/3/${t.media}/${t.tmdbId}/watch/providers`);
     url.searchParams.set('api_key', key);
-    let fr = null;
+    let fr;
     try {
       const response = await fetch(url, { signal: AbortSignal.timeout(30000) });
-      if (response.ok) fr = (await response.json()).results?.FR ?? null;
-    } catch { /* œuvre exportée sans plateforme */ }
+      if (!response.ok && response.status !== 404) throw new Error(`HTTP ${response.status}`);
+      fr = response.ok ? (await response.json()).results?.FR ?? null : null;
+    } catch (error) {
+      throw new Error(`Disponibilité TMDB inaccessible pour ${t.id} (${error.message}).`);
+    }
     rows.push(providerRow(t, fr));
     process.stdout.write(`\r[${i + 1}/${titles.length}] ${t.title.slice(0, 50).padEnd(50)}`);
     await new Promise(r => setTimeout(r, 60));
