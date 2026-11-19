@@ -1,0 +1,14 @@
+{
+  "featuredIds": [
+    "tmdb-movie-911430",
+    "tmdb-movie-1233413",
+    "tmdb-movie-693134",
+    "tmdb-movie-1184918",
+    "tmdb-movie-933260"
+  ],
+  "frenchDestinations": [
+    { "type": "movie", "label": "Films en français", "url": "https://cineregal.today/films" },
+    { "type": "tv", "label": "Séries en français", "url": "https://cineregal.today/series" },
+    { "type": "anime", "label": "Animés en français", "url": "https://anime-sama.to/" }
+  ]
+}

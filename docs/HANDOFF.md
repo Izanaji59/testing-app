@@ -2,6 +2,80 @@
 
 Entrée la plus récente en haut. Une entrée par session : date, agent, commits, migrations appliquées, points ouverts.
 
+## 2026-11-19 — Catalogue unifié et communauté MBTI, Codex
+
+- Publication unique autorisée explicitement par l’utilisateur après les vérifications. Inclut l’accueil Allflix, les lecteurs et la correction du compteur de quêtes préparés dans les entrées précédentes.
+- Suppression du filtre Collection Ichidok et des liens externes MKissa/FRAnime. Les œuvres restent disponibles dans les filtres habituels.
+- Correction du rapprochement des titres : les noms japonais normalisés vides et les MAL distincts ne fusionnent plus des œuvres différentes. Catalogue : 5 692 fiches, dont 1 317 œuvres rapprochées du dépôt Ichidok (1 256 nouvelles), 10 509 destinations d’épisodes et les 1 030 fichiers vidéo précédents conservés. Les lecteurs non testés restent signalés.
+- Images : 4 224 affiches complétées depuis les sources documentées ; 51 affiches et 4 portraits restent introuvables, sans image trompeuse de remplacement. 863 personnages, dont 454 typages éditoriaux.
+- Migration 0026_fiction_community appliquée en production sur zpvayrhcfrlerwxciyzr et registre de 863 personnages initialisé. Lecture publique vérifiée HTTP 200 sans identité de votant. Ajout de personnage/œuvre, images et vote MBTI modifiable avec le compte existant ; aucune modification d’XP ni de statistiques personnelles.
+- Vérifications réussies : TypeScript, build export des 34 routes, tests navigateur Allflix et communauté (invité/compte, votes, ajout, images, erreurs, mobile), tests SQL RLS/votes/stockage/idempotence, tests des identités de catalogue, personnages et API de lecture.
+- Limites : la disponibilité de chaque épisode n’est pas garantie ; les images restantes peuvent être proposées par la communauté.
+
+## 2026-11-19 — Accueil Allflix, anglais et accès français, local
+
+- Header bleu nuit/cyan inspiré du screen fourni, navigation Films/Séries/Animés et adaptation téléphone. Carrousel de cinq films en première section : F1, Sinners, Dune 2, Le Robot sauvage, The Substance. Navigation manuelle, pause, suspension au survol/focus et prise en compte de la réduction des animations.
+- L'utilisateur confirme l'orientation : favoriser la pratique de l'anglais pour les francophones. Le texte distingue VO/sous-titres anglais selon les lecteurs et ne promet pas de VF intégrée.
+- Trois cartes Films en français, Séries en français, Animés en français ouvrent les liens demandés dans un nouvel onglet. Pas de nom de fournisseur affiché sur les cartes. Destinations et sélection du carrousel modifiables dans config/allflix-navigation.json.
+- Aucun changement de catalogue, de liens d'épisodes ou de Supabase. Aucun push ni déploiement.
+- Vérifications : construction, TypeScript et parcours navigateur réussis, y compris carrousel, destinations exactes, navigation de catégories et absence de débordement à 320/390/768/1440 px. Contrôle visuel ordinateur/téléphone effectué.
+
+## 2026-11-19 — Retrait explicite du sandbox demandé par l'utilisateur
+
+- Attribut sandbox retiré de l'iframe Allflix à la demande explicite de l'utilisateur. Les 4 836 sources Zokoanime repassent en embed, avec lancement après clic et ouverture externe toujours disponible. Script de liaison et tests alignés. Cette demande remplace le choix d'ouverture externe décrit dans l'entrée précédente. Construction, TypeScript et tests réussis ; un épisode de Steins;Gate a effectivement avancé au-delà de deux secondes dans l'iframe Allflix sans erreur média. Aucun déploiement.
+
+## 2026-11-19 — Ichidok importé, lecteurs publics en local
+
+- À la demande explicite de l'utilisateur, remplacement de la restriction de provenance dans AGENTS.md : intégrer les lecteurs publics demandés, conserver la provenance et leur état de vérification ; pas de contournement d'authentification, paiement ou DRM. Documentation Allflix et liste des domaines alignées.
+- Import figé sur Ichidok 2b7a4d1a53b39529c7251cdccae62ea51f9558fd : 1 183 entrées seed et 186 entrées supplémentaires d'audit, 52 doublons d'identifiants exclus. 1 317 lignes source rapprochées de 1 003 œuvres Allflix, dont 942 nouvelles fiches ; 111 œuvres de la collection datées 2024–2026 et non indiquées à venir. Total catalogue : 5 378 fiches.
+- Les dates et épisodes génériques 2020/12 du seed ont été retirés lorsqu'ils ne sont pas documentés. Recoupement cache/audit ; identifiants internes négatifs distincts des vrais MAL. Régressions One Piece/Mob Psycho/My Hero Academia vérifiées.
+- 4 836 liens d'épisodes SUB Zokoanime pour 290 œuvres. Le fournisseur refuse explicitement les iframes sandboxées (« EMBED BLOCKED ») : ouverture du lecteur dans un nouvel onglet, sans retirer la protection des iframes. Liens existants prioritaires et statut « Lecteur à vérifier » pour les épisodes non testés. 649 œuvres sans identifiant MAL univoque et 54 sans liste d'épisodes n'ont pas reçu d'adresse inventée. Seule la première saison des fiches TMDB fusionnées est reliée ; les saisons MAL distinctes disposent de leur fiche propre.
+- Reproductible : node scripts/import-allflix-ichidok.mjs, puis node scripts/link-allflix-ichidok.mjs. Les résultats et la provenance sont dans public/allflix/ichidok-import.json. Aucune migration, aucun push ni déploiement.
+
+## 2026-11-19 — Quêtes validées dans les statistiques, local
+
+- FocusStats comptait uniquement les sessions dont quest_completed était vrai. Le compteur utilise maintenant le nombre exact de lignes quests au statut COMPLETED et completed_at sur les mêmes sept jours, filtrées par utilisateur. Les validations sans minuteur sont incluses ; plusieurs sessions ne multiplient pas une quête. Les sessions et les quêtes sont affichées séparément. Aucune modification d'XP, aucune migration.
+- Test navigateur enrichi avec deux quêtes validées manuellement en plus d'une par minuteur : trois quêtes et deux sessions vérifiées. Construction, TypeScript et parcours navigateur réussis. Aucun déploiement.
+- Audit Ichidok : le code actuel dépend de zokoanime.video et non du seul catalogue archive.org mentionné dans le README. Deux lecteurs publics testés dans Chrome : vidéo prête, lecture avançant au-delà de six secondes, sans erreur média. Cela vérifie deux épisodes seulement, pas tout le catalogue ; aucune source intégrée à Allflix.
+
+## 2026-11-19 — Allflix, priorité aux sorties récentes, local
+
+- Import WikiFlix terminé : 699 films supplémentaires ; 1 000 films hors animés, 13 animés et 3 séries avec fichier vidéo (1 030 entrées). Ce fonds est principalement ancien et ne répond pas à la priorité finalement réaffirmée par l'utilisateur : les sorties récentes. Aucun nouvel import d'archives à poursuivre.
+- Catalogue affiché par défaut depuis l'année courante moins deux (188 fiches en 2024–2026), tri par année décroissante, affiche de couverture récente ; bouton Toutes les années pour retrouver le fonds. Il s'agit de dates de création d'œuvres : les nouvelles saisons de séries anciennes devront être traitées avec leurs dates d'épisodes.
+- Provenance et critères de recherche GitHub détaillés dans docs/allflix-provenance.md. Aucun push, déploiement ou changement Supabase.
+
+## Allflix — huit titres récents en local
+
+- Singularity (2026) lu via le MP4 de l’API Blender. Sept liens vers des épisodes ou pilotes complets confirmés via oEmbed sur les chaînes Crunchyroll, ADN et GLITCH. Fiches en tête du catalogue. Aucun déploiement.
+
+## Allflix — import WikiFlix en local
+
+- API WikiFlix documentée sur GitHub, métadonnées de fichier Wikimedia Commons et regroupement d’épisodes Wikidata. 282 films, 7 animés et 12 épisodes d’une série ajoutés. Total avec fichiers directs : 300 films, 13 animés et 3 séries, soit 330 vidéos. Détails et liens dans `docs/allflix-provenance.md`. Aucun déploiement.
+
+## Allflix — 900 fiches avec destination de visionnage en France, en local
+
+- 300 films, 300 séries hors animés, 300 animés. 837 fiches supplémentaires et filtre « Où regarder ». Import reproductible avec `scripts/import-allflix-availability.mjs`. Offres TMDB/JustWatch, lien Crunchyroll direct pour la fiche My Hero Academia. Lecture intégrée conservée à part. Aucun push ni déploiement.
+
+## Allflix — catalogues d’animés externes en local
+
+- Les adresses MKissa sous-titrés et FRAnime fournies par l’utilisateur sont accessibles depuis le filtre Animés. Ce sont des liens de navigation vers des catalogues tiers. Aucun flux vidéo ni iframe de catalogue. Aucun déploiement.
+
+## My Hero Academia — liens Crunchyroll en local
+
+- La carte importée du CSV mène dans le catalogue à une fiche Allflix TMDB dédiée. Les huit saisons et les spéciaux sont listés (189 entrées TMDB). Les 13 épisodes de la saison 1 ont chacun un lien Crunchyroll. La page de la série sert pour les autres épisodes.
+- L’import TMDB accepte `--title=tv:65930` pour cibler une œuvre. Aucun push, déploiement Netlify ni migration.
+
+## 2026-11-19 — Allflix, deuxième lot en local
+
+- 9 fiches et 10 vidéos : 5 films de Méliès, 3 animés japonais et 2 épisodes publiés de Morevna. Les 10 vidéos ont démarré dans le lecteur Chrome. Provenance : `docs/allflix-provenance.md`.
+- Aucun push ni déploiement Netlify. Aucune migration.
+
+## 2026-11-19 — Allflix, catalogue de vidéos libres (local)
+
+- 16 fiches nouvelles : 12 courts métrages Blender, 3 animés japonais d’archive et la série Caminandes (3 épisodes). Les 18 vidéos nouvelles ont démarré dans le lecteur Chrome. Sources principales : Blender, Wikimedia Commons et Internet Archive.
+- Le filtre « Lecture intégrée » se combine avec Films, Séries et Animés. Big Buck Bunny reste disponible dans ce filtre.
+- Construction, TypeScript et tests Allflix réussis. Aucune migration. Travail local à la demande de l’utilisateur, aucun push ni déploiement Netlify.
+
 ## 2026-11-19 — Allflix, premier film en lecture intégrée
 
 - Big Buck Bunny (Blender Foundation, CC BY 3.0) est lu dans le lecteur natif depuis Wikimedia Commons, avec crédit et générique. Les 62 destinations « Où regarder » restent en place. Aucune migration.

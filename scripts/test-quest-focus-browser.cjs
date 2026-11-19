@@ -21,9 +21,22 @@ const quest={id:'q1',user_id:uid,project_id:'p1',title:'Rédiger la première of
   if(url.pathname==='/auth/v1/user')result=user;
   else if(url.pathname==='/auth/v1/token')result=auth;
   else if(url.pathname==='/rest/v1/profiles')result=profile;
-  else if(url.pathname==='/rest/v1/quests')result=[quest];
+  else if(url.pathname==='/rest/v1/quests'){
+   if(req.method()==='HEAD'){
+    assert.equal(url.searchParams.get('select'),'id');
+    assert.equal(url.searchParams.get('status'),'eq.COMPLETED');
+    assert.equal(url.searchParams.get('user_id'),'eq.'+uid);
+    const bounds=url.searchParams.getAll('completed_at');
+    assert.ok(bounds.some(x=>x.startsWith('gte.'))&&bounds.some(x=>x.startsWith('lte.')));
+    // Two manually completed quests, plus the one completed through the timer.
+    const count=2+(quest.status==='COMPLETED'?1:0);
+    return route.fulfill({status:200,headers:{'content-range':`0-${count-1}/${count}`,'access-control-expose-headers':'content-range'},body:''});
+   }
+   result=[quest];
+  }
   else if(url.pathname==='/rest/v1/projects')result=[project];
   else if(url.pathname==='/rest/v1/sessions')result=[...sessions.values()];
+  else if(['/rest/v1/rpc/ensure_challenge_quests','/rest/v1/rpc/ensure_routine_quests','/rest/v1/rpc/get_project_loot'].includes(url.pathname))result=[];
   else if(url.pathname==='/rest/v1/rpc/save_quest_focus'){
    const body=req.postDataJSON();writes.push(body);
    if(fail)return route.fulfill({status:500,contentType:'application/json',body:JSON.stringify({message:'offline test'})});
@@ -58,8 +71,8 @@ const quest={id:'q1',user_id:uid,project_id:'p1',title:'Rédiger la première of
  fail=true;await d.getByRole('button',{name:'Enregistrer et valider la quête'}).click();await d.getByRole('alert').waitFor();assert.equal(await d.getByLabel('Ce que j’ai avancé').inputValue(),'Offre terminée');assert.equal(sessions.size,1);
  await p.reload();await p.getByRole('button',{name:/Bilan de la session/}).click();await d.waitFor();assert.equal(await d.getByLabel('Ce que j’ai avancé').inputValue(),'Offre terminée');assert.equal(await d.getByLabel('J’ai terminé cette quête').isChecked(),true);
  fail=false;await d.getByRole('button',{name:'Enregistrer et valider la quête'}).click();await d.getByRole('status').filter({hasText:'Quête validée'}).waitFor();assert.deepEqual(writes[2],writes[3]);assert.equal(sessions.size,2);assert.equal(profile.total_xp,35);assert.equal(project.progress_pct,100);
- await d.getByRole('button',{name:'Fermer le minuteur'}).click();await p.goto(base+'/stats/');await p.getByText('2 sessions enregistrées / 1 quête(s) validée(s) au bilan').waitFor();
- await p.goto(base+'/donjon/');await p.getByRole('button',{name:/Me concentrer sur Lancer/}).click();await d.getByText(/Aucune quête ouverte/).waitFor();assert.equal(await d.getByRole('button',{name:'Commencer',exact:true}).isDisabled(),true);
+ await d.getByRole('button',{name:'Fermer le minuteur'}).click();await p.goto(base+'/stats/');await p.getByText('2 sessions de concentration enregistrées').waitFor();await p.getByText('3 quêtes validées',{exact:true}).waitFor();
+ await p.goto(base+'/donjon/');await p.getByRole('button',{name:'Matrice',exact:true}).click();await p.getByRole('button',{name:/Me concentrer sur Lancer/}).click();await d.getByText(/Aucune quête ouverte/).waitFor();assert.equal(await d.getByRole('button',{name:'Commencer',exact:true}).isDisabled(),true);
  for(const width of [320,390,1280]){await p.setViewportSize({width,height:844});assert.equal(await d.evaluate(el=>el.scrollWidth>el.clientWidth),false,'dialog overflow '+width);}
  assert.deepEqual(errors,[]);console.log('Quest focus browser OK: direct quest entry, parent context, net work excludes distraction, partial session no rewards, explicit completion, lost confirmation and failed save retry same payload after reload, account stats, completed quests excluded, mobile layout.');
 }finally{await browser.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

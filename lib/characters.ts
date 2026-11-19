@@ -20,7 +20,7 @@ export type Character = {
   imageKind: 'actor' | 'illustration';
   actor?: string;
   role?: string;
-  source: 'tmdb' | 'anilist';
+  source: 'tmdb' | 'anilist' | 'community';
   sourceUrl: string;
 };
 
@@ -32,7 +32,7 @@ export type TypingEntry = { personnage?: string; oeuvre?: string; mbti?: string;
 export type Typing = { mbti: MbtiType | null; enneagram: string | null; note: string; suggested: boolean };
 const STATUTS = ['', 'suggestion', 'valide'];
 
-export const CHARACTER_ID = /^(tmdb-credit-[0-9a-f]{6,40}|anilist-char-\d{1,9})$/;
+export const CHARACTER_ID = /^(tmdb-credit-[0-9a-f]{6,40}|anilist-char-\d{1,9}|community-char-[0-9a-f-]{36})$/;
 
 export function normalizeMbti(value: string | undefined): MbtiType | null {
   const v = (value ?? '').trim().toUpperCase();
@@ -71,7 +71,7 @@ export function invalidTypings(typings: Record<string, TypingEntry>): string[] {
   return bad;
 }
 
-export type TypedCharacter = Character & { typing: Typing | null };
+export type TypedCharacter = Character & { typing: Typing | null; typingSource?: 'editorial' | 'community'; communityImage?:boolean };
 
 export function withTypings(index: CharacterIndex | undefined, typings: Record<string, TypingEntry> | undefined): TypedCharacter[] {
   return (index?.characters ?? []).map(c => ({ ...c, typing: readTyping(typings?.[c.id]) }));

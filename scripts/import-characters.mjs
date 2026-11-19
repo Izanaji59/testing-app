@@ -164,6 +164,10 @@ async function findAnime(title, sources, perTitle) {
     const body = await anilist(`query ($id: Int, $per: Int) { Media(id: $id, type: ANIME) { ${MEDIA_FIELDS} } }`, { id: source.anilistId, per: perTitle });
     return body.data?.Media ?? null;
   }
+  if(title.malIds?.length===1){
+    const body=await anilist(`query ($mal: Int, $per: Int) { Media(idMal: $mal, type: ANIME) { ${MEDIA_FIELDS} } }`,{mal:title.malIds[0],per:perTitle});
+    return body.data?.Media??null;
+  }
   for (const search of [...new Set([title.originalTitle, title.title].filter(Boolean))]) {
     const body = await anilist(`query ($search: String, $per: Int) { Page(perPage: 6) { media(search: $search, type: ANIME, sort: SEARCH_MATCH) { ${MEDIA_FIELDS} } } }`, { search, per: perTitle });
     const media = pickAnilistMatch(body.data?.Page?.media ?? [], title);
@@ -176,6 +180,7 @@ async function main() {
   const args = process.argv.slice(2);
   const opt = (name, fallback) => args.find(a => a.startsWith(name + '='))?.split('=').slice(1).join('=') ?? fallback;
   const only = opt('--only', '');
+  const onlyIds=only.split(',').filter(Boolean);
   const perTitle = Number(opt('--per-title', 10));
   if (!Number.isInteger(perTitle) || perTitle < 1 || perTitle > 25) throw new Error('--per-title doit être un entier entre 1 et 25.');
 
@@ -189,7 +194,7 @@ async function main() {
     return text === null ? fallback : JSON.parse(text);
   };
   const catalog = await readJson(path.join(root, 'public/allflix/catalog.json'), { titles: [] });
-  const titles = catalog.titles.filter(t => !only || t.id === only);
+  const titles = catalog.titles.filter(t => !onlyIds.length || onlyIds.includes(t.id));
   if (only && !titles.length) throw new Error('Œuvre inconnue dans Allflix : ' + only);
   await fs.mkdir(OUT_DIR, { recursive: true });
   const index = await readJson(path.join(OUT_DIR, 'index.json'), { updatedAt: null, characters: [] });
@@ -209,6 +214,7 @@ async function main() {
         else fallback.push(title.id);
       }
       if (!characters.length) {
+        if(!Number.isInteger(title.tmdbId)||title.tmdbId<1)throw new Error('Aucune correspondance de personnages confirmée pour cette œuvre');
         const credits = await tmdb(title.media === 'movie' ? `movie/${title.tmdbId}/credits` : `tv/${title.tmdbId}/aggregate_credits`);
         characters = tmdbCharacters(title, credits, perTitle);
         fromTmdb++;

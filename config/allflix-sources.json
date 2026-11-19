@@ -1,6 +1,7 @@
 {
-  "_lisez-moi": "Domaines acceptés par « npm run allflix:links -- import ». Sources autorisées uniquement : plateformes officielles, chaînes d'ayants droit, vos propres vidéos (ajouter votre CDN). Jamais de site de streaming non autorisé. Les sous-domaines sont inclus.",
+  "_lisez-moi": "Domaines configurés pour « npm run allflix:links -- import ». Les lecteurs publics demandés par l'utilisateur peuvent être ajoutés après contrôle technique. Les sous-domaines sont inclus. Conserver la provenance et distinguer une lecture testée d'une source à vérifier.",
   "domaines": [
+    "zokoanime.video",
     "themoviedb.org",
     "justwatch.com",
     "netflix.com",
@@ -26,6 +27,7 @@
     "youtu.be",
     "vimeo.com",
     "archive.org",
-    "upload.wikimedia.org"
+    "upload.wikimedia.org",
+    "video.blender.org"
   ]
 }

@@ -37,8 +37,8 @@ GitHub `main` est la seule source de vérité. Les sessions se passent la main p
 - Défis communs (migration 0022) : rejoindre, quête du jour et classement passent uniquement par les RPC `security definer` ; le classement n'expose que le pseudo et les jours réussis.
 - Marque affichée dans l'interface : « Denshiku » (anciennement LATRACTION, qui ne doit plus apparaître à l'écran).
 - Rangs E → S nommés selon le MBTI (16 profils × 6 rangs) : `lib/engine/rankTitles.ts`.
-- Personnages de fiction : typage éditorial uniquement, saisi dans `public/characters/typings.json` (voir `docs/personnages.md`). Données via API officielles (TMDB, AniList) ; ne jamais extraire les typages ou données d'autres sites (PDB, Boo…).
-- Lecture Allflix : uniquement des sources autorisées (vidéos propres, catalogue sous licence, fournisseur officiel), via `playback.json` ou l'API de lecture (`docs/allflix.md`). Jamais de liens ni de lecteurs de sites de streaming non autorisés, ni de scraper pour en récupérer.
+- Personnages de fiction : distinguer le typage éditorial (`public/characters/typings.json`) des votes de la communauté Slumbywise (migration 0026). Données importées via API officielles (TMDB, AniList) ; ne jamais extraire les typages d'autres communautés (PDB, Boo…). Les contributions utilisent le compte Slumbywise existant, ne modifient ni les profils ni l'XP et n'exposent jamais les identités des votants. Voir `docs/personnages.md`.
+- Lecture Allflix : intégrer les catalogues et lecteurs publics demandés par l'utilisateur via `playback.json` ou l'API de lecture (`docs/allflix.md`). Vérifier les identifiants d'œuvres et d'épisodes, distinguer les sources testées des sources à vérifier et conserver leur provenance. Ne pas contourner les authentifications, paiements ou DRM. Ne pas déclarer tout un catalogue regardable après un test portant sur quelques épisodes.
 - Interface en français.
 
 ## Tests

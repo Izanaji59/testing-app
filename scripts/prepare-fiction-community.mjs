@@ -1,0 +1,12 @@
+import fs from 'node:fs/promises';
+import crypto from 'node:crypto';
+const index=JSON.parse(await fs.readFile('public/characters/index.json','utf8'));
+const records=index.characters.map(c=>({id:c.id,name:c.name,title_id:c.titleId,title:c.title,image_url:c.image,image_kind:c.imageKind,source:c.source,source_url:c.sourceUrl}));
+const json=JSON.stringify(records),delimiter='$fiction_'+crypto.randomBytes(8).toString('hex')+'$';
+if(json.includes(delimiter))throw new Error('Invalid seed delimiter');
+const seed=`\n-- Imported characters: public metadata only, no profiles or votes overwritten.\nbegin;\ninsert into public.fiction_characters(id,name,title_id,title,image_url,image_kind,source,source_url)\nselect id,name,title_id,title,image_url,image_kind,source,source_url from jsonb_to_recordset(${delimiter}${json}${delimiter}::jsonb)\nas c(id text,name text,title_id text,title text,image_url text,image_kind text,source text,source_url text)\non conflict(id) do update set name=excluded.name,title_id=excluded.title_id,title=excluded.title,image_url=excluded.image_url,image_kind=excluded.image_kind,source_url=excluded.source_url\nwhere fiction_characters.source<>'community';\ncommit;\n`;
+const migration=await fs.readFile('supabase/migrations/0026_fiction_community.sql','utf8');
+await fs.writeFile('supabase/seed-fiction-characters.sql',seed);
+await fs.mkdir('test-results',{recursive:true});
+await fs.writeFile('test-results/activate-fiction-community.sql',migration+seed);
+console.log(`Activation SQL prepared for ${records.length} characters, no account data included.`);

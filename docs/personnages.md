@@ -48,6 +48,12 @@ Dans `typings.json`, chaque personnage a déjà son entrée (triée par œuvre) 
 - Un nouvel import ne modifie jamais une entrée remplie ; il ajoute les nouveaux personnages et retire seulement les entrées vides devenues orphelines.
 - Publier : commit puis push sur `main` (Netlify redéploie).
 
-## Limites de la V1
+## Contributions de la communauté
 
-Pas de votes de la communauté, pas de pages indexées individuellement par Google (le site est exporté en statique, les fiches passent par `?id=`), noms d'animés en romaji. Licences TMDB et AniList à vérifier avant tout usage commercial.
+Les membres utilisent leur compte Slumbywise/Grindleveling existant pour ajouter un personnage, son œuvre et son image, puis voter pour son MBTI. Une œuvre absente peut être saisie librement. Le formulaire accepte une image JPG/PNG/WebP de 3 Mo maximum ou une URL HTTPS. Aucun point d'XP ni aucune modification de profil ne viennent des contributions.
+
+Une voix modifiable par membre et par personnage ; les résultats publics ne contiennent que les totaux par type, sans identifiant ni identité des votants. Un ex æquo ne choisit pas artificiellement un type. Le typage éditorial et le type en tête des votes restent distingués. Les personnages sans typage éditorial peuvent apparaître sous leur type communautaire.
+
+Migration : `0026_fiction_community.sql`. Registre des personnages importés : générer `supabase/seed-fiction-characters.sql` avec `node scripts/prepare-fiction-community.mjs`, puis l'appliquer après la migration. La source statique est préservée ; les personnages communautaires viennent de `get_fiction_community()`. Les écritures passent exclusivement par les RPC authentifiées. Le bucket `character-images` limite les fichiers et leur emplacement au compte qui les envoie.
+
+Vérifications : `scripts/test-fiction-community-sql.cjs` et `scripts/test-fiction-community-browser.cjs`. La page et ses fiches sont exportées en statique, la communauté se synchronise avec Supabase. Noms d'animés en romaji possibles ; les interprétations MBTI ne sont pas des typages officiels des auteurs des œuvres.

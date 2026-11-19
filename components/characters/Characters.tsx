@@ -10,6 +10,7 @@ import { Portrait, anilistCredit, typeLine } from './TitleCharacters';
 import { CHARACTER_ID, characterHref, type TypedCharacter } from '@/lib/characters';
 import { MBTI_GROUPS, MBTI_RANK_PROFILES, type MbtiGroupKey } from '@/lib/engine/rankTitles';
 import { MBTI_CLASSES, type MbtiType } from '@/lib/engine/mbtiClasses';
+import { AddCharacter, CharacterCommunity } from './CommunityForms';
 
 const TYPES = Object.keys(MBTI_RANK_PROFILES) as MbtiType[];
 const isType = (value: string): value is MbtiType => (TYPES as string[]).includes(value);
@@ -61,13 +62,14 @@ export function CharactersCatalog() {
         </select>
       </label>
     </div>
+    <AddCharacter/>
     {loading && <p role="status" className={s.empty}>Chargement des personnages…</p>}
     {error && <div className={s.empty} role="alert"><h3>Les personnages n’ont pas pu être chargés.</h3><button onClick={retry}>Réessayer</button></div>}
     {!loading && !error && <>
       <p className={s.resultCount} role="status">{list.length} personnage{list.length > 1 ? 's' : ''}</p>
       {list.length
         ? <div className={s.grid}>{list.map(ch => <CharacterCard key={ch.id} ch={ch} />)}</div>
-        : <div className={s.empty}><h3>Aucun personnage ici.</h3><p>Un personnage apparaît dans un type dès qu’il est renseigné dans le typage éditorial.</p></div>}
+        : <div className={s.empty}><h3>Aucun personnage ici.</h3><p>Tu peux ajouter un personnage et proposer son type MBTI.</p></div>}
     </>}
   </main></Frame>;
 }
@@ -85,7 +87,7 @@ export function CharacterDetail() {
     window.addEventListener('popstate', read);
     return () => window.removeEventListener('popstate', read);
   }, []);
-  const { characters, loading, error, retry } = useCharacters();
+  const { characters, loading, communityLoading, error, retry } = useCharacters();
   const ch = characters.find(x => x.id === id);
   const typing = ch?.typing;
   const profile = typing?.mbti ? MBTI_RANK_PROFILES[typing.mbti] : null;
@@ -94,8 +96,8 @@ export function CharacterDetail() {
 
   return <Frame extraCredit={anilistCredit}><main className={s.detail}>
     <Link className={s.back} href="/personnages/">Tous les personnages</Link>
-    {(!ready || (id && loading)) && <p role="status" className={s.empty}>Chargement du personnage…</p>}
-    {ready && !loading && (!id || error || !ch) && <div className={s.empty}>
+    {(!ready || (id && (loading || communityLoading && id.startsWith('community-char-')))) && <p role="status" className={s.empty}>Chargement du personnage…</p>}
+    {ready && !loading && !communityLoading && (!id || error || !ch) && <div className={s.empty}>
       <h1>Ce personnage est introuvable.</h1>
       {error ? <button onClick={retry}>Réessayer</button> : <p>Retrouve les personnages disponibles dans la liste.</p>}
     </div>}
@@ -103,7 +105,7 @@ export function CharacterDetail() {
       <section className={s.titleIntro}>
         <div className={s.detailCover}><Portrait character={ch} /></div>
         <div>
-          <span className={s.eyebrow}>{ch.role ? `${ch.role} / ` : ''}<Link href={`/allflix/fiche/?id=${ch.titleId}`}>{ch.title}</Link></span>
+          <span className={s.eyebrow}>{ch.role ? `${ch.role} / ` : ''}{ch.titleId?<Link href={`/allflix/fiche/?id=${ch.titleId}`}>{ch.title}</Link>:ch.title}</span>
           <h1>{ch.name}</h1>
           {ch.nativeName && ch.nativeName !== ch.name && <p lang="ja" className={c.native}>{ch.nativeName}</p>}
           {typing ? <div className={c.typing}>
@@ -117,14 +119,15 @@ export function CharacterDetail() {
             </div>}
             {typing.enneagram && <p className={c.enneagram}>Ennéagramme <strong>{typing.enneagram}</strong></p>}
             {typing.note && <p className={s.synopsis}>{typing.note}</p>}
-            <p className={c.hint}>{typing.suggested ? 'Suggestion de typage Slumbywise, à valider.' : 'Typage éditorial Slumbywise.'}</p>
+            <p className={c.hint}>{ch.typingSource==='community'?'Type en tête du vote communautaire.':typing.suggested ? 'Suggestion de typage Slumbywise, à valider.' : 'Typage éditorial Slumbywise.'}</p>
           </div> : <p className={c.hint}>Pas encore typé.</p>}
           <p className={c.hint}>
             {ch.imageKind === 'actor' && ch.actor ? `Photo : ${ch.actor}, interprète. ` : ''}
-            <a href={ch.sourceUrl} target="_blank" rel="noopener noreferrer">Source : {ch.source === 'anilist' ? 'AniList' : 'TMDB'}</a>
+            {ch.communityImage&&'Image proposée par la communauté. '}{ch.source==='community'?'Personnage ajouté par la communauté Slumbywise.':<a href={ch.sourceUrl} target="_blank" rel="noopener noreferrer">Source : {ch.source === 'anilist' ? 'AniList' : 'TMDB'}</a>}
           </p>
         </div>
       </section>
+      <CharacterCommunity characterId={ch.id}/>
       {sameType.length > 0 && typing?.mbti && <section className={c.related}>
         <div className={s.sectionTitle}><h2>Autres {typing.mbti}</h2><Link href={`/personnages/?type=${typing.mbti}`}>Voir tous les {typing.mbti}</Link></div>
         <div className={s.grid}>{sameType.map(x => <CharacterCard key={x.id} ch={x} />)}</div>

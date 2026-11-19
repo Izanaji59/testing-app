@@ -4,6 +4,10 @@
 
 ## Importer les fiches
 
+### Accueil et accès en français
+
+Le fichier `config/allflix-navigation.json` rassemble les `featuredIds` du carrousel et les trois `frenchDestinations`. Modifier leurs URL pour changer les accès Films, Séries et Animés en français. Les cartes utilisent ces destinations directement et s'ouvrent dans un nouvel onglet ; elles ne prétendent pas fournir une VF dans le lecteur Allflix. La présentation du catalogue privilégie la pratique de l'anglais, avec des langues audio/sous-titres qui dépendent de chaque lecteur. Le carrousel permet de choisir un film, de mettre en pause et respecte la préférence de réduction des animations.
+
 Mettre `TMDB_API_KEY` dans l'environnement ou `.env.local` (ignoré par Git). Ne jamais employer `NEXT_PUBLIC_` pour cette clé. Puis :
 
 ```sh
@@ -25,7 +29,7 @@ Les métadonnées sont en français lorsqu'elles existent chez TMDB. La premièr
 }
 ```
 
-Utiliser les vrais identifiants des fiches. Une URL HTTPS de vidéo MP4/WebM utilise le lecteur natif ; `embed` attend une page de lecteur intégrable ; `link` ouvre un lecteur externe. L'intégration dépend des autorisations de l'hébergeur (X-Frame-Options/CSP), et les flux HLS/DRM nécessitent une intégration adaptée. Aucun lien ni abonnement de lecture n'est fourni par TMDB. Ajouter seulement les sources de diffusion autorisées.
+Utiliser les vrais identifiants des fiches. Une URL HTTPS de vidéo MP4/WebM utilise le lecteur natif ; `embed` attend une page de lecteur intégrable ; `link` ouvre un lecteur externe. L'intégration dépend des restrictions techniques de l'hébergeur (X-Frame-Options/CSP). Aucun lien ni abonnement de lecture n'est fourni par TMDB. Les lecteurs publics demandés par l'utilisateur sont intégrables après contrôle technique ; `verified: false` signale un épisode dont la lecture n'a pas encore été testée. Ne pas contourner une authentification, un paiement ou un DRM.
 
 Enregistrer, reconstruire puis déployer. Aucun changement de code de la fiche n'est nécessaire. Un lien manquant affiche « Lecture à venir ». Il n'y a pas de lecture ni de chargement d'un lecteur tiers avant le clic. Les résumés d'épisodes restent repliés pour éviter les révélations involontaires.
 
@@ -41,7 +45,7 @@ L'export (clé TMDB requise) pré-remplit chaque œuvre avec ses plateformes lé
 
 Dans Excel : garder `id`, modifier `url` / `lecture` (`link`, `embed`, `video`) / `libelle`, ajouter une ligne par épisode si besoin (`saison` + `episode`), vider `url` pour ignorer une ligne. Enregistrer sous **CSV UTF-8 (délimité par des points-virgules)** ; le CSV classique d'Excel est aussi lu. Pour une série, une ligne sans saison ni épisode vaut pour toute l'œuvre ; une ligne d'épisode est prioritaire.
 
-L'import refuse toute URL non HTTPS ou dont le domaine n'est pas dans `config/allflix-sources.json` (plateformes officielles, YouTube, Vimeo, Archive.org…). Ajouter votre propre CDN à cette liste pour vos vidéos. Jamais de site de streaming non autorisé. Les lignes refusées sont listées avec leur numéro. Puis commit de `playback.json` et push. Tests : `node scripts/test-allflix-links.cjs`.
+L'import refuse toute URL non HTTPS ou dont le domaine n'est pas dans `config/allflix-sources.json`. Ajouter le domaine d'un nouveau lecteur demandé et vérifié techniquement à cette liste. Les lignes refusées sont listées avec leur numéro. Les tests sont `node scripts/test-allflix-links.cjs`. Aucun push ni déploiement sans demande de l'utilisateur.
 
 ## Brancher une API de lecture (lien ou lecteur)
 

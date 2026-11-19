@@ -1,7 +1,11 @@
-export type Playback = { type: 'video' | 'embed' | 'link'; url: string; label?: string; credit?: string };
+export type Playback = { type: 'video' | 'embed' | 'link'; url: string; label?: string; credit?: string; creditUrl?: string; verified?: boolean };
 export type Episode = { number: number; title: string; synopsis: string; minutes: number | null; image: string | null; date: string | null };
 export type Season = { number: number; title: string; episodes: Episode[] };
 export type Title = {
+  malIds?: number[];
+  ichidokIds?: number[];
+  aliases?: string[];
+  releaseStatus?: 'released' | 'upcoming';
   redirectUrl?: string;
   externalLinks?: {url:string;label:string}[];
   id: string; tmdbId: number; media: 'movie' | 'tv'; anime: boolean;
@@ -15,6 +19,7 @@ export function playbackKey(title: Title, season?: number, episode?: number) {
 }
 /** URL de la fonction Netlify `playback` pour une œuvre (et un épisode), ou null si l'épisode est inconnu. */
 export function playbackApiUrl(title: Title, season?: number, episode?: number): string | null {
+  if (!Number.isInteger(title.tmdbId) || title.tmdbId < 1) return null;
   const params = new URLSearchParams({ media: title.media, tmdbId: String(title.tmdbId) });
   if (title.media === 'tv') {
     if (season === undefined || episode === undefined) return null;

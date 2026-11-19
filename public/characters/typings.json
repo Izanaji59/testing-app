@@ -1,4 +1,74 @@
 {
+  "anilist-char-266433": {
+    "personnage": "Rudo",
+    "oeuvre": "Gachiakuta",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-266438": {
+    "personnage": "Enjin",
+    "oeuvre": "Gachiakuta",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-268742": {
+    "personnage": "Zanka Nijiku",
+    "oeuvre": "Gachiakuta",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-275749": {
+    "personnage": "Riyou Reaper",
+    "oeuvre": "Gachiakuta",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-266434": {
+    "personnage": "Chiwa",
+    "oeuvre": "Gachiakuta",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-266437": {
+    "personnage": "Regto",
+    "oeuvre": "Gachiakuta",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-298949": {
+    "personnage": "Semiu Grier",
+    "oeuvre": "Gachiakuta",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-298953": {
+    "personnage": "Jabber Wonger",
+    "oeuvre": "Gachiakuta",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-291689": {
+    "personnage": "Tamsy Caines",
+    "oeuvre": "Gachiakuta",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-298929": {
+    "personnage": "Amo Empool",
+    "oeuvre": "Gachiakuta",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
   "tmdb-credit-52fe4220c3a36847f8005d17": {
     "personnage": "Bruce Wayne",
     "oeuvre": "The Dark Knight : Le Chevalier noir",
@@ -5678,6 +5748,748 @@
   "anilist-char-270176": {
     "personnage": "Kousaka",
     "oeuvre": "Si tu tends l'oreille",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-89028": {
+    "personnage": "Izuku Midoriya",
+    "oeuvre": "My Hero Academia",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-88892": {
+    "personnage": "Katsuki Bakugou",
+    "oeuvre": "My Hero Academia",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-89221": {
+    "personnage": "Ochako Uraraka",
+    "oeuvre": "My Hero Academia",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-89224": {
+    "personnage": "Toshinori Yagi",
+    "oeuvre": "My Hero Academia",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-89220": {
+    "personnage": "Shouto Todoroki",
+    "oeuvre": "My Hero Academia",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-89222": {
+    "personnage": "Tenya Iida",
+    "oeuvre": "My Hero Academia",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-89223": {
+    "personnage": "Tsuyu Asui",
+    "oeuvre": "My Hero Academia",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-89225": {
+    "personnage": "Shouta Aizawa",
+    "oeuvre": "My Hero Academia",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-89226": {
+    "personnage": "Tomura Shigaraki",
+    "oeuvre": "My Hero Academia",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-89240": {
+    "personnage": "Nomu (U.S.J.)",
+    "oeuvre": "My Hero Academia",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-40": {
+    "personnage": "Luffy Monkey",
+    "oeuvre": "One Piece",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-61": {
+    "personnage": "Robin Nico",
+    "oeuvre": "One Piece",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-62": {
+    "personnage": "Zoro Roronoa",
+    "oeuvre": "One Piece",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-64": {
+    "personnage": "Franky",
+    "oeuvre": "One Piece",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-305": {
+    "personnage": "Sanji",
+    "oeuvre": "One Piece",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-309": {
+    "personnage": "Chopper Tony Tony",
+    "oeuvre": "One Piece",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-723": {
+    "personnage": "Nami",
+    "oeuvre": "One Piece",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-724": {
+    "personnage": "Usopp",
+    "oeuvre": "One Piece",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-5627": {
+    "personnage": "Brook",
+    "oeuvre": "One Piece",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-18938": {
+    "personnage": "Jinbe",
+    "oeuvre": "One Piece",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-30": {
+    "personnage": "Gon Freecss",
+    "oeuvre": "Hunter x Hunter",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-27": {
+    "personnage": "Killua Zoldyck",
+    "oeuvre": "Hunter x Hunter",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-28": {
+    "personnage": "Kurapika",
+    "oeuvre": "Hunter x Hunter",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-29": {
+    "personnage": "Leorio Paradinight",
+    "oeuvre": "Hunter x Hunter",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-31": {
+    "personnage": "Hisoka Morow",
+    "oeuvre": "Hunter x Hunter",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-26": {
+    "personnage": "Ging Freecss",
+    "oeuvre": "Hunter x Hunter",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-57": {
+    "personnage": "Illumi Zoldyck",
+    "oeuvre": "Hunter x Hunter",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-58": {
+    "personnage": "Chrollo Lucilfer",
+    "oeuvre": "Hunter x Hunter",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-59": {
+    "personnage": "Zeno Zoldyck",
+    "oeuvre": "Hunter x Hunter",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-60": {
+    "personnage": "Silva Zoldyck",
+    "oeuvre": "Hunter x Hunter",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-138101": {
+    "personnage": "Loid Forger",
+    "oeuvre": "SPY x FAMILY",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-138102": {
+    "personnage": "Yor Forger",
+    "oeuvre": "SPY x FAMILY",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-138100": {
+    "personnage": "Anya Forger",
+    "oeuvre": "SPY x FAMILY",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-150423": {
+    "personnage": "Becky Blackbell",
+    "oeuvre": "SPY x FAMILY",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-150424": {
+    "personnage": "Damian Desmond",
+    "oeuvre": "SPY x FAMILY",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-150425": {
+    "personnage": "Yuuri Briar",
+    "oeuvre": "SPY x FAMILY",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-157887": {
+    "personnage": "Sylvia Sherwood",
+    "oeuvre": "SPY x FAMILY",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-157888": {
+    "personnage": "Franky Franklin",
+    "oeuvre": "SPY x FAMILY",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-180190": {
+    "personnage": "Henry Henderson",
+    "oeuvre": "SPY x FAMILY",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-180191": {
+    "personnage": "Camilla",
+    "oeuvre": "SPY x FAMILY",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-11": {
+    "personnage": "Edward Elric",
+    "oeuvre": "Fullmetal Alchemist : Brotherhood",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-12": {
+    "personnage": "Alphonse Elric",
+    "oeuvre": "Fullmetal Alchemist : Brotherhood",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-63": {
+    "personnage": "Winry Rockbell",
+    "oeuvre": "Fullmetal Alchemist : Brotherhood",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-65": {
+    "personnage": "Pinako Rockbell",
+    "oeuvre": "Fullmetal Alchemist : Brotherhood",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-66": {
+    "personnage": "Scar",
+    "oeuvre": "Fullmetal Alchemist : Brotherhood",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-67": {
+    "personnage": "Izumi Curtis",
+    "oeuvre": "Fullmetal Alchemist : Brotherhood",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-68": {
+    "personnage": "Roy Mustang",
+    "oeuvre": "Fullmetal Alchemist : Brotherhood",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-69": {
+    "personnage": "Maes Hughes",
+    "oeuvre": "Fullmetal Alchemist : Brotherhood",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-70": {
+    "personnage": "Riza Hawkeye",
+    "oeuvre": "Fullmetal Alchemist : Brotherhood",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-351": {
+    "personnage": "Greed",
+    "oeuvre": "Fullmetal Alchemist : Brotherhood",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-71": {
+    "personnage": "L Lawliet",
+    "oeuvre": "Death Note",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-75": {
+    "personnage": "Ryuk",
+    "oeuvre": "Death Note",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-80": {
+    "personnage": "Light Yagami",
+    "oeuvre": "Death Note",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-463": {
+    "personnage": "Mihael Keehl",
+    "oeuvre": "Death Note",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-464": {
+    "personnage": "Nate River",
+    "oeuvre": "Death Note",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-835": {
+    "personnage": "Misa Amane",
+    "oeuvre": "Death Note",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-1904": {
+    "personnage": "Teru Mikami",
+    "oeuvre": "Death Note",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-1905": {
+    "personnage": "Rem",
+    "oeuvre": "Death Note",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-1906": {
+    "personnage": "Touta Matsuda",
+    "oeuvre": "Death Note",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-1927": {
+    "personnage": "Souichirou Yagami",
+    "oeuvre": "Death Note",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-73935": {
+    "personnage": "Saitama",
+    "oeuvre": "One-Punch Man",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-73979": {
+    "personnage": "Genos",
+    "oeuvre": "One-Punch Man",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-74167": {
+    "personnage": "Onsoku no Sonic",
+    "oeuvre": "One-Punch Man",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-81141": {
+    "personnage": "Bang",
+    "oeuvre": "One-Punch Man",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-81929": {
+    "personnage": "Tatsumaki",
+    "oeuvre": "One-Punch Man",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-75460": {
+    "personnage": "Sneck",
+    "oeuvre": "One-Punch Man",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-8060": {
+    "personnage": "Genus Hakase",
+    "oeuvre": "One-Punch Man",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-8061": {
+    "personnage": "Juu Ou",
+    "oeuvre": "One-Punch Man",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-8841": {
+    "personnage": "Butagami",
+    "oeuvre": "One-Punch Man",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-11830": {
+    "personnage": "Zeniru",
+    "oeuvre": "One-Punch Man",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-170266": {
+    "personnage": "Pochita",
+    "oeuvre": "Chainsaw Man",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-144596": {
+    "personnage": "Himeno",
+    "oeuvre": "Chainsaw Man",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-174263": {
+    "personnage": "Hirokazu Arai",
+    "oeuvre": "Chainsaw Man",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-157241": {
+    "personnage": "Samurai Sword",
+    "oeuvre": "Chainsaw Man",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-89": {
+    "personnage": "Shinji Ikari",
+    "oeuvre": "Neon Genesis Evangelion",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-1259": {
+    "personnage": "Misato Katsuragi",
+    "oeuvre": "Neon Genesis Evangelion",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-86": {
+    "personnage": "Rei Ayanami",
+    "oeuvre": "Neon Genesis Evangelion",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-94": {
+    "personnage": "Asuka Langley Souryuu",
+    "oeuvre": "Neon Genesis Evangelion",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-1250": {
+    "personnage": "Kensuke Aida",
+    "oeuvre": "Neon Genesis Evangelion",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-1251": {
+    "personnage": "Ritsuko Akagi",
+    "oeuvre": "Neon Genesis Evangelion",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-1252": {
+    "personnage": "Shigeru Aoba",
+    "oeuvre": "Neon Genesis Evangelion",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-1253": {
+    "personnage": "Kohzou Fuyutsuki",
+    "oeuvre": "Neon Genesis Evangelion",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-1254": {
+    "personnage": "Hikari Horaki",
+    "oeuvre": "Neon Genesis Evangelion",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-1255": {
+    "personnage": "Makoto Hyuuga",
+    "oeuvre": "Neon Genesis Evangelion",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-176754": {
+    "personnage": "Frieren",
+    "oeuvre": "Frieren: Beyond Journey's End",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-183965": {
+    "personnage": "Fern",
+    "oeuvre": "Frieren: Beyond Journey's End",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-184313": {
+    "personnage": "Stark",
+    "oeuvre": "Frieren: Beyond Journey's End",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-184311": {
+    "personnage": "Himmel",
+    "oeuvre": "Frieren: Beyond Journey's End",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-184310": {
+    "personnage": "Heiter",
+    "oeuvre": "Frieren: Beyond Journey's End",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-184312": {
+    "personnage": "Eisen",
+    "oeuvre": "Frieren: Beyond Journey's End",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-219733": {
+    "personnage": "Flamme",
+    "oeuvre": "Frieren: Beyond Journey's End",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-315278": {
+    "personnage": "Qual",
+    "oeuvre": "Frieren: Beyond Journey's End",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-205177": {
+    "personnage": "Sein",
+    "oeuvre": "Frieren: Beyond Journey's End",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-219110": {
+    "personnage": "Aura",
+    "oeuvre": "Frieren: Beyond Journey's End",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-35252": {
+    "personnage": "Rintarou Okabe",
+    "oeuvre": "Steins;Gate",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-34470": {
+    "personnage": "Kurisu Makise",
+    "oeuvre": "Steins;Gate",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-35253": {
+    "personnage": "Mayuri Shiina",
+    "oeuvre": "Steins;Gate",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-35258": {
+    "personnage": "Itaru Hashida",
+    "oeuvre": "Steins;Gate",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-35255": {
+    "personnage": "Suzuha Amane",
+    "oeuvre": "Steins;Gate",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-30919": {
+    "personnage": "Luka Urushibara",
+    "oeuvre": "Steins;Gate",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-35256": {
+    "personnage": "Rumiho Akiha",
+    "oeuvre": "Steins;Gate",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-35257": {
+    "personnage": "Moeka Kiryuu",
+    "oeuvre": "Steins;Gate",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-38558": {
+    "personnage": "Yuugo Tennouji",
+    "oeuvre": "Steins;Gate",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-38559": {
+    "personnage": "Nae Tennouji",
+    "oeuvre": "Steins;Gate",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-136069": {
+    "personnage": "Muichirou Tokitou",
+    "oeuvre": "Demon Slayer: Kimetsu no Yaiba",
+    "mbti": "",
+    "enneagramme": "",
+    "note": ""
+  },
+  "anilist-char-136071": {
+    "personnage": "Tengen Uzui",
+    "oeuvre": "Demon Slayer: Kimetsu no Yaiba",
     "mbti": "",
     "enneagramme": "",
     "note": ""

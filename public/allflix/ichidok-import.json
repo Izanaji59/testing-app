@@ -1,0 +1,8176 @@
+{
+  "source": "https://github.com/forbigbang81-netizen/ichidok/blob/2b7a4d1a53b39529c7251cdccae62ea51f9558fd/src/lib/seed.ts",
+  "commit": "2b7a4d1a53b39529c7251cdccae62ea51f9558fd",
+  "importedAt": "2026-11-19T05:11:30.245Z",
+  "seedEntries": 1183,
+  "auditAdded": 186,
+  "imported": 1317,
+  "added": 1256,
+  "merged": 61,
+  "excluded": [
+    {
+      "malId": 44511,
+      "title": "Chainsaw Man",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 32379,
+      "title": "Berserk",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 5114,
+      "title": "Fullmetal Alchemist Brotherhood",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 1735,
+      "title": "NARUTO: Shippuuden",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 36040,
+      "title": "Saint Seiya: Knights of the Zodiac",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 19,
+      "title": "Monster",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 4181,
+      "title": "CLANNAD: After Story",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 40028,
+      "title": "Attack on Titan Final Season",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 32935,
+      "title": "HAIKYU!! 3rd Season",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 57658,
+      "title": "JUJUTSU KAISEN Season 3: The Culling Game Part 1",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 32182,
+      "title": "Mob Psycho 100",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 20583,
+      "title": "HAIKYU!!",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 31933,
+      "title": "JoJo no Kimyou na Bouken: Diamond wa Kudakenai",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 37779,
+      "title": "The Promised Neverland",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 37999,
+      "title": "Kaguya-sama: Love is War",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 9756,
+      "title": "Puella Magi Madoka Magica",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 61483,
+      "title": "Tenmaku no Jaadugar",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 39535,
+      "title": "Mushoku Tensei: Jobless Reincarnation",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 63832,
+      "title": "You and I Are Polar Opposites Season 2",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 31240,
+      "title": "Re:Zero kara Hajimeru Isekai Seikatsu",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 37450,
+      "title": "Seishun Buta Yarou wa Bunny Girl Senpai no Yume wo Minai",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 38691,
+      "title": "Dr. STONE",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 42897,
+      "title": "Horimiya",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 22535,
+      "title": "Parasyte -the maxim-",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 62405,
+      "title": "Fujimoto Tatsuki 17-26",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 62001,
+      "title": "Yomi no Tsugai",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 4224,
+      "title": "Toradora!",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 20507,
+      "title": "Noragami",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 5680,
+      "title": "K-ON!",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 19815,
+      "title": "No Game No Life",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 60427,
+      "title": "Gnosia",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 6033,
+      "title": "Dragon Ball Kai",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 58929,
+      "title": "THE GHOST IN THE SHELL",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 62856,
+      "title": "Sparks of Tomorrow",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 58878,
+      "title": "Sayonara Lara",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 61240,
+      "title": "Though I Am an Inept Villainess",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 54757,
+      "title": "3-nen Z-gumi Ginpachi-sensei",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 6213,
+      "title": "Toaru Kagaku no Railgun",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 5630,
+      "title": "Higashi no Eden",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 23755,
+      "title": "The Seven Deadly Sins",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 5781,
+      "title": "Isekai no Seikishi Monogatari",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 61169,
+      "title": "BLACK TORCH",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 11757,
+      "title": "Sword Art Online",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 35849,
+      "title": "DARLING in the FRANXX",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 4186,
+      "title": "Koukaku no Regios",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 63316,
+      "title": "Tomb Raider King",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 63403,
+      "title": "Chainsmoker Cat",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 59741,
+      "title": "The Exiled Heavy Knight Knows How to Game the System",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 58146,
+      "title": "Tensei Akujo no Kuro Rekishi",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 61026,
+      "title": "My Status as an Assassin Obviously Exceeds the Hero’s",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 5940,
+      "title": "The Sacred Blacksmith",
+      "reason": "Identifiant répété"
+    },
+    {
+      "malId": 61067,
+      "title": "Ninja to Gokudou",
+      "reason": "Identifiant répété"
+    }
+  ],
+  "entries": [
+    {
+      "sourceId": 52991,
+      "malId": 52991,
+      "id": "open-tv-mal-52991",
+      "title": "Frieren: Beyond Journey's End"
+    },
+    {
+      "sourceId": 9253,
+      "malId": 9253,
+      "id": "open-tv-mal-9253",
+      "title": "Steins;Gate"
+    },
+    {
+      "sourceId": 41467,
+      "malId": 41467,
+      "id": "open-tv-mal-41467",
+      "title": "Bleach: Thousand-Year Blood War"
+    },
+    {
+      "sourceId": 53998,
+      "malId": 53998,
+      "id": "open-tv-mal-53998",
+      "title": "Bleach: Thousand-Year Blood War - The Separation"
+    },
+    {
+      "sourceId": 56784,
+      "malId": 56784,
+      "id": "open-tv-mal-56784",
+      "title": "Bleach: Thousand-Year Blood War - The Conflict"
+    },
+    {
+      "sourceId": 60636,
+      "malId": 60636,
+      "id": "open-tv-mal-60636",
+      "title": "Bleach: Thousand-Year Blood War - The Calamity"
+    },
+    {
+      "sourceId": -5,
+      "malId": null,
+      "id": "open-movie-ichidok-5",
+      "title": "Bleach: Thousand-Year Blood War - The Calamity (Leaked)"
+    },
+    {
+      "sourceId": 269,
+      "malId": 269,
+      "id": "tmdb-tv-30984",
+      "title": "Bleach"
+    },
+    {
+      "sourceId": 59978,
+      "malId": 59978,
+      "id": "open-tv-mal-59978",
+      "title": "Frieren: Beyond Journey's End Season 2"
+    },
+    {
+      "sourceId": 63816,
+      "malId": 63816,
+      "id": "open-tv-mal-63816",
+      "title": "Frieren: Beyond Journey's End - Golden Land Arc"
+    },
+    {
+      "sourceId": 40748,
+      "malId": 40748,
+      "id": "tmdb-tv-95479",
+      "title": "Jujutsu Kaisen"
+    },
+    {
+      "sourceId": 51009,
+      "malId": 51009,
+      "id": "open-tv-mal-51009",
+      "title": "Jujutsu Kaisen Season 2"
+    },
+    {
+      "sourceId": 57658,
+      "malId": 57658,
+      "id": "open-tv-mal-57658",
+      "title": "Jujutsu Kaisen: The Culling Game Part 1"
+    },
+    {
+      "sourceId": 44511,
+      "malId": 44511,
+      "id": "tmdb-tv-114410",
+      "title": "Chainsaw Man"
+    },
+    {
+      "sourceId": 57555,
+      "malId": 57555,
+      "id": "open-movie-mal-57555",
+      "title": "Chainsaw Man – The Movie: Reze Arc"
+    },
+    {
+      "sourceId": 59062,
+      "malId": 59062,
+      "id": "open-tv-gachiakuta",
+      "title": "Gachiakuta"
+    },
+    {
+      "sourceId": 63147,
+      "malId": 63147,
+      "id": "open-tv-mal-63147",
+      "title": "Gachiakuta Season 2"
+    },
+    {
+      "sourceId": 62076,
+      "malId": 62076,
+      "id": "open-tv-mal-62076",
+      "title": "Smoking Behind the Supermarket with You"
+    },
+    {
+      "sourceId": 22199,
+      "malId": 22199,
+      "id": "open-tv-mal-22199",
+      "title": "Akame ga Kill!"
+    },
+    {
+      "sourceId": 37510,
+      "malId": 21,
+      "id": "tmdb-tv-37854",
+      "title": "One Piece"
+    },
+    {
+      "sourceId": 34572,
+      "malId": 34572,
+      "id": "open-tv-mal-34572",
+      "title": "Black Clover"
+    },
+    {
+      "sourceId": 61967,
+      "malId": 61967,
+      "id": "open-tv-mal-61967",
+      "title": "Black Clover 2nd Season"
+    },
+    {
+      "sourceId": 1,
+      "malId": 1,
+      "id": "tmdb-tv-30991",
+      "title": "Cowboy Bebop"
+    },
+    {
+      "sourceId": 1575,
+      "malId": 1575,
+      "id": "tmdb-tv-31724",
+      "title": "Code Geass: Lelouch of the Rebellion"
+    },
+    {
+      "sourceId": 2904,
+      "malId": 2904,
+      "id": "open-tv-mal-2904",
+      "title": "Code Geass: Lelouch of the Rebellion R2"
+    },
+    {
+      "sourceId": 42310,
+      "malId": 42310,
+      "id": "open-tv-mal-42310",
+      "title": "Cyberpunk: Edgerunners"
+    },
+    {
+      "sourceId": 30,
+      "malId": 30,
+      "id": "tmdb-tv-890",
+      "title": "Neon Genesis Evangelion"
+    },
+    {
+      "sourceId": 32,
+      "malId": 32,
+      "id": "tmdb-movie-18491",
+      "title": "The End of Evangelion"
+    },
+    {
+      "sourceId": 2759,
+      "malId": 2759,
+      "id": "open-movie-mal-2759",
+      "title": "Evangelion: 1.0 You Are (Not) Alone"
+    },
+    {
+      "sourceId": 3786,
+      "malId": 3786,
+      "id": "open-movie-mal-3786",
+      "title": "Evangelion: 3.0+1.0 Thrice Upon a Time"
+    },
+    {
+      "sourceId": 28851,
+      "malId": 28851,
+      "id": "open-movie-mal-28851",
+      "title": "A Silent Voice"
+    },
+    {
+      "sourceId": 32281,
+      "malId": 32281,
+      "id": "tmdb-movie-372058",
+      "title": "Your Name"
+    },
+    {
+      "sourceId": 54714,
+      "malId": 54714,
+      "id": "open-tv-mal-54714",
+      "title": "The 100 Girlfriends Who Really, Really, Really, Really, Really Love You"
+    },
+    {
+      "sourceId": 57616,
+      "malId": 57616,
+      "id": "open-tv-mal-57616",
+      "title": "The 100 Girlfriends Who Really, Really, Really, Really, Really Love You Season 2"
+    },
+    {
+      "sourceId": 62811,
+      "malId": 62811,
+      "id": "open-tv-mal-62811",
+      "title": "The 100 Girlfriends Who Really, Really, Really, Really, Really Love You Season 3"
+    },
+    {
+      "sourceId": 60371,
+      "malId": 60371,
+      "id": "open-tv-mal-60371",
+      "title": "Me and You Are Polar Opposites"
+    },
+    {
+      "sourceId": 63832,
+      "malId": 63832,
+      "id": "open-tv-mal-63832",
+      "title": "Me and You Are Polar Opposites Season 2"
+    },
+    {
+      "sourceId": 30240,
+      "malId": 30240,
+      "id": "open-tv-mal-30240",
+      "title": "Prison School (Uncensored)"
+    },
+    {
+      "sourceId": 58514,
+      "malId": 58514,
+      "id": "open-tv-mal-58514",
+      "title": "The Apothecary Diaries Season 2"
+    },
+    {
+      "sourceId": 32935,
+      "malId": 32935,
+      "id": "open-tv-mal-32935",
+      "title": "Haikyuu!! Karasuno vs Shiratorizawa"
+    },
+    {
+      "sourceId": 20583,
+      "malId": 20583,
+      "id": "open-tv-mal-20583",
+      "title": "Haikyuu!!"
+    },
+    {
+      "sourceId": 28891,
+      "malId": 28891,
+      "id": "open-tv-mal-28891",
+      "title": "Haikyuu!! Second Season"
+    },
+    {
+      "sourceId": 38883,
+      "malId": 38883,
+      "id": "open-tv-mal-38883",
+      "title": "Haikyuu!! To the Top"
+    },
+    {
+      "sourceId": 52412,
+      "malId": 54492,
+      "id": "open-tv-mal-54492",
+      "title": "The Apothecary Diaries"
+    },
+    {
+      "sourceId": 123,
+      "malId": 123,
+      "id": "open-tv-mal-123",
+      "title": "Fushigi Yuugi"
+    },
+    {
+      "sourceId": 245,
+      "malId": 245,
+      "id": "open-tv-mal-245",
+      "title": "Great Teacher Onizuka"
+    },
+    {
+      "sourceId": 1251,
+      "malId": 1251,
+      "id": "open-tv-mal-1251",
+      "title": "Nadia: The Secret of Blue Water"
+    },
+    {
+      "sourceId": 1372,
+      "malId": 1372,
+      "id": "open-tv-mal-1372",
+      "title": "Shinzo"
+    },
+    {
+      "sourceId": 534,
+      "malId": 534,
+      "id": "open-tv-mal-534",
+      "title": "Slayers"
+    },
+    {
+      "sourceId": 33,
+      "malId": 32379,
+      "id": "open-tv-mal-32379",
+      "title": "Berserk"
+    },
+    {
+      "sourceId": -1,
+      "malId": null,
+      "id": "open-tv-ichidok-1",
+      "title": "Megas XLR"
+    },
+    {
+      "sourceId": 31964,
+      "malId": 31964,
+      "id": "tmdb-tv-65930",
+      "title": "My Hero Academia"
+    },
+    {
+      "sourceId": 33458,
+      "malId": 33486,
+      "id": "open-tv-mal-33486",
+      "title": "My Hero Academia Season 2"
+    },
+    {
+      "sourceId": 36474,
+      "malId": 36456,
+      "id": "open-tv-mal-36456",
+      "title": "My Hero Academia Season 3"
+    },
+    {
+      "sourceId": 38408,
+      "malId": 38408,
+      "id": "open-tv-mal-38408",
+      "title": "My Hero Academia Season 4"
+    },
+    {
+      "sourceId": 41587,
+      "malId": 41587,
+      "id": "open-tv-mal-41587",
+      "title": "My Hero Academia Season 5"
+    },
+    {
+      "sourceId": 49992,
+      "malId": 49992,
+      "id": "open-tv-mal-49992",
+      "title": "My Hero Academia Season 6"
+    },
+    {
+      "sourceId": 54945,
+      "malId": 54945,
+      "id": "open-tv-mal-54945",
+      "title": "My Hero Academia Season 7"
+    },
+    {
+      "sourceId": -2,
+      "malId": 60098,
+      "id": "open-tv-mal-60098",
+      "title": "My Hero Academia Final Season"
+    },
+    {
+      "sourceId": 35349,
+      "malId": 35349,
+      "id": "open-tv-mal-35349",
+      "title": "Umamusume: Pretty Derby"
+    },
+    {
+      "sourceId": 42334,
+      "malId": 42334,
+      "id": "open-tv-mal-42334",
+      "title": "Umamusume: Pretty Derby Season 2"
+    },
+    {
+      "sourceId": 48654,
+      "malId": 48654,
+      "id": "open-tv-mal-48654",
+      "title": "Umamusume: Pretty Derby Season 3"
+    },
+    {
+      "sourceId": -3,
+      "malId": null,
+      "id": "open-tv-ichidok-3",
+      "title": "Umamusume: Pretty Derby Specials"
+    },
+    {
+      "sourceId": 55311,
+      "malId": 57647,
+      "id": "open-movie-mal-57647",
+      "title": "Umamusume: Pretty Derby - Beginning of a New Era"
+    },
+    {
+      "sourceId": 1281,
+      "malId": 1281,
+      "id": "open-tv-mal-1281",
+      "title": "Ghost Stories"
+    },
+    {
+      "sourceId": 63316,
+      "malId": 63316,
+      "id": "open-tv-mal-63316",
+      "title": "Tomb Raider King"
+    },
+    {
+      "sourceId": 20,
+      "malId": 20,
+      "id": "tmdb-tv-46260",
+      "title": "NARUTO: Shippuuden"
+    },
+    {
+      "sourceId": 1735,
+      "malId": 1735,
+      "id": "tmdb-tv-31910",
+      "title": "NARUTO: Shippuuden"
+    },
+    {
+      "sourceId": 38000,
+      "malId": 38000,
+      "id": "open-tv-mal-38000",
+      "title": "Demon Slayer: Kimetsu no Yaiba"
+    },
+    {
+      "sourceId": 16498,
+      "malId": 16498,
+      "id": "open-tv-mal-16498",
+      "title": "Attack on Titan"
+    },
+    {
+      "sourceId": 20958,
+      "malId": 25777,
+      "id": "open-tv-mal-25777",
+      "title": "Attack on Titan Season 2"
+    },
+    {
+      "sourceId": 35760,
+      "malId": 35760,
+      "id": "open-tv-mal-35760",
+      "title": "Attack on Titan Season 3"
+    },
+    {
+      "sourceId": 40028,
+      "malId": 40028,
+      "id": "open-tv-mal-40028",
+      "title": "Attack on Titan Final Season"
+    },
+    {
+      "sourceId": 1535,
+      "malId": 1535,
+      "id": "tmdb-tv-13916",
+      "title": "Death Note"
+    },
+    {
+      "sourceId": 5114,
+      "malId": 5114,
+      "id": "tmdb-tv-31911",
+      "title": "Fullmetal Alchemist: Brotherhood"
+    },
+    {
+      "sourceId": 11061,
+      "malId": 11061,
+      "id": "tmdb-tv-46298",
+      "title": "Hunter x Hunter (2011)"
+    },
+    {
+      "sourceId": 30276,
+      "malId": 30276,
+      "id": "tmdb-tv-63926",
+      "title": "One Punch Man"
+    },
+    {
+      "sourceId": 50265,
+      "malId": 50265,
+      "id": "tmdb-tv-120089",
+      "title": "Spy x Family"
+    },
+    {
+      "sourceId": 22319,
+      "malId": 22319,
+      "id": "tmdb-tv-61374",
+      "title": "Tokyo Ghoul"
+    },
+    {
+      "sourceId": 37521,
+      "malId": 37521,
+      "id": "open-tv-mal-37521",
+      "title": "Vinland Saga"
+    },
+    {
+      "sourceId": 33352,
+      "malId": 33352,
+      "id": "open-tv-mal-33352",
+      "title": "Violet Evergarden"
+    },
+    {
+      "sourceId": -100,
+      "malId": 35248,
+      "id": "open-tv-mal-35248",
+      "title": "18if"
+    },
+    {
+      "sourceId": -101,
+      "malId": 40679,
+      "id": "open-tv-mal-40679",
+      "title": "2.43: Seiin Koukou Danshi Volley-bu"
+    },
+    {
+      "sourceId": -9712,
+      "malId": null,
+      "id": "open-tv-ichidok-9712",
+      "title": "Soul Eater Not!"
+    },
+    {
+      "sourceId": -102,
+      "malId": 53802,
+      "id": "open-tv-mal-53802",
+      "title": "2.5 Jigen no Ririsa"
+    },
+    {
+      "sourceId": -103,
+      "malId": 38735,
+      "id": "open-tv-mal-38735",
+      "title": "7SEEDS"
+    },
+    {
+      "sourceId": -104,
+      "malId": 41457,
+      "id": "open-tv-mal-41457",
+      "title": "86: Eighty Six"
+    },
+    {
+      "sourceId": -105,
+      "malId": 32998,
+      "id": "open-tv-mal-32998",
+      "title": "91Days"
+    },
+    {
+      "sourceId": -106,
+      "malId": null,
+      "id": "open-tv-ichidok-106",
+      "title": "A Centaur’s Life"
+    },
+    {
+      "sourceId": -107,
+      "malId": 4654,
+      "id": "tmdb-tv-30980",
+      "title": "Toaru Majutsu no Index"
+    },
+    {
+      "sourceId": -108,
+      "malId": 38480,
+      "id": "open-tv-mal-38480",
+      "title": "Toaru Kagaku no Accelerator"
+    },
+    {
+      "sourceId": -109,
+      "malId": 6213,
+      "id": "tmdb-tv-30977",
+      "title": "Toaru Kagaku no Railgun"
+    },
+    {
+      "sourceId": -110,
+      "malId": 55597,
+      "id": "open-tv-mal-55597",
+      "title": "Hananoi-kun to Koi no Yamai"
+    },
+    {
+      "sourceId": -111,
+      "malId": 48675,
+      "id": "open-tv-mal-48675",
+      "title": "Kakkou no Iinazuke"
+    },
+    {
+      "sourceId": -112,
+      "malId": 51705,
+      "id": "open-tv-mal-51705",
+      "title": "Otonari ni Ginga"
+    },
+    {
+      "sourceId": -113,
+      "malId": 61174,
+      "id": "open-tv-mal-61174",
+      "title": "Sozai Saishuka no Isekai Ryokouki"
+    },
+    {
+      "sourceId": -114,
+      "malId": 60071,
+      "id": "open-tv-mal-60071",
+      "title": "Odayaka Kizoku no Kyuuka no Susume."
+    },
+    {
+      "sourceId": -115,
+      "malId": 57380,
+      "id": "open-tv-mal-57380",
+      "title": "Isekai Yururi Kikou: Kosodate Shinagara Boukensha Shimasu"
+    },
+    {
+      "sourceId": -116,
+      "malId": 62432,
+      "id": "open-tv-mal-62432",
+      "title": "Jingai Kyoushitsu no Ningengirai Kyoushi"
+    },
+    {
+      "sourceId": -117,
+      "malId": 35839,
+      "id": "open-tv-mal-35839",
+      "title": "Sora yori mo Tooi Basho"
+    },
+    {
+      "sourceId": -118,
+      "malId": 54852,
+      "id": "open-tv-mal-54852",
+      "title": "Kikansha no Mahou wa Tokubetsu desu"
+    },
+    {
+      "sourceId": -119,
+      "malId": 55866,
+      "id": "open-tv-mal-55866",
+      "title": "Yubisaki to Renren"
+    },
+    {
+      "sourceId": -120,
+      "malId": null,
+      "id": "open-tv-ichidok-120",
+      "title": "A Sister’s All You Need"
+    },
+    {
+      "sourceId": -121,
+      "malId": 60969,
+      "id": "open-tv-mal-60969",
+      "title": "Taiyou yori mo Mabushii Hoshi"
+    },
+    {
+      "sourceId": -122,
+      "malId": 36039,
+      "id": "open-tv-mal-36039",
+      "title": "A.I.C.O. -Incarnation-"
+    },
+    {
+      "sourceId": -123,
+      "malId": null,
+      "id": "open-tv-ichidok-123",
+      "title": "A3! Season Autumn &amp; Winter"
+    },
+    {
+      "sourceId": -124,
+      "malId": null,
+      "id": "open-tv-ichidok-124",
+      "title": "A3! Season Spring &amp; Summer"
+    },
+    {
+      "sourceId": -125,
+      "malId": 33337,
+      "id": "open-tv-mal-33337",
+      "title": "ACCA: 13-ku Kansatsu-ka"
+    },
+    {
+      "sourceId": -126,
+      "malId": 48466,
+      "id": "open-tv-mal-48466",
+      "title": "Kyoukai Senki"
+    },
+    {
+      "sourceId": -127,
+      "malId": 25397,
+      "id": "open-tv-mal-25397",
+      "title": "Absolute Duo"
+    },
+    {
+      "sourceId": -128,
+      "malId": 11759,
+      "id": "open-tv-mal-11759",
+      "title": "Accel World"
+    },
+    {
+      "sourceId": -129,
+      "malId": 31630,
+      "id": "open-tv-mal-31630",
+      "title": "Gyakuten Saiban: Sono \"Shinjitsu\", Igi Ari!"
+    },
+    {
+      "sourceId": -130,
+      "malId": 38670,
+      "id": "open-tv-mal-38670",
+      "title": "ACTORS: Songs Connection"
+    },
+    {
+      "sourceId": -131,
+      "malId": 39790,
+      "id": "open-tv-mal-39790",
+      "title": "Adachi to Shimamura"
+    },
+    {
+      "sourceId": -132,
+      "malId": 13161,
+      "id": "open-tv-mal-13161",
+      "title": "Hagure Yuusha no Estetica"
+    },
+    {
+      "sourceId": -133,
+      "malId": 1292,
+      "id": "open-tv-mal-1292",
+      "title": "Afro Samurai"
+    },
+    {
+      "sourceId": -134,
+      "malId": 38276,
+      "id": "open-tv-mal-38276",
+      "title": "Houkago Saikoro Club"
+    },
+    {
+      "sourceId": -135,
+      "malId": null,
+      "id": "open-tv-ichidok-135",
+      "title": "After the Rain"
+    },
+    {
+      "sourceId": -136,
+      "malId": 56425,
+      "id": "open-tv-mal-56425",
+      "title": "Houkago Shounen Hanako-kun"
+    },
+    {
+      "sourceId": -137,
+      "malId": 37952,
+      "id": "open-tv-mal-37952",
+      "title": "Shoumetsu Toshi"
+    },
+    {
+      "sourceId": -138,
+      "malId": 61443,
+      "id": "open-tv-mal-61443",
+      "title": "Shunkashuutou Daikousha: Haru no Mai"
+    },
+    {
+      "sourceId": -139,
+      "malId": 36904,
+      "id": "open-tv-mal-36904",
+      "title": "Aggressive Retsuko"
+    },
+    {
+      "sourceId": -140,
+      "malId": 37403,
+      "id": "tmdb-tv-92892",
+      "title": "Ahiru no Sora"
+    },
+    {
+      "sourceId": -141,
+      "malId": 230,
+      "id": "open-tv-mal-230",
+      "title": "Air Master"
+    },
+    {
+      "sourceId": -142,
+      "malId": 31580,
+      "id": "open-tv-mal-31580",
+      "title": "Ajin"
+    },
+    {
+      "sourceId": -143,
+      "malId": 62164,
+      "id": "open-tv-mal-62164",
+      "title": "Akane-banashi"
+    },
+    {
+      "sourceId": -144,
+      "malId": null,
+      "id": "open-tv-ichidok-144",
+      "title": "Akebi's Sailor Uniform"
+    },
+    {
+      "sourceId": -145,
+      "malId": 52193,
+      "id": "open-tv-mal-52193",
+      "title": "Akiba Meido Sensou"
+    },
+    {
+      "sourceId": -146,
+      "malId": 34051,
+      "id": "open-tv-mal-34051",
+      "title": "Akiba's Trip: The Animation"
+    },
+    {
+      "sourceId": -147,
+      "malId": 41433,
+      "id": "open-tv-mal-41433",
+      "title": "Akudama Drive"
+    },
+    {
+      "sourceId": -148,
+      "malId": 31764,
+      "id": "open-tv-mal-31764",
+      "title": "Nejimaki Seirei Senki: Tenkyou no Alderamin"
+    },
+    {
+      "sourceId": -149,
+      "malId": 22729,
+      "id": "open-tv-mal-22729",
+      "title": "Aldnoah.Zero"
+    },
+    {
+      "sourceId": -150,
+      "malId": 31588,
+      "id": "open-tv-mal-31588",
+      "title": "ALL OUT!!"
+    },
+    {
+      "sourceId": -151,
+      "malId": 54744,
+      "id": "open-tv-mal-54744",
+      "title": "Tokidoki Bosotto Rossiya-go de Dereru Tonari no Alya-san"
+    },
+    {
+      "sourceId": -152,
+      "malId": 52969,
+      "id": "open-tv-mal-52969",
+      "title": "Jitsu wa Ore, Saikyou Deshita?"
+    },
+    {
+      "sourceId": -153,
+      "malId": 22147,
+      "id": "open-tv-mal-22147",
+      "title": "Amagi Brilliant Park"
+    },
+    {
+      "sourceId": -154,
+      "malId": 58600,
+      "id": "open-tv-mal-58600",
+      "title": "Ameku Takao no Suiri Karte"
+    },
+    {
+      "sourceId": -155,
+      "malId": 61637,
+      "id": "open-tv-mal-61637",
+      "title": "29-sai Dokushin Chuuken Boukensha no Nichijou"
+    },
+    {
+      "sourceId": -156,
+      "malId": 53434,
+      "id": "open-tv-mal-53434",
+      "title": "Maou no Ore ga Dorei Elf wo Yome ni Shitanda ga, Dou Medereba Ii?"
+    },
+    {
+      "sourceId": -157,
+      "malId": null,
+      "id": "open-tv-ichidok-157",
+      "title": "An Observation Log of My Fiancée Who Calls Herself a Villainess"
+    },
+    {
+      "sourceId": -158,
+      "malId": 31404,
+      "id": "open-tv-mal-31404",
+      "title": "Netoge no Yome wa Onnanoko ja Nai to Omotta?"
+    },
+    {
+      "sourceId": -159,
+      "malId": 6547,
+      "id": "open-tv-mal-6547",
+      "title": "Angel Beats!"
+    },
+    {
+      "sourceId": -160,
+      "malId": 35994,
+      "id": "open-tv-mal-35994",
+      "title": "Satsuriku no Tenshi"
+    },
+    {
+      "sourceId": -161,
+      "malId": 35427,
+      "id": "open-tv-mal-35427",
+      "title": "Animegataris"
+    },
+    {
+      "sourceId": -162,
+      "malId": 60334,
+      "id": "open-tv-mal-60334",
+      "title": "Anne Shirley"
+    },
+    {
+      "sourceId": -163,
+      "malId": 283,
+      "id": "open-tv-mal-283",
+      "title": "Akage no Anne"
+    },
+    {
+      "sourceId": -164,
+      "malId": 9989,
+      "id": "open-tv-mal-9989",
+      "title": "Ano Hi Mita Hana no Namae wo Bokutachi wa Mada Shiranai."
+    },
+    {
+      "sourceId": -165,
+      "malId": 33203,
+      "id": "open-tv-mal-33203",
+      "title": "Fukumenkei Noise"
+    },
+    {
+      "sourceId": -166,
+      "malId": 11111,
+      "id": "open-tv-mal-11111",
+      "title": "Another"
+    },
+    {
+      "sourceId": -167,
+      "malId": 58259,
+      "id": "open-tv-mal-58259",
+      "title": "Douse, Koishite Shimaunda."
+    },
+    {
+      "sourceId": -168,
+      "malId": null,
+      "id": "open-tv-ichidok-168",
+      "title": "Ao Ashi"
+    },
+    {
+      "sourceId": -169,
+      "malId": null,
+      "id": "open-tv-ichidok-169",
+      "title": "Ao-chan Can't Study!"
+    },
+    {
+      "sourceId": -170,
+      "malId": null,
+      "id": "open-tv-ichidok-170",
+      "title": "Aoharu x Machinegun"
+    },
+    {
+      "sourceId": -171,
+      "malId": null,
+      "id": "open-tv-ichidok-171",
+      "title": "Aokana Four Rhythm Across the Blue"
+    },
+    {
+      "sourceId": -172,
+      "malId": null,
+      "id": "open-tv-ichidok-172",
+      "title": "Aquarion Logos"
+    },
+    {
+      "sourceId": -173,
+      "malId": null,
+      "id": "open-tv-ichidok-173",
+      "title": "Aria The Natural"
+    },
+    {
+      "sourceId": -174,
+      "malId": null,
+      "id": "open-tv-ichidok-174",
+      "title": "Aria the Animation"
+    },
+    {
+      "sourceId": -175,
+      "malId": null,
+      "id": "open-tv-ichidok-175",
+      "title": "Aria the Origination"
+    },
+    {
+      "sourceId": -176,
+      "malId": null,
+      "id": "open-tv-ichidok-176",
+      "title": "Aria the Scarlet Ammo"
+    },
+    {
+      "sourceId": -177,
+      "malId": null,
+      "id": "open-tv-ichidok-177",
+      "title": "Arifureta: From Commonplace to World's Strongest"
+    },
+    {
+      "sourceId": -178,
+      "malId": null,
+      "id": "open-tv-ichidok-178",
+      "title": "Armed Girl's Machiavellism"
+    },
+    {
+      "sourceId": -179,
+      "malId": null,
+      "id": "open-tv-ichidok-179",
+      "title": "Arte"
+    },
+    {
+      "sourceId": -180,
+      "malId": null,
+      "id": "open-tv-ichidok-180",
+      "title": "Ascendance of a Bookworm"
+    },
+    {
+      "sourceId": -181,
+      "malId": null,
+      "id": "open-tv-ichidok-181",
+      "title": "Assassins Pride"
+    },
+    {
+      "sourceId": -182,
+      "malId": null,
+      "id": "open-tv-ichidok-182",
+      "title": "Assault Lily: Bouquet"
+    },
+    {
+      "sourceId": -183,
+      "malId": null,
+      "id": "open-tv-ichidok-183",
+      "title": "Asteroid in Love"
+    },
+    {
+      "sourceId": -184,
+      "malId": null,
+      "id": "open-tv-ichidok-184",
+      "title": "Astra Lost in Space"
+    },
+    {
+      "sourceId": -185,
+      "malId": null,
+      "id": "open-tv-ichidok-185",
+      "title": "Attack on Titan: Junior High"
+    },
+    {
+      "sourceId": -186,
+      "malId": null,
+      "id": "open-tv-ichidok-186",
+      "title": "Ayaka: A Story of Bonds and Wounds"
+    },
+    {
+      "sourceId": -187,
+      "malId": null,
+      "id": "open-tv-ichidok-187",
+      "title": "Azur Lane the Animation"
+    },
+    {
+      "sourceId": -188,
+      "malId": null,
+      "id": "open-tv-ichidok-188",
+      "title": "B: The Beginning"
+    },
+    {
+      "sourceId": -189,
+      "malId": null,
+      "id": "open-tv-ichidok-189",
+      "title": "B: The Beginning Succession"
+    },
+    {
+      "sourceId": -190,
+      "malId": null,
+      "id": "open-tv-ichidok-190",
+      "title": "BAKI-DOU: The Invincible Samurai"
+    },
+    {
+      "sourceId": -191,
+      "malId": null,
+      "id": "open-tv-ichidok-191",
+      "title": "BNA: Brand New Animal"
+    },
+    {
+      "sourceId": -192,
+      "malId": null,
+      "id": "open-tv-ichidok-192",
+      "title": "Babylon"
+    },
+    {
+      "sourceId": -193,
+      "malId": null,
+      "id": "open-tv-ichidok-193",
+      "title": "Back Arrow"
+    },
+    {
+      "sourceId": -194,
+      "malId": null,
+      "id": "open-tv-ichidok-194",
+      "title": "Back Street Girls: Gokudolls"
+    },
+    {
+      "sourceId": -195,
+      "malId": null,
+      "id": "open-tv-ichidok-195",
+      "title": "Bad Girl"
+    },
+    {
+      "sourceId": -196,
+      "malId": null,
+      "id": "open-tv-ichidok-196",
+      "title": "Baka and Test: Summon the Beasts"
+    },
+    {
+      "sourceId": -197,
+      "malId": null,
+      "id": "open-tv-ichidok-197",
+      "title": "Baki (2018)"
+    },
+    {
+      "sourceId": -198,
+      "malId": null,
+      "id": "open-tv-ichidok-198",
+      "title": "Baki Hanma"
+    },
+    {
+      "sourceId": -199,
+      "malId": null,
+      "id": "open-tv-ichidok-199",
+      "title": "Bakuman"
+    },
+    {
+      "sourceId": -200,
+      "malId": null,
+      "id": "open-tv-ichidok-200",
+      "title": "BanG Dream!"
+    },
+    {
+      "sourceId": -201,
+      "malId": null,
+      "id": "open-tv-ichidok-201",
+      "title": "Bananya"
+    },
+    {
+      "sourceId": -202,
+      "malId": null,
+      "id": "open-tv-ichidok-202",
+      "title": "Banished from the Hero's Party, I Decided to Live a Quiet Life in the Countryside"
+    },
+    {
+      "sourceId": -203,
+      "malId": null,
+      "id": "open-tv-ichidok-203",
+      "title": "Barakamon"
+    },
+    {
+      "sourceId": -204,
+      "malId": null,
+      "id": "open-tv-ichidok-204",
+      "title": "Bartender Glass of God"
+    },
+    {
+      "sourceId": -205,
+      "malId": null,
+      "id": "open-tv-ichidok-205",
+      "title": "Basilisk"
+    },
+    {
+      "sourceId": -206,
+      "malId": 35964,
+      "id": "open-tv-mal-35964",
+      "title": "Basilisk: Ouka Ninpouchou"
+    },
+    {
+      "sourceId": -207,
+      "malId": 1016,
+      "id": "open-tv-mal-1016",
+      "title": "GUNNM"
+    },
+    {
+      "sourceId": -208,
+      "malId": 43814,
+      "id": "open-tv-mal-43814",
+      "title": "Deatte 5-byou de Battle"
+    },
+    {
+      "sourceId": -209,
+      "malId": 52046,
+      "id": "open-tv-mal-52046",
+      "title": "Yuusha Party wo Tsuihou Sareta Beast Tamer, Saikyoushu no Nekomimi Shoujo to Deau"
+    },
+    {
+      "sourceId": -210,
+      "malId": 39195,
+      "id": "tmdb-tv-90937",
+      "title": "BEASTARS"
+    },
+    {
+      "sourceId": -211,
+      "malId": 58473,
+      "id": "open-tv-mal-58473",
+      "title": "S-Rank Monster no \"Behemoth\" Dakedo, Neko to Machigawarete Elf Musume no Pet to Shite Kurashitemasu"
+    },
+    {
+      "sourceId": -212,
+      "malId": 39221,
+      "id": "open-tv-mal-39221",
+      "title": "BEM"
+    },
+    {
+      "sourceId": -214,
+      "malId": 53439,
+      "id": "open-tv-mal-53439",
+      "title": "Boushoku no Berserk"
+    },
+    {
+      "sourceId": -215,
+      "malId": 1136,
+      "id": "open-tv-mal-1136",
+      "title": "Betterman"
+    },
+    {
+      "sourceId": -216,
+      "malId": 55978,
+      "id": "open-tv-mal-55978",
+      "title": "BeyWarriors: Cyborg"
+    },
+    {
+      "sourceId": -217,
+      "malId": 288,
+      "id": "open-tv-mal-288",
+      "title": "Bakuten Shoot Beyblade"
+    },
+    {
+      "sourceId": -218,
+      "malId": 31049,
+      "id": "tmdb-tv-67667",
+      "title": "Beyblade Burst"
+    },
+    {
+      "sourceId": -219,
+      "malId": null,
+      "id": "open-tv-ichidok-219",
+      "title": "Beyblade Burst Dynamite Battle"
+    },
+    {
+      "sourceId": -220,
+      "malId": 34901,
+      "id": "open-tv-mal-34901",
+      "title": "Beyblade Burst God"
+    },
+    {
+      "sourceId": -221,
+      "malId": 39282,
+      "id": "open-tv-mal-39282",
+      "title": "Beyblade Burst Gachi"
+    },
+    {
+      "sourceId": -222,
+      "malId": 37283,
+      "id": "open-tv-mal-37283",
+      "title": "Beyblade Burst Chouzetsu"
+    },
+    {
+      "sourceId": -223,
+      "malId": 5962,
+      "id": "open-tv-mal-5962",
+      "title": "Metal Fight Beyblade"
+    },
+    {
+      "sourceId": -224,
+      "malId": 56566,
+      "id": "tmdb-tv-226688",
+      "title": "BEYBLADE X"
+    },
+    {
+      "sourceId": -225,
+      "malId": 30782,
+      "id": "open-tv-mal-30782",
+      "title": "BIKINI WARRIORS"
+    },
+    {
+      "sourceId": -226,
+      "malId": 42976,
+      "id": "open-tv-mal-42976",
+      "title": "Biohazard: Infinite Darkness"
+    },
+    {
+      "sourceId": -227,
+      "malId": 4898,
+      "id": "tmdb-tv-50712",
+      "title": "Kuroshitsuji"
+    },
+    {
+      "sourceId": -228,
+      "malId": 51064,
+      "id": "open-tv-mal-51064",
+      "title": "Kuro no Shoukanshi"
+    },
+    {
+      "sourceId": -229,
+      "malId": 61169,
+      "id": "open-tv-mal-61169",
+      "title": "BLACK TORCH"
+    },
+    {
+      "sourceId": -230,
+      "malId": 38749,
+      "id": "open-tv-mal-38749",
+      "title": "BLADE RUNNER: BLACK LOTUS"
+    },
+    {
+      "sourceId": -231,
+      "malId": 4151,
+      "id": "open-tv-mal-4151",
+      "title": "Mugen no Juunin"
+    },
+    {
+      "sourceId": -232,
+      "malId": 24439,
+      "id": "open-tv-mal-24439",
+      "title": "Kekkai Sensen"
+    },
+    {
+      "sourceId": -233,
+      "malId": 37786,
+      "id": "open-tv-mal-37786",
+      "title": "Yagate Kimi ni Naru"
+    },
+    {
+      "sourceId": -234,
+      "malId": 57181,
+      "id": "tmdb-tv-207347",
+      "title": "Ao no Hako"
+    },
+    {
+      "sourceId": -235,
+      "malId": 2142,
+      "id": "open-tv-mal-2142",
+      "title": "Blue Dragon"
+    },
+    {
+      "sourceId": -236,
+      "malId": 9919,
+      "id": "tmdb-tv-38464",
+      "title": "Ao no Exorcist"
+    },
+    {
+      "sourceId": -237,
+      "malId": 49596,
+      "id": "tmdb-tv-131041",
+      "title": "Blue Lock"
+    },
+    {
+      "sourceId": -238,
+      "malId": 46352,
+      "id": "open-tv-mal-46352",
+      "title": "Blue Period"
+    },
+    {
+      "sourceId": -239,
+      "malId": 47639,
+      "id": "open-tv-mal-47639",
+      "title": "BLUE REFLECTION RAY"
+    },
+    {
+      "sourceId": -240,
+      "malId": null,
+      "id": "open-tv-ichidok-240",
+      "title": "Bogus Skill 'Fruitmaster' : About That Time I Became Able to Eat Unlimited Numbers of Skill Fruits (..."
+    },
+    {
+      "sourceId": -241,
+      "malId": 37451,
+      "id": "open-tv-mal-37451",
+      "title": "Boogiepop wa Warawanai"
+    },
+    {
+      "sourceId": -242,
+      "malId": 34566,
+      "id": "open-tv-mal-34566",
+      "title": "BORUTO: NARUTO NEXT GENERATIONS"
+    },
+    {
+      "sourceId": -243,
+      "malId": 40530,
+      "id": "open-tv-mal-40530",
+      "title": "Jaku-Chara Tomozaki-kun"
+    },
+    {
+      "sourceId": -244,
+      "malId": 32866,
+      "id": "open-tv-mal-32866",
+      "title": "Brave Witches"
+    },
+    {
+      "sourceId": -245,
+      "malId": 49165,
+      "id": "open-tv-mal-49165",
+      "title": "BRIGHT: Samurai Soul"
+    },
+    {
+      "sourceId": -246,
+      "malId": null,
+      "id": "open-tv-ichidok-246",
+      "title": "Brothers Conflict"
+    },
+    {
+      "sourceId": -247,
+      "malId": null,
+      "id": "open-tv-ichidok-247",
+      "title": "Bucchigiri?!"
+    },
+    {
+      "sourceId": -248,
+      "malId": null,
+      "id": "open-tv-ichidok-248",
+      "title": "Buddy Daddies"
+    },
+    {
+      "sourceId": -249,
+      "malId": null,
+      "id": "open-tv-ichidok-249",
+      "title": "Bullet/Bullet"
+    },
+    {
+      "sourceId": -250,
+      "malId": null,
+      "id": "open-tv-ichidok-250",
+      "title": "Bungo Stray Dogs"
+    },
+    {
+      "sourceId": -251,
+      "malId": null,
+      "id": "open-tv-ichidok-251",
+      "title": "Bungo Stray Dogs Wan!"
+    },
+    {
+      "sourceId": -252,
+      "malId": null,
+      "id": "open-tv-ichidok-252",
+      "title": "Bungo and Alchemist -Gears of Judgement-"
+    },
+    {
+      "sourceId": -253,
+      "malId": null,
+      "id": "open-tv-ichidok-253",
+      "title": "By the Grace of the Gods"
+    },
+    {
+      "sourceId": -254,
+      "malId": null,
+      "id": "open-tv-ichidok-254",
+      "title": "Bye Bye, Earth"
+    },
+    {
+      "sourceId": -255,
+      "malId": null,
+      "id": "open-tv-ichidok-255",
+      "title": "Cagaster of an Insect Cage"
+    },
+    {
+      "sourceId": -256,
+      "malId": null,
+      "id": "open-tv-ichidok-256",
+      "title": "Call of the Night"
+    },
+    {
+      "sourceId": -257,
+      "malId": null,
+      "id": "open-tv-ichidok-257",
+      "title": "Campfire Cooking in Another World with My Absurd Skill"
+    },
+    {
+      "sourceId": -258,
+      "malId": null,
+      "id": "open-tv-ichidok-258",
+      "title": "Cannon Busters"
+    },
+    {
+      "sourceId": -259,
+      "malId": null,
+      "id": "open-tv-ichidok-259",
+      "title": "Cap Revolution Bottleman"
+    },
+    {
+      "sourceId": -260,
+      "malId": null,
+      "id": "open-tv-ichidok-260",
+      "title": "Captain Tsubasa (2018)"
+    },
+    {
+      "sourceId": -261,
+      "malId": null,
+      "id": "open-tv-ichidok-261",
+      "title": "Cardcaptor Sakura"
+    },
+    {
+      "sourceId": -262,
+      "malId": null,
+      "id": "open-tv-ichidok-262",
+      "title": "Cardcaptor Sakura: Clear Card"
+    },
+    {
+      "sourceId": -263,
+      "malId": null,
+      "id": "open-tv-ichidok-263",
+      "title": "Cardfight!! Vanguard (2018)"
+    },
+    {
+      "sourceId": -264,
+      "malId": null,
+      "id": "open-tv-ichidok-264",
+      "title": "Cardfight!! Vanguard G"
+    },
+    {
+      "sourceId": -265,
+      "malId": null,
+      "id": "open-tv-ichidok-265",
+      "title": "Cardfight!! Vanguard: Divinez"
+    },
+    {
+      "sourceId": -266,
+      "malId": null,
+      "id": "open-tv-ichidok-266",
+      "title": "Cardfight!! Vanguard: overDress"
+    },
+    {
+      "sourceId": -267,
+      "malId": null,
+      "id": "open-tv-ichidok-267",
+      "title": "Carole &amp; Tuesday"
+    },
+    {
+      "sourceId": -268,
+      "malId": null,
+      "id": "open-tv-ichidok-268",
+      "title": "Carried by the Wind: Tsukikage Ran"
+    },
+    {
+      "sourceId": -269,
+      "malId": null,
+      "id": "open-tv-ichidok-269",
+      "title": "Castle Town Dandelion"
+    },
+    {
+      "sourceId": -270,
+      "malId": null,
+      "id": "open-tv-ichidok-270",
+      "title": "Cat Planet Cuties"
+    },
+    {
+      "sourceId": -271,
+      "malId": null,
+      "id": "open-tv-ichidok-271",
+      "title": "Cat's Eye"
+    },
+    {
+      "sourceId": -272,
+      "malId": null,
+      "id": "open-tv-ichidok-272",
+      "title": "Cautious Hero: The Hero Is Overpowered but Overly Cautious"
+    },
+    {
+      "sourceId": -273,
+      "malId": null,
+      "id": "open-tv-ichidok-273",
+      "title": "Cells at Work!"
+    },
+    {
+      "sourceId": -274,
+      "malId": null,
+      "id": "open-tv-ichidok-274",
+      "title": "Cells at Work! CODE BLACK!"
+    },
+    {
+      "sourceId": -275,
+      "malId": null,
+      "id": "open-tv-ichidok-275",
+      "title": "Chain Chronicle: The Light of Haecceitas"
+    },
+    {
+      "sourceId": -276,
+      "malId": null,
+      "id": "open-tv-ichidok-276",
+      "title": "Chained Soldier"
+    },
+    {
+      "sourceId": -277,
+      "malId": 63403,
+      "id": "open-tv-mal-63403",
+      "title": "Chainsmoker Cat"
+    },
+    {
+      "sourceId": -278,
+      "malId": null,
+      "id": "open-tv-ichidok-278",
+      "title": "Champignon Witch"
+    },
+    {
+      "sourceId": -279,
+      "malId": null,
+      "id": "open-tv-ichidok-279",
+      "title": "Chaos Dragon"
+    },
+    {
+      "sourceId": -280,
+      "malId": null,
+      "id": "open-tv-ichidok-280",
+      "title": "Chaos;Child"
+    },
+    {
+      "sourceId": -281,
+      "malId": null,
+      "id": "open-tv-ichidok-281",
+      "title": "Charger Girl Ju-den Chan"
+    },
+    {
+      "sourceId": -282,
+      "malId": null,
+      "id": "open-tv-ichidok-282",
+      "title": "Charlotte"
+    },
+    {
+      "sourceId": -283,
+      "malId": null,
+      "id": "open-tv-ichidok-283",
+      "title": "Cherry Magic! Thirty Years of Virginity Can Make You a Wizard?!"
+    },
+    {
+      "sourceId": -284,
+      "malId": null,
+      "id": "open-tv-ichidok-284",
+      "title": "Chidori RSC"
+    },
+    {
+      "sourceId": -285,
+      "malId": null,
+      "id": "open-tv-ichidok-285",
+      "title": "Chihayafuru"
+    },
+    {
+      "sourceId": -286,
+      "malId": 34712,
+      "id": "open-tv-mal-34712",
+      "title": "Kujira no Kora wa Sajou ni Utau"
+    },
+    {
+      "sourceId": -287,
+      "malId": 56923,
+      "id": "open-tv-mal-56923",
+      "title": "Lv2 Kara Cheat datta Moto Yuusha Kouho no Mattari Isekai Life"
+    },
+    {
+      "sourceId": -288,
+      "malId": 35821,
+      "id": "open-tv-mal-35821",
+      "title": "Chio-chan no Tsuugakuro"
+    },
+    {
+      "sourceId": -289,
+      "malId": 30296,
+      "id": "open-tv-mal-30296",
+      "title": "Rakudai Kishi no Cavalry"
+    },
+    {
+      "sourceId": -290,
+      "malId": 32830,
+      "id": "open-tv-mal-32830",
+      "title": "Chou Shounen Tanteidan NEO"
+    },
+    {
+      "sourceId": -291,
+      "malId": 4186,
+      "id": "open-tv-mal-4186",
+      "title": "Koukaku no Regios"
+    },
+    {
+      "sourceId": -292,
+      "malId": 34565,
+      "id": "open-tv-mal-34565",
+      "title": "Jikan no Shihaisha"
+    },
+    {
+      "sourceId": -293,
+      "malId": null,
+      "id": "open-tv-ichidok-293",
+      "title": "Chu-Bra!!"
+    },
+    {
+      "sourceId": -294,
+      "malId": 34382,
+      "id": "open-tv-mal-34382",
+      "title": "citrus"
+    },
+    {
+      "sourceId": -295,
+      "malId": 59898,
+      "id": "open-tv-mal-59898",
+      "title": "CITY THE ANIMATION"
+    },
+    {
+      "sourceId": -296,
+      "malId": 4181,
+      "id": "open-tv-mal-4181",
+      "title": "CLANNAD: After Story"
+    },
+    {
+      "sourceId": -297,
+      "malId": 35507,
+      "id": "tmdb-tv-72517",
+      "title": "Youkoso Jitsuryoku Shijou Shugi no Kyoushitsu e"
+    },
+    {
+      "sourceId": -298,
+      "malId": 59205,
+      "id": "open-tv-mal-59205",
+      "title": "Clevatess: Majuu no Ou to Akago to Kabane no Yuusha"
+    },
+    {
+      "sourceId": -299,
+      "malId": 32407,
+      "id": "open-tv-mal-32407",
+      "title": "Clockwork Planet"
+    },
+    {
+      "sourceId": -300,
+      "malId": null,
+      "id": "open-tv-ichidok-300",
+      "title": "Code Geass: Rozé of the Recapture"
+    },
+    {
+      "sourceId": -301,
+      "malId": 31456,
+      "id": "open-tv-mal-31456",
+      "title": "Code:Realize: Sousei no Himegimi"
+    },
+    {
+      "sourceId": -302,
+      "malId": 41456,
+      "id": "open-tv-mal-41456",
+      "title": "Sentouin, Hakenshimasu!"
+    },
+    {
+      "sourceId": -303,
+      "malId": 37823,
+      "id": "open-tv-mal-37823",
+      "title": "CONCEPTION"
+    },
+    {
+      "sourceId": -304,
+      "malId": 31147,
+      "id": "open-tv-mal-31147",
+      "title": "Concrete Revolutio: Choujin Gensou"
+    },
+    {
+      "sourceId": -305,
+      "malId": 32313,
+      "id": "open-tv-mal-32313",
+      "title": "Concrete Revolutio: Choujin Gensou - THE LAST SONG"
+    },
+    {
+      "sourceId": -306,
+      "malId": 35434,
+      "id": "open-tv-mal-35434",
+      "title": "Konbini Kareshi"
+    },
+    {
+      "sourceId": -307,
+      "malId": 38940,
+      "id": "open-tv-mal-38940",
+      "title": "Cop Craft"
+    },
+    {
+      "sourceId": -308,
+      "malId": 111,
+      "id": "open-tv-mal-111",
+      "title": "Corrector Yui"
+    },
+    {
+      "sourceId": -309,
+      "malId": null,
+      "id": "open-tv-ichidok-309",
+      "title": "Cross Ange: Rondo of Angels and Dragons"
+    },
+    {
+      "sourceId": -310,
+      "malId": 59689,
+      "id": "open-tv-mal-59689",
+      "title": "GaCen Shoujo to Ibunka Kouryuu"
+    },
+    {
+      "sourceId": -311,
+      "malId": 36976,
+      "id": "open-tv-mal-36976",
+      "title": "Cutie Honey Universe"
+    },
+    {
+      "sourceId": -312,
+      "malId": 31050,
+      "id": "open-tv-mal-31050",
+      "title": "Cyborg 009 VS Devilman"
+    },
+    {
+      "sourceId": -313,
+      "malId": null,
+      "id": "open-tv-ichidok-313",
+      "title": "Cyborg 009: Call of Justice"
+    },
+    {
+      "sourceId": -314,
+      "malId": 20031,
+      "id": "open-tv-mal-20031",
+      "title": "D-Frag!"
+    },
+    {
+      "sourceId": -315,
+      "malId": 32370,
+      "id": "open-tv-mal-32370",
+      "title": "D.Gray-man HALLOW"
+    },
+    {
+      "sourceId": -316,
+      "malId": 39681,
+      "id": "open-tv-mal-39681",
+      "title": "D4DJ First Mix"
+    },
+    {
+      "sourceId": -317,
+      "malId": 62001,
+      "id": "open-tv-mal-62001",
+      "title": "Yomi no Tsugai"
+    },
+    {
+      "sourceId": -318,
+      "malId": 31636,
+      "id": "open-tv-mal-31636",
+      "title": "Dagashi Kashi"
+    },
+    {
+      "sourceId": -319,
+      "malId": 21809,
+      "id": "open-tv-mal-21809",
+      "title": "Kenzen Robo Daimidaler"
+    },
+    {
+      "sourceId": -320,
+      "malId": 57334,
+      "id": "tmdb-tv-240411",
+      "title": "Dandadan"
+    },
+    {
+      "sourceId": -321,
+      "malId": 6747,
+      "id": "open-tv-mal-6747",
+      "title": "Dance in the Vampire Bund"
+    },
+    {
+      "sourceId": -322,
+      "malId": 29976,
+      "id": "open-tv-mal-29976",
+      "title": "Dance with Devils"
+    },
+    {
+      "sourceId": -323,
+      "malId": 33889,
+      "id": "open-tv-mal-33889",
+      "title": "Saredo Tsumibito wa Ryuu to Odoru"
+    },
+    {
+      "sourceId": -324,
+      "malId": 63572,
+      "id": "open-tv-mal-63572",
+      "title": "Dandelion"
+    },
+    {
+      "sourceId": -325,
+      "malId": 33028,
+      "id": "open-tv-mal-33028",
+      "title": "Danganronpa 3: The End of Kibougamine Gakuen - Zetsubou-hen"
+    },
+    {
+      "sourceId": -326,
+      "malId": null,
+      "id": "open-tv-ichidok-326",
+      "title": "Danganronpa 3: The End of Hope's Peak High School - Future Arc"
+    },
+    {
+      "sourceId": -327,
+      "malId": null,
+      "id": "open-tv-ichidok-327",
+      "title": "Danganronpa 3: The End of Hope's Peak High School - Hope Arc"
+    },
+    {
+      "sourceId": -328,
+      "malId": null,
+      "id": "open-tv-ichidok-328",
+      "title": "Dark Gathering"
+    },
+    {
+      "sourceId": -329,
+      "malId": null,
+      "id": "open-tv-ichidok-329",
+      "title": "Dark Moon: The Blood Altar"
+    },
+    {
+      "sourceId": -330,
+      "malId": 35849,
+      "id": "open-tv-mal-35849",
+      "title": "Darling in the FranXX"
+    },
+    {
+      "sourceId": -331,
+      "malId": null,
+      "id": "open-tv-ichidok-331",
+      "title": "Darwin's Game"
+    },
+    {
+      "sourceId": -332,
+      "malId": null,
+      "id": "open-tv-ichidok-332",
+      "title": "Date A Live"
+    },
+    {
+      "sourceId": -333,
+      "malId": null,
+      "id": "open-tv-ichidok-333",
+      "title": "Dead Account"
+    },
+    {
+      "sourceId": -334,
+      "malId": null,
+      "id": "open-tv-ichidok-334",
+      "title": "Dead Dead Demons Dededede Destruction"
+    },
+    {
+      "sourceId": -335,
+      "malId": null,
+      "id": "open-tv-ichidok-335",
+      "title": "Dead Mount Death Play"
+    },
+    {
+      "sourceId": -336,
+      "malId": null,
+      "id": "open-tv-ichidok-336",
+      "title": "Dealing with Mikadono Sisters Is a Breeze"
+    },
+    {
+      "sourceId": -337,
+      "malId": null,
+      "id": "open-tv-ichidok-337",
+      "title": "Death Parade"
+    },
+    {
+      "sourceId": -338,
+      "malId": null,
+      "id": "open-tv-ichidok-338",
+      "title": "Deca-Dence"
+    },
+    {
+      "sourceId": -339,
+      "malId": null,
+      "id": "open-tv-ichidok-339",
+      "title": "Deep Insanity: The Lost Child"
+    },
+    {
+      "sourceId": -340,
+      "malId": null,
+      "id": "open-tv-ichidok-340",
+      "title": "Dekin no Mogura: The Earthbound Mole"
+    },
+    {
+      "sourceId": -341,
+      "malId": null,
+      "id": "open-tv-ichidok-341",
+      "title": "Delicious in Dungeon"
+    },
+    {
+      "sourceId": -342,
+      "malId": null,
+      "id": "open-tv-ichidok-342",
+      "title": "Delico's Nursery"
+    },
+    {
+      "sourceId": -343,
+      "malId": null,
+      "id": "open-tv-ichidok-343",
+      "title": "Demon King Daimao"
+    },
+    {
+      "sourceId": -344,
+      "malId": null,
+      "id": "open-tv-ichidok-344",
+      "title": "Demon Lord 2099"
+    },
+    {
+      "sourceId": -345,
+      "malId": null,
+      "id": "open-tv-ichidok-345",
+      "title": "Demon Lord, Retry!"
+    },
+    {
+      "sourceId": -346,
+      "malId": null,
+      "id": "open-tv-ichidok-346",
+      "title": "Demon Slayer: Mugen Train Arc"
+    },
+    {
+      "sourceId": -347,
+      "malId": null,
+      "id": "open-tv-ichidok-347",
+      "title": "Detective Conan: The Culprit Hanzawa"
+    },
+    {
+      "sourceId": -348,
+      "malId": null,
+      "id": "open-tv-ichidok-348",
+      "title": "Detective Conan: Zero's Tea Time"
+    },
+    {
+      "sourceId": -349,
+      "malId": null,
+      "id": "open-tv-ichidok-349",
+      "title": "Devil Hunter Yohko"
+    },
+    {
+      "sourceId": -350,
+      "malId": null,
+      "id": "open-tv-ichidok-350",
+      "title": "Devilman: Crybaby"
+    },
+    {
+      "sourceId": -351,
+      "malId": null,
+      "id": "open-tv-ichidok-351",
+      "title": "Devils Line"
+    },
+    {
+      "sourceId": -352,
+      "malId": null,
+      "id": "open-tv-ichidok-352",
+      "title": "Diary of Our Days at the Breakwater"
+    },
+    {
+      "sourceId": -353,
+      "malId": null,
+      "id": "open-tv-ichidok-353",
+      "title": "Didn't I Say to Make My Abilities Average in the Next Life?!"
+    },
+    {
+      "sourceId": -354,
+      "malId": null,
+      "id": "open-tv-ichidok-354",
+      "title": "Digimon Adventure (2020)"
+    },
+    {
+      "sourceId": -355,
+      "malId": null,
+      "id": "open-tv-ichidok-355",
+      "title": "Digimon Fusion"
+    },
+    {
+      "sourceId": -356,
+      "malId": null,
+      "id": "open-tv-ichidok-356",
+      "title": "Digimon Ghost Game"
+    },
+    {
+      "sourceId": -357,
+      "malId": null,
+      "id": "open-tv-ichidok-357",
+      "title": "Dimension W"
+    },
+    {
+      "sourceId": -358,
+      "malId": null,
+      "id": "open-tv-ichidok-358",
+      "title": "Dino Girl Gauko"
+    },
+    {
+      "sourceId": -359,
+      "malId": null,
+      "id": "open-tv-ichidok-359",
+      "title": "Disney Twisted-Wonderland The Animation: Episode of Heartslabyul"
+    },
+    {
+      "sourceId": -360,
+      "malId": null,
+      "id": "open-tv-ichidok-360",
+      "title": "Divine Gate"
+    },
+    {
+      "sourceId": -361,
+      "malId": null,
+      "id": "open-tv-ichidok-361",
+      "title": "Domestic Girlfriend"
+    },
+    {
+      "sourceId": -362,
+      "malId": null,
+      "id": "open-tv-ichidok-362",
+      "title": "Don't Hurt Me, My Healer!"
+    },
+    {
+      "sourceId": -363,
+      "malId": null,
+      "id": "open-tv-ichidok-363",
+      "title": "Dorei-ku The Animation"
+    },
+    {
+      "sourceId": -364,
+      "malId": null,
+      "id": "open-tv-ichidok-364",
+      "title": "Dorohedoro"
+    },
+    {
+      "sourceId": -365,
+      "malId": null,
+      "id": "open-tv-ichidok-365",
+      "title": "Dororo"
+    },
+    {
+      "sourceId": -366,
+      "malId": null,
+      "id": "open-tv-ichidok-366",
+      "title": "Dota: Dragon's Blood"
+    },
+    {
+      "sourceId": -367,
+      "malId": null,
+      "id": "open-tv-ichidok-367",
+      "title": "Double Decker! Doug &amp; Kirill"
+    },
+    {
+      "sourceId": -368,
+      "malId": 38691,
+      "id": "open-tv-mal-38691",
+      "title": "Dr. STONE"
+    },
+    {
+      "sourceId": -369,
+      "malId": 56894,
+      "id": "open-tv-mal-56894",
+      "title": "Dragon Ball DAIMA"
+    },
+    {
+      "sourceId": -370,
+      "malId": null,
+      "id": "open-tv-ichidok-370",
+      "title": "Dragon Ball Movies"
+    },
+    {
+      "sourceId": -371,
+      "malId": 30694,
+      "id": "tmdb-tv-62715",
+      "title": "Dragon Ball Super"
+    },
+    {
+      "sourceId": -372,
+      "malId": 6033,
+      "id": "open-tv-mal-6033",
+      "title": "Dragon Ball Kai"
+    },
+    {
+      "sourceId": -373,
+      "malId": 40526,
+      "id": "open-tv-mal-40526",
+      "title": "Dragon, Ie wo Kau."
+    },
+    {
+      "sourceId": -374,
+      "malId": null,
+      "id": "open-tv-ichidok-374",
+      "title": "Dragon Pilot: Hisone and Masotan"
+    },
+    {
+      "sourceId": -375,
+      "malId": 39519,
+      "id": "open-tv-mal-39519",
+      "title": "Dragon’s Dogma"
+    },
+    {
+      "sourceId": -376,
+      "malId": 21033,
+      "id": "open-tv-mal-21033",
+      "title": "Seikoku no Dragonar"
+    },
+    {
+      "sourceId": -377,
+      "malId": 61280,
+      "id": "open-tv-mal-61280",
+      "title": "Kore Kaite Shine"
+    },
+    {
+      "sourceId": -378,
+      "malId": 31339,
+      "id": "open-tv-mal-31339",
+      "title": "DRIFTERS"
+    },
+    {
+      "sourceId": -379,
+      "malId": 39531,
+      "id": "open-tv-mal-39531",
+      "title": "Kuutei Dragons"
+    },
+    {
+      "sourceId": -380,
+      "malId": 39609,
+      "id": "open-tv-mal-39609",
+      "title": "Ochikobore Fruit Tart"
+    },
+    {
+      "sourceId": -381,
+      "malId": 56348,
+      "id": "open-tv-mal-56348",
+      "title": "Dungeon no Naka no Hito"
+    },
+    {
+      "sourceId": -382,
+      "malId": 6746,
+      "id": "tmdb-tv-42410",
+      "title": "Durarara!!"
+    },
+    {
+      "sourceId": -383,
+      "malId": 27833,
+      "id": "open-tv-mal-27833",
+      "title": "Durarara!!x2 Ketsu"
+    },
+    {
+      "sourceId": -384,
+      "malId": 61917,
+      "id": "open-tv-mal-61917",
+      "title": "Towa no Yuugure"
+    },
+    {
+      "sourceId": -385,
+      "malId": 1928,
+      "id": "open-tv-mal-1928",
+      "title": "Early Reins"
+    },
+    {
+      "sourceId": -386,
+      "malId": 39728,
+      "id": "open-tv-mal-39728",
+      "title": "Eden"
+    },
+    {
+      "sourceId": -387,
+      "malId": 5630,
+      "id": "open-tv-mal-5630",
+      "title": "Higashi no Eden"
+    },
+    {
+      "sourceId": -388,
+      "malId": 42192,
+      "id": "open-tv-mal-42192",
+      "title": "EDENS ZERO"
+    },
+    {
+      "sourceId": -389,
+      "malId": 226,
+      "id": "open-tv-mal-226",
+      "title": "Elfen Lied"
+    },
+    {
+      "sourceId": -390,
+      "malId": 345,
+      "id": "open-tv-mal-345",
+      "title": "Eikoku Koi Monogatari Emma"
+    },
+    {
+      "sourceId": -391,
+      "malId": 32608,
+      "id": "open-tv-mal-32608",
+      "title": "Endride"
+    },
+    {
+      "sourceId": -392,
+      "malId": 38062,
+      "id": "open-tv-mal-38062",
+      "title": "Endro~!"
+    },
+    {
+      "sourceId": -393,
+      "malId": 51417,
+      "id": "open-tv-mal-51417",
+      "title": "Engage Kiss"
+    },
+    {
+      "sourceId": -394,
+      "malId": 32212,
+      "id": "open-tv-mal-32212",
+      "title": "Ensemble Stars!"
+    },
+    {
+      "sourceId": -395,
+      "malId": 237,
+      "id": "tmdb-tv-889",
+      "title": "Koukyoushihen Eureka Seven"
+    },
+    {
+      "sourceId": -396,
+      "malId": 59144,
+      "id": "open-tv-mal-59144",
+      "title": "Fuguushoku [Kanteishi] ga Jitsu wa Saikyou Datta: Naraku de Kitaeta Saikyou no [Shingan] de Musou Suru"
+    },
+    {
+      "sourceId": -397,
+      "malId": 49163,
+      "id": "open-tv-mal-49163",
+      "title": "exception"
+    },
+    {
+      "sourceId": -398,
+      "malId": 35842,
+      "id": "open-tv-mal-35842",
+      "title": "FLCL Alternative"
+    },
+    {
+      "sourceId": -399,
+      "malId": 33010,
+      "id": "open-tv-mal-33010",
+      "title": "FLCL Progressive"
+    },
+    {
+      "sourceId": -400,
+      "malId": 51305,
+      "id": "open-tv-mal-51305",
+      "title": "FLCL: Shoegaze"
+    },
+    {
+      "sourceId": -401,
+      "malId": 57892,
+      "id": "open-tv-mal-57892",
+      "title": "Hazure Waku no [Joutai Ijou Skill] de Saikyou ni Natta Ore ga Subete wo Juurin Suru made"
+    },
+    {
+      "sourceId": -402,
+      "malId": 49785,
+      "id": "open-tv-mal-49785",
+      "title": "FAIRY TAIL: 100 YEARS QUEST"
+    },
+    {
+      "sourceId": -403,
+      "malId": 51462,
+      "id": "open-tv-mal-51462",
+      "title": "Isekai Nonbiri Nouka"
+    },
+    {
+      "sourceId": -404,
+      "malId": 34662,
+      "id": "open-tv-mal-34662",
+      "title": "Fate/Apocrypha"
+    },
+    {
+      "sourceId": -405,
+      "malId": 33047,
+      "id": "open-tv-mal-33047",
+      "title": "Fate/EXTRA Last Encore"
+    },
+    {
+      "sourceId": -406,
+      "malId": null,
+      "id": "open-tv-ichidok-406",
+      "title": "Fate/Grand Order: Absolute Demonic Front - Babylonia"
+    },
+    {
+      "sourceId": -407,
+      "malId": null,
+      "id": "open-tv-ichidok-407",
+      "title": "Fate/Zero"
+    },
+    {
+      "sourceId": -408,
+      "malId": null,
+      "id": "open-tv-ichidok-408",
+      "title": "Fate/kaleid liner Prisma Illya 2wei!"
+    },
+    {
+      "sourceId": -409,
+      "malId": null,
+      "id": "open-tv-ichidok-409",
+      "title": "Fate/stay night [Unlimited Blade Works]"
+    },
+    {
+      "sourceId": -410,
+      "malId": null,
+      "id": "open-tv-ichidok-410",
+      "title": "Fate/strange Fake"
+    },
+    {
+      "sourceId": -411,
+      "malId": null,
+      "id": "open-tv-ichidok-411",
+      "title": "Fena: Pirate Princess"
+    },
+    {
+      "sourceId": -412,
+      "malId": null,
+      "id": "open-tv-ichidok-412",
+      "title": "Fire Force"
+    },
+    {
+      "sourceId": -413,
+      "malId": null,
+      "id": "open-tv-ichidok-413",
+      "title": "First Love Monster"
+    },
+    {
+      "sourceId": -414,
+      "malId": null,
+      "id": "open-tv-ichidok-414",
+      "title": "Fist of the North Star"
+    },
+    {
+      "sourceId": -415,
+      "malId": null,
+      "id": "open-tv-ichidok-415",
+      "title": "Fist of the North Star: HOKUTO NO KEN"
+    },
+    {
+      "sourceId": -416,
+      "malId": null,
+      "id": "open-tv-ichidok-416",
+      "title": "Flip Flappers"
+    },
+    {
+      "sourceId": -417,
+      "malId": null,
+      "id": "open-tv-ichidok-417",
+      "title": "Flower and Asura"
+    },
+    {
+      "sourceId": -418,
+      "malId": null,
+      "id": "open-tv-ichidok-418",
+      "title": "Flowering Heart"
+    },
+    {
+      "sourceId": -419,
+      "malId": null,
+      "id": "open-tv-ichidok-419",
+      "title": "Flying Witch"
+    },
+    {
+      "sourceId": -420,
+      "malId": null,
+      "id": "open-tv-ichidok-420",
+      "title": "Food Wars! Shokugeki no Soma"
+    },
+    {
+      "sourceId": -421,
+      "malId": null,
+      "id": "open-tv-ichidok-421",
+      "title": "From Bureaucrat to Villainess: Dad's Been Reincarnated!"
+    },
+    {
+      "sourceId": -422,
+      "malId": null,
+      "id": "open-tv-ichidok-422",
+      "title": "From Me to You"
+    },
+    {
+      "sourceId": -423,
+      "malId": null,
+      "id": "open-tv-ichidok-423",
+      "title": "From Old Country Bumpkin to Master Swordsman"
+    },
+    {
+      "sourceId": -424,
+      "malId": null,
+      "id": "open-tv-ichidok-424",
+      "title": "Fruits Basket 2019"
+    },
+    {
+      "sourceId": -425,
+      "malId": null,
+      "id": "open-tv-ichidok-425",
+      "title": "Full Dive: The Ultimate Next-Gen Full Dive RPG Is Even Shittier than Real Life!"
+    },
+    {
+      "sourceId": -426,
+      "malId": null,
+      "id": "open-tv-ichidok-426",
+      "title": "Fullmetal Alchemist"
+    },
+    {
+      "sourceId": -428,
+      "malId": null,
+      "id": "open-tv-ichidok-428",
+      "title": "Future Boy Conan"
+    },
+    {
+      "sourceId": -429,
+      "malId": null,
+      "id": "open-tv-ichidok-429",
+      "title": "Future Card Buddyfight Ace"
+    },
+    {
+      "sourceId": -430,
+      "malId": null,
+      "id": "open-tv-ichidok-430",
+      "title": "Future Card Buddyfight Battsu"
+    },
+    {
+      "sourceId": -431,
+      "malId": null,
+      "id": "open-tv-ichidok-431",
+      "title": "Fuuka"
+    },
+    {
+      "sourceId": -432,
+      "malId": null,
+      "id": "open-tv-ichidok-432",
+      "title": "Ga-Rei-Zero"
+    },
+    {
+      "sourceId": -433,
+      "malId": null,
+      "id": "open-tv-ichidok-433",
+      "title": "Galaxy Angel X"
+    },
+    {
+      "sourceId": -434,
+      "malId": null,
+      "id": "open-tv-ichidok-434",
+      "title": "Gamera: Rebirth"
+    },
+    {
+      "sourceId": -435,
+      "malId": null,
+      "id": "open-tv-ichidok-435",
+      "title": "Gamers!"
+    },
+    {
+      "sourceId": -436,
+      "malId": null,
+      "id": "open-tv-ichidok-436",
+      "title": "Garo: Crimson Moon"
+    },
+    {
+      "sourceId": -437,
+      "malId": null,
+      "id": "open-tv-ichidok-437",
+      "title": "Garo: The Animation"
+    },
+    {
+      "sourceId": -438,
+      "malId": null,
+      "id": "open-tv-ichidok-438",
+      "title": "Garo: Vanishing Line"
+    },
+    {
+      "sourceId": -439,
+      "malId": null,
+      "id": "open-tv-ichidok-439",
+      "title": "Garouden: The Way of the Lone Wolf"
+    },
+    {
+      "sourceId": -440,
+      "malId": null,
+      "id": "open-tv-ichidok-440",
+      "title": "Gatchaman Crowds Insight"
+    },
+    {
+      "sourceId": -441,
+      "malId": null,
+      "id": "open-tv-ichidok-441",
+      "title": "Gekidol"
+    },
+    {
+      "sourceId": -442,
+      "malId": null,
+      "id": "open-tv-ichidok-442",
+      "title": "Genshiken 2"
+    },
+    {
+      "sourceId": -443,
+      "malId": null,
+      "id": "open-tv-ichidok-443",
+      "title": "Getter Robo Arc"
+    },
+    {
+      "sourceId": -444,
+      "malId": null,
+      "id": "open-tv-ichidok-444",
+      "title": "Ghost in the Shell: SAC_2045"
+    },
+    {
+      "sourceId": -445,
+      "malId": 918,
+      "id": "open-tv-mal-918",
+      "title": "Gintama"
+    },
+    {
+      "sourceId": -446,
+      "malId": 54757,
+      "id": "open-tv-mal-54757",
+      "title": "3-nen Z-gumi Ginpachi-sensei"
+    },
+    {
+      "sourceId": -447,
+      "malId": 43969,
+      "id": "open-tv-mal-43969",
+      "title": "Kanojo mo Kanojo"
+    },
+    {
+      "sourceId": -448,
+      "malId": null,
+      "id": "open-tv-ichidok-448",
+      "title": "Girls' Frontline"
+    },
+    {
+      "sourceId": -449,
+      "malId": 39533,
+      "id": "open-tv-mal-39533",
+      "title": "Given"
+    },
+    {
+      "sourceId": -450,
+      "malId": null,
+      "id": "open-tv-ichidok-450",
+      "title": "Glass Fleet"
+    },
+    {
+      "sourceId": -451,
+      "malId": 39463,
+      "id": "open-tv-mal-39463",
+      "title": "Gleipnir"
+    },
+    {
+      "sourceId": -452,
+      "malId": 12191,
+      "id": "open-tv-mal-12191",
+      "title": "Smile Precure!"
+    },
+    {
+      "sourceId": -453,
+      "malId": 16419,
+      "id": "open-tv-mal-16419",
+      "title": "Dokidoki! Precure"
+    },
+    {
+      "sourceId": -454,
+      "malId": 60427,
+      "id": "open-tv-mal-60427",
+      "title": "Gnosia"
+    },
+    {
+      "sourceId": -455,
+      "malId": null,
+      "id": "open-tv-ichidok-455",
+      "title": "Go For It, Nakamura!"
+    },
+    {
+      "sourceId": -456,
+      "malId": 53770,
+      "id": "open-tv-mal-53770",
+      "title": "Sentai Daishikkaku"
+    },
+    {
+      "sourceId": -457,
+      "malId": 37349,
+      "id": "open-tv-mal-37349",
+      "title": "Goblin Slayer"
+    },
+    {
+      "sourceId": -458,
+      "malId": 27631,
+      "id": "open-tv-mal-27631",
+      "title": "GOD EATER"
+    },
+    {
+      "sourceId": -459,
+      "malId": null,
+      "id": "open-tv-ichidok-459",
+      "title": "Gods' Game We Play"
+    },
+    {
+      "sourceId": -460,
+      "malId": 36028,
+      "id": "open-tv-mal-36028",
+      "title": "Golden Kamuy"
+    },
+    {
+      "sourceId": -461,
+      "malId": 36789,
+      "id": "open-movie-mal-36789",
+      "title": "Golden Time"
+    },
+    {
+      "sourceId": -462,
+      "malId": 56146,
+      "id": "open-tv-mal-56146",
+      "title": "Good Night World"
+    },
+    {
+      "sourceId": -463,
+      "malId": 58878,
+      "id": "open-tv-mal-58878",
+      "title": "Sayonara Lara"
+    },
+    {
+      "sourceId": -464,
+      "malId": 31629,
+      "id": "open-tv-mal-31629",
+      "title": "GRANBLUE FANTASY The Animation"
+    },
+    {
+      "sourceId": -465,
+      "malId": 40052,
+      "id": "open-tv-mal-40052",
+      "title": "GREAT PRETENDER"
+    },
+    {
+      "sourceId": -466,
+      "malId": 34176,
+      "id": "open-tv-mal-34176",
+      "title": "Zero kara Hajimeru Mahou no Sho"
+    },
+    {
+      "sourceId": -467,
+      "malId": null,
+      "id": "open-tv-ichidok-467",
+      "title": "Grow Up Show: Sunflower Circus"
+    },
+    {
+      "sourceId": -468,
+      "malId": 37245,
+      "id": "open-tv-mal-37245",
+      "title": "Gundam Build Divers"
+    },
+    {
+      "sourceId": -469,
+      "malId": 24625,
+      "id": "open-tv-mal-24625",
+      "title": "Gundam Build Fighters Try"
+    },
+    {
+      "sourceId": -470,
+      "malId": 35889,
+      "id": "open-tv-mal-35889",
+      "title": "Hakata Tonkotsu Ramens"
+    },
+    {
+      "sourceId": -471,
+      "malId": 36094,
+      "id": "open-tv-mal-36094",
+      "title": "Hakumei to Mikochi"
+    },
+    {
+      "sourceId": -472,
+      "malId": 508,
+      "id": "open-tv-mal-508",
+      "title": "Tottoko Hamtarou"
+    },
+    {
+      "sourceId": -473,
+      "malId": 58861,
+      "id": "open-tv-mal-58861",
+      "title": "Hanazakari no Kimitachi e"
+    },
+    {
+      "sourceId": -474,
+      "malId": 62535,
+      "id": "open-tv-mal-62535",
+      "title": "Hanaori-san wa Tensei Shite mo Kenka ga Shitai"
+    },
+    {
+      "sourceId": -475,
+      "malId": 32981,
+      "id": "open-tv-mal-32981",
+      "title": "Hand Shakers"
+    },
+    {
+      "sourceId": -476,
+      "malId": 32648,
+      "id": "open-tv-mal-32648",
+      "title": "Handa-kun"
+    },
+    {
+      "sourceId": -477,
+      "malId": 50854,
+      "id": "open-tv-mal-50854",
+      "title": "Benriya Saitou-san, Isekai ni Iku"
+    },
+    {
+      "sourceId": -478,
+      "malId": 37517,
+      "id": "open-tv-mal-37517",
+      "title": "Happy Sugar Life"
+    },
+    {
+      "sourceId": -479,
+      "malId": 259,
+      "id": "open-tv-mal-259",
+      "title": "HAPPY☆LESSON"
+    },
+    {
+      "sourceId": -480,
+      "malId": null,
+      "id": "open-tv-ichidok-480",
+      "title": "Happy☆Lesson Ova"
+    },
+    {
+      "sourceId": -481,
+      "malId": 35983,
+      "id": "open-tv-mal-35983",
+      "title": "Harukana Receive"
+    },
+    {
+      "sourceId": -482,
+      "malId": 35252,
+      "id": "open-tv-mal-35252",
+      "title": "Hatena☆Illusion"
+    },
+    {
+      "sourceId": -483,
+      "malId": 32542,
+      "id": "open-tv-mal-32542",
+      "title": "Sakamoto desu ga?"
+    },
+    {
+      "sourceId": -484,
+      "malId": 2026,
+      "id": "open-tv-mal-2026",
+      "title": "Hayate no Gotoku!"
+    },
+    {
+      "sourceId": -485,
+      "malId": null,
+      "id": "open-tv-ichidok-485",
+      "title": "Headhunted to Another World: From Salaryman to Big Four!"
+    },
+    {
+      "sourceId": -486,
+      "malId": null,
+      "id": "open-tv-ichidok-486",
+      "title": "Heaven Official's Blessing"
+    },
+    {
+      "sourceId": -487,
+      "malId": null,
+      "id": "open-tv-ichidok-487",
+      "title": "Heavenly Delusion"
+    },
+    {
+      "sourceId": -488,
+      "malId": null,
+      "id": "open-tv-ichidok-488",
+      "title": "Heavy Object"
+    },
+    {
+      "sourceId": -489,
+      "malId": null,
+      "id": "open-tv-ichidok-489",
+      "title": "Helck"
+    },
+    {
+      "sourceId": -490,
+      "malId": null,
+      "id": "open-tv-ichidok-490",
+      "title": "Hell Mode: The Hardcore Gamer Dominates in Another World with Garbage Balancing"
+    },
+    {
+      "sourceId": -491,
+      "malId": null,
+      "id": "open-tv-ichidok-491",
+      "title": "Hell's Paradise"
+    },
+    {
+      "sourceId": -492,
+      "malId": null,
+      "id": "open-tv-ichidok-492",
+      "title": "Hero Mask"
+    },
+    {
+      "sourceId": -493,
+      "malId": null,
+      "id": "open-tv-ichidok-493",
+      "title": "Hero Without a Class: Who Even Needs Skills?!"
+    },
+    {
+      "sourceId": -494,
+      "malId": null,
+      "id": "open-tv-ichidok-494",
+      "title": "Hetalia: The World Twinkle"
+    },
+    {
+      "sourceId": -495,
+      "malId": null,
+      "id": "open-tv-ichidok-495",
+      "title": "Hi Score Girl"
+    },
+    {
+      "sourceId": -496,
+      "malId": null,
+      "id": "open-tv-ichidok-496",
+      "title": "Higehiro: After Being Rejected, I Shaved and Took in a High School Runaway"
+    },
+    {
+      "sourceId": -497,
+      "malId": null,
+      "id": "tmdb-tv-45950",
+      "title": "High School DxD"
+    },
+    {
+      "sourceId": -498,
+      "malId": null,
+      "id": "open-tv-ichidok-498",
+      "title": "High School DxD BorN"
+    },
+    {
+      "sourceId": -499,
+      "malId": null,
+      "id": "open-tv-ichidok-499",
+      "title": "High School DxD New"
+    },
+    {
+      "sourceId": -500,
+      "malId": null,
+      "id": "open-tv-ichidok-500",
+      "title": "High-Rise Invasion"
+    },
+    {
+      "sourceId": -501,
+      "malId": null,
+      "id": "open-tv-ichidok-501",
+      "title": "Highschool of the Dead"
+    },
+    {
+      "sourceId": -502,
+      "malId": null,
+      "id": "open-tv-ichidok-502",
+      "title": "Higurashi: When They Cry – Gou"
+    },
+    {
+      "sourceId": -503,
+      "malId": null,
+      "id": "open-tv-ichidok-503",
+      "title": "Himouto! Umaru-chan"
+    },
+    {
+      "sourceId": -504,
+      "malId": null,
+      "id": "open-tv-ichidok-504",
+      "title": "Himouto! Umaru-chan S"
+    },
+    {
+      "sourceId": -505,
+      "malId": null,
+      "id": "open-tv-ichidok-505",
+      "title": "Hina Logic - From Luck and Logic"
+    },
+    {
+      "sourceId": -506,
+      "malId": null,
+      "id": "open-tv-ichidok-506",
+      "title": "Hinamatsuri"
+    },
+    {
+      "sourceId": -507,
+      "malId": null,
+      "id": "open-tv-ichidok-507",
+      "title": "Hinomaru Sumo"
+    },
+    {
+      "sourceId": -508,
+      "malId": null,
+      "id": "open-tv-ichidok-508",
+      "title": "Hitorijime My Hero"
+    },
+    {
+      "sourceId": -509,
+      "malId": null,
+      "id": "open-tv-ichidok-509",
+      "title": "Hokkaido Gals Are Super Adorable!"
+    },
+    {
+      "sourceId": -510,
+      "malId": null,
+      "id": "open-tv-ichidok-510",
+      "title": "Honey Lemon Soda"
+    },
+    {
+      "sourceId": -511,
+      "malId": 42897,
+      "id": "open-tv-mal-42897",
+      "title": "Horimiya"
+    },
+    {
+      "sourceId": -512,
+      "malId": null,
+      "id": "open-tv-ichidok-512",
+      "title": "Hortensia Saga"
+    },
+    {
+      "sourceId": -513,
+      "malId": null,
+      "id": "open-tv-ichidok-513",
+      "title": "How I Attended an All-Guy's Mixer"
+    },
+    {
+      "sourceId": -514,
+      "malId": null,
+      "id": "open-tv-ichidok-514",
+      "title": "How Not to Summon a Demon Lord"
+    },
+    {
+      "sourceId": -515,
+      "malId": null,
+      "id": "open-tv-ichidok-515",
+      "title": "How a Realist Hero Rebuilt the Kingdom"
+    },
+    {
+      "sourceId": -516,
+      "malId": null,
+      "id": "open-tv-ichidok-516",
+      "title": "How clumsy you are, Miss Ueno."
+    },
+    {
+      "sourceId": -517,
+      "malId": null,
+      "id": "open-tv-ichidok-517",
+      "title": "Hundred"
+    },
+    {
+      "sourceId": -518,
+      "malId": null,
+      "id": "open-tv-ichidok-518",
+      "title": "I Got a Cheat Skill in Another World and Became Unrivaled in The Real World, Too"
+    },
+    {
+      "sourceId": -519,
+      "malId": null,
+      "id": "open-tv-ichidok-519",
+      "title": "I Left My A-Rank Party to Help My Former Students Reach the Dungeon Depths!"
+    },
+    {
+      "sourceId": -520,
+      "malId": null,
+      "id": "open-tv-ichidok-520",
+      "title": "I May Be a Guild Receptionist, but I'll Solo Any Boss to Clock Out on Time"
+    },
+    {
+      "sourceId": -521,
+      "malId": null,
+      "id": "open-tv-ichidok-521",
+      "title": "I Parry Everything"
+    },
+    {
+      "sourceId": -522,
+      "malId": null,
+      "id": "open-tv-ichidok-522",
+      "title": "I Shall Survive Using Potions!"
+    },
+    {
+      "sourceId": -523,
+      "malId": null,
+      "id": "open-tv-ichidok-523",
+      "title": "I Want to End this Love Game"
+    },
+    {
+      "sourceId": -524,
+      "malId": null,
+      "id": "open-tv-ichidok-524",
+      "title": "I Was Reincarnated as the 7th Prince so I Can Take My Time Perfecting My Magical Ability"
+    },
+    {
+      "sourceId": -525,
+      "malId": null,
+      "id": "open-tv-ichidok-525",
+      "title": "I'll Become a Villainess Who Goes Down in History"
+    },
+    {
+      "sourceId": -526,
+      "malId": null,
+      "id": "open-tv-ichidok-526",
+      "title": "I'm Living with an Otaku NEET Kunoichi!?"
+    },
+    {
+      "sourceId": -527,
+      "malId": 50175,
+      "id": "open-tv-mal-50175",
+      "title": "Yuusha, Yamemasu"
+    },
+    {
+      "sourceId": -528,
+      "malId": 41380,
+      "id": "open-tv-mal-41380",
+      "title": "100-man no Inochi no Ue ni Ore wa Tatteiru"
+    },
+    {
+      "sourceId": -529,
+      "malId": 53833,
+      "id": "open-tv-mal-53833",
+      "title": "Watashi no Oshi wa Akuyaku Reijou."
+    },
+    {
+      "sourceId": -530,
+      "malId": 49979,
+      "id": "open-tv-mal-49979",
+      "title": "Akuyaku Reijou nano de Last Boss wo Kattemimashita"
+    },
+    {
+      "sourceId": -531,
+      "malId": 40586,
+      "id": "open-tv-mal-40586",
+      "title": "Slime Taoshite 300-nen, Shiranai Uchi ni Level MAX ni Nattemashita"
+    },
+    {
+      "sourceId": -532,
+      "malId": 51128,
+      "id": "open-tv-mal-51128",
+      "title": "Noumin Kanren no Skill Bakka Agetetara Naze ka Tsuyoku Natta."
+    },
+    {
+      "sourceId": -533,
+      "malId": 33797,
+      "id": "open-tv-mal-33797",
+      "title": "ID-0"
+    },
+    {
+      "sourceId": -534,
+      "malId": 40046,
+      "id": "open-tv-mal-40046",
+      "title": "ID: INVADED"
+    },
+    {
+      "sourceId": -535,
+      "malId": 40359,
+      "id": "open-tv-mal-40359",
+      "title": "Ikebukuro West Gate Park"
+    },
+    {
+      "sourceId": -536,
+      "malId": 35203,
+      "id": "open-tv-mal-35203",
+      "title": "Isekai wa Smartphone to Tomo ni."
+    },
+    {
+      "sourceId": -537,
+      "malId": 61663,
+      "id": "open-tv-mal-61663",
+      "title": "Uruwashi no Yoi no Tsuki"
+    },
+    {
+      "sourceId": -538,
+      "malId": 48239,
+      "id": "open-tv-mal-48239",
+      "title": "Leadale no Daichi nite"
+    },
+    {
+      "sourceId": -539,
+      "malId": 39017,
+      "id": "open-tv-mal-39017",
+      "title": "Kyokou Suiri"
+    },
+    {
+      "sourceId": -540,
+      "malId": 5231,
+      "id": "tmdb-tv-42912",
+      "title": "Inazuma Eleven"
+    },
+    {
+      "sourceId": -541,
+      "malId": 33027,
+      "id": "open-tv-mal-33027",
+      "title": "Infini-T Force"
+    },
+    {
+      "sourceId": -542,
+      "malId": 38909,
+      "id": "open-tv-mal-38909",
+      "title": "Infinite Dendrogram"
+    },
+    {
+      "sourceId": -543,
+      "malId": 9041,
+      "id": "open-tv-mal-9041",
+      "title": "IS: Infinite Stratos"
+    },
+    {
+      "sourceId": -544,
+      "malId": 37438,
+      "id": "open-tv-mal-37438",
+      "title": "Ingress"
+    },
+    {
+      "sourceId": -545,
+      "malId": 50796,
+      "id": "open-tv-mal-50796",
+      "title": "Kimi wa Houkago Insomnia"
+    },
+    {
+      "sourceId": -546,
+      "malId": 1085,
+      "id": "open-tv-mal-1085",
+      "title": "INTERLUDE"
+    },
+    {
+      "sourceId": -547,
+      "malId": 40010,
+      "id": "open-tv-mal-40010",
+      "title": "Ishuzoku Reviewers"
+    },
+    {
+      "sourceId": -548,
+      "malId": 33988,
+      "id": "open-tv-mal-33988",
+      "title": "Demi-chan wa Kataritai"
+    },
+    {
+      "sourceId": -549,
+      "malId": 249,
+      "id": "tmdb-tv-35610",
+      "title": "Inuyasha"
+    },
+    {
+      "sourceId": -550,
+      "malId": 48471,
+      "id": "open-tv-mal-48471",
+      "title": "Tsuki to Laika to Nosferatu"
+    },
+    {
+      "sourceId": -551,
+      "malId": 28121,
+      "id": "open-tv-mal-28121",
+      "title": "Dungeon ni Deai wo Motomeru no wa Machigatteiru Darou ka"
+    },
+    {
+      "sourceId": -552,
+      "malId": 37744,
+      "id": "open-tv-mal-37744",
+      "title": "Isekai Cheat Magician"
+    },
+    {
+      "sourceId": -553,
+      "malId": 60226,
+      "id": "open-tv-mal-60226",
+      "title": "Isekai no Sata wa Shachiku Shidai"
+    },
+    {
+      "sourceId": -554,
+      "malId": 57315,
+      "id": "open-tv-mal-57315",
+      "title": "Meitou \"Isekai no Yu\" Kaitaku-ki: AraFou Onsen Mania no Tensei-saki wa, Nonbiri Onsen Tengoku deshita"
+    },
+    {
+      "sourceId": -555,
+      "malId": 38472,
+      "id": "open-tv-mal-38472",
+      "title": "Isekai Quartet"
+    },
+    {
+      "sourceId": -556,
+      "malId": 54449,
+      "id": "open-tv-mal-54449",
+      "title": "Ishura"
+    },
+    {
+      "sourceId": -557,
+      "malId": 33433,
+      "id": "open-tv-mal-33433",
+      "title": "Shuumatsu no Izetta"
+    },
+    {
+      "sourceId": -558,
+      "malId": 61483,
+      "id": "open-tv-mal-61483",
+      "title": "Tenmaku no Jaadugar"
+    },
+    {
+      "sourceId": -559,
+      "malId": 61128,
+      "id": "open-tv-mal-61128",
+      "title": "Yuusha Party wo Oidasareta Kiyou Binbou"
+    },
+    {
+      "sourceId": -560,
+      "malId": 40515,
+      "id": "open-tv-mal-40515",
+      "title": "Nihon Chinbotsu: 2020"
+    },
+    {
+      "sourceId": -561,
+      "malId": 54839,
+      "id": "open-tv-mal-54839",
+      "title": "Yoru no Kurage wa Oyogenai"
+    },
+    {
+      "sourceId": -562,
+      "malId": 666,
+      "id": "open-tv-mal-666",
+      "title": "JoJo no Kimyou na Bouken"
+    },
+    {
+      "sourceId": -563,
+      "malId": 31933,
+      "id": "open-tv-mal-31933",
+      "title": "JoJo no Kimyou na Bouken: Diamond wa Kudakenai"
+    },
+    {
+      "sourceId": -564,
+      "malId": 37991,
+      "id": "open-tv-mal-37991",
+      "title": "JoJo no Kimyou na Bouken: Ougon no Kaze"
+    },
+    {
+      "sourceId": -565,
+      "malId": 20899,
+      "id": "open-tv-mal-20899",
+      "title": "JoJo no Kimyou na Bouken: Stardust Crusaders"
+    },
+    {
+      "sourceId": -566,
+      "malId": null,
+      "id": "open-tv-ichidok-566",
+      "title": "JoJo's Bizarre Adventure: Stone Ocean"
+    },
+    {
+      "sourceId": -567,
+      "malId": null,
+      "id": "open-tv-ichidok-567",
+      "title": "Joker Game"
+    },
+    {
+      "sourceId": -568,
+      "malId": null,
+      "id": "open-tv-ichidok-568",
+      "title": "Jormungand"
+    },
+    {
+      "sourceId": -569,
+      "malId": null,
+      "id": "open-tv-ichidok-569",
+      "title": "Juni Taisen: Zodiac War"
+    },
+    {
+      "sourceId": -570,
+      "malId": null,
+      "id": "open-tv-ichidok-570",
+      "title": "Junji Ito Collection"
+    },
+    {
+      "sourceId": -571,
+      "malId": null,
+      "id": "open-tv-ichidok-571",
+      "title": "Just Because!"
+    },
+    {
+      "sourceId": -572,
+      "malId": 5680,
+      "id": "tmdb-tv-42253",
+      "title": "K-On!"
+    },
+    {
+      "sourceId": -573,
+      "malId": null,
+      "id": "open-tv-ichidok-573",
+      "title": "K: Return of Kings"
+    },
+    {
+      "sourceId": -574,
+      "malId": null,
+      "id": "open-tv-ichidok-574",
+      "title": "KADO: The Right Answer"
+    },
+    {
+      "sourceId": -575,
+      "malId": null,
+      "id": "open-tv-ichidok-575",
+      "title": "Kabaneri of the Iron Fortress"
+    },
+    {
+      "sourceId": -576,
+      "malId": 37999,
+      "id": "tmdb-tv-83121",
+      "title": "Kaguya-sama: Love is War"
+    },
+    {
+      "sourceId": -577,
+      "malId": null,
+      "id": "open-tv-ichidok-577",
+      "title": "Kaiji: Ultimate Survivor"
+    },
+    {
+      "sourceId": -578,
+      "malId": null,
+      "id": "open-tv-ichidok-578",
+      "title": "Kaiju Girl Caramelise"
+    },
+    {
+      "sourceId": -579,
+      "malId": null,
+      "id": "open-tv-ichidok-579",
+      "title": "Kaiju No. 8"
+    },
+    {
+      "sourceId": -580,
+      "malId": null,
+      "id": "open-tv-ichidok-580",
+      "title": "Kakegurui Twin"
+    },
+    {
+      "sourceId": -581,
+      "malId": null,
+      "id": "open-tv-ichidok-581",
+      "title": "Kakegurui: Compulsive Gambler"
+    },
+    {
+      "sourceId": -582,
+      "malId": null,
+      "id": "open-tv-ichidok-582",
+      "title": "Kamisama Kiss"
+    },
+    {
+      "sourceId": -583,
+      "malId": null,
+      "id": "open-tv-ichidok-583",
+      "title": "Kandagawa Jet Girls"
+    },
+    {
+      "sourceId": -584,
+      "malId": null,
+      "id": "open-tv-ichidok-584",
+      "title": "Katana Maidens: Toji no Miko"
+    },
+    {
+      "sourceId": -585,
+      "malId": null,
+      "id": "open-tv-ichidok-585",
+      "title": "Kaya-chan Isn't Scary"
+    },
+    {
+      "sourceId": -586,
+      "malId": null,
+      "id": "open-tv-ichidok-586",
+      "title": "Keep Your Hands Off Eizouken!"
+    },
+    {
+      "sourceId": -587,
+      "malId": null,
+      "id": "open-tv-ichidok-587",
+      "title": "Keijo!!!!!!!!"
+    },
+    {
+      "sourceId": -588,
+      "malId": null,
+      "id": "open-tv-ichidok-588",
+      "title": "Kekkaishi"
+    },
+    {
+      "sourceId": -589,
+      "malId": null,
+      "id": "open-tv-ichidok-589",
+      "title": "Kemono Friends"
+    },
+    {
+      "sourceId": -590,
+      "malId": null,
+      "id": "open-tv-ichidok-590",
+      "title": "Kemono Jihen"
+    },
+    {
+      "sourceId": -591,
+      "malId": null,
+      "id": "open-tv-ichidok-591",
+      "title": "Kemono Michi: Rise Up"
+    },
+    {
+      "sourceId": -592,
+      "malId": null,
+      "id": "open-tv-ichidok-592",
+      "title": "Kengan Ashura"
+    },
+    {
+      "sourceId": -593,
+      "malId": null,
+      "id": "open-tv-ichidok-593",
+      "title": "Kenka Bancho Otome -Girl Beats Boys-"
+    },
+    {
+      "sourceId": -594,
+      "malId": null,
+      "id": "open-tv-ichidok-594",
+      "title": "Key the Metal Idol"
+    },
+    {
+      "sourceId": -595,
+      "malId": null,
+      "id": "open-tv-ichidok-595",
+      "title": "Kill Blue"
+    },
+    {
+      "sourceId": -596,
+      "malId": null,
+      "id": "open-tv-ichidok-596",
+      "title": "Kill la Kill"
+    },
+    {
+      "sourceId": -597,
+      "malId": null,
+      "id": "open-tv-ichidok-597",
+      "title": "King of Fighters: Another Day"
+    },
+    {
+      "sourceId": -598,
+      "malId": null,
+      "id": "open-tv-ichidok-598",
+      "title": "King's Raid: Successors of the Will"
+    },
+    {
+      "sourceId": -599,
+      "malId": null,
+      "id": "open-tv-ichidok-599",
+      "title": "Kingdom"
+    },
+    {
+      "sourceId": -600,
+      "malId": null,
+      "id": "open-tv-ichidok-600",
+      "title": "Kino's Journey"
+    },
+    {
+      "sourceId": -601,
+      "malId": null,
+      "id": "open-tv-ichidok-601",
+      "title": "Kino's Journey -the Beautiful World- the Animated Series"
+    },
+    {
+      "sourceId": -602,
+      "malId": null,
+      "id": "open-tv-ichidok-602",
+      "title": "Kirio Fanclub"
+    },
+    {
+      "sourceId": -603,
+      "malId": null,
+      "id": "open-tv-ichidok-603",
+      "title": "Kiznaiver"
+    },
+    {
+      "sourceId": -604,
+      "malId": null,
+      "id": "open-tv-ichidok-604",
+      "title": "Knight's &amp; Magic"
+    },
+    {
+      "sourceId": -605,
+      "malId": null,
+      "id": "open-tv-ichidok-605",
+      "title": "Knights of Sidonia"
+    },
+    {
+      "sourceId": -606,
+      "malId": 36040,
+      "id": "open-tv-mal-36040",
+      "title": "Saint Seiya: Knights of the Zodiac"
+    },
+    {
+      "sourceId": -607,
+      "malId": null,
+      "id": "open-tv-ichidok-607",
+      "title": "Kochouki: Wakaki Nobunaga"
+    },
+    {
+      "sourceId": -608,
+      "malId": 36548,
+      "id": "open-tv-mal-36548",
+      "title": "Kokkoku"
+    },
+    {
+      "sourceId": -609,
+      "malId": null,
+      "id": "open-tv-ichidok-609",
+      "title": "Komi Can't Communicate"
+    },
+    {
+      "sourceId": -610,
+      "malId": 30831,
+      "id": "open-tv-mal-30831",
+      "title": "KonoSuba: God's Blessing on This Wonderful World!"
+    },
+    {
+      "sourceId": -611,
+      "malId": 35241,
+      "id": "open-tv-mal-35241",
+      "title": "Konohana Kitan"
+    },
+    {
+      "sourceId": -612,
+      "malId": 49909,
+      "id": "open-tv-mal-49909",
+      "title": "Kotarou wa Hitorigurashi"
+    },
+    {
+      "sourceId": -613,
+      "malId": 60083,
+      "id": "open-tv-mal-60083",
+      "title": "Kowloon Generic Romance"
+    },
+    {
+      "sourceId": -614,
+      "malId": 40974,
+      "id": "open-tv-mal-40974",
+      "title": "Kuma Kuma Kuma Bear"
+    },
+    {
+      "sourceId": -615,
+      "malId": 11771,
+      "id": "open-tv-mal-11771",
+      "title": "Kuroko no Basket"
+    },
+    {
+      "sourceId": -616,
+      "malId": 32245,
+      "id": "open-tv-mal-32245",
+      "title": "Kuromukuro"
+    },
+    {
+      "sourceId": -617,
+      "malId": 36458,
+      "id": "open-tv-mal-36458",
+      "title": "Soukou Musume Senki"
+    },
+    {
+      "sourceId": -618,
+      "malId": 7148,
+      "id": "open-tv-mal-7148",
+      "title": "Ladies versus Butlers!"
+    },
+    {
+      "sourceId": -619,
+      "malId": 34798,
+      "id": "open-tv-mal-34798",
+      "title": "Yuru Camp△"
+    },
+    {
+      "sourceId": -620,
+      "malId": 35557,
+      "id": "open-tv-mal-35557",
+      "title": "Houseki no Kuni"
+    },
+    {
+      "sourceId": -621,
+      "malId": 33531,
+      "id": "open-tv-mal-33531",
+      "title": "Juushinki Pandora"
+    },
+    {
+      "sourceId": -622,
+      "malId": 21743,
+      "id": "open-tv-mal-21743",
+      "title": "Donten ni Warau"
+    },
+    {
+      "sourceId": -623,
+      "malId": 56038,
+      "id": "open-tv-mal-56038",
+      "title": "Lazarus"
+    },
+    {
+      "sourceId": -624,
+      "malId": 58172,
+      "id": "open-tv-mal-58172",
+      "title": "Nageki no Bourei wa Intai Shitai"
+    },
+    {
+      "sourceId": -625,
+      "malId": null,
+      "id": "open-tv-ichidok-625",
+      "title": "Let's Play"
+    },
+    {
+      "sourceId": -626,
+      "malId": 51458,
+      "id": "open-tv-mal-51458",
+      "title": "Lv1 Maou to One Room Yuusha"
+    },
+    {
+      "sourceId": -627,
+      "malId": 59005,
+      "id": "open-tv-mal-59005",
+      "title": "Leviathan"
+    },
+    {
+      "sourceId": -628,
+      "malId": 39574,
+      "id": "open-tv-mal-39574",
+      "title": "Levius"
+    },
+    {
+      "sourceId": -629,
+      "malId": 62331,
+      "id": "open-tv-mal-62331",
+      "title": "LIAR GAME"
+    },
+    {
+      "sourceId": -630,
+      "malId": 48633,
+      "id": "open-tv-mal-48633",
+      "title": "Liar Liar"
+    },
+    {
+      "sourceId": -631,
+      "malId": 40620,
+      "id": "open-tv-mal-40620",
+      "title": "Uramichi Oniisan"
+    },
+    {
+      "sourceId": -632,
+      "malId": 44074,
+      "id": "open-tv-mal-44074",
+      "title": "Shiguang Dailiren"
+    },
+    {
+      "sourceId": -633,
+      "malId": 40165,
+      "id": "open-tv-mal-40165",
+      "title": "LISTENERS"
+    },
+    {
+      "sourceId": -634,
+      "malId": 14349,
+      "id": "open-movie-mal-14349",
+      "title": "Little Witch Academia"
+    },
+    {
+      "sourceId": -635,
+      "malId": 17265,
+      "id": "open-tv-mal-17265",
+      "title": "Log Horizon"
+    },
+    {
+      "sourceId": -636,
+      "malId": 57891,
+      "id": "open-tv-loner-life",
+      "title": "Hitoribocchi no Isekai Kouryaku"
+    },
+    {
+      "sourceId": -637,
+      "malId": 53149,
+      "id": "open-tv-mal-53149",
+      "title": "Oemojisangjuui"
+    },
+    {
+      "sourceId": -638,
+      "malId": 38959,
+      "id": "open-tv-mal-38959",
+      "title": "Lord El-Melloi II-sei no Jikenbo: \"Rail Zeppelin\" Grace note"
+    },
+    {
+      "sourceId": -639,
+      "malId": 49818,
+      "id": "open-tv-mal-49818",
+      "title": "Guimi Zhi Zhu: Xiaochou Pian"
+    },
+    {
+      "sourceId": -640,
+      "malId": 34338,
+      "id": "open-tv-mal-34338",
+      "title": "LOST SONG"
+    },
+    {
+      "sourceId": -641,
+      "malId": 48643,
+      "id": "open-tv-mal-48643",
+      "title": "Koi wa Sekai Seifuku no Ato de"
+    },
+    {
+      "sourceId": -642,
+      "malId": 51403,
+      "id": "open-tv-mal-51403",
+      "title": "Renai Flops"
+    },
+    {
+      "sourceId": -643,
+      "malId": 40879,
+      "id": "open-tv-mal-40879",
+      "title": "Love Live! Nijigasaki Gakuen School Idol Doukoukai"
+    },
+    {
+      "sourceId": -644,
+      "malId": 32526,
+      "id": "open-tv-mal-32526",
+      "title": "Love Live! Sunshine!!"
+    },
+    {
+      "sourceId": -645,
+      "malId": 41169,
+      "id": "open-tv-mal-41169",
+      "title": "Love Live! Superstar!!"
+    },
+    {
+      "sourceId": -646,
+      "malId": 21105,
+      "id": "open-tv-mal-21105",
+      "title": "LOVE STAGE!!"
+    },
+    {
+      "sourceId": -647,
+      "malId": null,
+      "id": "open-tv-ichidok-647",
+      "title": "Love Through a Prism"
+    },
+    {
+      "sourceId": -648,
+      "malId": null,
+      "id": "open-tv-ichidok-648",
+      "title": "Love Tyrant"
+    },
+    {
+      "sourceId": -649,
+      "malId": null,
+      "id": "open-tv-ichidok-649",
+      "title": "Love of Kill"
+    },
+    {
+      "sourceId": -650,
+      "malId": null,
+      "id": "open-tv-ichidok-650",
+      "title": "Lovely Complex"
+    },
+    {
+      "sourceId": -651,
+      "malId": null,
+      "id": "open-tv-ichidok-651",
+      "title": "Lucifer and the Biscuit Hammer"
+    },
+    {
+      "sourceId": -652,
+      "malId": null,
+      "id": "open-tv-ichidok-652",
+      "title": "Luck &amp; Logic"
+    },
+    {
+      "sourceId": -653,
+      "malId": null,
+      "id": "open-tv-ichidok-653",
+      "title": "Lupin III"
+    },
+    {
+      "sourceId": -654,
+      "malId": null,
+      "id": "open-tv-ichidok-654",
+      "title": "Lupin III (2015)"
+    },
+    {
+      "sourceId": -655,
+      "malId": null,
+      "id": "open-tv-ichidok-655",
+      "title": "Lupin III Part VI"
+    },
+    {
+      "sourceId": -656,
+      "malId": null,
+      "id": "open-tv-ichidok-656",
+      "title": "Lupin III Season 2"
+    },
+    {
+      "sourceId": -657,
+      "malId": null,
+      "id": "open-tv-ichidok-657",
+      "title": "Lycoris Recoil"
+    },
+    {
+      "sourceId": -658,
+      "malId": null,
+      "id": "open-tv-ichidok-658",
+      "title": "MAR"
+    },
+    {
+      "sourceId": -659,
+      "malId": null,
+      "id": "open-tv-ichidok-659",
+      "title": "MF Ghost"
+    },
+    {
+      "sourceId": -660,
+      "malId": null,
+      "id": "open-tv-ichidok-660",
+      "title": "MM!"
+    },
+    {
+      "sourceId": -661,
+      "malId": null,
+      "id": "open-tv-ichidok-661",
+      "title": "Mad Bull 34"
+    },
+    {
+      "sourceId": -662,
+      "malId": null,
+      "id": "open-tv-ichidok-662",
+      "title": "Made in Abyss"
+    },
+    {
+      "sourceId": -663,
+      "malId": null,
+      "id": "open-tv-ichidok-663",
+      "title": "Maesetsu! Opening Act"
+    },
+    {
+      "sourceId": -664,
+      "malId": null,
+      "id": "open-tv-ichidok-664",
+      "title": "Magi: Adventure of Sinbad"
+    },
+    {
+      "sourceId": -665,
+      "malId": null,
+      "id": "open-tv-ichidok-665",
+      "title": "Magi: The Kingdom of Magic"
+    },
+    {
+      "sourceId": -666,
+      "malId": null,
+      "id": "open-tv-ichidok-666",
+      "title": "Magi: The Labyrinth of Magic"
+    },
+    {
+      "sourceId": -667,
+      "malId": null,
+      "id": "open-tv-ichidok-667",
+      "title": "Magia Record: Puella Magi Madoka Magica Side Story"
+    },
+    {
+      "sourceId": -668,
+      "malId": null,
+      "id": "open-tv-ichidok-668",
+      "title": "Magic Maker: How to Make Magic in Another World"
+    },
+    {
+      "sourceId": -669,
+      "malId": null,
+      "id": "open-tv-ichidok-669",
+      "title": "Magical DoReMi"
+    },
+    {
+      "sourceId": -670,
+      "malId": null,
+      "id": "open-tv-ichidok-670",
+      "title": "Magical Girl Pretty Sammy"
+    },
+    {
+      "sourceId": -671,
+      "malId": null,
+      "id": "open-tv-ichidok-671",
+      "title": "Magical Girl Raising Project"
+    },
+    {
+      "sourceId": -672,
+      "malId": null,
+      "id": "open-tv-ichidok-672",
+      "title": "Magical Girl Spec-Ops Asuka"
+    },
+    {
+      "sourceId": -673,
+      "malId": null,
+      "id": "open-tv-ichidok-673",
+      "title": "Magical Sempai"
+    },
+    {
+      "sourceId": -674,
+      "malId": null,
+      "id": "open-tv-ichidok-674",
+      "title": "Magical Warfare"
+    },
+    {
+      "sourceId": -675,
+      "malId": null,
+      "id": "open-tv-ichidok-675",
+      "title": "Magilumiere Magical Girls Inc."
+    },
+    {
+      "sourceId": -676,
+      "malId": null,
+      "id": "open-tv-ichidok-676",
+      "title": "Maid Sama!"
+    },
+    {
+      "sourceId": -677,
+      "malId": null,
+      "id": "open-tv-ichidok-677",
+      "title": "Make My Day"
+    },
+    {
+      "sourceId": -678,
+      "malId": null,
+      "id": "open-tv-ichidok-678",
+      "title": "Makeine: Too Many Losing Heroines!"
+    },
+    {
+      "sourceId": -679,
+      "malId": null,
+      "id": "open-tv-ichidok-679",
+      "title": "Maken-Ki! Two"
+    },
+    {
+      "sourceId": -680,
+      "malId": null,
+      "id": "open-tv-ichidok-680",
+      "title": "Makina-san's a Love Bot?!"
+    },
+    {
+      "sourceId": -681,
+      "malId": null,
+      "id": "open-tv-ichidok-681",
+      "title": "Management of a Novice Alchemist"
+    },
+    {
+      "sourceId": -682,
+      "malId": null,
+      "id": "open-tv-ichidok-682",
+      "title": "March Comes In Like a Lion"
+    },
+    {
+      "sourceId": -683,
+      "malId": null,
+      "id": "open-tv-ichidok-683",
+      "title": "Maria the Virgin Witch"
+    },
+    {
+      "sourceId": -684,
+      "malId": null,
+      "id": "open-tv-ichidok-684",
+      "title": "Marriage Toxin"
+    },
+    {
+      "sourceId": -685,
+      "malId": null,
+      "id": "open-tv-ichidok-685",
+      "title": "Mars Red"
+    },
+    {
+      "sourceId": -686,
+      "malId": null,
+      "id": "open-tv-ichidok-686",
+      "title": "Marvel Disk Wars: The Avengers"
+    },
+    {
+      "sourceId": -687,
+      "malId": 33487,
+      "id": "open-tv-mal-33487",
+      "title": "Masamune-kun no Revenge"
+    },
+    {
+      "sourceId": -688,
+      "malId": 52211,
+      "id": "tmdb-tv-204832",
+      "title": "MASHLE"
+    },
+    {
+      "sourceId": -689,
+      "malId": 59846,
+      "id": "open-tv-mal-59846",
+      "title": "Saigo ni Hitotsu dake Onegai Shite mo Yoroshii Deshou ka"
+    },
+    {
+      "sourceId": -690,
+      "malId": 10110,
+      "id": "open-tv-mal-10110",
+      "title": "Mayo Chiki!"
+    },
+    {
+      "sourceId": -691,
+      "malId": 2253,
+      "id": "open-tv-mal-2253",
+      "title": "Mazinger Z"
+    },
+    {
+      "sourceId": -692,
+      "malId": 1138,
+      "id": "open-tv-mal-1138",
+      "title": "Medarot"
+    },
+    {
+      "sourceId": -693,
+      "malId": 58853,
+      "id": "open-tv-mal-58853",
+      "title": "Kuroiwa Medaka ni Watashi no Kawaii ga Tsuujinai"
+    },
+    {
+      "sourceId": -694,
+      "malId": 55318,
+      "id": "open-tv-mal-55318",
+      "title": "Medalist"
+    },
+    {
+      "sourceId": -695,
+      "malId": 36563,
+      "id": "open-tv-mal-36563",
+      "title": "Megalo Box"
+    },
+    {
+      "sourceId": -696,
+      "malId": null,
+      "id": "open-tv-ichidok-696",
+      "title": "Megaman Star Force"
+    },
+    {
+      "sourceId": -697,
+      "malId": 34209,
+      "id": "open-tv-mal-34209",
+      "title": "Meiji Tokyo Renka"
+    },
+    {
+      "sourceId": -698,
+      "malId": 1462,
+      "id": "open-movie-mal-1462",
+      "title": "MEMORIES"
+    },
+    {
+      "sourceId": -699,
+      "malId": 54794,
+      "id": "open-tv-mal-54794",
+      "title": "Metallic Rouge"
+    },
+    {
+      "sourceId": -700,
+      "malId": null,
+      "id": "open-tv-ichidok-700",
+      "title": "Mew Mew Power"
+    },
+    {
+      "sourceId": -701,
+      "malId": 37964,
+      "id": "open-tv-mal-37964",
+      "title": "Mayonaka no Occult Koumuin"
+    },
+    {
+      "sourceId": -702,
+      "malId": 48483,
+      "id": "open-tv-mal-48483",
+      "title": "Mieruko-chan"
+    },
+    {
+      "sourceId": -703,
+      "malId": null,
+      "id": "open-tv-ichidok-703",
+      "title": "Migi &amp; Dali"
+    },
+    {
+      "sourceId": -704,
+      "malId": 28817,
+      "id": "open-tv-mal-28817",
+      "title": "Mikagura Gakuen Kumikyoku"
+    },
+    {
+      "sourceId": -705,
+      "malId": 61274,
+      "id": "open-tv-mal-61274",
+      "title": "Ginga Tokkyuu Milky☆Subway"
+    },
+    {
+      "sourceId": -706,
+      "malId": 36817,
+      "id": "open-tv-mal-36817",
+      "title": "Sunoharasou no Kanrinin-san"
+    },
+    {
+      "sourceId": -707,
+      "malId": 33206,
+      "id": "open-tv-mal-33206",
+      "title": "Kobayashi-san Chi no Maidragon"
+    },
+    {
+      "sourceId": -708,
+      "malId": 49385,
+      "id": "open-tv-mal-49385",
+      "title": "Kaijin Kaihatsubu no Kuroitsu-san"
+    },
+    {
+      "sourceId": -709,
+      "malId": 53865,
+      "id": "tmdb-tv-216467",
+      "title": "Yozakura-san Chi no Daisakusen"
+    },
+    {
+      "sourceId": -710,
+      "malId": 27721,
+      "id": "open-tv-mal-27721",
+      "title": "Kasumin 1st Series"
+    },
+    {
+      "sourceId": -711,
+      "malId": 61501,
+      "id": "open-tv-mal-61501",
+      "title": "Kanan-sama wa Akumade Choroi"
+    },
+    {
+      "sourceId": -712,
+      "malId": 35078,
+      "id": "open-tv-mal-35078",
+      "title": "Mitsuboshi Colors"
+    },
+    {
+      "sourceId": -713,
+      "malId": 38098,
+      "id": "open-tv-mal-38098",
+      "title": "MIX: MEISEI STORY"
+    },
+    {
+      "sourceId": -714,
+      "malId": 32182,
+      "id": "tmdb-tv-67075",
+      "title": "Mob Psycho 100"
+    },
+    {
+      "sourceId": -715,
+      "malId": null,
+      "id": "open-tv-ichidok-715",
+      "title": "Mobile Suit Gundam Unicorn"
+    },
+    {
+      "sourceId": -716,
+      "malId": 32792,
+      "id": "open-tv-mal-32792",
+      "title": "Kidou Senshi Gundam Unicorn RE: 0096"
+    },
+    {
+      "sourceId": -717,
+      "malId": 60449,
+      "id": "open-tv-mal-60449",
+      "title": "Kidou Senshi Gundam GQuuuuuuX"
+    },
+    {
+      "sourceId": -718,
+      "malId": null,
+      "id": "open-tv-ichidok-718",
+      "title": "Mobile Suit Gundam: Iron-Blooded Orphans"
+    },
+    {
+      "sourceId": -719,
+      "malId": null,
+      "id": "open-tv-ichidok-719",
+      "title": "Mobile Suit Gundam: Requiem for Vengeance"
+    },
+    {
+      "sourceId": -720,
+      "malId": 10937,
+      "id": "open-tv-mal-10937",
+      "title": "Kidou Senshi Gundam: THE ORIGIN"
+    },
+    {
+      "sourceId": -721,
+      "malId": 49828,
+      "id": "tmdb-tv-196400",
+      "title": "Kidou Senshi Gundam: Suisei no Majo"
+    },
+    {
+      "sourceId": -722,
+      "malId": 58492,
+      "id": "open-tv-mal-58492",
+      "title": "mono"
+    },
+    {
+      "sourceId": -723,
+      "malId": 2246,
+      "id": "open-tv-mal-2246",
+      "title": "Mononoke"
+    },
+    {
+      "sourceId": -724,
+      "malId": 19,
+      "id": "tmdb-tv-30981",
+      "title": "Monster"
+    },
+    {
+      "sourceId": -725,
+      "malId": 40708,
+      "id": "open-tv-mal-40708",
+      "title": "Monster Musume no Oisha-san"
+    },
+    {
+      "sourceId": -726,
+      "malId": 31631,
+      "id": "open-tv-mal-31631",
+      "title": "Monster Hunter Stories: RIDE ON"
+    },
+    {
+      "sourceId": -727,
+      "malId": null,
+      "id": "open-tv-ichidok-727",
+      "title": "Monster Musume: Everyday Life with Monster Girls"
+    },
+    {
+      "sourceId": -728,
+      "malId": null,
+      "id": "open-tv-ichidok-728",
+      "title": "Monthly Girls' Nozaki-kun"
+    },
+    {
+      "sourceId": -729,
+      "malId": null,
+      "id": "open-tv-ichidok-729",
+      "title": "Moonlight Mile"
+    },
+    {
+      "sourceId": -730,
+      "malId": null,
+      "id": "open-tv-ichidok-730",
+      "title": "Moriarty the Patriot"
+    },
+    {
+      "sourceId": -731,
+      "malId": null,
+      "id": "open-tv-ichidok-731",
+      "title": "Mother of the Goddess' Dormitory"
+    },
+    {
+      "sourceId": -732,
+      "malId": null,
+      "id": "open-tv-ichidok-732",
+      "title": "Motto To LOVE-Ru"
+    },
+    {
+      "sourceId": -733,
+      "malId": null,
+      "id": "open-tv-ichidok-733",
+      "title": "Mr. Osomatsu"
+    },
+    {
+      "sourceId": -734,
+      "malId": null,
+      "id": "open-tv-ichidok-734",
+      "title": "Mr. Tonegawa: Middle Management Blues"
+    },
+    {
+      "sourceId": -735,
+      "malId": null,
+      "id": "open-tv-ichidok-735",
+      "title": "Muhyo &amp; Roji's Bureau of Supernatural Investigation"
+    },
+    {
+      "sourceId": -736,
+      "malId": null,
+      "id": "open-tv-ichidok-736",
+      "title": "Murai in Love"
+    },
+    {
+      "sourceId": -737,
+      "malId": 39535,
+      "id": "tmdb-tv-94664",
+      "title": "Mushoku Tensei: Jobless Reincarnation"
+    },
+    {
+      "sourceId": -738,
+      "malId": null,
+      "id": "open-tv-ichidok-738",
+      "title": "Muv-Luv Alternative: Total Eclipse"
+    },
+    {
+      "sourceId": -739,
+      "malId": null,
+      "id": "open-tv-ichidok-739",
+      "title": "My Bride is a Mermaid"
+    },
+    {
+      "sourceId": -740,
+      "malId": null,
+      "id": "open-tv-ichidok-740",
+      "title": "My Clueless First Friend"
+    },
+    {
+      "sourceId": -741,
+      "malId": null,
+      "id": "open-tv-ichidok-741",
+      "title": "My Dear Marie"
+    },
+    {
+      "sourceId": -742,
+      "malId": null,
+      "id": "open-tv-ichidok-742",
+      "title": "My Deer Friend Nokotan"
+    },
+    {
+      "sourceId": -743,
+      "malId": null,
+      "id": "open-tv-ichidok-743",
+      "title": "My Dress-Up Darling"
+    },
+    {
+      "sourceId": -744,
+      "malId": null,
+      "id": "open-tv-ichidok-744",
+      "title": "My First Girlfriend is a Gal"
+    },
+    {
+      "sourceId": -745,
+      "malId": null,
+      "id": "open-tv-ichidok-745",
+      "title": "My Gift Lvl 9999 Unlimited Gacha: Backstabbed in a Backwater Dungeon, I'm Out for Revenge!"
+    },
+    {
+      "sourceId": -746,
+      "malId": null,
+      "id": "open-tv-ichidok-746",
+      "title": "My Girlfriend is Shobitch"
+    },
+    {
+      "sourceId": -747,
+      "malId": null,
+      "id": "open-tv-ichidok-747",
+      "title": "My Happy Marriage"
+    },
+    {
+      "sourceId": -748,
+      "malId": null,
+      "id": "open-tv-ichidok-748",
+      "title": "My Hero Academia: Vigilantes"
+    },
+    {
+      "sourceId": -749,
+      "malId": null,
+      "id": "open-tv-ichidok-749",
+      "title": "My Home Hero"
+    },
+    {
+      "sourceId": -750,
+      "malId": null,
+      "id": "open-tv-ichidok-750",
+      "title": "My Instant Death Ability is So Overpowered, No One in This Other World Stands a Chance Against Me!"
+    },
+    {
+      "sourceId": -751,
+      "malId": null,
+      "id": "open-tv-ichidok-751",
+      "title": "My Love Story with Yamada-kun at Lv999"
+    },
+    {
+      "sourceId": -752,
+      "malId": null,
+      "id": "open-tv-ichidok-752",
+      "title": "My Melody &amp; Kuromi"
+    },
+    {
+      "sourceId": -753,
+      "malId": null,
+      "id": "open-tv-ichidok-753",
+      "title": "My Next Life as a Villainess: All Routes Lead to Doom!"
+    },
+    {
+      "sourceId": -754,
+      "malId": null,
+      "id": "open-tv-ichidok-754",
+      "title": "My Roommate is a Cat"
+    },
+    {
+      "sourceId": -755,
+      "malId": null,
+      "id": "open-tv-ichidok-755",
+      "title": "My Senpai is Annoying"
+    },
+    {
+      "sourceId": -756,
+      "malId": 61026,
+      "id": "open-tv-mal-61026",
+      "title": "My Status as an Assassin Obviously Exceeds the Hero's"
+    },
+    {
+      "sourceId": -757,
+      "malId": null,
+      "id": "open-tv-ichidok-757",
+      "title": "My Teen Romantic Comedy SNAFU"
+    },
+    {
+      "sourceId": -758,
+      "malId": null,
+      "id": "open-tv-ichidok-758",
+      "title": "My Tiny Senpai"
+    },
+    {
+      "sourceId": -759,
+      "malId": null,
+      "id": "open-tv-ichidok-759",
+      "title": "My Unique Skill Makes Me OP Even at Level 1"
+    },
+    {
+      "sourceId": -760,
+      "malId": null,
+      "id": "open-tv-ichidok-760",
+      "title": "Myriad Colors Phantom World"
+    },
+    {
+      "sourceId": -761,
+      "malId": null,
+      "id": "open-tv-ichidok-761",
+      "title": "Mysteria Friends"
+    },
+    {
+      "sourceId": -762,
+      "malId": null,
+      "id": "open-tv-ichidok-762",
+      "title": "Mysterious Joker"
+    },
+    {
+      "sourceId": -763,
+      "malId": null,
+      "id": "open-tv-ichidok-763",
+      "title": "Nagi-Asu: A Lull in the Sea"
+    },
+    {
+      "sourceId": -764,
+      "malId": null,
+      "id": "open-tv-ichidok-764",
+      "title": "Nanbaka"
+    },
+    {
+      "sourceId": -765,
+      "malId": null,
+      "id": "open-tv-ichidok-765",
+      "title": "Naruto Movies"
+    },
+    {
+      "sourceId": -767,
+      "malId": null,
+      "id": "open-tv-ichidok-767",
+      "title": "Natsume's Book of Friends"
+    },
+    {
+      "sourceId": -768,
+      "malId": 62913,
+      "id": "open-tv-mal-62913",
+      "title": "NEEDY GIRL OVERDOSE"
+    },
+    {
+      "sourceId": -769,
+      "malId": 38924,
+      "id": "open-tv-mal-38924",
+      "title": "Nekopara"
+    },
+    {
+      "sourceId": -770,
+      "malId": 31953,
+      "id": "open-tv-mal-31953",
+      "title": "NEW GAME!"
+    },
+    {
+      "sourceId": -771,
+      "malId": null,
+      "id": "open-tv-ichidok-771",
+      "title": "New Panty &amp; Stocking with Garterbelt"
+    },
+    {
+      "sourceId": -772,
+      "malId": 53397,
+      "id": "open-tv-new-saga",
+      "title": "Tsuyokute New Saga"
+    },
+    {
+      "sourceId": -773,
+      "malId": 10165,
+      "id": "open-tv-mal-10165",
+      "title": "Nichijou"
+    },
+    {
+      "sourceId": -774,
+      "malId": 57362,
+      "id": "open-tv-mal-57362",
+      "title": "Hoshi Furu Oukoku no Nina"
+    },
+    {
+      "sourceId": -775,
+      "malId": 49612,
+      "id": "open-tv-mal-49612",
+      "title": "Ningen Fushin no Boukensha-tachi ga Sekai wo Sukuu you desu"
+    },
+    {
+      "sourceId": -776,
+      "malId": 56285,
+      "id": "open-tv-mal-56285",
+      "title": "Ninja Kamui"
+    },
+    {
+      "sourceId": -777,
+      "malId": 23605,
+      "id": "open-tv-mal-23605",
+      "title": "Ninja Slayer from Animation"
+    },
+    {
+      "sourceId": -778,
+      "malId": 61067,
+      "id": "open-tv-mal-61067",
+      "title": "Ninja to Gokudou"
+    },
+    {
+      "sourceId": -779,
+      "malId": 63375,
+      "id": "open-tv-mal-63375",
+      "title": "Nippon Sangoku"
+    },
+    {
+      "sourceId": -780,
+      "malId": 19815,
+      "id": "open-tv-mal-19815",
+      "title": "No Game No Life"
+    },
+    {
+      "sourceId": -781,
+      "malId": 39539,
+      "id": "open-tv-mal-39539",
+      "title": "No Guns Life"
+    },
+    {
+      "sourceId": -782,
+      "malId": 52367,
+      "id": "open-tv-mal-52367",
+      "title": "Isekai Shikkaku"
+    },
+    {
+      "sourceId": -783,
+      "malId": 20507,
+      "id": "open-tv-mal-20507",
+      "title": "Noragami"
+    },
+    {
+      "sourceId": -784,
+      "malId": 30503,
+      "id": "open-tv-mal-30503",
+      "title": "Noragami ARAGOTO"
+    },
+    {
+      "sourceId": -785,
+      "malId": 7592,
+      "id": "open-tv-mal-7592",
+      "title": "Nurarihyon no Mago"
+    },
+    {
+      "sourceId": -786,
+      "malId": 615,
+      "id": "open-tv-mal-615",
+      "title": "Nurse Witch Komugi-chan Magikarte"
+    },
+    {
+      "sourceId": -787,
+      "malId": 58197,
+      "id": "open-tv-mal-58197",
+      "title": "Nyaight of the Living Cat"
+    },
+    {
+      "sourceId": -788,
+      "malId": 38753,
+      "id": "open-tv-mal-38753",
+      "title": "Araburu Kisetsu no Otome-domo yo."
+    },
+    {
+      "sourceId": -789,
+      "malId": 32962,
+      "id": "open-tv-mal-32962",
+      "title": "Occultic;Nine"
+    },
+    {
+      "sourceId": -790,
+      "malId": 46102,
+      "id": "open-tv-mal-46102",
+      "title": "Odd Taxi"
+    },
+    {
+      "sourceId": -791,
+      "malId": 61084,
+      "id": "open-tv-mal-61084",
+      "title": "Hikuidori"
+    },
+    {
+      "sourceId": -792,
+      "malId": 59169,
+      "id": "open-tv-mal-59169",
+      "title": "Aru Majo ga Shinu Made"
+    },
+    {
+      "sourceId": -793,
+      "malId": null,
+      "id": "open-tv-ichidok-793",
+      "title": "Oni: Thunder God's Tale"
+    },
+    {
+      "sourceId": -794,
+      "malId": 32606,
+      "id": "open-tv-mal-32606",
+      "title": "Onigiri"
+    },
+    {
+      "sourceId": -795,
+      "malId": 33983,
+      "id": "open-tv-mal-33983",
+      "title": "Onihei"
+    },
+    {
+      "sourceId": -796,
+      "malId": 61150,
+      "id": "open-tv-mal-61150",
+      "title": "Onmyo Kaiten Re:verse"
+    },
+    {
+      "sourceId": -797,
+      "malId": 53151,
+      "id": "open-tv-mal-53151",
+      "title": "Onmyouji"
+    },
+    {
+      "sourceId": -798,
+      "malId": null,
+      "id": "open-tv-ichidok-798",
+      "title": "Ooku: The Inner Chambers"
+    },
+    {
+      "sourceId": -799,
+      "malId": 32729,
+      "id": "open-tv-mal-32729",
+      "title": "orange"
+    },
+    {
+      "sourceId": -800,
+      "malId": 52034,
+      "id": "tmdb-tv-203737",
+      "title": "[Oshi no Ko]"
+    },
+    {
+      "sourceId": -801,
+      "malId": 41392,
+      "id": "open-tv-mal-41392",
+      "title": "Ura Sekai Picnic"
+    },
+    {
+      "sourceId": -802,
+      "malId": 40595,
+      "id": "open-tv-mal-40595",
+      "title": "Kimi to Boku no Saigo no Senjo, Arui wa Sekai ga Hajimaru Seisen"
+    },
+    {
+      "sourceId": -803,
+      "malId": 853,
+      "id": "open-tv-mal-853",
+      "title": "Ouran Koukou Host Club"
+    },
+    {
+      "sourceId": -804,
+      "malId": 19369,
+      "id": "open-tv-mal-19369",
+      "title": "Outbreak Company"
+    },
+    {
+      "sourceId": -805,
+      "malId": null,
+      "id": "tmdb-tv-64196",
+      "title": "Overlord"
+    },
+    {
+      "sourceId": -806,
+      "malId": null,
+      "id": "open-tv-ichidok-806",
+      "title": "Pandora in the Crimson Shell"
+    },
+    {
+      "sourceId": -807,
+      "malId": null,
+      "id": "open-tv-ichidok-807",
+      "title": "Parallel World Pharmacy"
+    },
+    {
+      "sourceId": -808,
+      "malId": 22535,
+      "id": "open-tv-mal-22535",
+      "title": "Parasyte: The Maxim"
+    },
+    {
+      "sourceId": -809,
+      "malId": null,
+      "id": "open-tv-ichidok-809",
+      "title": "Pass the Monster Meat, Milady!"
+    },
+    {
+      "sourceId": -810,
+      "malId": null,
+      "id": "open-tv-ichidok-810",
+      "title": "Patlabor: The Mobile Police"
+    },
+    {
+      "sourceId": -811,
+      "malId": null,
+      "id": "open-tv-ichidok-811",
+      "title": "Patlabor: The Mobile Police - The TV Series"
+    },
+    {
+      "sourceId": -812,
+      "malId": null,
+      "id": "open-tv-ichidok-812",
+      "title": "Petals of Reincarnation"
+    },
+    {
+      "sourceId": -813,
+      "malId": null,
+      "id": "open-tv-ichidok-813",
+      "title": "Peter Grill and the Philosopher's Time"
+    },
+    {
+      "sourceId": -814,
+      "malId": null,
+      "id": "open-tv-ichidok-814",
+      "title": "Phantom of the Idol"
+    },
+    {
+      "sourceId": -815,
+      "malId": null,
+      "id": "open-tv-ichidok-815",
+      "title": "Phantom: The Animation"
+    },
+    {
+      "sourceId": -816,
+      "malId": null,
+      "id": "open-tv-ichidok-816",
+      "title": "Piano Forest"
+    },
+    {
+      "sourceId": -817,
+      "malId": null,
+      "id": "open-tv-ichidok-817",
+      "title": "Piano: The Melody of a Young Girl's Heart"
+    },
+    {
+      "sourceId": -818,
+      "malId": null,
+      "id": "open-tv-ichidok-818",
+      "title": "Planetarian: The Reverie of a Little Planet"
+    },
+    {
+      "sourceId": -819,
+      "malId": null,
+      "id": "open-tv-ichidok-819",
+      "title": "Platinum End"
+    },
+    {
+      "sourceId": -820,
+      "malId": null,
+      "id": "open-tv-ichidok-820",
+      "title": "Plunderer"
+    },
+    {
+      "sourceId": -821,
+      "malId": null,
+      "id": "open-tv-ichidok-821",
+      "title": "Plus-Sized Elf"
+    },
+    {
+      "sourceId": -822,
+      "malId": null,
+      "id": "open-tv-ichidok-822",
+      "title": "Pokemon Evolutions"
+    },
+    {
+      "sourceId": -823,
+      "malId": null,
+      "id": "open-tv-ichidok-823",
+      "title": "Pokemon Horizons: The Series"
+    },
+    {
+      "sourceId": -824,
+      "malId": null,
+      "id": "open-tv-ichidok-824",
+      "title": "Pokemon Season 1 Indigo League"
+    },
+    {
+      "sourceId": -825,
+      "malId": null,
+      "id": "open-tv-ichidok-825",
+      "title": "Pokemon Season 19 XYZ"
+    },
+    {
+      "sourceId": -826,
+      "malId": null,
+      "id": "open-tv-ichidok-826",
+      "title": "Pokemon Season 20 Sun &amp; Moon"
+    },
+    {
+      "sourceId": -827,
+      "malId": null,
+      "id": "open-tv-ichidok-827",
+      "title": "Pokemon Season 23 Pokemon Journeys: The Series"
+    },
+    {
+      "sourceId": -828,
+      "malId": null,
+      "id": "open-tv-ichidok-828",
+      "title": "Pokemon Season 24 Master Journeys: The Series"
+    },
+    {
+      "sourceId": -829,
+      "malId": null,
+      "id": "open-tv-ichidok-829",
+      "title": "Pokemon Season 25 Ultimate Journeys: The Series"
+    },
+    {
+      "sourceId": -830,
+      "malId": null,
+      "id": "open-tv-ichidok-830",
+      "title": "Pokemon: Twilight Wings"
+    },
+    {
+      "sourceId": -831,
+      "malId": null,
+      "id": "open-tv-ichidok-831",
+      "title": "Pop Team Epic"
+    },
+    {
+      "sourceId": -832,
+      "malId": null,
+      "id": "open-tv-ichidok-832",
+      "title": "Possibly the Greatest Alchemist of All Time"
+    },
+    {
+      "sourceId": -833,
+      "malId": null,
+      "id": "open-tv-ichidok-833",
+      "title": "Pretty Boy Detective Club"
+    },
+    {
+      "sourceId": -834,
+      "malId": null,
+      "id": "open-tv-ichidok-834",
+      "title": "Pretty Cure"
+    },
+    {
+      "sourceId": -835,
+      "malId": null,
+      "id": "open-tv-ichidok-835",
+      "title": "Prince of Stride: Alternative"
+    },
+    {
+      "sourceId": -836,
+      "malId": null,
+      "id": "open-tv-ichidok-836",
+      "title": "Princess Knight"
+    },
+    {
+      "sourceId": -837,
+      "malId": null,
+      "id": "open-tv-ichidok-837",
+      "title": "Princess Principal"
+    },
+    {
+      "sourceId": -838,
+      "malId": null,
+      "id": "open-tv-ichidok-838",
+      "title": "Prison School"
+    },
+    {
+      "sourceId": -839,
+      "malId": null,
+      "id": "open-tv-ichidok-839",
+      "title": "Problem Children Are Coming from Another World, Aren't They?"
+    },
+    {
+      "sourceId": -840,
+      "malId": null,
+      "id": "open-tv-ichidok-840",
+      "title": "Psycho-Pass 2"
+    },
+    {
+      "sourceId": -841,
+      "malId": null,
+      "id": "open-tv-ichidok-841",
+      "title": "Psycho-Pass 3"
+    },
+    {
+      "sourceId": -842,
+      "malId": 9756,
+      "id": "open-tv-mal-9756",
+      "title": "Puella Magi Madoka Magica"
+    },
+    {
+      "sourceId": -843,
+      "malId": null,
+      "id": "open-tv-ichidok-843",
+      "title": "Punirunes"
+    },
+    {
+      "sourceId": -844,
+      "malId": null,
+      "id": "open-tv-ichidok-844",
+      "title": "PuraOra! PRIDE OF ORANGE"
+    },
+    {
+      "sourceId": -845,
+      "malId": null,
+      "id": "open-tv-ichidok-845",
+      "title": "Puzzle &amp; Dragons X"
+    },
+    {
+      "sourceId": -846,
+      "malId": 54835,
+      "id": "open-tv-mal-54835",
+      "title": "Kono Sekai wa Fukanzen Sugiru"
+    },
+    {
+      "sourceId": -847,
+      "malId": 35835,
+      "id": "open-tv-mal-35835",
+      "title": "RErideD: Tokigoe no Derrida"
+    },
+    {
+      "sourceId": -848,
+      "malId": 51381,
+      "id": "open-tv-mal-51381",
+      "title": "RWBY: Hyousetsu Teikoku"
+    },
+    {
+      "sourceId": -849,
+      "malId": 37202,
+      "id": "open-tv-mal-37202",
+      "title": "Radiant"
+    },
+    {
+      "sourceId": -850,
+      "malId": 21843,
+      "id": "open-tv-mal-21843",
+      "title": "Shingeki no Bahamut: GENESIS"
+    },
+    {
+      "sourceId": -851,
+      "malId": 51297,
+      "id": "open-tv-mal-51297",
+      "title": "Ragna Crimson"
+    },
+    {
+      "sourceId": -852,
+      "malId": 31414,
+      "id": "open-tv-mal-31414",
+      "title": "Nijiiro Days"
+    },
+    {
+      "sourceId": -853,
+      "malId": 40834,
+      "id": "tmdb-tv-112613",
+      "title": "Ousama Ranking"
+    },
+    {
+      "sourceId": -854,
+      "malId": 59145,
+      "id": "open-tv-mal-59145",
+      "title": "Ranma 1/2 (2024)"
+    },
+    {
+      "sourceId": -855,
+      "malId": 37450,
+      "id": "tmdb-tv-82739",
+      "title": "Seishun Buta Yarou wa Bunny Girl Senpai no Yume wo Minai"
+    },
+    {
+      "sourceId": -856,
+      "malId": 57433,
+      "id": "open-tv-mal-57433",
+      "title": "Seishun Buta Yarou wa Santa Claus no Yume wo Minai"
+    },
+    {
+      "sourceId": -857,
+      "malId": 50590,
+      "id": "open-tv-mal-50590",
+      "title": "Koukyuu no Karasu"
+    },
+    {
+      "sourceId": -858,
+      "malId": 48406,
+      "id": "open-tv-mal-48406",
+      "title": "RE-MAIN"
+    },
+    {
+      "sourceId": -859,
+      "malId": 56690,
+      "id": "open-tv-mal-56690",
+      "title": "Re:Monster"
+    },
+    {
+      "sourceId": -860,
+      "malId": 31240,
+      "id": "tmdb-tv-65942",
+      "title": "Re:Zero kara Hajimeru Isekai Seikatsu"
+    },
+    {
+      "sourceId": -861,
+      "malId": 30015,
+      "id": "open-tv-mal-30015",
+      "title": "ReLIFE"
+    },
+    {
+      "sourceId": -862,
+      "malId": 36793,
+      "id": "open-tv-mal-36793",
+      "title": "3D Kanojo: Real Girl"
+    },
+    {
+      "sourceId": -863,
+      "malId": 52619,
+      "id": "open-tv-mal-52619",
+      "title": "Jidou Hanbaiki ni Umarekawatta Ore wa Meikyuu wo Samayou"
+    },
+    {
+      "sourceId": -864,
+      "malId": 34279,
+      "id": "open-tv-mal-34279",
+      "title": "Grancrest Senki"
+    },
+    {
+      "sourceId": -865,
+      "malId": 44942,
+      "id": "open-tv-mal-44942",
+      "title": "Shuumatsu no Valkyrie"
+    },
+    {
+      "sourceId": -866,
+      "malId": 36038,
+      "id": "open-tv-mal-36038",
+      "title": "Net-juu no Susume"
+    },
+    {
+      "sourceId": -867,
+      "malId": 32961,
+      "id": "open-tv-mal-32961",
+      "title": "Regalia: The Three Sacred Stars"
+    },
+    {
+      "sourceId": -868,
+      "malId": 50582,
+      "id": "open-tv-mal-50582",
+      "title": "Nanatsu no Maken ga Shihai Suru"
+    },
+    {
+      "sourceId": -869,
+      "malId": 61207,
+      "id": "open-tv-mal-61207",
+      "title": "Tensei Shitara Dragon no Tamago Datta: Saikyou Igai Mezasa Nee"
+    },
+    {
+      "sourceId": -870,
+      "malId": 49891,
+      "id": "open-tv-mal-49891",
+      "title": "Tensei Shitara Ken Deshita"
+    },
+    {
+      "sourceId": -871,
+      "malId": 37221,
+      "id": "open-tv-mal-37221",
+      "title": "RELEASE THE SPYCE"
+    },
+    {
+      "sourceId": -872,
+      "malId": 40904,
+      "id": "open-tv-mal-40904",
+      "title": "Bokutachi no Remake"
+    },
+    {
+      "sourceId": -873,
+      "malId": 40839,
+      "id": "tmdb-tv-96316",
+      "title": "Kanojo, Okarishimasu"
+    },
+    {
+      "sourceId": -874,
+      "malId": 42892,
+      "id": "open-tv-mal-42892",
+      "title": "Baraou no Souretsu"
+    },
+    {
+      "sourceId": -875,
+      "malId": 34012,
+      "id": "open-tv-mal-34012",
+      "title": "Isekai Shokudou"
+    },
+    {
+      "sourceId": -876,
+      "malId": 53213,
+      "id": "open-tv-mal-53213",
+      "title": "REVENGER"
+    },
+    {
+      "sourceId": -877,
+      "malId": 37436,
+      "id": "open-tv-mal-37436",
+      "title": "Revisions"
+    },
+    {
+      "sourceId": -878,
+      "malId": 35503,
+      "id": "open-tv-mal-35503",
+      "title": "Shoujo☆Kageki Revue Starlight"
+    },
+    {
+      "sourceId": -879,
+      "malId": null,
+      "id": "open-tv-ichidok-879",
+      "title": "Rick and Morty: The Anime"
+    },
+    {
+      "sourceId": -880,
+      "malId": 60153,
+      "id": "open-tv-mal-60153",
+      "title": "Rilakkuma"
+    },
+    {
+      "sourceId": -881,
+      "malId": 35777,
+      "id": "open-tv-mal-35777",
+      "title": "Rilakkuma to Kaoru-san"
+    },
+    {
+      "sourceId": -882,
+      "malId": 38162,
+      "id": "open-tv-mal-38162",
+      "title": "Rinshi!! Ekoda-chan"
+    },
+    {
+      "sourceId": -883,
+      "malId": null,
+      "id": "open-tv-ichidok-883",
+      "title": "Rio - Rainbow Gate!: Reshuffle"
+    },
+    {
+      "sourceId": -884,
+      "malId": 57487,
+      "id": "open-tv-mal-57487",
+      "title": "Rising Impact"
+    },
+    {
+      "sourceId": -885,
+      "malId": 38707,
+      "id": "open-tv-mal-38707",
+      "title": "RobiHachi"
+    },
+    {
+      "sourceId": -886,
+      "malId": null,
+      "id": "open-tv-ichidok-886",
+      "title": "Rock Is a Lady's Modesty"
+    },
+    {
+      "sourceId": -887,
+      "malId": null,
+      "id": "open-tv-ichidok-887",
+      "title": "Rokka: Braves of the Six Flowers"
+    },
+    {
+      "sourceId": -888,
+      "malId": null,
+      "id": "open-tv-ichidok-888",
+      "title": "Roll Over and Die"
+    },
+    {
+      "sourceId": -889,
+      "malId": null,
+      "id": "open-tv-ichidok-889",
+      "title": "Romantic Killer"
+    },
+    {
+      "sourceId": -890,
+      "malId": null,
+      "id": "open-tv-ichidok-890",
+      "title": "Rooster Fighter"
+    },
+    {
+      "sourceId": -891,
+      "malId": null,
+      "id": "open-tv-ichidok-891",
+      "title": "Rumble Garanndoll"
+    },
+    {
+      "sourceId": -892,
+      "malId": null,
+      "id": "open-tv-ichidok-892",
+      "title": "Run with the Wind"
+    },
+    {
+      "sourceId": -893,
+      "malId": null,
+      "id": "open-tv-ichidok-893",
+      "title": "Rurouni Kenshin"
+    },
+    {
+      "sourceId": -894,
+      "malId": null,
+      "id": "open-tv-ichidok-894",
+      "title": "SD Gundam Sangokuden Brave Battle Warriors"
+    },
+    {
+      "sourceId": -895,
+      "malId": null,
+      "id": "open-tv-ichidok-895",
+      "title": "SK8 the Infinity"
+    },
+    {
+      "sourceId": -896,
+      "malId": null,
+      "id": "open-tv-ichidok-896",
+      "title": "SSSS.Dynazenon"
+    },
+    {
+      "sourceId": -897,
+      "malId": null,
+      "id": "open-tv-ichidok-897",
+      "title": "SSSS.Gridman"
+    },
+    {
+      "sourceId": -898,
+      "malId": null,
+      "id": "open-tv-ichidok-898",
+      "title": "Sacrificial Princess and the King of Beasts"
+    },
+    {
+      "sourceId": -899,
+      "malId": null,
+      "id": "open-tv-ichidok-899",
+      "title": "Saga of Tanya the Evil"
+    },
+    {
+      "sourceId": -900,
+      "malId": null,
+      "id": "open-tv-ichidok-900",
+      "title": "Sailor Moon Crystal"
+    },
+    {
+      "sourceId": -901,
+      "malId": null,
+      "id": "open-tv-ichidok-901",
+      "title": "Sailor Moon Sailor Stars"
+    },
+    {
+      "sourceId": -902,
+      "malId": null,
+      "id": "open-tv-ichidok-902",
+      "title": "Sailor Moon SuperS (Viz Dub)"
+    },
+    {
+      "sourceId": -903,
+      "malId": null,
+      "id": "open-tv-ichidok-903",
+      "title": "Saint Cecilia and Pastor Lawrence"
+    },
+    {
+      "sourceId": -905,
+      "malId": null,
+      "id": "open-tv-ichidok-905",
+      "title": "Saiyuki Reload Blast"
+    },
+    {
+      "sourceId": -906,
+      "malId": null,
+      "id": "open-tv-ichidok-906",
+      "title": "Sakamoto Days"
+    },
+    {
+      "sourceId": -907,
+      "malId": null,
+      "id": "open-tv-ichidok-907",
+      "title": "Sakura Quest"
+    },
+    {
+      "sourceId": -908,
+      "malId": null,
+      "id": "open-tv-ichidok-908",
+      "title": "Sakura Wars the Animation"
+    },
+    {
+      "sourceId": -909,
+      "malId": null,
+      "id": "open-tv-ichidok-909",
+      "title": "Salaryman's Club"
+    },
+    {
+      "sourceId": -910,
+      "malId": null,
+      "id": "open-tv-ichidok-910",
+      "title": "Samurai 7"
+    },
+    {
+      "sourceId": -911,
+      "malId": null,
+      "id": "open-tv-ichidok-911",
+      "title": "Samurai Champloo"
+    },
+    {
+      "sourceId": -912,
+      "malId": null,
+      "id": "open-tv-ichidok-912",
+      "title": "Samurai Warriors"
+    },
+    {
+      "sourceId": -913,
+      "malId": null,
+      "id": "open-tv-ichidok-913",
+      "title": "Sand Land: The Series"
+    },
+    {
+      "sourceId": -914,
+      "malId": null,
+      "id": "open-tv-ichidok-914",
+      "title": "Sanda"
+    },
+    {
+      "sourceId": -915,
+      "malId": null,
+      "id": "open-tv-ichidok-915",
+      "title": "Sarazanmai"
+    },
+    {
+      "sourceId": -916,
+      "malId": null,
+      "id": "open-tv-ichidok-916",
+      "title": "Sasaki and Miyano"
+    },
+    {
+      "sourceId": -917,
+      "malId": null,
+      "id": "open-tv-ichidok-917",
+      "title": "Sasaki and Peeps"
+    },
+    {
+      "sourceId": -918,
+      "malId": null,
+      "id": "open-tv-ichidok-918",
+      "title": "Saving 80,000 Gold in Another World for My Retirement"
+    },
+    {
+      "sourceId": -919,
+      "malId": null,
+      "id": "open-tv-ichidok-919",
+      "title": "Scarlet Nexus"
+    },
+    {
+      "sourceId": -920,
+      "malId": null,
+      "id": "open-tv-ichidok-920",
+      "title": "School-Live!"
+    },
+    {
+      "sourceId": -921,
+      "malId": null,
+      "id": "open-tv-ichidok-921",
+      "title": "Science Fell in Love, So I Tried to Prove It"
+    },
+    {
+      "sourceId": -922,
+      "malId": null,
+      "id": "open-tv-ichidok-922",
+      "title": "Scissor Seven"
+    },
+    {
+      "sourceId": -923,
+      "malId": null,
+      "id": "open-tv-ichidok-923",
+      "title": "Scooped Up by an S-Ranked Adventurer"
+    },
+    {
+      "sourceId": -924,
+      "malId": null,
+      "id": "open-tv-ichidok-924",
+      "title": "Scott Pilgrim Takes Off"
+    },
+    {
+      "sourceId": -925,
+      "malId": null,
+      "id": "open-tv-ichidok-925",
+      "title": "Scum of the Brave"
+    },
+    {
+      "sourceId": -926,
+      "malId": 32949,
+      "id": "open-tv-mal-32949",
+      "title": "Kuzu no Honkai"
+    },
+    {
+      "sourceId": -927,
+      "malId": 59459,
+      "id": "open-tv-mal-59459",
+      "title": "Silent Witch: Chinmoku no Majo no Kakushigoto"
+    },
+    {
+      "sourceId": -928,
+      "malId": 4063,
+      "id": "open-tv-mal-4063",
+      "title": "Sekirei"
+    },
+    {
+      "sourceId": -929,
+      "malId": 5277,
+      "id": "open-tv-mal-5277",
+      "title": "Sekirei: Pure Engagement"
+    },
+    {
+      "sourceId": -930,
+      "malId": 15119,
+      "id": "open-tv-mal-15119",
+      "title": "Senran Kagura"
+    },
+    {
+      "sourceId": -931,
+      "malId": 38787,
+      "id": "open-tv-mal-38787",
+      "title": "Senryuu Shoujo"
+    },
+    {
+      "sourceId": -932,
+      "malId": 56009,
+      "id": "open-tv-mal-56009",
+      "title": "Yuusha Kei ni Shosu: Choubatsu Yuusha 9004-tai Keimu Kiroku"
+    },
+    {
+      "sourceId": -933,
+      "malId": 28927,
+      "id": "open-tv-mal-28927",
+      "title": "Owari no Seraph: Nagoya Kessen-hen"
+    },
+    {
+      "sourceId": -934,
+      "malId": 26243,
+      "id": "open-tv-mal-26243",
+      "title": "Owari no Seraph"
+    },
+    {
+      "sourceId": -935,
+      "malId": 339,
+      "id": "open-tv-mal-339",
+      "title": "serial experiments lain"
+    },
+    {
+      "sourceId": -936,
+      "malId": 31229,
+      "id": "open-tv-mal-31229",
+      "title": "SERVAMP"
+    },
+    {
+      "sourceId": -937,
+      "malId": 33834,
+      "id": "open-tv-mal-33834",
+      "title": "sin: Nanatsu no Taizai"
+    },
+    {
+      "sourceId": -938,
+      "malId": 40783,
+      "id": "open-tv-mal-40783",
+      "title": "Shachou, Battle no Jikan desu!"
+    },
+    {
+      "sourceId": -939,
+      "malId": 43439,
+      "id": "open-tv-mal-43439",
+      "title": "Shadows House"
+    },
+    {
+      "sourceId": -940,
+      "malId": null,
+      "id": "open-tv-ichidok-940",
+      "title": "Shakugan no Shana: Season I"
+    },
+    {
+      "sourceId": -941,
+      "malId": 42205,
+      "id": "open-tv-mal-42205",
+      "title": "SHAMAN KING (2021)"
+    },
+    {
+      "sourceId": -942,
+      "malId": 52347,
+      "id": "open-tv-mal-52347",
+      "title": "Shangri-La Frontier"
+    },
+    {
+      "sourceId": -943,
+      "malId": 42072,
+      "id": "open-tv-mal-42072",
+      "title": "Kenja no Deshi wo Nanoru Kenja"
+    },
+    {
+      "sourceId": -944,
+      "malId": 42808,
+      "id": "open-tv-mal-42808",
+      "title": "Shenmue the Animation"
+    },
+    {
+      "sourceId": -945,
+      "malId": 59711,
+      "id": "open-tv-mal-59711",
+      "title": "Shibou Yuugi de Meshi wo Kuu."
+    },
+    {
+      "sourceId": -946,
+      "malId": 45613,
+      "id": "open-tv-mal-45613",
+      "title": "Kawaii dake ja Nai Shikimori-san"
+    },
+    {
+      "sourceId": -947,
+      "malId": 38440,
+      "id": "open-tv-mal-38440",
+      "title": "Shikizakura"
+    },
+    {
+      "sourceId": -948,
+      "malId": 1179,
+      "id": "open-tv-mal-1179",
+      "title": "Gakuen Senki Muryou"
+    },
+    {
+      "sourceId": -949,
+      "malId": 25835,
+      "id": "open-tv-mal-25835",
+      "title": "SHIROBAKO"
+    },
+    {
+      "sourceId": -950,
+      "malId": 25099,
+      "id": "open-tv-mal-25099",
+      "title": "Ore ga Ojou-sama Gakkou ni \"Shomin Sample\" Toshite Gets-Sareta Ken"
+    },
+    {
+      "sourceId": -951,
+      "malId": 32175,
+      "id": "open-tv-mal-32175",
+      "title": "Shounen Maid"
+    },
+    {
+      "sourceId": -952,
+      "malId": 50379,
+      "id": "open-tv-mal-50379",
+      "title": "Shoot! Goal to the Future"
+    },
+    {
+      "sourceId": -953,
+      "malId": null,
+      "id": "open-tv-ichidok-953",
+      "title": "Show By Rock!!"
+    },
+    {
+      "sourceId": -954,
+      "malId": 32039,
+      "id": "open-tv-mal-32039",
+      "title": "SHOW BY ROCK!! Short!!"
+    },
+    {
+      "sourceId": -955,
+      "malId": 37569,
+      "id": "open-tv-mal-37569",
+      "title": "Tenrou: Sirius the Jaeger"
+    },
+    {
+      "sourceId": -956,
+      "malId": null,
+      "id": "open-tv-ichidok-956",
+      "title": "Six Gates Faraway Mon Colle Knights"
+    },
+    {
+      "sourceId": -957,
+      "malId": 40786,
+      "id": "open-tv-mal-40786",
+      "title": "Skate-Leading☆Stars"
+    },
+    {
+      "sourceId": -958,
+      "malId": 48760,
+      "id": "open-tv-mal-48760",
+      "title": "Gaikotsu Kishi-sama, Tadaima Isekai e Odekakechuu"
+    },
+    {
+      "sourceId": -959,
+      "malId": 4722,
+      "id": "open-tv-mal-4722",
+      "title": "Skip Beat!"
+    },
+    {
+      "sourceId": -960,
+      "malId": 25283,
+      "id": "open-tv-mal-25283",
+      "title": "Kuusen Madoushi Kouhosei no Kyoukan"
+    },
+    {
+      "sourceId": -961,
+      "malId": 170,
+      "id": "tmdb-tv-42573",
+      "title": "SLAM DUNK"
+    },
+    {
+      "sourceId": -962,
+      "malId": 40397,
+      "id": "open-tv-mal-40397",
+      "title": "Maou-jou de Oyasumi"
+    },
+    {
+      "sourceId": -963,
+      "malId": 40392,
+      "id": "open-tv-mal-40392",
+      "title": "Runway de Waratte"
+    },
+    {
+      "sourceId": -964,
+      "malId": 62068,
+      "id": "open-tv-mal-62068",
+      "title": "Snowball Earth"
+    },
+    {
+      "sourceId": -965,
+      "malId": 37984,
+      "id": "open-tv-mal-37984",
+      "title": "Kumo desu ga, Nani ka?"
+    },
+    {
+      "sourceId": -966,
+      "malId": null,
+      "id": "open-tv-ichidok-966",
+      "title": "Sol Bianca: The Legacy"
+    },
+    {
+      "sourceId": -967,
+      "malId": null,
+      "id": "open-tv-ichidok-967",
+      "title": "Solo Leveling"
+    },
+    {
+      "sourceId": -968,
+      "malId": null,
+      "id": "open-tv-ichidok-968",
+      "title": "Somali and the Forest Spirit"
+    },
+    {
+      "sourceId": -969,
+      "malId": null,
+      "id": "open-tv-ichidok-969",
+      "title": "Sonny Boy"
+    },
+    {
+      "sourceId": -970,
+      "malId": null,
+      "id": "open-tv-ichidok-970",
+      "title": "Sorcerous Stabber Orphen"
+    },
+    {
+      "sourceId": -971,
+      "malId": null,
+      "id": "tmdb-tv-37305",
+      "title": "Soul Eater"
+    },
+    {
+      "sourceId": -972,
+      "malId": null,
+      "id": "open-tv-ichidok-972",
+      "title": "Sound! Euphonium"
+    },
+    {
+      "sourceId": -973,
+      "malId": null,
+      "id": "open-tv-ichidok-973",
+      "title": "Space Battleship Tiramisu"
+    },
+    {
+      "sourceId": -974,
+      "malId": null,
+      "id": "open-tv-ichidok-974",
+      "title": "Space Patrol Luluco"
+    },
+    {
+      "sourceId": -975,
+      "malId": null,
+      "id": "open-tv-ichidok-975",
+      "title": "Space Pirate Mito"
+    },
+    {
+      "sourceId": -976,
+      "malId": 62856,
+      "id": "open-tv-mal-62856",
+      "title": "Sparks of Tomorrow"
+    },
+    {
+      "sourceId": -977,
+      "malId": null,
+      "id": "open-tv-ichidok-977",
+      "title": "Special 7: Special Crime Investigation Unit"
+    },
+    {
+      "sourceId": -978,
+      "malId": null,
+      "id": "open-tv-ichidok-978",
+      "title": "Spice and Wolf: Merchant Meets the Wise Wolf"
+    },
+    {
+      "sourceId": -979,
+      "malId": null,
+      "id": "open-tv-ichidok-979",
+      "title": "Spriggan"
+    },
+    {
+      "sourceId": -980,
+      "malId": null,
+      "id": "open-tv-ichidok-980",
+      "title": "Stand My Heroes: Piece of Truth"
+    },
+    {
+      "sourceId": -981,
+      "malId": null,
+      "id": "open-tv-ichidok-981",
+      "title": "Star Wars: Visions"
+    },
+    {
+      "sourceId": -982,
+      "malId": null,
+      "id": "open-tv-ichidok-982",
+      "title": "Stars Align"
+    },
+    {
+      "sourceId": -983,
+      "malId": null,
+      "id": "open-tv-ichidok-983",
+      "title": "Steel Ball Run: JoJo's Bizarre Adventure"
+    },
+    {
+      "sourceId": -984,
+      "malId": null,
+      "id": "open-tv-ichidok-984",
+      "title": "Steins;Gate 0"
+    },
+    {
+      "sourceId": -985,
+      "malId": null,
+      "id": "open-tv-ichidok-985",
+      "title": "Strange Dawn"
+    },
+    {
+      "sourceId": -986,
+      "malId": null,
+      "id": "open-tv-ichidok-986",
+      "title": "Strike Witches: 501st Joint Fighter Wing Take Off!"
+    },
+    {
+      "sourceId": -987,
+      "malId": null,
+      "id": "open-tv-ichidok-987",
+      "title": "Strike Witches: Road to Berlin"
+    },
+    {
+      "sourceId": -988,
+      "malId": null,
+      "id": "open-tv-ichidok-988",
+      "title": "Sugar Apple Fairy Tale"
+    },
+    {
+      "sourceId": -989,
+      "malId": null,
+      "id": "open-tv-ichidok-989",
+      "title": "Summer Time Rendering"
+    },
+    {
+      "sourceId": -990,
+      "malId": null,
+      "id": "open-tv-ichidok-990",
+      "title": "Super Crooks"
+    },
+    {
+      "sourceId": -991,
+      "malId": null,
+      "id": "open-tv-ichidok-991",
+      "title": "Super Cub"
+    },
+    {
+      "sourceId": -992,
+      "malId": null,
+      "id": "open-tv-ichidok-992",
+      "title": "Super GALS!"
+    },
+    {
+      "sourceId": -993,
+      "malId": null,
+      "id": "open-tv-ichidok-993",
+      "title": "Sweet Reincarnation"
+    },
+    {
+      "sourceId": -994,
+      "malId": 11757,
+      "id": "tmdb-tv-45782",
+      "title": "Sword Art Online"
+    },
+    {
+      "sourceId": -995,
+      "malId": null,
+      "id": "open-tv-ichidok-995",
+      "title": "Sword Art Online Alternative: Gun Gale Online"
+    },
+    {
+      "sourceId": -996,
+      "malId": null,
+      "id": "open-tv-ichidok-996",
+      "title": "Sword Art Online II"
+    },
+    {
+      "sourceId": -997,
+      "malId": null,
+      "id": "open-tv-ichidok-997",
+      "title": "Sword Art Online: Alicization"
+    },
+    {
+      "sourceId": -998,
+      "malId": null,
+      "id": "open-tv-ichidok-998",
+      "title": "Sword Gai: The Animation"
+    },
+    {
+      "sourceId": -999,
+      "malId": null,
+      "id": "open-tv-ichidok-999",
+      "title": "Sword of the Demon Hunter: Kijin Gentosho"
+    },
+    {
+      "sourceId": -1000,
+      "malId": null,
+      "id": "open-tv-ichidok-1000",
+      "title": "Synduality: Noir"
+    },
+    {
+      "sourceId": -1001,
+      "malId": null,
+      "id": "open-tv-ichidok-1001",
+      "title": "T.P BON"
+    },
+    {
+      "sourceId": -1002,
+      "malId": null,
+      "id": "open-tv-ichidok-1002",
+      "title": "TAMAYOMI: The Baseball Girls"
+    },
+    {
+      "sourceId": -1003,
+      "malId": null,
+      "id": "open-tv-ichidok-1003",
+      "title": "Taboo Tattoo"
+    },
+    {
+      "sourceId": -1004,
+      "malId": null,
+      "id": "open-tv-ichidok-1004",
+      "title": "Tada Never Falls in Love"
+    },
+    {
+      "sourceId": -1005,
+      "malId": null,
+      "id": "open-tv-ichidok-1005",
+      "title": "Taisho Otome Fairy Tale"
+    },
+    {
+      "sourceId": -1006,
+      "malId": null,
+      "id": "open-tv-ichidok-1006",
+      "title": "Takopi's Original Sin"
+    },
+    {
+      "sourceId": -1007,
+      "malId": 48556,
+      "id": "open-tv-mal-48556",
+      "title": "takt op.Destiny"
+    },
+    {
+      "sourceId": -1008,
+      "malId": 36108,
+      "id": "open-tv-mal-36108",
+      "title": "Takunomi."
+    },
+    {
+      "sourceId": -1009,
+      "malId": 41619,
+      "id": "open-tv-mal-41619",
+      "title": "Munou na Nana"
+    },
+    {
+      "sourceId": -1010,
+      "malId": null,
+      "id": "open-tv-ichidok-1010",
+      "title": "Tales of Little Women"
+    },
+    {
+      "sourceId": -1011,
+      "malId": 49942,
+      "id": "open-tv-mal-49942",
+      "title": "TALES OF LUMINARIA: The Fateful Crossroad"
+    },
+    {
+      "sourceId": -1012,
+      "malId": 54265,
+      "id": "open-tv-mal-54265",
+      "title": "Kekkon Yubiwa Monogatari"
+    },
+    {
+      "sourceId": -1013,
+      "malId": 30911,
+      "id": "open-tv-mal-30911",
+      "title": "Tales of Zestiria the Cross"
+    },
+    {
+      "sourceId": -1014,
+      "malId": 59047,
+      "id": "open-tv-mal-59047",
+      "title": "Tamon-kun Ima Docchi!?"
+    },
+    {
+      "sourceId": -1015,
+      "malId": 32093,
+      "id": "open-tv-mal-32093",
+      "title": "Tanaka-kun wa Itsumo Kedaruge"
+    },
+    {
+      "sourceId": -1016,
+      "malId": 62405,
+      "id": "open-movie-mal-62405",
+      "title": "Fujimoto Tatsuki 17-26"
+    },
+    {
+      "sourceId": -1017,
+      "malId": 35860,
+      "id": "open-tv-mal-35860",
+      "title": "Karakai Jouzu no Takagi-san"
+    },
+    {
+      "sourceId": -1018,
+      "malId": 51347,
+      "id": "open-tv-mal-51347",
+      "title": "Tekken: Bloodline"
+    },
+    {
+      "sourceId": -1019,
+      "malId": null,
+      "id": "open-tv-ichidok-1019",
+      "title": "TenPuru: No One Can Live on Loneliness"
+    },
+    {
+      "sourceId": -1020,
+      "malId": 1006,
+      "id": "open-movie-mal-1006",
+      "title": "Tenchi Muyou! in Love"
+    },
+    {
+      "sourceId": -1021,
+      "malId": 5781,
+      "id": "open-tv-mal-5781",
+      "title": "Isekai no Seikishi Monogatari"
+    },
+    {
+      "sourceId": -1022,
+      "malId": 174,
+      "id": "open-tv-mal-174",
+      "title": "Tenjou Tenge"
+    },
+    {
+      "sourceId": -1023,
+      "malId": 58614,
+      "id": "open-tv-mal-58614",
+      "title": "Teogonia"
+    },
+    {
+      "sourceId": -1024,
+      "malId": 59390,
+      "id": "open-tv-mal-59390",
+      "title": "Terminator 0"
+    },
+    {
+      "sourceId": -1025,
+      "malId": 22687,
+      "id": "open-tv-mal-22687",
+      "title": "Terra Formars"
+    },
+    {
+      "sourceId": -1026,
+      "malId": 37430,
+      "id": "open-tv-mal-37430",
+      "title": "Tensei Shitara Slime Datta Ken"
+    },
+    {
+      "sourceId": -1027,
+      "malId": 11933,
+      "id": "open-tv-mal-11933",
+      "title": "Oda Nobuna no Yabou"
+    },
+    {
+      "sourceId": -1028,
+      "malId": null,
+      "id": "open-tv-ichidok-1028",
+      "title": "The Ancient Magus' Bride"
+    },
+    {
+      "sourceId": -1029,
+      "malId": 50739,
+      "id": "open-tv-mal-50739",
+      "title": "Otonari no Tenshi-sama ni Itsunomanika Dame Ningen ni Sareteita Ken"
+    },
+    {
+      "sourceId": -1030,
+      "malId": 30544,
+      "id": "open-tv-mal-30544",
+      "title": "Gakusen Toshi Asterisk"
+    },
+    {
+      "sourceId": -1031,
+      "malId": 61276,
+      "id": "open-tv-mal-61276",
+      "title": "Mikata ga Yowasugite Hojo Mahou ni Tesshiteita Kyuutei Mahoushi, Tsuihou Sarete Saikyou wo Mezasu"
+    },
+    {
+      "sourceId": -1032,
+      "malId": 60146,
+      "id": "open-tv-mal-60146",
+      "title": "Saikyou no Ousama, Nidome no Jinsei wa Nani wo Suru?"
+    },
+    {
+      "sourceId": -1033,
+      "malId": 58359,
+      "id": "open-tv-mal-58359",
+      "title": "Isshun de Chiryou Shiteita no ni Yakutatazu to Tsuihou Sareta Tensai Chiyushi, Yami Healer Toshite Tanoshiku Ikiru"
+    },
+    {
+      "sourceId": -1034,
+      "malId": 60255,
+      "id": "open-tv-mal-60255",
+      "title": "Arne no Jikenbo"
+    },
+    {
+      "sourceId": -1035,
+      "malId": 48580,
+      "id": "open-tv-mal-48580",
+      "title": "Vanitas no Carte"
+    },
+    {
+      "sourceId": -1036,
+      "malId": 41094,
+      "id": "open-tv-mal-41094",
+      "title": "Xian Wang De Richang Shenghuo"
+    },
+    {
+      "sourceId": -1037,
+      "malId": 52578,
+      "id": "open-tv-mal-52578",
+      "title": "Boku no Kokoro no Yabai Yatsu"
+    },
+    {
+      "sourceId": -1038,
+      "malId": 58146,
+      "id": "open-tv-mal-58146",
+      "title": "Tensei Akujo no Kuro Rekishi"
+    },
+    {
+      "sourceId": -1039,
+      "malId": 58886,
+      "id": "open-tv-mal-58886",
+      "title": "Darwin Jihen"
+    },
+    {
+      "sourceId": -1040,
+      "malId": 48842,
+      "id": "open-tv-mal-48842",
+      "title": "Mahoutsukai Reimeiki"
+    },
+    {
+      "sourceId": -1041,
+      "malId": 41930,
+      "id": "open-tv-mal-41930",
+      "title": "Kamisama ni Natta Hi"
+    },
+    {
+      "sourceId": -1042,
+      "malId": 39071,
+      "id": "open-tv-mal-39071",
+      "title": "Machikado Mazoku"
+    },
+    {
+      "sourceId": -1043,
+      "malId": 61884,
+      "id": "open-tv-mal-61884",
+      "title": "Maou no Musume wa Yasashi Sugiru!!"
+    },
+    {
+      "sourceId": -1044,
+      "malId": 55998,
+      "id": "open-tv-mal-55998",
+      "title": "Momochi-san Chi no Ayakashi Ouji"
+    },
+    {
+      "sourceId": -1045,
+      "malId": 50184,
+      "id": "open-tv-mal-50184",
+      "title": "Seiken Gakuin no Maken Tsukai"
+    },
+    {
+      "sourceId": -1046,
+      "malId": 46471,
+      "id": "tmdb-tv-117061",
+      "title": "Tantei wa mou, Shindeiru."
+    },
+    {
+      "sourceId": -1047,
+      "malId": null,
+      "id": "open-tv-ichidok-1047",
+      "title": "The Dinner Table Detective"
+    },
+    {
+      "sourceId": -1048,
+      "malId": null,
+      "id": "open-tv-ichidok-1048",
+      "title": "The Disappearance of Nagato Yuki-chan"
+    },
+    {
+      "sourceId": -1049,
+      "malId": null,
+      "id": "open-tv-ichidok-1049",
+      "title": "The Disastrous Life of Saiki K."
+    },
+    {
+      "sourceId": -1050,
+      "malId": null,
+      "id": "open-tv-ichidok-1050",
+      "title": "The Disastrous Life of Saiki K.: Reawakened"
+    },
+    {
+      "sourceId": -1051,
+      "malId": null,
+      "id": "open-tv-ichidok-1051",
+      "title": "The Dreaming Boy is a Realist"
+    },
+    {
+      "sourceId": -1052,
+      "malId": null,
+      "id": "open-tv-ichidok-1052",
+      "title": "The Drops of God"
+    },
+    {
+      "sourceId": -1053,
+      "malId": null,
+      "id": "open-tv-ichidok-1053",
+      "title": "The Duke of Death and His Maid"
+    },
+    {
+      "sourceId": -1054,
+      "malId": null,
+      "id": "open-tv-ichidok-1054",
+      "title": "The Dungeon of Black Company"
+    },
+    {
+      "sourceId": -1055,
+      "malId": null,
+      "id": "open-tv-ichidok-1055",
+      "title": "The Elusive Samurai"
+    },
+    {
+      "sourceId": -1056,
+      "malId": null,
+      "id": "open-tv-ichidok-1056",
+      "title": "The Eminence in Shadow"
+    },
+    {
+      "sourceId": -1057,
+      "malId": null,
+      "id": "open-tv-ichidok-1057",
+      "title": "The Executioner and Her Way of Life"
+    },
+    {
+      "sourceId": -1058,
+      "malId": 59741,
+      "id": "open-tv-mal-59741",
+      "title": "The Exiled Heavy Knight Knows How to Game the System"
+    },
+    {
+      "sourceId": -1059,
+      "malId": null,
+      "id": "open-tv-ichidok-1059",
+      "title": "The Fable"
+    },
+    {
+      "sourceId": -1060,
+      "malId": null,
+      "id": "open-tv-ichidok-1060",
+      "title": "The Faraway Paladin"
+    },
+    {
+      "sourceId": -1061,
+      "malId": null,
+      "id": "open-tv-ichidok-1061",
+      "title": "The Foolish Angel Dances with the Devil"
+    },
+    {
+      "sourceId": -1062,
+      "malId": null,
+      "id": "open-tv-ichidok-1062",
+      "title": "The Fragrant Flower Blooms with Dignity"
+    },
+    {
+      "sourceId": -1063,
+      "malId": null,
+      "id": "open-tv-ichidok-1063",
+      "title": "The Fruit of Evolution: Before I Knew It, My Life Had It Made"
+    },
+    {
+      "sourceId": -1064,
+      "malId": null,
+      "id": "open-tv-ichidok-1064",
+      "title": "The Future Diary"
+    },
+    {
+      "sourceId": -1065,
+      "malId": null,
+      "id": "open-tv-ichidok-1065",
+      "title": "The Galaxy Railways"
+    },
+    {
+      "sourceId": -1066,
+      "malId": null,
+      "id": "open-tv-ichidok-1066",
+      "title": "The Genius Prince's Guide to Raising a Nation Out of Debt"
+    },
+    {
+      "sourceId": -1067,
+      "malId": 58929,
+      "id": "open-tv-mal-58929",
+      "title": "The Ghost in the Shell"
+    },
+    {
+      "sourceId": -1068,
+      "malId": null,
+      "id": "open-tv-ichidok-1068",
+      "title": "The Girl From the Other Side"
+    },
+    {
+      "sourceId": -1069,
+      "malId": null,
+      "id": "open-tv-ichidok-1069",
+      "title": "The God of High School"
+    },
+    {
+      "sourceId": -1070,
+      "malId": null,
+      "id": "open-tv-ichidok-1070",
+      "title": "The Gorilla God's Go-To Girl"
+    },
+    {
+      "sourceId": -1071,
+      "malId": null,
+      "id": "open-tv-ichidok-1071",
+      "title": "The Great Cleric"
+    },
+    {
+      "sourceId": -1072,
+      "malId": null,
+      "id": "open-tv-ichidok-1072",
+      "title": "The Great Jahy Will Not Be Defeated!"
+    },
+    {
+      "sourceId": -1073,
+      "malId": null,
+      "id": "open-tv-ichidok-1073",
+      "title": "The Greatest Demon Lord Is Reborn as a Typical Nobody"
+    },
+    {
+      "sourceId": -1074,
+      "malId": null,
+      "id": "open-tv-ichidok-1074",
+      "title": "The Grimm Variations"
+    },
+    {
+      "sourceId": -1075,
+      "malId": null,
+      "id": "open-tv-ichidok-1075",
+      "title": "The Gymnastics Samurai"
+    },
+    {
+      "sourceId": -1076,
+      "malId": null,
+      "id": "open-tv-ichidok-1076",
+      "title": "The Heike Story"
+    },
+    {
+      "sourceId": -1077,
+      "malId": null,
+      "id": "open-tv-ichidok-1077",
+      "title": "The Heroic Legend of Arslan"
+    },
+    {
+      "sourceId": -1078,
+      "malId": null,
+      "id": "open-tv-ichidok-1078",
+      "title": "The Hidden Dungeon Only I Can Enter"
+    },
+    {
+      "sourceId": -1079,
+      "malId": null,
+      "id": "open-tv-ichidok-1079",
+      "title": "The Ice Guy and His Cool Female Colleague"
+    },
+    {
+      "sourceId": -1080,
+      "malId": null,
+      "id": "open-tv-ichidok-1080",
+      "title": "The Iceblade Sorcerer Shall Rule the World"
+    },
+    {
+      "sourceId": -1081,
+      "malId": null,
+      "id": "open-tv-ichidok-1081",
+      "title": "The Irregular at Magic High School"
+    },
+    {
+      "sourceId": -1082,
+      "malId": null,
+      "id": "open-tv-ichidok-1082",
+      "title": "The Irregular at Magic High School: Visitor Arc"
+    },
+    {
+      "sourceId": -1083,
+      "malId": null,
+      "id": "open-tv-ichidok-1083",
+      "title": "The Kingdoms of Ruin"
+    },
+    {
+      "sourceId": -1084,
+      "malId": null,
+      "id": "open-tv-ichidok-1084",
+      "title": "The Klutzy Class Monitor and the Girl with the Short Skirt"
+    },
+    {
+      "sourceId": -1085,
+      "malId": null,
+      "id": "open-tv-ichidok-1085",
+      "title": "The Legend of Heroes: Trails of Cold Steel - Northern War"
+    },
+    {
+      "sourceId": -1086,
+      "malId": null,
+      "id": "open-tv-ichidok-1086",
+      "title": "The Legend of the Legendary Heroes"
+    },
+    {
+      "sourceId": -1087,
+      "malId": null,
+      "id": "open-tv-ichidok-1087",
+      "title": "The Maid I Hired Recently Is Mysterious"
+    },
+    {
+      "sourceId": -1088,
+      "malId": null,
+      "id": "open-tv-ichidok-1088",
+      "title": "The Master of Ragnarok &amp; Blesser of Einherjar"
+    },
+    {
+      "sourceId": -1089,
+      "malId": null,
+      "id": "open-tv-ichidok-1089",
+      "title": "The Millionaire Detective – Balance: Unlimited"
+    },
+    {
+      "sourceId": -1090,
+      "malId": null,
+      "id": "open-tv-ichidok-1090",
+      "title": "The Misfit of Demon King Academy"
+    },
+    {
+      "sourceId": -1091,
+      "malId": null,
+      "id": "open-tv-ichidok-1091",
+      "title": "The Morose Mononokean"
+    },
+    {
+      "sourceId": -1092,
+      "malId": null,
+      "id": "open-tv-ichidok-1092",
+      "title": "The Most Heretical Last Boss Queen: From Villainess to Savior"
+    },
+    {
+      "sourceId": -1093,
+      "malId": null,
+      "id": "open-tv-ichidok-1093",
+      "title": "The Orbital Children"
+    },
+    {
+      "sourceId": -1094,
+      "malId": null,
+      "id": "open-tv-ichidok-1094",
+      "title": "The Ossan Newbie Adventurer, Trained to Death by the Most Powerful Party, Became Invincible"
+    },
+    {
+      "sourceId": -1095,
+      "malId": null,
+      "id": "open-tv-ichidok-1095",
+      "title": "The Pet Girl of Sakurasou"
+    },
+    {
+      "sourceId": -1096,
+      "malId": null,
+      "id": "open-tv-ichidok-1096",
+      "title": "The Prince of Tennis"
+    },
+    {
+      "sourceId": -1097,
+      "malId": 37779,
+      "id": "open-tv-mal-37779",
+      "title": "The Promised Neverland"
+    },
+    {
+      "sourceId": -1098,
+      "malId": null,
+      "id": "open-tv-ichidok-1098",
+      "title": "The Quintessential Quintuplets"
+    },
+    {
+      "sourceId": -1099,
+      "malId": null,
+      "id": "open-tv-ichidok-1099",
+      "title": "The Ramparts of Ice"
+    },
+    {
+      "sourceId": -1100,
+      "malId": null,
+      "id": "open-tv-ichidok-1100",
+      "title": "The Red Ranger Becomes an Adventurer in Another World"
+    },
+    {
+      "sourceId": -1101,
+      "malId": null,
+      "id": "open-tv-ichidok-1101",
+      "title": "The Reflection"
+    },
+    {
+      "sourceId": -1102,
+      "malId": null,
+      "id": "open-tv-ichidok-1102",
+      "title": "The Reincarnation of the Strongest Exorcist in Another World"
+    },
+    {
+      "sourceId": -1103,
+      "malId": null,
+      "id": "open-tv-ichidok-1103",
+      "title": "The Rising of the Shield Hero"
+    },
+    {
+      "sourceId": -1104,
+      "malId": null,
+      "id": "open-tv-ichidok-1104",
+      "title": "The Rolling Girls"
+    },
+    {
+      "sourceId": -1105,
+      "malId": null,
+      "id": "open-tv-ichidok-1105",
+      "title": "The Royal Tutor"
+    },
+    {
+      "sourceId": -1106,
+      "malId": 5940,
+      "id": "open-tv-mal-5940",
+      "title": "The Sacred Blacksmith"
+    },
+    {
+      "sourceId": -1107,
+      "malId": null,
+      "id": "open-tv-ichidok-1107",
+      "title": "The Saint's Magic Power is Omnipotent"
+    },
+    {
+      "sourceId": -1108,
+      "malId": 23755,
+      "id": "open-tv-mal-23755",
+      "title": "The Seven Deadly Sins"
+    },
+    {
+      "sourceId": -1109,
+      "malId": null,
+      "id": "open-tv-ichidok-1109",
+      "title": "The Seven Deadly Sins: Four Knights of the Apocalypse"
+    },
+    {
+      "sourceId": -1110,
+      "malId": null,
+      "id": "open-tv-ichidok-1110",
+      "title": "The Seven Deadly Sins: Signs of Holy War"
+    },
+    {
+      "sourceId": -1111,
+      "malId": null,
+      "id": "open-tv-ichidok-1111",
+      "title": "The Seven Heavenly Virtues"
+    },
+    {
+      "sourceId": -1112,
+      "malId": null,
+      "id": "open-tv-ichidok-1112",
+      "title": "The Shiunji Family Children"
+    },
+    {
+      "sourceId": -1113,
+      "malId": null,
+      "id": "open-tv-ichidok-1113",
+      "title": "The Silver Guardian"
+    },
+    {
+      "sourceId": -1114,
+      "malId": null,
+      "id": "open-tv-ichidok-1114",
+      "title": "The Slime Diaries: That Time I Got Reincarnated as a Slime"
+    },
+    {
+      "sourceId": -1115,
+      "malId": null,
+      "id": "open-tv-ichidok-1115",
+      "title": "The Story of Saiunkoku"
+    },
+    {
+      "sourceId": -1116,
+      "malId": null,
+      "id": "open-tv-ichidok-1116",
+      "title": "The Strongest Sage with the Weakest Crest"
+    },
+    {
+      "sourceId": -1117,
+      "malId": null,
+      "id": "open-tv-ichidok-1117",
+      "title": "The Summer Hikaru Died"
+    },
+    {
+      "sourceId": -1118,
+      "malId": null,
+      "id": "open-tv-ichidok-1118",
+      "title": "The Testament of Sister New Devil"
+    },
+    {
+      "sourceId": -1119,
+      "malId": null,
+      "id": "open-tv-ichidok-1119",
+      "title": "The Unaware Atelier Meister"
+    },
+    {
+      "sourceId": -1120,
+      "malId": null,
+      "id": "open-tv-ichidok-1120",
+      "title": "The Unwanted Undead Adventurer"
+    },
+    {
+      "sourceId": -1121,
+      "malId": null,
+      "id": "open-tv-ichidok-1121",
+      "title": "The Vampire Dies in No Time"
+    },
+    {
+      "sourceId": -1122,
+      "malId": null,
+      "id": "open-tv-ichidok-1122",
+      "title": "The Vexations of a Shut-In Vampire Princess"
+    },
+    {
+      "sourceId": -1123,
+      "malId": null,
+      "id": "open-tv-ichidok-1123",
+      "title": "The Villainess Is Adored by the Prince of the Neighbor Kingdom"
+    },
+    {
+      "sourceId": -1124,
+      "malId": null,
+      "id": "open-tv-ichidok-1124",
+      "title": "The Wallflower"
+    },
+    {
+      "sourceId": -1125,
+      "malId": null,
+      "id": "open-tv-ichidok-1125",
+      "title": "The Warrior Princess and the Barbaric King"
+    },
+    {
+      "sourceId": -1126,
+      "malId": null,
+      "id": "open-tv-ichidok-1126",
+      "title": "The Water Magician"
+    },
+    {
+      "sourceId": -1127,
+      "malId": null,
+      "id": "open-tv-ichidok-1127",
+      "title": "The Way of the Househusband"
+    },
+    {
+      "sourceId": -1128,
+      "malId": null,
+      "id": "open-tv-ichidok-1128",
+      "title": "The Weakest Tamer Began a Journey to Pick Up Trash"
+    },
+    {
+      "sourceId": -1129,
+      "malId": null,
+      "id": "open-tv-ichidok-1129",
+      "title": "The Witch and the Beast"
+    },
+    {
+      "sourceId": -1130,
+      "malId": null,
+      "id": "open-tv-ichidok-1130",
+      "title": "The World Ends with You The Animation"
+    },
+    {
+      "sourceId": -1131,
+      "malId": null,
+      "id": "open-tv-ichidok-1131",
+      "title": "The World God Only Knows: Four Girls and an Idol"
+    },
+    {
+      "sourceId": -1132,
+      "malId": null,
+      "id": "open-tv-ichidok-1132",
+      "title": "The World's Finest Assassin Gets Reincarnated in Another World as an Aristocrat"
+    },
+    {
+      "sourceId": -1133,
+      "malId": null,
+      "id": "open-tv-ichidok-1133",
+      "title": "The Wrong Way to Use Healing Magic"
+    },
+    {
+      "sourceId": -1134,
+      "malId": null,
+      "id": "open-tv-ichidok-1134",
+      "title": "The Yakuza's Guide to Babysitting"
+    },
+    {
+      "sourceId": -1135,
+      "malId": null,
+      "id": "open-tv-ichidok-1135",
+      "title": "Theatre of Darkness: Yamishibai"
+    },
+    {
+      "sourceId": -1136,
+      "malId": null,
+      "id": "open-tv-ichidok-1136",
+      "title": "Thermae Romae Novae"
+    },
+    {
+      "sourceId": -1137,
+      "malId": 61240,
+      "id": "open-tv-mal-61240",
+      "title": "Though I Am an Inept Villainess"
+    },
+    {
+      "sourceId": -1138,
+      "malId": null,
+      "id": "open-tv-ichidok-1138",
+      "title": "Three Leaves, Three Colors"
+    },
+    {
+      "sourceId": -1139,
+      "malId": null,
+      "id": "open-tv-ichidok-1139",
+      "title": "Thunder 3"
+    },
+    {
+      "sourceId": -1140,
+      "malId": null,
+      "id": "open-tv-ichidok-1140",
+      "title": "Thus Spoke Kishibe Rohan"
+    },
+    {
+      "sourceId": -1141,
+      "malId": null,
+      "id": "open-tv-ichidok-1141",
+      "title": "Tico and Friends"
+    },
+    {
+      "sourceId": -1142,
+      "malId": null,
+      "id": "open-tv-ichidok-1142",
+      "title": "Tiger &amp; Bunny"
+    },
+    {
+      "sourceId": -1143,
+      "malId": null,
+      "id": "open-tv-ichidok-1143",
+      "title": "To Be Hero X"
+    },
+    {
+      "sourceId": -1144,
+      "malId": null,
+      "id": "open-tv-ichidok-1144",
+      "title": "To Heart"
+    },
+    {
+      "sourceId": -1145,
+      "malId": null,
+      "id": "open-tv-ichidok-1145",
+      "title": "To LOVE Ru Darkness"
+    },
+    {
+      "sourceId": -1146,
+      "malId": null,
+      "id": "open-tv-ichidok-1146",
+      "title": "To LOVE Ru Darkness 2"
+    },
+    {
+      "sourceId": -1147,
+      "malId": null,
+      "id": "open-tv-ichidok-1147",
+      "title": "To Love Ru"
+    },
+    {
+      "sourceId": -1148,
+      "malId": null,
+      "id": "open-tv-ichidok-1148",
+      "title": "To Your Eternity"
+    },
+    {
+      "sourceId": -1149,
+      "malId": null,
+      "id": "open-tv-ichidok-1149",
+      "title": "To the Abandoned Sacred Beasts"
+    },
+    {
+      "sourceId": -1150,
+      "malId": null,
+      "id": "open-tv-ichidok-1150",
+      "title": "Tojima Wants to Be a Kamen Rider"
+    },
+    {
+      "sourceId": -1151,
+      "malId": null,
+      "id": "open-tv-ichidok-1151",
+      "title": "Tokyo ESP"
+    },
+    {
+      "sourceId": -1152,
+      "malId": null,
+      "id": "open-tv-ichidok-1152",
+      "title": "Tokyo Revengers"
+    },
+    {
+      "sourceId": -1153,
+      "malId": null,
+      "id": "open-tv-ichidok-1153",
+      "title": "Tomo-chan Is a Girl!"
+    },
+    {
+      "sourceId": -1154,
+      "malId": null,
+      "id": "open-tv-ichidok-1154",
+      "title": "Tomodachi Game"
+    },
+    {
+      "sourceId": -1155,
+      "malId": null,
+      "id": "open-tv-ichidok-1155",
+      "title": "Tonbo!"
+    },
+    {
+      "sourceId": -1156,
+      "malId": 4224,
+      "id": "open-tv-mal-4224",
+      "title": "Toradora!"
+    },
+    {
+      "sourceId": -1157,
+      "malId": null,
+      "id": "open-tv-ichidok-1157",
+      "title": "Tougen Anki"
+    },
+    {
+      "sourceId": -1158,
+      "malId": null,
+      "id": "open-tv-ichidok-1158",
+      "title": "Touken Ranbu - Hanamaru"
+    },
+    {
+      "sourceId": -1159,
+      "malId": null,
+      "id": "open-tv-ichidok-1159",
+      "title": "Tower of God"
+    },
+    {
+      "sourceId": -1160,
+      "malId": null,
+      "id": "open-tv-ichidok-1160",
+      "title": "Trapped in a Dating Sim: The World of Otome Games is Tough for Mobs"
+    },
+    {
+      "sourceId": -1161,
+      "malId": null,
+      "id": "open-tv-ichidok-1161",
+      "title": "Tribe Nine"
+    },
+    {
+      "sourceId": -1162,
+      "malId": null,
+      "id": "open-tv-ichidok-1162",
+      "title": "Trickster"
+    },
+    {
+      "sourceId": -1163,
+      "malId": null,
+      "id": "open-tv-ichidok-1163",
+      "title": "Trigun Stampede"
+    },
+    {
+      "sourceId": -1164,
+      "malId": null,
+      "id": "open-tv-ichidok-1164",
+      "title": "Trigun Stargaze"
+    },
+    {
+      "sourceId": -1165,
+      "malId": null,
+      "id": "open-tv-ichidok-1165",
+      "title": "Trillion Game"
+    },
+    {
+      "sourceId": -1166,
+      "malId": null,
+      "id": "open-tv-ichidok-1166",
+      "title": "Trinity Seven"
+    },
+    {
+      "sourceId": -1167,
+      "malId": null,
+      "id": "open-tv-ichidok-1167",
+      "title": "True Beauty"
+    },
+    {
+      "sourceId": -1168,
+      "malId": null,
+      "id": "open-tv-ichidok-1168",
+      "title": "Tsugumomo"
+    },
+    {
+      "sourceId": -1169,
+      "malId": null,
+      "id": "open-tv-ichidok-1169",
+      "title": "Tsukigakirei"
+    },
+    {
+      "sourceId": -1170,
+      "malId": null,
+      "id": "open-tv-ichidok-1170",
+      "title": "Tsukimichi: Moonlight Fantasy"
+    },
+    {
+      "sourceId": -1171,
+      "malId": null,
+      "id": "open-tv-ichidok-1171",
+      "title": "Tsuredure Children"
+    },
+    {
+      "sourceId": -1172,
+      "malId": null,
+      "id": "open-tv-ichidok-1172",
+      "title": "Tune In to the Midnight Heart"
+    },
+    {
+      "sourceId": -1173,
+      "malId": null,
+      "id": "open-tv-ichidok-1173",
+      "title": "Twilight Out of Focus"
+    },
+    {
+      "sourceId": -1174,
+      "malId": null,
+      "id": "open-tv-ichidok-1174",
+      "title": "Twin Star Exorcists"
+    },
+    {
+      "sourceId": -1175,
+      "malId": null,
+      "id": "open-tv-ichidok-1175",
+      "title": "Tying the Knot with an Amagami Sister"
+    },
+    {
+      "sourceId": -1176,
+      "malId": null,
+      "id": "open-tv-ichidok-1176",
+      "title": "UQ Holder!"
+    },
+    {
+      "sourceId": -1177,
+      "malId": null,
+      "id": "open-tv-ichidok-1177",
+      "title": "Ubel Blatt"
+    },
+    {
+      "sourceId": -1178,
+      "malId": null,
+      "id": "open-tv-ichidok-1178",
+      "title": "Ultimate Otaku Teacher"
+    },
+    {
+      "sourceId": -1179,
+      "malId": null,
+      "id": "open-tv-ichidok-1179",
+      "title": "Ultraman"
+    },
+    {
+      "sourceId": -1180,
+      "malId": null,
+      "id": "open-tv-ichidok-1180",
+      "title": "Ultramarine Magmell"
+    },
+    {
+      "sourceId": -1181,
+      "malId": null,
+      "id": "open-tv-ichidok-1181",
+      "title": "Un-Go"
+    },
+    {
+      "sourceId": -1182,
+      "malId": null,
+      "id": "open-tv-ichidok-1182",
+      "title": "Unbreakable Machine-Doll"
+    },
+    {
+      "sourceId": -1183,
+      "malId": null,
+      "id": "open-tv-ichidok-1183",
+      "title": "Uncle from Another World"
+    },
+    {
+      "sourceId": -1184,
+      "malId": null,
+      "id": "open-tv-ichidok-1184",
+      "title": "Undead Unluck"
+    },
+    {
+      "sourceId": -1185,
+      "malId": null,
+      "id": "open-tv-ichidok-1185",
+      "title": "Urahara"
+    },
+    {
+      "sourceId": -1186,
+      "malId": null,
+      "id": "open-tv-ichidok-1186",
+      "title": "Urusei Yatsura (2022)"
+    },
+    {
+      "sourceId": -1187,
+      "malId": null,
+      "id": "open-tv-ichidok-1187",
+      "title": "Ushio &amp; Tora (2015)"
+    },
+    {
+      "sourceId": -1188,
+      "malId": null,
+      "id": "open-tv-ichidok-1188",
+      "title": "Utawarerumono: Mask of Truth"
+    },
+    {
+      "sourceId": -1189,
+      "malId": null,
+      "id": "open-tv-ichidok-1189",
+      "title": "Uzaki-chan Wants to Hang Out!"
+    },
+    {
+      "sourceId": -1190,
+      "malId": null,
+      "id": "open-tv-ichidok-1190",
+      "title": "VTuber Legend: How I Went Viral after Forgetting to Turn Off My Stream"
+    },
+    {
+      "sourceId": -1191,
+      "malId": null,
+      "id": "open-tv-ichidok-1191",
+      "title": "Valkyrie Drive: Mermaid"
+    },
+    {
+      "sourceId": -1192,
+      "malId": null,
+      "id": "open-tv-ichidok-1192",
+      "title": "Vampire Dormitory"
+    },
+    {
+      "sourceId": -1193,
+      "malId": null,
+      "id": "open-tv-ichidok-1193",
+      "title": "Vampire Knight"
+    },
+    {
+      "sourceId": -1194,
+      "malId": null,
+      "id": "open-tv-ichidok-1194",
+      "title": "Vampire Knight Guilty"
+    },
+    {
+      "sourceId": -1195,
+      "malId": null,
+      "id": "open-tv-ichidok-1195",
+      "title": "Vampire in the Garden"
+    },
+    {
+      "sourceId": -1196,
+      "malId": null,
+      "id": "open-tv-ichidok-1196",
+      "title": "Vandread"
+    },
+    {
+      "sourceId": -1197,
+      "malId": null,
+      "id": "open-tv-ichidok-1197",
+      "title": "Very Private Lesson"
+    },
+    {
+      "sourceId": -1198,
+      "malId": null,
+      "id": "open-tv-ichidok-1198",
+      "title": "Viral Hit"
+    },
+    {
+      "sourceId": -1199,
+      "malId": null,
+      "id": "open-tv-ichidok-1199",
+      "title": "Vivy -Fluorite Eye's Song-"
+    },
+    {
+      "sourceId": 39486,
+      "malId": 39486,
+      "id": "open-movie-mal-39486",
+      "title": "Gintama: THE VERY FINAL"
+    },
+    {
+      "sourceId": 38524,
+      "malId": 38524,
+      "id": "open-tv-mal-38524",
+      "title": "Attack on Titan Season 3 Part 2"
+    },
+    {
+      "sourceId": 28977,
+      "malId": 28977,
+      "id": "open-tv-mal-28977",
+      "title": "Gintama Season 3"
+    },
+    {
+      "sourceId": 61316,
+      "malId": 61316,
+      "id": "open-tv-mal-61316",
+      "title": "Re:ZERO -Starting Life in Another World- Season 4"
+    },
+    {
+      "sourceId": 60022,
+      "malId": 60022,
+      "id": "open-tv-mal-60022",
+      "title": "ONE PIECE FAN LETTER"
+    },
+    {
+      "sourceId": 42938,
+      "malId": 42938,
+      "id": "open-tv-mal-42938",
+      "title": "Fruits Basket The Final Season"
+    },
+    {
+      "sourceId": 35247,
+      "malId": 35247,
+      "id": "open-tv-mal-35247",
+      "title": "Owarimonogatari Second Season"
+    },
+    {
+      "sourceId": 15417,
+      "malId": 15417,
+      "id": "open-tv-mal-15417",
+      "title": "Gintama Season 2 Part 2"
+    },
+    {
+      "sourceId": 35180,
+      "malId": 35180,
+      "id": "open-tv-mal-35180",
+      "title": "March comes in like a lion Season 2"
+    },
+    {
+      "sourceId": 9969,
+      "malId": 9969,
+      "id": "open-tv-mal-9969",
+      "title": "Gintama Season 2"
+    },
+    {
+      "sourceId": 43608,
+      "malId": 43608,
+      "id": "open-tv-mal-43608",
+      "title": "Kaguya-sama: Love is War -Ultra Romantic-"
+    },
+    {
+      "sourceId": 34096,
+      "malId": 34096,
+      "id": "open-tv-mal-34096",
+      "title": "Gintama Season 4"
+    },
+    {
+      "sourceId": 2921,
+      "malId": 2921,
+      "id": "open-tv-mal-2921",
+      "title": "Tomorrow's Joe 2"
+    },
+    {
+      "sourceId": 820,
+      "malId": 820,
+      "id": "open-tv-mal-820",
+      "title": "Legend of the Galactic Heroes"
+    },
+    {
+      "sourceId": 61469,
+      "malId": 61469,
+      "id": "open-tv-mal-61469",
+      "title": "STEEL BALL RUN JoJo's Bizarre Adventure 1st STAGE"
+    },
+    {
+      "sourceId": 49387,
+      "malId": 49387,
+      "id": "open-tv-mal-49387",
+      "title": "Vinland Saga Season 2"
+    },
+    {
+      "sourceId": 17074,
+      "malId": 17074,
+      "id": "open-tv-mal-17074",
+      "title": "Monogatari Series Second Season"
+    },
+    {
+      "sourceId": 47917,
+      "malId": 47917,
+      "id": "open-tv-mal-47917",
+      "title": "BOCCHI THE ROCK!"
+    },
+    {
+      "sourceId": 37510,
+      "malId": 37510,
+      "id": "open-tv-mal-37510",
+      "title": "Mob Psycho 100 II"
+    },
+    {
+      "sourceId": 37491,
+      "malId": 37491,
+      "id": "open-tv-mal-37491",
+      "title": "Gintama.: Silver Soul Arc - Second Half War"
+    },
+    {
+      "sourceId": 39894,
+      "malId": 39894,
+      "id": "open-tv-mal-39894",
+      "title": "Sound! Euphonium 3"
+    },
+    {
+      "sourceId": 15335,
+      "malId": 15335,
+      "id": "open-movie-mal-15335",
+      "title": "Gintama: The Final Chapter - Be Forever Yorozuya"
+    },
+    {
+      "sourceId": 31758,
+      "malId": 31758,
+      "id": "open-movie-mal-31758",
+      "title": "Kizumonogatari Part 3: Reiketsu"
+    },
+    {
+      "sourceId": 58788,
+      "malId": 58788,
+      "id": "open-tv-mal-58788",
+      "title": "Journal with Witch"
+    },
+    {
+      "sourceId": 51535,
+      "malId": 51535,
+      "id": "open-tv-mal-51535",
+      "title": "Attack on Titan Final Season THE FINAL CHAPTERS Special 1"
+    },
+    {
+      "sourceId": 50172,
+      "malId": 50172,
+      "id": "open-tv-mal-50172",
+      "title": "Mob Psycho 100 III"
+    },
+    {
+      "sourceId": 37987,
+      "malId": 37987,
+      "id": "open-movie-mal-37987",
+      "title": "Violet Evergarden: the Movie"
+    },
+    {
+      "sourceId": 52198,
+      "malId": 52198,
+      "id": "open-tv-mal-52198",
+      "title": "Kaguya-sama: Love is War -The First Kiss That Never Ends-"
+    },
+    {
+      "sourceId": 40664,
+      "malId": 40664,
+      "id": "open-movie-mal-40664",
+      "title": "Revue Starlight: The Movie"
+    },
+    {
+      "sourceId": 48569,
+      "malId": 48569,
+      "id": "open-tv-mal-48569",
+      "title": "86 EIGHTY-SIX Part 2"
+    },
+    {
+      "sourceId": 199,
+      "malId": 199,
+      "id": "open-movie-mal-199",
+      "title": "Spirited Away"
+    },
+    {
+      "sourceId": 59193,
+      "malId": 59193,
+      "id": "open-tv-mal-59193",
+      "title": "Mushoku Tensei: Jobless Reincarnation Season 3"
+    },
+    {
+      "sourceId": 51553,
+      "malId": 51553,
+      "id": "open-tv-mal-51553",
+      "title": "Witch Hat Atelier"
+    },
+    {
+      "sourceId": 2001,
+      "malId": 2001,
+      "id": "open-tv-mal-2001",
+      "title": "Gurren Lagann"
+    },
+    {
+      "sourceId": 431,
+      "malId": 431,
+      "id": "open-movie-mal-431",
+      "title": "Howl‘s Moving Castle"
+    },
+    {
+      "sourceId": 5258,
+      "malId": 5258,
+      "id": "open-tv-mal-5258",
+      "title": "Hajime no Ippo: The Fighting! New Challenger"
+    },
+    {
+      "sourceId": 4565,
+      "malId": 4565,
+      "id": "open-movie-mal-4565",
+      "title": "Gurren Lagann The Movie: The Lights in the Sky are Stars"
+    },
+    {
+      "sourceId": 23273,
+      "malId": 23273,
+      "id": "open-tv-mal-23273",
+      "title": "Your lie in April"
+    },
+    {
+      "sourceId": 40456,
+      "malId": 40456,
+      "id": "open-movie-mal-40456",
+      "title": "Demon Slayer -Kimetsu no Yaiba- The Movie: Mugen Train"
+    },
+    {
+      "sourceId": 61903,
+      "malId": 61903,
+      "id": "open-tv-mal-61903",
+      "title": "Kaguya-sama: Love Is War -Stairway to Adulthood-"
+    },
+    {
+      "sourceId": 5300,
+      "malId": 5300,
+      "id": "open-tv-mal-5300",
+      "title": "Natsume's Book of Friends Season 2"
+    },
+    {
+      "sourceId": 59970,
+      "malId": 59970,
+      "id": "open-tv-mal-59970",
+      "title": "That Time I Got Reincarnated as a Slime Season 4"
+    },
+    {
+      "sourceId": 59983,
+      "malId": 59983,
+      "id": "open-tv-mal-59983",
+      "title": "Wistoria: Wand and Sword Season 2"
+    },
+    {
+      "sourceId": 50159,
+      "malId": 50159,
+      "id": "open-movie-mal-50159",
+      "title": "Zombie Land Saga: Yumeginga Paradise"
+    },
+    {
+      "sourceId": 5081,
+      "malId": 5081,
+      "id": "open-tv-mal-5081",
+      "title": "Bakemonogatari"
+    },
+    {
+      "sourceId": 49233,
+      "malId": 49233,
+      "id": "open-tv-mal-49233",
+      "title": "Saga of Tanya the Evil Season 2"
+    },
+    {
+      "sourceId": 62542,
+      "malId": 62542,
+      "id": "open-tv-mal-62542",
+      "title": "Grand Blue Dreaming Season 3"
+    },
+    {
+      "sourceId": 31043,
+      "malId": 31043,
+      "id": "open-tv-mal-31043",
+      "title": "ERASED"
+    },
+    {
+      "sourceId": 3784,
+      "malId": 3784,
+      "id": "open-movie-mal-3784",
+      "title": "Evangelion: 2.0 You Can (Not) Advance"
+    },
+    {
+      "sourceId": 6675,
+      "malId": 6675,
+      "id": "open-movie-mal-6675",
+      "title": "Redline"
+    },
+    {
+      "sourceId": 5341,
+      "malId": 5341,
+      "id": "open-tv-mal-5341",
+      "title": "Spice and Wolf II"
+    },
+    {
+      "sourceId": 5205,
+      "malId": 5205,
+      "id": "open-movie-mal-5205",
+      "title": "the Garden of sinners Chapter 7: ……not nothing heart. (Murder Speculation Part B)"
+    },
+    {
+      "sourceId": 6811,
+      "malId": 6811,
+      "id": "open-tv-mal-6811",
+      "title": "InuYasha: The Final Act"
+    },
+    {
+      "sourceId": 24833,
+      "malId": 24833,
+      "id": "tmdb-tv-62110",
+      "title": "Assassination Classroom"
+    },
+    {
+      "sourceId": 6045,
+      "malId": 6045,
+      "id": "open-tv-mal-6045",
+      "title": "Kimi ni Todoke: From Me to You"
+    },
+    {
+      "sourceId": 62936,
+      "malId": 62936,
+      "id": "open-tv-mal-62936",
+      "title": "Love Unseen Beneath the Clear Night Sky"
+    },
+    {
+      "sourceId": 4155,
+      "malId": 4155,
+      "id": "open-movie-mal-4155",
+      "title": "One Piece Film: Strong World"
+    },
+    {
+      "sourceId": 61200,
+      "malId": 61200,
+      "id": "open-tv-mal-61200",
+      "title": "Record of Ragnarok III"
+    },
+    {
+      "sourceId": 60159,
+      "malId": 60159,
+      "id": "open-movie-mal-60159",
+      "title": "Love Live! Nijigasaki Gakuen School Idol Doukoukai: Kanketsu-hen 2"
+    },
+    {
+      "sourceId": 5681,
+      "malId": 5681,
+      "id": "tmdb-movie-28874",
+      "title": "Summer Wars"
+    },
+    {
+      "sourceId": 6211,
+      "malId": 6211,
+      "id": "open-tv-mal-6211",
+      "title": "Tokyo Magnitude 8.0"
+    },
+    {
+      "sourceId": 59435,
+      "malId": 59435,
+      "id": "open-tv-mal-59435",
+      "title": "Undead Unluck: Winter Arc"
+    },
+    {
+      "sourceId": 62392,
+      "malId": 62392,
+      "id": "open-movie-mal-62392",
+      "title": "JUJUTSU KAISEN: Execution -Shibuya Incident x The Culling Game Begins-"
+    },
+    {
+      "sourceId": 57025,
+      "malId": 57025,
+      "id": "open-tv-mal-57025",
+      "title": "Campfire Cooking in Another World with my Absurd Skill Season 2"
+    },
+    {
+      "sourceId": 6007,
+      "malId": 6007,
+      "id": "open-tv-mal-6007",
+      "title": "Spice and Wolf II: Wolf and the Amber Melancholy"
+    },
+    {
+      "sourceId": 5678,
+      "malId": 5678,
+      "id": "open-tv-mal-5678",
+      "title": "Kobato"
+    },
+    {
+      "sourceId": 62513,
+      "malId": 62513,
+      "id": "open-tv-mal-62513",
+      "title": "Clevatess Season 2"
+    },
+    {
+      "sourceId": 61126,
+      "malId": 61126,
+      "id": "open-tv-mal-61126",
+      "title": "I Want to Love You Till Your Dying Day"
+    },
+    {
+      "sourceId": 5682,
+      "malId": 5682,
+      "id": "open-tv-mal-5682",
+      "title": "Phantom: Requiem for the Phantom"
+    },
+    {
+      "sourceId": 6351,
+      "malId": 6351,
+      "id": "open-tv-mal-6351",
+      "title": "Clannad: Another World, Kyou Chapter"
+    },
+    {
+      "sourceId": 46488,
+      "malId": 46488,
+      "id": "open-tv-mal-46488",
+      "title": "Young Ladies Don't Play Fighting Games"
+    },
+    {
+      "sourceId": 61851,
+      "malId": 61851,
+      "id": "open-tv-mal-61851",
+      "title": "Isekai Quartet 3"
+    },
+    {
+      "sourceId": 61558,
+      "malId": 61558,
+      "id": "open-movie-mal-61558",
+      "title": "Aikatsu! x PriPara THE MOVIE -Deai no Kiseki-"
+    },
+    {
+      "sourceId": 59517,
+      "malId": 59517,
+      "id": "open-tv-mal-59517",
+      "title": "Chitose Is in the Ramune Bottle"
+    },
+    {
+      "sourceId": 7193,
+      "malId": 7193,
+      "id": "open-tv-mal-7193",
+      "title": "Blue Literature Series"
+    },
+    {
+      "sourceId": 6702,
+      "malId": 6702,
+      "id": "tmdb-tv-46261",
+      "title": "Fairy Tail"
+    },
+    {
+      "sourceId": 5530,
+      "malId": 5530,
+      "id": "open-tv-mal-5530",
+      "title": "PandoraHearts"
+    },
+    {
+      "sourceId": 6372,
+      "malId": 6372,
+      "id": "open-movie-mal-6372",
+      "title": "Eden of the East the Movie I: The King of Eden"
+    },
+    {
+      "sourceId": 61897,
+      "malId": 61897,
+      "id": "open-tv-mal-61897",
+      "title": "From Old Country Bumpkin to Master Swordsman II"
+    },
+    {
+      "sourceId": 56735,
+      "malId": 56735,
+      "id": "open-tv-mal-56735",
+      "title": "Oh Boy, Was I Wrong About Her"
+    },
+    {
+      "sourceId": 63817,
+      "malId": 63817,
+      "id": "open-tv-mal-63817",
+      "title": "HELL MODE: The Hardcore Gamer Dominates in Another World with Garbage Balancing Season 2"
+    },
+    {
+      "sourceId": 4382,
+      "malId": 4382,
+      "id": "open-tv-mal-4382",
+      "title": "The Melancholy of Haruhi Suzumiya (2009)"
+    },
+    {
+      "sourceId": 6573,
+      "malId": 6573,
+      "id": "open-tv-mal-6573",
+      "title": "Darker than Black: Gemini of the Meteor"
+    },
+    {
+      "sourceId": 5356,
+      "malId": 5356,
+      "id": "open-tv-mal-5356",
+      "title": "Canaan"
+    },
+    {
+      "sourceId": 6325,
+      "malId": 6325,
+      "id": "open-movie-mal-6325",
+      "title": "Naruto Shippuden the Movie: The Will of Fire"
+    },
+    {
+      "sourceId": 3652,
+      "malId": 3652,
+      "id": "open-tv-mal-3652",
+      "title": "When They Cry Rei"
+    },
+    {
+      "sourceId": 61686,
+      "malId": 61686,
+      "id": "open-tv-mal-61686",
+      "title": "Heroine? Saint? No, I’m an All-Works Maid (And Proud of It)!"
+    },
+    {
+      "sourceId": 5204,
+      "malId": 5204,
+      "id": "open-movie-mal-5204",
+      "title": "the Garden of sinners Chapter 6: Fairy Tale. (Oblivion Recording)"
+    },
+    {
+      "sourceId": 5909,
+      "malId": 5909,
+      "id": "open-tv-mal-5909",
+      "title": "Student Council's Discretion"
+    },
+    {
+      "sourceId": 5177,
+      "malId": 5177,
+      "id": "open-tv-mal-5177",
+      "title": "Electromagnetic Girlfriend"
+    },
+    {
+      "sourceId": 60336,
+      "malId": 60336,
+      "id": "open-tv-mal-60336",
+      "title": "Star Wars: Visions Volume 3"
+    },
+    {
+      "sourceId": 60765,
+      "malId": 60765,
+      "id": "open-tv-mal-60765",
+      "title": "With You, Our Love Will Make It Through"
+    },
+    {
+      "sourceId": 58915,
+      "malId": 58915,
+      "id": "open-movie-mal-58915",
+      "title": "The Last Blossom"
+    },
+    {
+      "sourceId": 63780,
+      "malId": 63780,
+      "id": "open-tv-mal-63780",
+      "title": "Hana-Kimi Season 2"
+    },
+    {
+      "sourceId": 62289,
+      "malId": 62289,
+      "id": "open-tv-mal-62289",
+      "title": "A Livid Lady’s Guide to Getting Even: How I Crushed My Homeland with My Mighty Grimoires"
+    },
+    {
+      "sourceId": 50139,
+      "malId": 50139,
+      "id": "open-tv-mal-50139",
+      "title": "Disney Twisted-Wonderland: The Animation"
+    },
+    {
+      "sourceId": 60933,
+      "malId": 60933,
+      "id": "open-tv-mal-60933",
+      "title": "Li'l Miss Vampire Can't Suck Right"
+    },
+    {
+      "sourceId": 5667,
+      "malId": 5667,
+      "id": "open-tv-mal-5667",
+      "title": "To LOVE-Ru OVA"
+    },
+    {
+      "sourceId": 3087,
+      "malId": 3087,
+      "id": "open-movie-mal-3087",
+      "title": "Cencoroll"
+    },
+    {
+      "sourceId": 54000,
+      "malId": 54000,
+      "id": "open-tv-mal-54000",
+      "title": "Trapped in a Dating Sim: The World of Otome Games is Tough for Mobs Season 2"
+    },
+    {
+      "sourceId": 60522,
+      "malId": 60522,
+      "id": "open-tv-mal-60522",
+      "title": "Skeleton Knight in Another World Season 2"
+    },
+    {
+      "sourceId": 5958,
+      "malId": 5958,
+      "id": "open-tv-mal-5958",
+      "title": "Heaven's Lost Property"
+    },
+    {
+      "sourceId": 6512,
+      "malId": 6512,
+      "id": "open-tv-mal-6512",
+      "title": "Nyan Koi!"
+    },
+    {
+      "sourceId": 5030,
+      "malId": 5030,
+      "id": "open-tv-mal-5030",
+      "title": "Maria†Holic"
+    },
+    {
+      "sourceId": 59623,
+      "malId": 59623,
+      "id": "tmdb-tv-262259",
+      "title": "Wandance"
+    },
+    {
+      "sourceId": 61834,
+      "malId": 61834,
+      "id": "open-tv-mal-61834",
+      "title": "Golden Kamuy: Inazuma Goutou to Mamushi no Ogin/Shimaenaga"
+    },
+    {
+      "sourceId": 5060,
+      "malId": 5060,
+      "id": "open-tv-mal-5060",
+      "title": "Hetalia Axis Powers"
+    },
+    {
+      "sourceId": 62102,
+      "malId": 62102,
+      "id": "open-tv-mal-62102",
+      "title": "My Stepmother and Stepsisters Aren’t Wicked"
+    },
+    {
+      "sourceId": 62080,
+      "malId": 62080,
+      "id": "open-tv-mal-62080",
+      "title": "The Oblivious Saint Can't Contain Her Power"
+    },
+    {
+      "sourceId": 62942,
+      "malId": 62942,
+      "id": "open-movie-mal-62942",
+      "title": "LOCA!"
+    },
+    {
+      "sourceId": 4896,
+      "malId": 4896,
+      "id": "open-tv-mal-4896",
+      "title": "Umineko: When They Cry"
+    },
+    {
+      "sourceId": 59561,
+      "malId": 59561,
+      "id": "open-tv-mal-59561",
+      "title": "The Daily Life of a Middle-Aged Online Shopper in Another World"
+    },
+    {
+      "sourceId": 5042,
+      "malId": 5042,
+      "id": "open-tv-mal-5042",
+      "title": "Kiss x Sis"
+    },
+    {
+      "sourceId": 6201,
+      "malId": 6201,
+      "id": "open-tv-mal-6201",
+      "title": "Princess Lover!"
+    },
+    {
+      "sourceId": 4999,
+      "malId": 4999,
+      "id": "open-tv-mal-4999",
+      "title": "Samurai Harem"
+    },
+    {
+      "sourceId": 62322,
+      "malId": 62322,
+      "id": "open-tv-mal-62322",
+      "title": "The Villager of Level 999"
+    },
+    {
+      "sourceId": 60610,
+      "malId": 60610,
+      "id": "open-movie-mal-60610",
+      "title": "Scarlet"
+    },
+    {
+      "sourceId": 4720,
+      "malId": 4720,
+      "id": "open-tv-mal-4720",
+      "title": "White Album"
+    },
+    {
+      "sourceId": 56736,
+      "malId": 56736,
+      "id": "open-tv-mal-56736",
+      "title": "The Insipid Prince's Furtive Grab for the Throne"
+    },
+    {
+      "sourceId": 6205,
+      "malId": 6205,
+      "id": "open-tv-mal-6205",
+      "title": "Kämpfer"
+    },
+    {
+      "sourceId": 62807,
+      "malId": 62807,
+      "id": "open-tv-mal-62807",
+      "title": "Digimon Story Time Stranger Prelude"
+    },
+    {
+      "sourceId": 62676,
+      "malId": 62676,
+      "id": "open-tv-mal-62676",
+      "title": "PetitCure: Precure Fairies Season 2"
+    },
+    {
+      "sourceId": 6682,
+      "malId": 6682,
+      "id": "open-tv-mal-6682",
+      "title": "11eyes"
+    },
+    {
+      "sourceId": 61254,
+      "malId": 61254,
+      "id": "open-tv-mal-61254",
+      "title": "Cat Tales"
+    },
+    {
+      "sourceId": 62066,
+      "malId": 62066,
+      "id": "open-tv-mal-62066",
+      "title": "Strike World: Deadverse Reloaded the Anime"
+    },
+    {
+      "sourceId": 62428,
+      "malId": 62428,
+      "id": "open-tv-mal-62428",
+      "title": "Heika Watashi wo Wasurete Kudasai"
+    },
+    {
+      "sourceId": 52807,
+      "malId": 52807,
+      "id": "open-tv-mal-52807",
+      "title": "One-Punch Man Season 3"
+    },
+    {
+      "sourceId": 62496,
+      "malId": 62496,
+      "id": "open-tv-mal-62496",
+      "title": "2200-nen Neko no Kuni Nippon"
+    },
+    {
+      "sourceId": 61770,
+      "malId": 61770,
+      "id": "open-movie-mal-61770",
+      "title": "Kono Hon wo Nusumu Mono wa"
+    },
+    {
+      "sourceId": 48701,
+      "malId": 48701,
+      "id": "open-movie-mal-48701",
+      "title": "Peleliu: Rakuen no Guernica"
+    },
+    {
+      "sourceId": 63511,
+      "malId": 63511,
+      "id": "open-tv-mal-63511",
+      "title": "Jo Niijima's Story"
+    },
+    {
+      "sourceId": 63013,
+      "malId": 63013,
+      "id": "open-tv-mal-63013",
+      "title": "Atashin'chi NEXT 2"
+    },
+    {
+      "sourceId": 61736,
+      "malId": 61736,
+      "id": "open-movie-mal-61736",
+      "title": "Toritsukare Otoko"
+    },
+    {
+      "sourceId": 62915,
+      "malId": 62915,
+      "id": "open-tv-mal-62915",
+      "title": "Sorotani no Keibacchi Season 3"
+    },
+    {
+      "sourceId": 62548,
+      "malId": 62548,
+      "id": "open-tv-mal-62548",
+      "title": "Oshi ga Buka ni Narimashita"
+    },
+    {
+      "sourceId": 61278,
+      "malId": 61278,
+      "id": "open-movie-mal-61278",
+      "title": "Sumikko Gurashi: Sora no Ookoku to Futari no Ko"
+    },
+    {
+      "sourceId": 62831,
+      "malId": 62831,
+      "id": "open-tv-mal-62831",
+      "title": "Odekake Kozame Kurashiki-shi Collab Movie"
+    },
+    {
+      "sourceId": 62579,
+      "malId": 62579,
+      "id": "open-movie-mal-62579",
+      "title": "Wadachi wo Koete Yuke"
+    },
+    {
+      "sourceId": 62662,
+      "malId": 62662,
+      "id": "open-tv-mal-62662",
+      "title": "Dokodemo Makibao: World Tour"
+    }
+  ]
+}

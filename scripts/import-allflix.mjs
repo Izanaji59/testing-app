@@ -22,7 +22,14 @@ const target=path.join(root,'public/allflix/catalog.json');
 const existing=JSON.parse(await fs.readFile(target,'utf8').catch(()=>' {"titles":[]}'));
 const titles=new Map(existing.titles.map(t=>[t.id,t]));
 const pending=new Map();
-for(let page=start;page<start+pages;page++)for(const [media,params] of [['movie',{}],['tv',{}],['tv',{with_genres:'16',with_original_language:'ja'}],['movie',{with_genres:'16',with_original_language:'ja'}]]){
+const requested=process.argv.filter(value=>value.startsWith('--title='));
+for(const value of requested){
+ const match=/^--title=(movie|tv):([1-9]\d*)$/.exec(value);
+ if(!match||!Number.isSafeInteger(Number(match[2])))throw new Error('Use --title=tv:65930 or --title=movie:123.');
+ const [,media,id]=match;
+ pending.set(`${media}-${id}`,{media,id:Number(id)});
+}
+if(!requested.length)for(let page=start;page<start+pages;page++)for(const [media,params] of [['movie',{}],['tv',{}],['tv',{with_genres:'16',with_original_language:'ja'}],['movie',{with_genres:'16',with_original_language:'ja'}]]){
  const result=await get('discover/'+media,{page:String(page),include_adult:'false',sort_by:'popularity.desc',...params});
  for(const item of result.results)pending.set(`${media}-${item.id}`,{media,id:item.id});
 }
