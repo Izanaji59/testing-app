@@ -2,9 +2,12 @@ import type { Metadata, Viewport } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
+  // Adresse canonique pour les liens absolus (Open Graph) ; le même build sert aussi grindleveling.netlify.app.
+  metadataBase: new URL('https://slumbywise.com'),
   title: 'Slumbywise',
-  description: 'Lire, avancer, jouer. Un projet porté par Denshiku.',
+  description: 'Bien dormir, même quand on vit la nuit. Un site associatif porté par Denshiku.',
   applicationName: 'Slumbywise',
+  openGraph: { siteName: 'Slumbywise', locale: 'fr_FR', type: 'website' },
   manifest: '/site.webmanifest',
   icons: {
     icon: [

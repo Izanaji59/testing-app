@@ -227,6 +227,10 @@ export function SlumbywiseStyles() {
         .sw-footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--slate); letter-spacing: 0.06em; }
         .sw-footer-bottom a { color: var(--slate); text-decoration: none; }
         .sw-footer-bottom a:hover { color: var(--amber); }
+        .sw-footer-legal { display: flex; flex-wrap: wrap; gap: 8px 28px; margin: -16px 0 28px; }
+        .sw-footer-legal a { color: var(--warm-white-dim); font-size: 13px; text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; }
+        .sw-footer-legal a:hover { color: var(--amber); }
+        .sw-placeholder { color: var(--amber); font-family: 'JetBrains Mono', monospace; font-size: 0.85em; letter-spacing: 0.02em; }
 
         .sw-page-hero { padding: 160px 48px 60px; max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
 
