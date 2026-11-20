@@ -15,6 +15,14 @@ const WHY_SLEEP = [
   { title: 'Vivre la nuit', text: '[À COMPLÉTER : ce qui change quand on vit ou travaille la nuit.]' },
 ];
 
+/** Orientation : sites officiels vérifiés (SFRMS, INSV, Réseau Morphée). Aucun praticien n'est recommandé nommément. */
+const SPECIALISTS: Array<{ name: string; href?: string; text: string }> = [
+  { name: 'Ton médecin traitant', text: 'Le premier pas : il peut t’orienter vers une consultation ou un centre du sommeil. Si tu travailles de nuit, le médecin du travail peut aussi t’aider.' },
+  { name: 'Les centres du sommeil agréés (SFRMS)', href: 'https://www.sfrms-sommeil.org/agrements/les-centres-francais-agrees-par-la-sfrms/', text: 'La Société française de recherche et médecine du sommeil liste les centres qu’elle a agréés, partout en France.' },
+  { name: 'Institut National du Sommeil et de la Vigilance', href: 'https://institut-sommeil-vigilance.org/', text: 'Information et prévention sur le sommeil et la vigilance.' },
+  { name: 'Réseau Morphée (Île-de-France)', href: 'https://reseau-morphee.fr/', text: 'Un réseau de santé dédié aux troubles du sommeil, pour les personnes qui vivent en Île-de-France.' },
+];
+
 export function SlumbywiseLanding() {
   useSlumbywiseBody();
   const [clock, setClock] = useState('');
@@ -57,12 +65,23 @@ export function SlumbywiseLanding() {
         <div className={s.heading}><div><p className={s.eyebrow}>Pourquoi le sommeil compte</p><h2 id="why-title">Dormir, <em>même à contre-temps.</em></h2></div></div>
         <ul className={s.why}>{WHY_SLEEP.map((p, i) => <li key={p.title}><span className={s.number}>0{i + 1}</span><h3>{p.title}</h3><p><span className="sw-placeholder">{p.text}</span></p><p className={s.source}>Source : <span className="sw-placeholder">[SOURCE À COMPLÉTER]</span></p></li>)}</ul>
         <p className={s.medical}>En cas de trouble du sommeil persistant, parle-en à un médecin.</p>
+        <div className={s.specialists}>
+          <h3 id="specialists-title">Trouver un spécialiste du sommeil</h3>
+          <ul>{SPECIALISTS.map(r => <li key={r.name}>{r.href ? <a href={r.href} target="_blank" rel="noopener noreferrer">{r.name}<span className={s.external}> ↗</span></a> : <strong>{r.name}</strong>}<p>{r.text}</p></li>)}</ul>
+          <p className={s.disclaimer}>Ressources publiques et associatives, sans lien avec Slumbywise. Elles ne remplacent pas un avis médical.</p>
+        </div>
       </section>
 
       {/* (e) Se divertir */}
       <section id="jouer" className={`${s.section} ${s.games}`} aria-labelledby="games-title"><div className={s.heading}><div><p className={s.eyebrow}>Se divertir</p><h2 id="games-title">Le temps <em>d’une partie.</em></h2></div><p className={s.aside}>Directement dans ton navigateur.</p></div>
         <div className={s.gameGrid}><Link href="/chess" className={s.game}><div className={s.gameImage}><img src="/images/slumbywise/chess-preview.png" alt="Le plateau d’échecs de Slumbywise" width={800} height={600} loading="lazy" /></div><div className={s.gameCaption}><div><h3>Échecs</h3><p>À deux sur un écran, ou contre un bot.</p></div><span>Jouer</span></div></Link>
         <a href="/game/memoire/" className={s.game}><div className={s.gameImage}><img src="/images/slumbywise/empreinte-preview.png" alt="Le plateau d’Empreinte et ses pierres" width={800} height={600} loading="lazy" /></div><div className={s.gameCaption}><div><h3>Empreinte</h3><p>Un duel de territoire, des pouvoirs MBTI.</p></div><span>Jouer</span></div></a></div>
+      </section>
+
+      {/* Allflix : regarder en anglais */}
+      <section className={`${s.grind} ${s.flix}`} aria-labelledby="allflix-title">
+        <p><strong id="allflix-title">Allflix</strong> — des séries, des films et des animés à regarder en anglais, pour pratiquer en te détendant.</p>
+        <Link href="/allflix/" className="sw-btn-ghost">Ouvrir Allflix</Link>
       </section>
 
       {/* (f) Grindleveling */}

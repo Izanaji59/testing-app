@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { AllflixCatalog } from '@/components/allflix/Allflix';
 
-const description = 'Le catalogue Allflix par Slumbywise : films, séries et animés, avec synopsis, saisons et épisodes réunis sur une même fiche.';
+const description = 'Allflix par Slumbywise : des films, séries et animés à regarder en anglais pour pratiquer en te détendant, avec synopsis, saisons et épisodes sur une même fiche.';
 
 export const metadata: Metadata = {
   title: 'Allflix | Films, séries et animés',
