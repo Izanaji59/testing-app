@@ -5,7 +5,8 @@ import Link from 'next/link';
 import s from '@/components/allflix/allflix.module.css';
 import c from './characters.module.css';
 import { useCharacters } from './useCharacters';
-import { characterHref, type Character, type TypedCharacter } from '@/lib/characters';
+import { type Character, type TypedCharacter } from '@/lib/characters';
+import { characterUrl } from '@/lib/characterPages';
 
 export const anilistCredit = <p>Personnages d’animés et leurs illustrations : <a href="https://anilist.co" target="_blank" rel="noopener noreferrer">AniList</a>.</p>;
 
@@ -32,7 +33,7 @@ export function TitleCharacters({ titleId }: { titleId: string }) {
     {!list.length&&<p className={c.hint}>Aucun personnage ajouté pour cette œuvre.</p>}
     <ul className={c.strip}>
       {list.map(ch => <li key={ch.id}>
-        <Link className={c.person} href={characterHref(ch.id)}>
+        <Link className={c.person} href={characterUrl(ch)}>
           <Portrait character={ch} />
           <strong>{ch.name}</strong>
           <small>{typeLine(ch)}</small>

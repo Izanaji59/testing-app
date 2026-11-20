@@ -7,6 +7,7 @@ import { fmtRank } from '@/lib/utils';
 import { getMbtiClass } from '@/lib/engine/mbtiClasses';
 import { getRankTitle } from '@/lib/engine/rankTitles';
 import type { Profile } from '@/lib/types';
+import { NotificationBell } from '@/components/core/NotificationBell';
 
 type Props = {
   profile: Profile | null;
@@ -52,7 +53,10 @@ export function Header({ profile, title }: Props) {
           />
           <DataReadout color={T.cyan} size={9} letterSpacing="0.28em">DENSHIKU · LV</DataReadout>
         </div>
-        <DataReadout color={T.textMute} size={9}>{clock}</DataReadout>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <DataReadout color={T.textMute} size={9}>{clock}</DataReadout>
+          <NotificationBell userId={profile?.user_id ?? null} />
+        </div>
       </div>
 
       <div style={{ marginTop: 14, display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between' }}>

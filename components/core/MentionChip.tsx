@@ -11,7 +11,7 @@ import { supabase } from '@/lib/supabase/client';
 import { T } from '@/lib/tokens';
 import { fmtRank } from '@/lib/utils';
 import { mbtiFromClassLabel } from '@/lib/engine/rankTitles';
-import { characterHref } from '@/lib/characters';
+import { characterUrl } from '@/lib/characterPages';
 import { useCharacters } from '@/components/characters/useCharacters';
 import { useFictionCommunity } from '@/components/characters/useFictionCommunity';
 import type { Mention } from '@/lib/mentions';
@@ -96,7 +96,7 @@ function CharacterStruct({ mention, onClose, anchor }: { mention: Mention; onClo
     { name: 'enneagramme', value: enn?.leader ?? ch.typing?.enneagram ?? '—', type: 'type + aile' },
     { name: 'favoris', value: String(community.data?.favorites?.[mention.id] ?? 0), type: 'entier' },
   ];
-  return <StructCard title={ch?.name ?? mention.label} kind="PERSONNAGE" fields={fields} link={ch ? { href: characterHref(ch.id), label: 'Ouvrir la fiche' } : null} onClose={onClose} anchor={anchor} />;
+  return <StructCard title={ch?.name ?? mention.label} kind="PERSONNAGE" fields={fields} link={ch ? { href: characterUrl(ch), label: 'Ouvrir la fiche' } : null} onClose={onClose} anchor={anchor} />;
 }
 
 export function MentionChip({ mention }: { mention: Mention }) {

@@ -27,8 +27,20 @@ async function uploadImage(userId:string,file:File|null,url:string){
  if(error)throw error;
  return {url:supabase().storage.from('character-images').getPublicUrl(path).data.publicUrl,path};
 }
+/**
+ * Image : on privilégie un lien vers une image déjà en ligne (hébergeur d'images, wiki…),
+ * ce qui ménage l'espace de stockage du site ; l'envoi de fichier reste possible en second choix.
+ */
 function ImageFields({url,setUrl,setFile}:{url:string;setUrl:(v:string)=>void;setFile:(v:File|null)=>void}){
- return <div className={s.imageFields}><label>Image du personnage<input type="file" accept="image/jpeg,image/png,image/webp" onChange={e=>setFile(e.target.files?.[0]??null)}/><small>JPG, PNG ou WebP, 3 Mo maximum.</small></label><label>Ou une adresse d’image<input type="url" placeholder="https://…" value={url} onChange={e=>setUrl(e.target.value)}/></label></div>;
+ const [broken,setBroken]=useState(false);
+ useEffect(()=>setBroken(false),[url]);
+ const preview=/^https:\/\/\S+$/.test(url.trim())?url.trim():null;
+ return <div className={s.imageChoice}>
+  <label>Adresse d’une image déjà en ligne (recommandé)<input type="url" placeholder="https://…" value={url} onChange={e=>setUrl(e.target.value)}/>
+   <small>Colle le lien direct d’une image. Tu n’en as pas ? Un hébergeur gratuit comme ImgBB ou Postimages te donne un « lien direct » à copier ici. L’image n’est alors pas stockée chez nous.</small></label>
+  {preview&&<div className={s.imagePreview}>{broken?<p className={s.formError}>Cette adresse n’affiche pas d’image : vérifie que c’est bien le lien direct (il finit souvent par .jpg, .png ou .webp).</p>:<img src={preview} alt="Aperçu de l’image" onError={()=>setBroken(true)}/>}</div>}
+  <details><summary>Ou envoyer un fichier depuis ton appareil</summary><label>Fichier image<input type="file" accept="image/jpeg,image/png,image/webp" onChange={e=>setFile(e.target.files?.[0]??null)}/><small>JPG, PNG ou WebP, 3 Mo maximum.</small></label></details>
+ </div>;
 }
 function AccountNotice({loading,available,user}:{loading:boolean;available:boolean;user:boolean}){
  if(loading)return <p className={s.hint}>Chargement…</p>;

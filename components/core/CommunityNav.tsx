@@ -11,6 +11,7 @@ const ITEMS = [
   { href: '/evenements', label: 'ÉVÉNEMENTS', match: '/evenements' },
   { href: '/personnages/', label: 'PERSONNAGES ↗', match: '/personnages' },
   { href: '/profile', label: 'MON PROFIL', match: '/profile' },
+  { href: '/regles/', label: 'RÈGLES', match: '/regles' },
 ];
 
 export function CommunityNav() {

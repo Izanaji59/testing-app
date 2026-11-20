@@ -69,3 +69,7 @@
 .showcaseHead{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .typerBadge{font-size:11px;font-weight:650;letter-spacing:.4px;padding:4px 10px;border-radius:999px;background:#103041;color:#9fe3f3;border:1px solid #2b6a80}
 .showcase a{color:#8ed8f5;text-underline-offset:3px}
+/* Pages statiques : liens vers les types */
+.typeLinks{display:flex;flex-wrap:wrap;gap:8px;margin:26px 0}.typeLinks a{display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border:1px solid #ffffff26;border-radius:5px;font-size:12px;color:#b6bece}.typeLinks a:hover{border-color:#a4bfff;color:#fff}
+/* Choix de l’image : lien d’abord, fichier en second */
+.imageChoice{display:grid;gap:12px;min-width:0}.imageChoice>label,.imageChoice details label{display:block;font-size:13px;color:#c4d2e1}.imageChoice input{display:block;width:100%;min-height:46px;margin-top:7px;padding:11px 12px;border:1px solid #365066;border-radius:7px;background:#0b121d;color:#f2f6fc;max-width:100%;font:inherit}.imageChoice small{display:block;font-size:11px;color:#8fa5bb;margin-top:6px;line-height:1.5}.imageChoice details summary{cursor:pointer;font-size:13px;color:#9fc4d8;min-height:32px}.imagePreview{max-width:140px}.imagePreview img{display:block;width:100%;aspect-ratio:2/3;object-fit:cover;border-radius:7px;border:1px solid #365066}

@@ -8,6 +8,8 @@ import c from './characters.module.css';
 import { useCharacters } from './useCharacters';
 import { Portrait, anilistCredit, typeLine } from './TitleCharacters';
 import { CHARACTER_ID, characterHref, type TypedCharacter } from '@/lib/characters';
+import { characterSlug, characterUrl } from '@/lib/characterPages';
+import { useRouter } from 'next/navigation';
 import { MBTI_GROUPS, MBTI_RANK_PROFILES, type MbtiGroupKey } from '@/lib/engine/rankTitles';
 import { MBTI_CLASSES, type MbtiType } from '@/lib/engine/mbtiClasses';
 import { AddCharacter, CharacterCommunity } from './CommunityForms';
@@ -20,7 +22,7 @@ const isType = (value: string): value is MbtiType => (TYPES as string[]).include
 const normalize = (value: string) => value.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
 
 function CharacterCard({ ch, favorite = false }: { ch: TypedCharacter; favorite?: boolean }) {
-  return <Link className={s.card} href={characterHref(ch.id)}>
+  return <Link className={s.card} href={characterUrl(ch)}>
     <Portrait character={ch} tag={(favorite ? '♥ ' : '') + typeLine(ch)} />
     <h3>{ch.name}</h3>
     <p>{ch.title}</p>
@@ -108,12 +110,17 @@ export function CharacterDetail() {
   const sameTitle = work.filter(x => x.id !== ch?.id);
   const voted = new Set([...Object.keys(community.data?.myVotes ?? {}), ...Object.keys(community.data?.myEnneagrams ?? {})]);
   const nextId = ch ? nextToVote(work.map(x => x.id), ch.id, voted) : null;
-  /** Mode marathon : on change de fiche sans recharger la page. */
+  const router = useRouter();
+  // Les personnages importés ont maintenant leur propre page (référencée) : l'ancienne adresse y renvoie.
+  useEffect(() => { if (ch && characterSlug(ch)) router.replace(characterUrl(ch)); }, [ch, router]);
+  /** Mode marathon : page statique si elle existe, sinon on change de fiche sans recharger. */
   const goTo = useCallback((next: string) => {
+    const target = characters.find(x => x.id === next);
+    if (target && characterSlug(target)) { router.push(characterUrl(target)); return; }
     history.pushState(null, '', characterHref(next));
     setId(next);
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, []);
+  }, [characters, router]);
 
   return <Frame extraCredit={anilistCredit}><main className={s.detail}>
     <Link className={s.back} href="/personnages/">Tous les personnages</Link>

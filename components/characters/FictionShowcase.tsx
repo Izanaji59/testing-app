@@ -6,7 +6,7 @@
 import Link from 'next/link';
 import useSWR from 'swr';
 import { supabase } from '@/lib/supabase/client';
-import { characterHref } from '@/lib/characters';
+import { characterUrl } from '@/lib/characterPages';
 import { useCharacters } from './useCharacters';
 import { Portrait, typeLine } from './TitleCharacters';
 import c from './characters.module.css';
@@ -53,7 +53,7 @@ export function FictionShowcase({ userId, owner = false }: { userId: string; own
       ? <p className={c.hint}>{owner ? <>Aucun favori pour l’instant. <Link href="/personnages/">Parcourir les personnages</Link> et appuyer sur ♡.</> : 'Aucun favori pour l’instant.'}</p>
       : <ul className={c.strip}>
         {favorites.slice(0, 12).map(ch => <li key={ch.id}>
-          <Link className={c.person} href={characterHref(ch.id)}>
+          <Link className={c.person} href={characterUrl(ch)}>
             <Portrait character={ch} />
             <strong>{ch.name}</strong>
             <small>{typeLine(ch)}</small>

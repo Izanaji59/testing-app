@@ -80,6 +80,7 @@ function LoginContent() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [rulesOk, setRulesOk] = useState(false);
   const [status, setStatus] = useState<Status>('idle');
   const [errorMsg, setErrorMsg] = useState<string | null>(
     callbackError === 'callback_failed' ? 'Lien expiré ou déjà utilisé. Demande un nouveau lien.' : null,
@@ -256,10 +257,15 @@ function LoginContent() {
                   les mots de passe ne correspondent pas
                 </div>
               )}
+              <label htmlFor="rules-ok" style={{ display: 'flex', gap: 10, alignItems: 'flex-start', fontSize: 12, color: T.textDim, lineHeight: 1.5, cursor: 'pointer', minHeight: 44 }}>
+                <input id="rules-ok" type="checkbox" required checked={rulesOk} onChange={e => setRulesOk(e.target.checked)}
+                  disabled={status === 'sending' || status === 'sent'} style={{ width: 20, height: 20, marginTop: 1, accentColor: T.cyan, flexShrink: 0 }} />
+                <span>J’accepte les <a href="/regles/" target="_blank" rel="noopener noreferrer" style={{ color: T.cyan }}>règles de la communauté</a> (respect, sécurité, pas de données personnelles d’autrui).</span>
+              </label>
               <button
                 type="submit"
-                disabled={status === 'sending' || status === 'sent' || !email || !password || !pseudo || !confirmPassword || passwordsMismatch}
-                style={submitBtn(status === 'sending' || status === 'sent' || !email || !password || !pseudo || !confirmPassword || passwordsMismatch)}
+                disabled={status === 'sending' || status === 'sent' || !email || !password || !pseudo || !confirmPassword || passwordsMismatch || !rulesOk}
+                style={submitBtn(status === 'sending' || status === 'sent' || !email || !password || !pseudo || !confirmPassword || passwordsMismatch || !rulesOk)}
               >
                 {status === 'sending' ? 'Création…' : status === 'sent' ? 'Compte créé ✓' : 'Créer mon compte'}
               </button>
