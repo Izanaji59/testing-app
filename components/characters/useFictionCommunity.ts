@@ -5,7 +5,9 @@ import type { User } from '@supabase/supabase-js';
 import { supabase } from '@/lib/supabase/client';
 import type { Character } from '@/lib/characters';
 export type VoteSummary={counts:Record<string,number>;total:number;leader:string|null};
-export type FictionCommunity={characters:Character[];images:Record<string,string>;votes:Record<string,VoteSummary>;myVotes:Record<string,string>};
+/** Champs ajoutés par 0027 : optionnels tant qu’une ancienne version de la fonction répond. */
+export type FictionCommunity={characters:Character[];images:Record<string,string>;votes:Record<string,VoteSummary>;myVotes:Record<string,string>;
+ enneagrams?:Record<string,VoteSummary>;favorites?:Record<string,number>;myEnneagrams?:Record<string,string>;myReasons?:Record<string,string>;myFavorites?:string[];myType?:string|null};
 export function useFictionCommunity(){
  const auth=useSWR<User|null>('fiction-community-user',async()=>{const {data}=await supabase().auth.getUser();return data.user;});
  useEffect(()=>{const {data}=supabase().auth.onAuthStateChange((_event,session)=>{void auth.mutate(session?.user??null,{revalidate:false});});return()=>data.subscription.unsubscribe();},[auth.mutate]);

@@ -17,3 +17,55 @@
 @media(max-width:700px){.typeBlock{padding:14px;gap:12px}.typeCode{font-size:30px}}
 .communityPanel{margin:28px 0;padding:24px;border:1px solid #253e52;border-radius:12px;background:#101822;scroll-margin-top:150px}.communityPanel h2{margin:0 0 12px;font-size:24px;letter-spacing:-.6px}.communityPanel summary{cursor:pointer;font-weight:600;min-height:28px}.communityPanel details[open]>summary{margin-bottom:18px}.communityPanel a{color:#77d5ea;text-decoration:underline;text-underline-offset:3px}.communityForm{display:grid;gap:18px;max-width:720px;margin:16px 0}.communityForm label,.voteForm label{display:block;font-size:13px;color:#c4d2e1}.communityForm input,.communityForm select,.voteForm select{display:block;width:100%;min-height:46px;margin-top:7px;padding:11px 12px;border:1px solid #365066;border-radius:7px;background:#0b121d;color:#f2f6fc;max-width:100%;font:inherit}.communityForm small{display:block;font-size:11px;color:#8fa5bb;margin-top:6px}.communityForm button,.voteForm button{background:#35bddc;color:#06141b;border:0;border-radius:7px;padding:13px 20px;min-height:46px;font-weight:650;justify-self:start}.communityForm button:disabled,.voteForm button:disabled{opacity:.45}.imageFields{display:grid;grid-template-columns:1fr 1fr;gap:16px;min-width:0}.imageFields>label{min-width:0}.formError{color:#ffb5b5;font-size:13px}.voteForm{display:flex;align-items:flex-end;gap:14px;max-width:650px;margin-top:20px}.voteForm label{flex:1;min-width:0}.voteResults{list-style:none;padding:0;max-width:650px;margin:20px 0;display:grid;gap:10px}.voteResults li{display:flex;gap:16px;align-items:center;font-size:12px}.voteResults strong{width:44px;color:#80d5e9}.voteResults progress{flex:1;min-width:0;height:8px;accent-color:#35bddc}.voteResults span{min-width:20px}.imageProposal{margin-top:26px}.imageProposal summary{font-size:13px}.communityPanel [role=status]{font-size:13px;color:#a5e5d2}
 @media(max-width:600px){.communityPanel{padding:18px}.communityPanel h2{font-size:21px}.imageFields{grid-template-columns:1fr}.voteForm{align-items:stretch;flex-direction:column}.voteForm button{align-self:flex-start}.communityForm input[type=file]{font-size:11px}}
+
+/* Vote rapide (0027) : axes MBTI, ennéagramme, argument, résultats, marathon, arguments. */
+.voteHead{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.voteHead h2{margin:0}
+.badgeConsensus,.badgeClose{font-size:11px;font-weight:650;letter-spacing:.4px;padding:4px 10px;border-radius:999px}
+.badgeConsensus{background:#173b33;color:#8ef0c9;border:1px solid #2f7a63}.badgeClose{background:#3b2e14;color:#ffd38a;border:1px solid #7a5c2f}
+.results{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0 32px}
+.quickVote{display:grid;gap:22px;margin-top:22px;max-width:820px}
+.quickVote fieldset{border:0;padding:0;margin:0;min-width:0}
+.quickVote legend{font-size:13px;color:#c4d2e1;margin-bottom:10px;display:flex;align-items:center;gap:10px}
+.quickVote legend small,.reason small{color:#8fa5bb;font-size:11px}
+.typePreview{font-size:20px;font-weight:800;letter-spacing:1px;color:#e7edfa}
+.axes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.axis{display:grid;grid-template-rows:1fr 1fr;gap:6px}
+.axis button,.ennea button,.wings button{border:1px solid #365066;background:#0b121d;color:#cfdbe8;border-radius:8px;cursor:pointer;min-height:48px;padding:6px 8px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;transition:border-color .15s,background .15s}
+.axis button strong,.ennea button strong{font-size:20px;line-height:1}
+.axis button small,.ennea button small{font-size:10px;color:#8fa5bb;text-align:center;line-height:1.2}
+.axis button[aria-checked=true],.ennea button[aria-checked=true],.wings button[aria-checked=true]{border-color:#35bddc;background:#103041;color:#fff;box-shadow:inset 0 0 0 1px #35bddc}
+.axis button:hover,.ennea button:hover,.wings button:hover{border-color:#5b87a8}
+.ennea{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));gap:6px}
+.wings{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:10px;font-size:13px;color:#c4d2e1}
+.wings button{flex-direction:row;padding:6px 14px;min-height:44px}
+.reason{display:block;font-size:13px;color:#c4d2e1}
+.reason textarea{display:block;width:100%;margin-top:7px;padding:11px 12px;border:1px solid #365066;border-radius:7px;background:#0b121d;color:#f2f6fc;font:inherit;resize:vertical;min-height:64px}
+.reason>small:last-child{display:block;text-align:right;margin-top:4px}
+.voteActions{display:flex;flex-wrap:wrap;gap:10px}
+.voteActions button{background:#35bddc;color:#06141b;border:0;border-radius:7px;padding:13px 20px;min-height:46px;font-weight:650;cursor:pointer}
+.voteActions button:disabled{opacity:.45;cursor:default}
+.voteActions .secondaryButton{background:transparent;color:#cfe8f2;border:1px solid #365066}
+.marathon{display:flex;gap:10px;align-items:center;font-size:13px;color:#c4d2e1;min-height:44px;cursor:pointer}
+.marathon input{width:20px;height:20px;accent-color:#35bddc}
+.reasons{margin-top:30px;border-top:1px solid #253e52;padding-top:20px}
+.reasons h3{font-size:17px;margin:0 0 12px}
+.reasons ul{list-style:none;margin:0;padding:0;display:grid;gap:12px;max-width:820px}
+.reasons li{padding:12px 14px;border:1px solid #233646;border-radius:8px;background:#0c141f}
+.reasons li p{margin:6px 0 0;font-size:14px;line-height:1.6;color:#e2e9f2;white-space:pre-wrap;overflow-wrap:anywhere}
+.myReason{border-color:#35bddc66!important}
+.reasonMeta{font-size:12px;color:#8fa5bb}.reasonMeta strong{color:#cfe8f2}
+.favoriteLine{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:4px 0 14px;font-size:13px}
+.favorite,.favoriteOn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 16px;border-radius:999px;font:inherit;font-weight:600;cursor:pointer}
+.favorite{background:transparent;border:1px solid #7a4a5c;color:#f3c2d2}.favoriteOn{background:#4a1f30;border:1px solid #d1668e;color:#ffd6e5}
+.favorite span,.favoriteOn span{font-size:18px;line-height:1}
+.favoriteCount{color:var(--muted)}
+.lookalike{font-size:13px;color:#c4d2e1;margin:18px 0 0}
+.lookalike button{background:none;border:0;color:#77d5ea;text-decoration:underline;text-underline-offset:3px;cursor:pointer;font:inherit;min-height:44px;padding:0 4px}
+@media (hover:none){.shortcuts{display:none}}
+@media(max-width:700px){.axes{grid-template-columns:repeat(2,minmax(0,1fr))}.ennea{grid-template-columns:repeat(5,minmax(0,1fr))}.ennea button small{display:none}.results{grid-template-columns:1fr}}
+/* Vitrine « Personnages » du profil */
+.showcase{padding:20px;border:1px solid #ffffff20;border-radius:8px;background:#0d1626;color:#e9eff8;--muted:#a9b6c8;--line:#ffffff1c}
+.showcase h2{font-size:20px;margin:0}.showcase h3{font-size:15px;margin:18px 0 12px}
+.showcaseHead{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.typerBadge{font-size:11px;font-weight:650;letter-spacing:.4px;padding:4px 10px;border-radius:999px;background:#103041;color:#9fe3f3;border:1px solid #2b6a80}
+.showcase a{color:#8ed8f5;text-underline-offset:3px}

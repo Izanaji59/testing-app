@@ -219,11 +219,12 @@ function Stat({ label, value }: { label: string; value: string }) {
 
 // ─────────────────────── Ce que les autres joueurs voient ───────────────────────
 
-const VISIBILITY: Array<{ key: 'show_stats' | 'show_revenue' | 'show_rank' | 'show_mbti'; label: string; detail: string }> = [
+const VISIBILITY: Array<{ key: 'show_stats' | 'show_revenue' | 'show_rank' | 'show_mbti' | 'show_fiction'; label: string; detail: string }> = [
   { key: 'show_stats',   label: 'Mes statistiques',        detail: 'Discipline, Focus, Force… et le radar.' },
   { key: 'show_revenue', label: 'Ma dimension économique', detail: 'Le niveau de la stat Revenu. Les montants en euros restent toujours privés.' },
   { key: 'show_rank',    label: 'Mon rang et mon niveau',  detail: 'Rang, titre de rang, niveau et XP totale.' },
   { key: 'show_mbti',    label: 'Mon MBTI',                detail: 'Ta classe MBTI et le titre de rang propre à ton type.' },
+  { key: 'show_fiction', label: 'Mes personnages',         detail: 'Tes personnages favoris et ton activité de typeur (votes, arguments, accord avec la communauté).' },
 ];
 
 function VisibilitySettings({ profile, onChange }: { profile: Profile; onChange: () => void }) {

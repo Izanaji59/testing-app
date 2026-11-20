@@ -46,6 +46,8 @@ export interface Profile {
   show_revenue: boolean;
   show_rank: boolean;
   show_mbti: boolean;
+  /** Personnages favoris et statistiques de typeur sur le profil public (0027). */
+  show_fiction?: boolean;
   /** Profil social (batterie sociale) ; null = déduit du MBTI. */
   social_profile?: 'INTROVERTI' | 'EXTRAVERTI' | 'AMBIVERTI' | null;
   created_at: string;
