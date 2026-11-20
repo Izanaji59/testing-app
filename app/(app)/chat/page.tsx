@@ -1,6 +1,10 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { MentionComposer } from '@/components/core/MentionComposer';
+import { MentionChip } from '@/components/core/MentionChip';
+import { CommunityNav } from '@/components/core/CommunityNav';
+import { parseMentions } from '@/lib/mentions';
 import { useProfile } from '@/hooks/useProfile';
 import { useChat } from '@/hooks/useChat';
 import { Header } from '@/components/shell/Header';
@@ -17,9 +21,6 @@ export default function ChatPage() {
   const { profile, loading } = useProfile();
   const { messages, send } = useChat();
   const { challenges } = useChallenges();
-  const [draft, setDraft] = useState('');
-  const [sending, setSending] = useState(false);
-  const [sendError, setSendError] = useState('');
   const [openProfileId, setOpenProfileId] = useState<string | null>(null);
   const listRef = useRef<HTMLDivElement>(null);
 
@@ -29,25 +30,12 @@ export default function ChatPage() {
 
   if (!profile) return <ProfileState kind={loading ? 'loading' : 'missing'} />;
 
-  async function submit() {
-    const text = draft.trim();
-    if (!text || sending) return;
-    setSending(true); setSendError('');
-    try {
-      await send(text);
-      setDraft('');
-    } catch {
-      setSendError('Le message n’a pas pu être envoyé. Réessaie.');
-    } finally {
-      setSending(false);
-    }
-  }
-
   return (
     <div style={{ color: T.text }}>
-      <Header profile={profile} title="SALLE OPÉRATEURS" />
+      <Header profile={profile} title="COMMUNAUTÉ" />
 
       <div style={{ padding: '14px 14px 0', display: 'flex', flexDirection: 'column', gap: 12 }}>
+        <CommunityNav />
         <HudPanel thin glow={0.15}>
           <div
             ref={listRef}
@@ -85,7 +73,7 @@ export default function ChatPage() {
                       fontFamily: T.mono, fontSize: 12, color: T.text,
                       lineHeight: 1.5, wordBreak: 'break-word',
                     }}>
-                      {text}
+                      {parseMentions(text).map((seg, i) => seg.type === 'text' ? <span key={i}>{seg.value}</span> : <MentionChip key={i} mention={seg} />)}
                     </div>}
                     {link && <ChatShareCard link={link} challenges={challenges} />}
                   </div>
@@ -95,42 +83,10 @@ export default function ChatPage() {
           </div>
         </HudPanel>
 
-        <div style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
-          <input
-            value={draft}
-            onChange={e => setDraft(e.target.value)}
-            onKeyDown={e => { if (e.key === 'Enter') submit(); }}
-            maxLength={500}
-            placeholder="Message…"
-            style={{
-              flex: 1,
-              background: 'rgba(78, 205, 255, 0.04)',
-              border: `1px solid ${T.lineMid}`,
-              color: T.text, padding: '12px 14px',
-              fontFamily: T.mono, fontSize: 13,
-              outline: 'none',
-            }}
-          />
-          <button
-            onClick={submit}
-            disabled={sending || !draft.trim()}
-            style={{
-              background: T.cyan, color: T.bg, border: 'none',
-              padding: '0 18px',
-              fontFamily: T.mono, fontWeight: 700, fontSize: 11, letterSpacing: '0.2em',
-              cursor: 'pointer',
-              opacity: !draft.trim() ? 0.5 : 1,
-              boxShadow: `0 0 10px ${T.cyanGlow}`,
-            }}
-          >
-            ENVOYER
-          </button>
-        </div>
-
-        {sendError && <p role="alert" style={{ margin: 0, fontSize: 12, color: T.danger }}>{sendError}</p>}
+        <MentionComposer onSend={send} />
 
         <DataReadout size={8} color={T.textMute} style={{ display: 'block', textAlign: 'center', marginBottom: 8 }}>
-          SALLE UNIQUE · TOUS LES OPÉRATEURS · CLIQUE UN PSEUDO POUR VOIR SON PROFIL · ⇪ PARTAGER UNE QUÊTE OU UN DÉFI DEPUIS SA CARTE
+          SALLE COMMUNE · TAPE @ POUR MENTIONNER UN JOUEUR OU UN PERSONNAGE · CLIQUE UN PSEUDO POUR VOIR SON PROFIL
         </DataReadout>
 
         {/* Bandeau pub — lien externe, ouvre dans un nouvel onglet */}

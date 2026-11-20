@@ -7,18 +7,23 @@ import shell from './shell.module.css';
 
 type TabId = 'cmd' | 'quests' | 'donjon' | 'chat' | 'stats' | 'profile';
 
-export const TABS: Array<{ id: TabId; label: string; href: string; icon: 'square' | 'diamond' | 'tower' | 'chat' | 'radar' | 'circle' }> = [
+export const TABS: Array<{ id: TabId; label: string; href: string; icon: 'square' | 'diamond' | 'tower' | 'chat' | 'radar' | 'circle'; match?: string[] }> = [
   { id: 'cmd',     label: 'CMD',     href: '/cmd',     icon: 'square'  },
   { id: 'quests',  label: 'QUÊTES',  href: '/quests',  icon: 'diamond' },
   { id: 'donjon',  label: 'DONJON',  href: '/donjon',  icon: 'tower'   },
-  { id: 'chat',    label: 'CHAT',    href: '/chat',    icon: 'chat'    },
+  { id: 'chat',    label: 'COMMUNAUTÉ', href: '/chat', icon: 'chat', match: ['/chat', '/evenements', '/member'] },
   { id: 'stats',   label: 'STATS',   href: '/stats',   icon: 'radar'   },
   { id: 'profile', label: 'PROFIL',  href: '/profile', icon: 'circle'  },
 ];
 
+/** Onglet actif : un onglet peut couvrir plusieurs pages (Communauté : tchat, événements, profils des membres). */
+export function activeTabFor(pathname: string | null): TabId {
+  return TABS.find(t => (t.match ?? [t.href]).some(p => pathname?.startsWith(p)))?.id ?? 'cmd';
+}
+
 export function TabBar() {
   const pathname = usePathname();
-  const activeTab = TABS.find(t => pathname?.startsWith(t.href))?.id ?? 'cmd';
+  const activeTab = activeTabFor(pathname);
 
   return (
     <div
@@ -73,7 +78,8 @@ export function TabBar() {
             <div style={{
               fontFamily: T.mono,
               fontSize: 8,
-              letterSpacing: '0.22em',
+              // Libellé long (COMMUNAUTÉ) : espacement réduit pour tenir sur téléphone.
+              letterSpacing: tab.label.length > 7 ? '0.06em' : '0.22em',
               color: isActive ? T.cyan : T.textDim,
             }}>
               {tab.label}

@@ -2,13 +2,13 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { TABS, TabIcon } from './TabBar';
+import { TABS, TabIcon, activeTabFor } from './TabBar';
 import s from './shell.module.css';
 
 /** Menu latéral, affiché seulement sur ordinateur (≥ 1024 px) à la place des onglets du bas. */
 export function SideNav() {
   const pathname = usePathname();
-  const active = TABS.find(t => pathname?.startsWith(t.href))?.id ?? 'cmd';
+  const active = activeTabFor(pathname);
   return (
     <nav className={s.sideNav} aria-label="Navigation Grindleveling">
       <Link href="/cmd" className={s.brand}>

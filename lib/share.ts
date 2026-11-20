@@ -7,7 +7,8 @@ import type { DifficultyTier, StatKind } from '@/lib/types';
 export type SharedQuest = { title: string; minutes: number; tier: DifficultyTier; stats: StatKind[] };
 export type ShareLink =
   | { kind: 'quest'; path: string; quest: SharedQuest; raw: string }
-  | { kind: 'challenge'; path: string; id: string; raw: string };
+  | { kind: 'challenge'; path: string; id: string; raw: string }
+  | { kind: 'event'; path: string; id: string; raw: string };
 
 // Ordre figé : les liens déjà partagés en dépendent. Ajouter à la fin, ne jamais réordonner.
 const TIERS: DifficultyTier[] = ['TRIVIAL', 'ROUTINE', 'NOTABLE', 'HARD', 'LEGENDARY'];
@@ -72,6 +73,10 @@ export function findShareLink(text: string): ShareLink | null {
     if (path === '/defis') {
       const id = url.searchParams.get('defi') ?? '';
       if (UUID.test(id)) return { kind: 'challenge', path: challengeSharePath(id.toLowerCase()), id: id.toLowerCase(), raw };
+    }
+    if (path === '/evenements') {
+      const id = url.searchParams.get('id') ?? '';
+      if (UUID.test(id)) return { kind: 'event', path: '/evenements/?id=' + id.toLowerCase(), id: id.toLowerCase(), raw };
     }
   }
   return null;

@@ -23,6 +23,14 @@ export function ChatShareCard({ link, challenges }: { link: ShareLink; challenge
       </Card>
     );
   }
+  if (link.kind === 'event') {
+    return (
+      <Card accent={T.green}>
+        <DataReadout size={8} color={T.green}>📅 ÉVÉNEMENT DE LA COMMUNAUTÉ</DataReadout>
+        <Link href={link.path} style={{ ...cta, color: T.green, borderColor: `${T.green}88` }}>VOIR L’ÉVÉNEMENT →</Link>
+      </Card>
+    );
+  }
   const c = challenges.find(x => x.id === link.id);
   return (
     <Card accent={T.amber}>
