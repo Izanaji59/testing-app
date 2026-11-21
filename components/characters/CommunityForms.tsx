@@ -44,7 +44,7 @@ function ImageFields({url,setUrl,setFile}:{url:string;setUrl:(v:string)=>void;se
 }
 function AccountNotice({loading,available,user}:{loading:boolean;available:boolean;user:boolean}){
  if(loading)return <p className={s.hint}>Chargement…</p>;
- if(!user)return <p className={s.hint}><Link href="/login/">Se connecter avec son compte Slumbywise</Link> pour participer. Le même compte que Grindleveling.</p>;
+ if(!user)return <p className={s.hint}><Link href="/login/">Se connecter avec son compte Grindleveling</Link> pour participer.</p>;
  if(!available)return <p className={s.hint}>Les contributions ne sont pas encore disponibles. Réessaie un peu plus tard.</p>;
  return null;
 }

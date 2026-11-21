@@ -3,7 +3,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { Frame } from '@/components/allflix/Allflix';
+import { GrindFrame as Frame } from '@/components/grindleveling/GrindFrame';
 import s from '@/components/allflix/allflix.module.css';
 import c from '@/components/characters/characters.module.css';
 import { StaticGrid, anilistCreditStatic } from '@/components/characters/StaticCharacterParts';

@@ -25,7 +25,7 @@ export function SideNav() {
         <span aria-hidden="true" style={{ width: 20, textAlign: 'center', fontSize: 15 }}>⚑</span>
         DÉFIS
       </Link>
-      <div className={s.sideFooter}><Link href="/">← SLUMBYWISE</Link></div>
+      <div className={s.sideFooter}><Link href="/personnages/">PERSONNAGES MBTI →</Link></div>
     </nav>
   );
 }

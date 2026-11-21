@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
-import { Frame } from '@/components/allflix/Allflix';
+import { GrindFrame as Frame } from '@/components/grindleveling/GrindFrame';
 import s from '@/components/allflix/allflix.module.css';
 import c from './characters.module.css';
 import { useCharacters } from './useCharacters';
@@ -133,7 +133,7 @@ export function CharacterDetail() {
       <section className={s.titleIntro}>
         <div className={s.detailCover}><Portrait character={ch} /></div>
         <div>
-          <span className={s.eyebrow}>{ch.role ? `${ch.role} / ` : ''}{ch.titleId?<Link href={`/allflix/fiche/?id=${ch.titleId}`}>{ch.title}</Link>:ch.title}</span>
+          <span className={s.eyebrow}>{ch.role ? `${ch.role} / ` : ''}{ch.title}</span>
           <h1>{ch.name}</h1>
           {ch.nativeName && ch.nativeName !== ch.name && <p lang="ja" className={c.native}>{ch.nativeName}</p>}
           <FavoriteButton characterId={ch.id} />
@@ -148,11 +148,11 @@ export function CharacterDetail() {
             </div>}
             {typing.enneagram && <p className={c.enneagram}>Ennéagramme <strong>{typing.enneagram}</strong></p>}
             {typing.note && <p className={s.synopsis}>{typing.note}</p>}
-            <p className={c.hint}>{ch.typingSource==='community'?'Type en tête du vote communautaire.':typing.suggested ? 'Suggestion de typage Slumbywise, à valider.' : 'Typage éditorial Slumbywise.'}</p>
+            <p className={c.hint}>{ch.typingSource==='community'?'Type en tête du vote communautaire.':typing.suggested ? 'Suggestion de typage Grindleveling, à confirmer par ton vote.' : 'Typage éditorial Grindleveling.'}</p>
           </div> : <p className={c.hint}>Pas encore typé.</p>}
           <p className={c.hint}>
             {ch.imageKind === 'actor' && ch.actor ? `Photo : ${ch.actor}, interprète. ` : ''}
-            {ch.communityImage&&'Image proposée par la communauté. '}{ch.source==='community'?'Personnage ajouté par la communauté Slumbywise.':<a href={ch.sourceUrl} target="_blank" rel="noopener noreferrer">Source : {ch.source === 'anilist' ? 'AniList' : 'TMDB'}</a>}
+            {ch.communityImage&&'Image proposée par la communauté. '}{ch.source==='community'?'Personnage ajouté par la communauté Grindleveling.':<a href={ch.sourceUrl} target="_blank" rel="noopener noreferrer">Source : {ch.source === 'anilist' ? 'AniList' : 'TMDB'}</a>}
           </p>
         </div>
       </section>

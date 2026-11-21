@@ -7,7 +7,8 @@ import { MBTI_RANK_PROFILES } from '@/lib/engine/rankTitles';
 
 export const dynamic = 'force-static';
 
-const PAGES = ['/', '/carnet/', '/livre/', '/allflix/', '/personnages/', '/chess/', '/game/memoire/', '/grindleveling/', '/association/', '/boutique/', '/contact/', '/informations/', '/regles/'];
+// Allflix et les échecs sont en pause (accessibles par lien direct, hors menus et hors plan du site).
+const PAGES = ['/', '/carnet/', '/livre/', '/personnages/', '/game/memoire/', '/grindleveling/', '/association/', '/boutique/', '/contact/', '/informations/', '/regles/'];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const data = loadCharacterData();

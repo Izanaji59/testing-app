@@ -1,0 +1,34 @@
+/* Habillage public de Grindleveling (pages Personnages, page d'accueil) : la même identité HUD que l'application. */
+.header{position:sticky;top:0;z-index:30;background:rgba(3,6,13,.92);border-bottom:1px solid rgba(120,200,255,.18);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.headerInner{max-width:1440px;margin:auto;padding:14px 5%;display:flex;align-items:center;justify-content:space-between;gap:18px 32px;flex-wrap:wrap}
+.brand{display:flex;flex-direction:column;gap:4px;text-decoration:none;min-height:44px;justify-content:center}
+.brandTop{display:flex;align-items:center;gap:8px;font:10px 'JetBrains Mono',ui-monospace,monospace;letter-spacing:.28em;color:#4ecdff}
+.brandDot{width:6px;height:6px;background:#4ecdff;box-shadow:0 0 8px #4ecdff}
+.brandName{font:700 18px 'Orbitron','Chakra Petch',sans-serif;letter-spacing:.08em;color:#e8f4ff;text-shadow:0 0 12px rgba(78,205,255,.35)}
+.nav{display:flex;align-items:center;justify-content:flex-end;gap:4px 6px;flex:1;min-width:0}
+.nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 12px;border:1px solid transparent;color:#8aa4bf;font:11px 'JetBrains Mono',ui-monospace,monospace;letter-spacing:.2em;text-decoration:none;white-space:nowrap}
+.nav a:hover{color:#dceaf7;background:rgba(78,205,255,.06)}
+.nav a[aria-current=page]{color:#4ecdff;border-color:rgba(78,205,255,.25);background:rgba(78,205,255,.08)}
+.cta{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;color:#03060d;background:#4ecdff;border:1px solid #4ecdff;font:600 11px 'JetBrains Mono',ui-monospace,monospace;letter-spacing:.2em;text-decoration:none;white-space:nowrap}
+.cta:hover{background:#b8ecff;border-color:#b8ecff}
+.nav a:focus-visible,.cta:focus-visible,.brand:focus-visible,.footer a:focus-visible{outline:2px solid #ffb23d;outline-offset:2px}
+
+.footer{max-width:1440px;margin:auto;border-top:1px solid rgba(120,200,255,.14);padding:34px 5% 40px;display:flex;justify-content:space-between;gap:28px 48px;flex-wrap:wrap;color:#7e97b7;font-size:12px;line-height:1.6}
+.footerBrand{max-width:420px}
+.footerBrand strong{display:block;font:700 16px 'Orbitron','Chakra Petch',sans-serif;letter-spacing:.08em;color:#dceaf7}
+.footerBrand p{margin:8px 0}
+.footerLinks{display:flex;flex-wrap:wrap;gap:0 18px;margin-top:6px}
+.footerLinks a{display:inline-flex;align-items:center;min-height:44px;color:#9fb6d0;text-decoration:none}
+.footerLinks a:hover{color:#dceaf7}
+.credits{max-width:440px}
+.credits p{margin:8px 0}
+.credits a{color:#9fb6d0}
+.credits img{width:95px;height:auto}
+
+@media (max-width:640px){
+  .headerInner{padding:8px 16px 4px;gap:4px 12px}
+  .cta{padding:0 12px;letter-spacing:.14em}
+  .nav{order:3;flex:1 1 100%;justify-content:space-between;gap:0;margin:0 -10px}
+  .nav a{padding:0 10px;letter-spacing:.14em}
+  .footer{padding:28px 16px 36px}
+}

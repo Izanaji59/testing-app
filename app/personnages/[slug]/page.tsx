@@ -3,7 +3,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { Frame } from '@/components/allflix/Allflix';
+import { GrindFrame as Frame } from '@/components/grindleveling/GrindFrame';
 import s from '@/components/allflix/allflix.module.css';
 import c from '@/components/characters/characters.module.css';
 import { Portrait } from '@/components/characters/TitleCharacters';
@@ -62,7 +62,7 @@ export default function CharacterPage({ params }: { params: { slug: string } }) 
     <section className={s.titleIntro}>
       <div className={s.detailCover}><Portrait character={{ id: ch.id, name: ch.name, image: ch.image, imageKind: ch.imageKind, titleId: ch.titleId, title: ch.title, source: ch.source, sourceUrl: ch.sourceUrl }} /></div>
       <div>
-        <span className={s.eyebrow}>{ch.role ? `${ch.role} / ` : ''}{ch.titleId ? <Link href={`/allflix/fiche/?id=${ch.titleId}`}>{ch.title}</Link> : ch.title}</span>
+        <span className={s.eyebrow}>{ch.role ? `${ch.role} / ` : ''}{work ? <Link href={workUrl(work.slug)}>{ch.title}</Link> : ch.title}</span>
         <h1>{ch.name}</h1>
         {ch.nativeName && ch.nativeName !== ch.name && <p lang="ja" className={c.native}>{ch.nativeName}</p>}
         <FavoriteButton characterId={ch.id} />

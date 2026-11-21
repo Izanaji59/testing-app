@@ -42,3 +42,18 @@
 @media(max-width:760px){.navInner{display:block;padding:15px 20px 0}.brand .brandName{font-size:26px}.brand>svg{width:35px;height:35px}.brand small{font-size:8px}.nav nav{display:flex;overflow-x:auto;margin-top:11px;padding-bottom:7px;scrollbar-width:none;gap:18px}.nav nav::-webkit-scrollbar{display:none}.navCategories{flex-shrink:0;gap:0}.navCategories a{font-size:12px;padding:10px}.navCategories a:first-child{padding-left:0}.navOther{flex-shrink:0;gap:18px;font-size:11px}.hero{height:620px;min-height:0;max-height:none}.heroContent{padding:70px 20px 90px}.hero h1{font-size:clamp(36px,7vw,54px);letter-spacing:-1.5px;max-width:600px}.heroImage{object-position:60% center}.hero:after{background:linear-gradient(0deg,#080b12 0%,#080b12b5 70%,#080b1230),linear-gradient(90deg,#080b1260,transparent)}.heroContent>p{font-size:13px;max-width:480px;-webkit-line-clamp:3}.heroMetadata{gap:12px;font-size:11px}.carouselBar{width:calc(100% - 40px);bottom:23px;gap:8px}.carouselPages{gap:3px}.carouselPages button{min-width:32px;padding:8px 5px}.carouselControls{gap:5px}.carouselControls button{min-width:36px;min-height:36px;font-size:13px}.languageSection{padding:34px 20px 5px}.languageIntro{grid-template-columns:1fr;gap:18px;padding-bottom:26px}.languageIntro h2{font-size:29px}.languageIntro p{font-size:13px}.frenchHeading{align-items:flex-start;flex-direction:column;gap:6px;margin-top:28px}.frenchHeading h3{font-size:17px}.destinationGrid{grid-template-columns:1fr;gap:12px}.destinationCard{position:relative;padding:22px 20px 20px 74px;min-height:145px}.destinationCard>svg{position:absolute;top:24px;left:23px;width:29px;height:29px;margin:0}.destinationCard h4{font-size:19px}.destinationCard p{margin:7px 0 10px}.destinationAction{min-height:30px}.catalog{scroll-margin-top:138px}}
 @media(prefers-reduced-motion:reduce){.heroImage{animation:none}.destinationCard,.navCategories a{transition:none}}
 @media(max-width:760px){.carouselBar{flex-wrap:wrap;row-gap:10px}.carouselControls{margin-left:auto}.destinationAction{margin-top:13px}.destinationCard{min-height:132px}}
+/* Habillage Grindleveling des pages Personnages (cadre GrindFrame) : palette et typographies HUD de l'application. */
+.app.grind{background:#03060d radial-gradient(ellipse 80% 50% at 50% 0,rgba(26,110,158,.18),transparent 70%) no-repeat;color:#dceaf7;font-family:'Chakra Petch',system-ui,sans-serif;--muted:#8aa4bf;--line:rgba(120,200,255,.14)}
+.grind :focus-visible{outline-color:#ffb23d}
+.grind .eyebrow{font-family:'JetBrains Mono',ui-monospace,monospace;color:#4ecdff;letter-spacing:.22em}
+.grind .eyebrow a{text-decoration:underline;text-underline-offset:3px}
+.grind .titleIntro h1,.grind .sectionTitle h2{letter-spacing:.01em}
+.grind .cover{border-radius:2px;box-shadow:0 0 0 1px rgba(120,200,255,.14)}
+.grind .coverTag{font-family:'JetBrains Mono',ui-monospace,monospace;border-radius:0;color:#b8ecff}
+.grind .search input,.grind .select select{background:#06091a;border-color:rgba(120,200,255,.26);border-radius:0}
+.grind .filters button,.grind .empty button{border-color:rgba(120,200,255,.26);border-radius:0;color:#9fb6d0}
+.grind .filters button[aria-pressed=true]{color:#03060d;background:#4ecdff;border-color:#4ecdff}
+.app.grind .primary{background:#4ecdff;border-color:#4ecdff;color:#03060d;border-radius:0}
+.grind .secondary,.grind .more{border-radius:0;border-color:rgba(120,200,255,.26);background:rgba(78,205,255,.05);color:#dceaf7}
+.grind .empty{border-radius:0}
+.app.grind .source{color:#4ecdff}

@@ -89,11 +89,9 @@ export default function ChatPage() {
           SALLE COMMUNE · TAPE @ POUR MENTIONNER UN JOUEUR OU UN PERSONNAGE · CLIQUE UN PSEUDO POUR VOIR SON PROFIL
         </DataReadout>
 
-        {/* Bandeau pub — lien externe, ouvre dans un nouvel onglet */}
+        {/* Empreinte : le jeu aux pouvoirs MBTI fait partie de Grindleveling. */}
         <a
-          href="https://slumbywise.com/chess"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="/game/memoire/"
           style={{
             display: 'block',
             padding: '14px 16px',
@@ -104,10 +102,10 @@ export default function ChatPage() {
           }}
         >
           <DataReadout size={8} color={T.textMute} style={{ display: 'block', marginBottom: 4 }}>
-            PUB
+            UNE PARTIE ?
           </DataReadout>
           <div style={{ fontFamily: T.mono, fontSize: 11, color: T.cyan, letterSpacing: '0.1em' }}>
-            SLUMBYWISE · CHESS →
+            EMPREINTE · LE DUEL AUX POUVOIRS MBTI →
           </div>
         </a>
       </div>

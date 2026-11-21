@@ -1,15 +1,17 @@
 import type { Metadata } from 'next';
 
-const description = 'Grindleveling, par Slumbywise : un système de progression pour avancer vers n’importe quel objectif, une quête après l’autre. Donjons, quêtes, concentration et statistiques.';
+const description = 'Grindleveling : ta personnalité te fait progresser. Pars de ton type MBTI et de qui tu veux être, avance quête après quête, et rejoins une communauté MBTI.';
 
 export const metadata: Metadata = {
-  title: 'Grindleveling — un système de progression, quête après quête | Slumbywise',
+  title: 'Grindleveling — ta personnalité te fait progresser',
   description,
+  applicationName: 'Grindleveling',
+  alternates: { canonical: '/grindleveling/' },
   openGraph: {
-    title: 'Grindleveling — un système de progression, quête après quête',
+    title: 'Grindleveling — ta personnalité te fait progresser',
     description,
     url: '/grindleveling/',
-    siteName: 'Slumbywise',
+    siteName: 'Grindleveling',
     locale: 'fr_FR',
     type: 'website',
     images: [{ url: '/icons/slumbywise-256.png', width: 256, height: 256 }],

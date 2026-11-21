@@ -75,7 +75,8 @@ function LoginContent() {
   const searchParams = useSearchParams();
   const callbackError = searchParams.get('error');
 
-  const [mode, setMode] = useState<Mode>('login');
+  // « /login/?mode=inscription » (bouton « Créer mon compte » de l'accueil) ouvre directement l'inscription.
+  const [mode, setMode] = useState<Mode>(searchParams.get('mode') === 'inscription' ? 'register' : 'login');
   const [pseudo, setPseudo] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

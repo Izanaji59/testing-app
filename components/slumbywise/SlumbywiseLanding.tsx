@@ -8,12 +8,12 @@ import { NewsletterSection } from './NewsletterSection';
 import { CARNET_ARTICLES } from '@/lib/content/carnetArticles';
 import s from './home.module.css';
 
-/** « Pourquoi le sommeil compte » : aucun contenu médical inventé, à compléter avec des sources vérifiées. */
-const WHY_SLEEP = [
-  { title: 'Récupérer', text: '[À COMPLÉTER : ce que le sommeil permet au corps de réparer.]' },
-  { title: 'Penser clair', text: '[À COMPLÉTER : sommeil, attention et mémoire.]' },
-  { title: 'Vivre la nuit', text: '[À COMPLÉTER : ce qui change quand on vit ou travaille la nuit.]' },
-];
+/**
+ * « Pourquoi le sommeil compte » : vide tant que les textes et leurs sources vérifiées ne sont pas fournis
+ * (aucun contenu médical inventé). Prévu : Récupérer / Penser clair / Vivre la nuit.
+ * Format : { title: 'Récupérer', text: '…', source: 'Nom de la source' }.
+ */
+const WHY_SLEEP: Array<{ title: string; text: string; source: string }> = [];
 
 /** Orientation : sites officiels vérifiés (SFRMS, INSV, Réseau Morphée). Aucun praticien n'est recommandé nommément. */
 const SPECIALISTS: Array<{ name: string; href?: string; text: string }> = [
@@ -44,7 +44,7 @@ export function SlumbywiseLanding() {
         <div className={s.entrances} aria-label="Explorer Slumbywise">
           <a href="#carnet"><span className={s.number}>01</span><div><h2>Le Carnet</h2><p>Articles sur la vie de nuit</p></div></a>
           <a href="#livre"><span className={s.number}>02</span><div><h2>Le livre</h2><p>Le Carnet du Concierge</p></div></a>
-          <a href="#sommeil"><span className={s.number}>03</span><div><h2>Le sommeil</h2><p>Pourquoi il compte</p></div></a>
+          <a href="#sommeil"><span className={s.number}>03</span><div><h2>Se faire aider</h2><p>Spécialistes du sommeil</p></div></a>
         </div>
       </section>
 
@@ -60,10 +60,10 @@ export function SlumbywiseLanding() {
         <div><p className={s.eyebrow}>Le livre</p><h2 id="book-title">Le Carnet<br />du <em>Concierge.</em></h2><p className={s.description}>Des repères pour vivre en décalé, protéger ton sommeil et trouver ton rythme. Un livre à garder près de soi, pour accompagner tes nuits.</p><div className={s.bookAction}><Link href="/livre" className="sw-btn-primary">Découvrir le livre</Link><span>19 €</span></div><Link className={s.subtleLink} href="/carnet">Lire les articles du Carnet</Link></div>
       </div></section>
 
-      {/* (d) Pourquoi le sommeil compte */}
+      {/* (d) Se faire aider — les trois points « pourquoi le sommeil compte » attendent des sources vérifiées : masqués d'ici là. */}
       <section id="sommeil" className={`${s.section} ${s.anchor}`} aria-labelledby="why-title">
-        <div className={s.heading}><div><p className={s.eyebrow}>Pourquoi le sommeil compte</p><h2 id="why-title">Dormir, <em>même à contre-temps.</em></h2></div></div>
-        <ul className={s.why}>{WHY_SLEEP.map((p, i) => <li key={p.title}><span className={s.number}>0{i + 1}</span><h3>{p.title}</h3><p><span className="sw-placeholder">{p.text}</span></p><p className={s.source}>Source : <span className="sw-placeholder">[SOURCE À COMPLÉTER]</span></p></li>)}</ul>
+        <div className={s.heading}><div><p className={s.eyebrow}>Quand le sommeil coince</p><h2 id="why-title">Dormir, <em>même à contre-temps.</em></h2></div></div>
+        {WHY_SLEEP.length > 0 && <ul className={s.why}>{WHY_SLEEP.map((p, i) => <li key={p.title}><span className={s.number}>0{i + 1}</span><h3>{p.title}</h3><p>{p.text}</p><p className={s.source}>Source : {p.source}</p></li>)}</ul>}
         <p className={s.medical}>En cas de trouble du sommeil persistant, parle-en à un médecin.</p>
         <div className={s.specialists}>
           <h3 id="specialists-title">Trouver un spécialiste du sommeil</h3>
@@ -72,25 +72,7 @@ export function SlumbywiseLanding() {
         </div>
       </section>
 
-      {/* (e) Se divertir */}
-      <section id="jouer" className={`${s.section} ${s.games}`} aria-labelledby="games-title"><div className={s.heading}><div><p className={s.eyebrow}>Se divertir</p><h2 id="games-title">Le temps <em>d’une partie.</em></h2></div><p className={s.aside}>Directement dans ton navigateur.</p></div>
-        <div className={s.gameGrid}><Link href="/chess" className={s.game}><div className={s.gameImage}><img src="/images/slumbywise/chess-preview.png" alt="Le plateau d’échecs de Slumbywise" width={800} height={600} loading="lazy" /></div><div className={s.gameCaption}><div><h3>Échecs</h3><p>À deux sur un écran, ou contre un bot.</p></div><span>Jouer</span></div></Link>
-        <a href="/game/memoire/" className={s.game}><div className={s.gameImage}><img src="/images/slumbywise/empreinte-preview.png" alt="Le plateau d’Empreinte et ses pierres" width={800} height={600} loading="lazy" /></div><div className={s.gameCaption}><div><h3>Empreinte</h3><p>Un duel de territoire, des pouvoirs MBTI.</p></div><span>Jouer</span></div></a></div>
-      </section>
-
-      {/* Allflix : regarder en anglais */}
-      <section className={`${s.grind} ${s.flix}`} aria-labelledby="allflix-title">
-        <p><strong id="allflix-title">Allflix</strong> — des séries, des films et des animés à regarder en anglais, pour pratiquer en te détendant.</p>
-        <Link href="/allflix/" className="sw-btn-ghost">Ouvrir Allflix</Link>
-      </section>
-
-      {/* (f) Grindleveling */}
-      <section className={s.grind} aria-labelledby="grind-title">
-        <p><strong id="grind-title">Grindleveling</strong> — un système de progression pour avancer vers n’importe quel objectif, une quête après l’autre.</p>
-        <Link href="/grindleveling" className="sw-btn-ghost">Découvrir Grindleveling</Link>
-      </section>
-
-      {/* (g) Denshiku, la cause */}
+      {/* (e) Denshiku, la cause — Slumbywise ne parle que du sommeil : jeux, Allflix et Grindleveling n'apparaissent plus ici. */}
       <section id="denshiku" className={s.denshiku} aria-labelledby="denshiku-title"><div className={s.denshikuInner}>
         <div><p className={s.eyebrow}>Denshiku · l’association</p><h2 id="denshiku-title">L’héritage,<br /><em>c’est le partage.</em></h2>
           <blockquote className={s.motto}><p>Donne et échange ce qui a de la valeur, pas ce qui est matériel. Donne-lui de quoi ne pas être gourmand s’il a faim.</p></blockquote>

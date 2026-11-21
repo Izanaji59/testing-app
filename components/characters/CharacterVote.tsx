@@ -130,7 +130,7 @@ export function CharacterVote({ characterId, nextId, onNext }: { characterId: st
       </ul>}
     </div>
 
-    {!community.user && !community.authLoading && <p className={s.hint}><Link href="/login/">Connecte-toi avec ton compte Slumbywise</Link> pour voter, le même que Grindleveling.</p>}
+    {!community.user && !community.authLoading && <p className={s.hint}><Link href="/login/">Connecte-toi avec ton compte Grindleveling</Link> pour voter.</p>}
     {community.user && !community.available && !community.loading && <p className={s.hint}>Les votes ne sont pas disponibles pour le moment. Réessaie un peu plus tard.</p>}
 
     {canVote && <form ref={formRef} onSubmit={submit} className={s.quickVote}>
