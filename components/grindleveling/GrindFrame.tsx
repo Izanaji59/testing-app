@@ -7,11 +7,9 @@ import g from './grind.module.css';
 
 type Section = 'personnages' | 'accueil' | 'regles';
 
-// plain : page HTML hors Next (Empreinte), en lien simple pour éviter le préchargement Next en 404.
-const NAV: Array<{ href: string; label: string; section?: Section; plain?: boolean }> = [
+const NAV: Array<{ href: string; label: string; section?: Section }> = [
   { href: '/personnages/', label: 'PERSONNAGES', section: 'personnages' },
   { href: '/chat/', label: 'COMMUNAUTÉ' },
-  { href: '/game/memoire/', label: 'EMPREINTE', plain: true },
 ];
 
 export function GrindHeader({ current }: { current?: Section }) {
@@ -21,9 +19,7 @@ export function GrindHeader({ current }: { current?: Section }) {
       <span className={g.brandName}>GRINDLEVELING</span>
     </Link>
     <nav className={g.nav} aria-label="Navigation Grindleveling">
-      {NAV.map(item => item.plain
-        ? <a key={item.href} href={item.href}>{item.label}</a>
-        : <Link key={item.href} href={item.href} aria-current={item.section && item.section === current ? 'page' : undefined}>{item.label}</Link>)}
+      {NAV.map(item => <Link key={item.href} href={item.href} aria-current={item.section && item.section === current ? 'page' : undefined}>{item.label}</Link>)}
     </nav>
     <Link href="/login/" className={g.cta}>MON ESPACE</Link>
   </div></header>;

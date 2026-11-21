@@ -7,13 +7,8 @@
   --text: #DCEAF7;
 }
 
-@font-face {
-  font-family: 'Chakra Petch';
-  font-style: normal;
-  font-weight: 400 700;
-  font-display: swap;
-  src: local('Chakra Petch'), url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;700&display=swap');
-}
+/* Chakra Petch, JetBrains Mono et Orbitron sont chargées par le <link> Google Fonts de app/layout.tsx.
+   Ne pas redéclarer de @font-face ici : une déclaration en échec masque la vraie police. */
 
 html, body {
   background: var(--bg);

@@ -88,26 +88,6 @@ export default function ChatPage() {
         <DataReadout size={8} color={T.textMute} style={{ display: 'block', textAlign: 'center', marginBottom: 8 }}>
           SALLE COMMUNE · TAPE @ POUR MENTIONNER UN JOUEUR OU UN PERSONNAGE · CLIQUE UN PSEUDO POUR VOIR SON PROFIL
         </DataReadout>
-
-        {/* Empreinte : le jeu aux pouvoirs MBTI fait partie de Grindleveling. */}
-        <a
-          href="/game/memoire/"
-          style={{
-            display: 'block',
-            padding: '14px 16px',
-            border: `1px dashed ${T.lineMid}`,
-            background: 'rgba(78, 205, 255, 0.03)',
-            textDecoration: 'none',
-            marginBottom: 8,
-          }}
-        >
-          <DataReadout size={8} color={T.textMute} style={{ display: 'block', marginBottom: 4 }}>
-            UNE PARTIE ?
-          </DataReadout>
-          <div style={{ fontFamily: T.mono, fontSize: 11, color: T.cyan, letterSpacing: '0.1em' }}>
-            EMPREINTE · LE DUEL AUX POUVOIRS MBTI →
-          </div>
-        </a>
       </div>
 
       {openProfileId && (
