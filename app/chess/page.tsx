@@ -20,14 +20,17 @@ export default function ChessPage() {
       <div style={{ maxWidth: 480, margin: '0 auto', padding: '20px 16px 40px' }}>
         <div style={{ textAlign: 'center', marginBottom: 24 }}>
           <DataReadout color={T.cyan} size={9} letterSpacing="0.4em">DENSHIKU · CHESS</DataReadout>
-          <div style={{
-            marginTop: 8,
+          <h1 style={{
+            margin: '8px 0 0',
             fontFamily: T.display, fontSize: 24, fontWeight: 700,
             letterSpacing: '0.06em', color: T.text,
             textShadow: `0 0 14px ${T.cyanGlow}`,
           }}>
             ÉCHIQUIER
-          </div>
+          </h1>
+          <p style={{ margin: '8px 0 0', fontSize: 12, lineHeight: 1.6, color: T.textDim }}>
+            Joue aux échecs à deux sur le même écran, contre un bot ou en ligne. Sans compte.
+          </p>
         </div>
 
         <div style={{ display: 'flex', gap: 4, marginBottom: 18 }}>

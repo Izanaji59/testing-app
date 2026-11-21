@@ -1,9 +1,20 @@
 import type { Metadata } from 'next';
 import { SlumbywiseLanding } from '@/components/slumbywise/SlumbywiseLanding';
 
+const description = 'Le sommeil quand on vit ou travaille la nuit : les articles du Carnet et le livre Le Carnet du Concierge. Un site associatif porté par Denshiku.';
+
 export const metadata: Metadata = {
-  title: 'Slumbywise — Voir, lire et se divertir correctement',
-  description: 'Le Carnet, le Livre et Allflix pour voir ou lire correctement ; Grindleveling, les échecs et Empreinte pour se divertir correctement. Un projet porté par Denshiku : l’héritage, c’est le partage.',
+  title: 'Slumbywise — Bien dormir, même quand on vit la nuit',
+  description,
+  openGraph: {
+    title: 'Bien dormir, même quand on vit la nuit',
+    description,
+    url: '/',
+    siteName: 'Slumbywise',
+    locale: 'fr_FR',
+    type: 'website',
+    images: [{ url: '/images/slumbywise/night-window.jpg', width: 1659, height: 948, alt: 'Une fenêtre sur la ville, la nuit' }],
+  },
 };
 
 /**
